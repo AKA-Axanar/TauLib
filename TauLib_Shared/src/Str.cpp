@@ -8,65 +8,65 @@ namespace Tau {
 //
 // ltrim.  trim the left leading whitespace.
 //
-void ltrim(string* s) {
-auto ch = *find_if_not(s->begin(), s->end(), isspace);
-    auto itr = s->erase(s->begin(), find_if_not(s->begin(), s->end(), isspace));
-}
 string ltrim(const string& s) {
     string temp = s;
     ltrim(&temp);
     return temp;
 }
+void ltrim(string* s) {
+    auto ch = *find_if_not(s->begin(), s->end(), isspace);
+    auto itr = s->erase(s->begin(), find_if_not(s->begin(), s->end(), isspace));
+}
 
 //
 // rtrim.  trim the right trailing whitespace.
 //
-void rtrim(string* s) {
-    s->erase(find_if_not(s->rbegin(), s->rend(), isspace).base(), s->end());
-}
 string rtrim(const string& s) {
     string temp = s;
     rtrim(&temp);
     return temp;
 }
+void rtrim(string* s) {
+    s->erase(find_if_not(s->rbegin(), s->rend(), isspace).base(), s->end());
+}
 
 //
 // trim.  trim the left and right whitespace.
 //
+string trim(const string& s) {
+    return rtrim(ltrim(s));
+}
 void trim(string* s) {
     ltrim(s);
     rtrim(s);
-}
-string trim(const string& s) {
-    return rtrim(ltrim(s));
 }
 
 //
 // lowerCase
 //
-void lowerCase(std::string* s) {
-    transform(s->begin(), s->end(), s->begin(),
-        [](unsigned char c) { return tolower(c); });
-}
 std::string lowerCase(const std::string& _s) {
     string s = _s;
     transform(s.begin(), s.end(), s.begin(),
         [](unsigned char c) { return std::tolower(c); });
     return s;
 }
+void lowerCase(std::string* s) {
+    transform(s->begin(), s->end(), s->begin(),
+        [](unsigned char c) { return tolower(c); });
+}
 
 //
 // upperCase
 //
-void upperCase(std::string* s) {
-    transform(s->begin(), s->end(), s->begin(),
-        [](unsigned char c) { return toupper(c); });
-}
 std::string upperCase(const std::string& _s) {
     string s = _s;
     transform(s.begin(), s.end(), s.begin(),
         [](unsigned char c) { return std::toupper(c); });
     return s;
+}
+void upperCase(std::string* s) {
+    transform(s->begin(), s->end(), s->begin(),
+        [](unsigned char c) { return toupper(c); });
 }
 
 //
