@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Str.h"
+#include <regex>
 
 using namespace std;
 
@@ -14,8 +15,7 @@ string ltrim(const string& s) {
     return temp;
 }
 void ltrim(string* s) {
-    auto ch = *find_if_not(s->begin(), s->end(), isspace);
-    auto itr = s->erase(s->begin(), find_if_not(s->begin(), s->end(), isspace));
+    auto itr = s->erase(s->begin(), find_if_not(s->begin(), s->end(), [&] ( char c) { return isspace(c); }));
 }
 
 //
@@ -27,7 +27,7 @@ string rtrim(const string& s) {
     return temp;
 }
 void rtrim(string* s) {
-    s->erase(find_if_not(s->rbegin(), s->rend(), isspace).base(), s->end());
+    s->erase(find_if_not(s->rbegin(), s->rend(), [&](char c) { return isspace(c); }).base(), s->end());
 }
 
 //
@@ -85,6 +85,34 @@ bool icompareBool(const std::string& a, const std::string& b) {
 //
 int icompareInt(const std::string& a, const std::string& b) {
     return _stricmp(a.c_str(), b.c_str());
+}
+
+//
+// ReplaceSubStrings
+//
+string ReplaceSubStrings(const std::string& str, const std::string& fromSubStringOrLexicalExpression,
+    const std::string& toSubString) {
+    string result;
+    regex from(fromSubStringOrLexicalExpression);
+    string to(toSubString);
+
+    regex_replace(back_inserter(result), str.begin(), str.end(), from, to);
+    return result;
+}
+void ReplaceSubStrings(std::string* str, const std::string& fromSubStringOrLexicalExpression,
+    const std::string& toSubString) {
+    *str = ReplaceSubStrings(*str, fromSubStringOrLexicalExpression, toSubString);
+}
+
+//
+// FoundLexExpr
+// returns whether the lexical expression (or plain string) is found in a string.
+// example lexical expression = "[A-Za-z0-9]+"
+// example lexical expression = "FindMe"
+//
+bool FoundLexExpr(const string& lexicalExpressionOrString, const string str) {
+    regex expr(lexicalExpressionOrString);
+    return regex_search(str, expr);
 }
 
 } // end namespace Tau

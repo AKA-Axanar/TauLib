@@ -1,7 +1,6 @@
 #pragma once
 
 #include <string>
-#include <algorithm>
 #include "TauLib.h"
 
 namespace Tau {
@@ -39,10 +38,27 @@ void TAULIBDLL_API upperCase(std::string* s);
 //
 // icompareBool - case insensitive compare.  returns a bool
 //
-bool TAULIBDLL_API TAULIBDLL_API icompareBool(const std::string& a, const std::string& b);
+bool TAULIBDLL_API icompareBool(const std::string& a, const std::string& b);
 
 //
 // icompareInt - case insensitive compare.  returns an int (-1, 0, 1)
 //
-int TAULIBDLL_API TAULIBDLL_API icompareInt(const std::string& a, const std::string& b);
-}
+int TAULIBDLL_API icompareInt(const std::string& a, const std::string& b);
+
+//
+// ReplaceSubStrings
+//
+std::string TAULIBDLL_API ReplaceSubStrings(const std::string& str, const std::string& fromSubStringOrLexicalExpression,
+    const std::string& toSubString);
+void TAULIBDLL_API ReplaceSubStrings(std::string* str, const std::string& fromSubStringOrLexicalExpression,
+    const std::string& toSubString);
+
+//
+// FoundLexExpr
+// returns whether the lexical expression (or plain string) is found in a string.
+// example lexical expression = "[A-Za-z0-9]+"
+// example lexical expression = "FindMe"
+//
+bool TAULIBDLL_API FoundLexExpr(const std::string& lexicalExpressionOrString, const std::string str);
+
+} // end namespace Tau

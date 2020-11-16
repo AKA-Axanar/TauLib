@@ -1,8 +1,8 @@
 #include "pch.h"
 #include "Str.h"
 
-using namespace Tau;
 using namespace std;
+using namespace Tau;
 
 //
 // test string trim routines.
@@ -62,4 +62,18 @@ TEST(TestStr, TestStr_compare) {
     EXPECT_EQ(icompareInt("Beta", "Alpha"), 1);
 }
 
+//
+// test regex string functions
+//
+TEST(TestStr, TestStr_regex) {
+    EXPECT_EQ(ReplaceSubStrings("abcdefabcdef", "abc", "XXX"), "XXXdefXXXdef");
+    string temp = "abcdefabcdef";
+    ReplaceSubStrings(&temp, "abc", "XXX");
+    EXPECT_EQ(temp, "XXXdefXXXdef");
+
+    EXPECT_EQ(FoundLexExpr("[a-z]+", "abcdefabcdef"), true);
+    EXPECT_EQ(FoundLexExpr("[0-9]+", "abcdefabcdef"), false);
+    EXPECT_EQ(FoundLexExpr("def", "abcdefabcdef"), true);
+
+}
 
