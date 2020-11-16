@@ -115,4 +115,26 @@ bool FoundLexExpr(const string& lexicalExpressionOrString, const string str) {
     return regex_search(str, expr);
 }
 
+//
+// FindLexExprMatches
+// returns all the matches of the lexical expression found in the string
+// example: FindLexExprMatches("[0-9]+", "abc 12, alpha 34 ,,5678XYZ");
+// returns "12", "34", "5678"
+//
+vector<string> FindLexExprMatches(const string& lexicalExpressionOrString, const string str) {
+    regex expr(lexicalExpressionOrString);
+    smatch match;
+    regex_match(str, match, expr);
+
+    vector<string> ret;
+    string temp = str;
+    while (regex_search(temp, match, expr)) {
+        for (auto m:match)
+            ret.emplace_back(m);
+        temp = match.suffix().str();
+    }
+
+    return ret;
+}
+
 } // end namespace Tau

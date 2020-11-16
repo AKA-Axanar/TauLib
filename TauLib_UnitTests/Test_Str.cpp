@@ -74,6 +74,13 @@ TEST(TestStr, TestStr_regex) {
     EXPECT_EQ(FoundLexExpr("[a-z]+", "abcdefabcdef"), true);
     EXPECT_EQ(FoundLexExpr("[0-9]+", "abcdefabcdef"), false);
     EXPECT_EQ(FoundLexExpr("def", "abcdefabcdef"), true);
-
+    auto matches = FindLexExprMatches("[0-9]+", "abc 12, alpha 34 ,,5678XYZ");
+    //cout << "count = " << matches.size() << endl;
+    EXPECT_EQ(matches.size(), 3);
+    if (matches.size() == 3) {
+        EXPECT_EQ(matches[0], "12");
+        EXPECT_EQ(matches[1], "34");
+        EXPECT_EQ(matches[2], "5678");
+    }
 }
 

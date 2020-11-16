@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <vector>
 #include "TauLib.h"
 
 namespace Tau {
@@ -60,5 +61,13 @@ void TAULIBDLL_API ReplaceSubStrings(std::string* str, const std::string& fromSu
 // example lexical expression = "FindMe"
 //
 bool TAULIBDLL_API FoundLexExpr(const std::string& lexicalExpressionOrString, const std::string str);
+
+//
+// FindLexExprMatches
+// returns all the matches of the lexical expression found in the string
+// example: FindLexExprMatches("[0-9]+", "abc 12, alpha 34 ,,5678XYZ");
+// returns "12", "34", "5678"
+//
+std::vector<std::string> TAULIBDLL_API FindLexExprMatches(const std::string& lexicalExpressionOrString, const std::string str);
 
 } // end namespace Tau
