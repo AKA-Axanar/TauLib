@@ -6,6 +6,8 @@
 
 namespace Tau {
 
+using Strings = std::vector<std::string>;
+
 //
 // ltrim.  trim the left leading whitespace.
 //

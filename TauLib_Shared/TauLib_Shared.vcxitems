@@ -15,10 +15,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)src\Str.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)src\Win.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)src\Str.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)src\Tau.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)src\TauLib.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)src\Win.h" />
   </ItemGroup>
 </Project>

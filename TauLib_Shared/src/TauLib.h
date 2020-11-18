@@ -7,11 +7,14 @@
 // either export or import the function symbols.
 #if defined(USINGTAULIB_DLL) || defined(TAULIBDLL_EXPORTS)
     #ifdef TAULIBDLL_EXPORTS
+		// we're building the DLL and exporting the symbols in the LIB
         #define TAULIBDLL_API __declspec(dllexport)
     #else
+		// we're consuming the DLL and importing the stmbols from the LIB
         #define TAULIBDLL_API __declspec(dllimport)
     #endif
 #else
+	// define as nothing
     #define TAULIBDLL_API
 #endif
 

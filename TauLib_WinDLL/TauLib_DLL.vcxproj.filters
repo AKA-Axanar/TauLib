@@ -30,6 +30,9 @@
     <ClInclude Include="..\TauLib_Shared\src\TauLib.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\TauLib_Shared\src\Win.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -39,6 +42,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\TauLib_Shared\src\Str.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TauLib_Shared\src\Win.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
