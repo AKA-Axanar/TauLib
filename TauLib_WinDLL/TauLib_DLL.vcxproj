@@ -183,6 +183,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\TauLib_Shared\src\sep.h" />
     <ClInclude Include="..\TauLib_Shared\src\Str.h" />
     <ClInclude Include="..\TauLib_Shared\src\Tau.h" />
     <ClInclude Include="..\TauLib_Shared\src\TauLib.h" />
@@ -191,6 +192,7 @@
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\TauLib_Shared\src\sep.cpp" />
     <ClCompile Include="..\TauLib_Shared\src\Str.cpp" />
     <ClCompile Include="..\TauLib_Shared\src\Win.cpp" />
     <ClCompile Include="dllmain.cpp" />

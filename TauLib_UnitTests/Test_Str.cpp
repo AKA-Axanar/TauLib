@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Str.h"
+#include "sep.h"
 
 using namespace std;
 using namespace Tau;
@@ -84,3 +85,17 @@ TEST(TestStr, TestStr_regex) {
     }
 }
 
+//
+// test sep
+//
+TEST(TestStr, TestStr_sep) {
+#ifdef __linux__ 
+    EXPECT_EQ(string("abc") + sep + "fonts", "abc/fonts");
+    EXPECT_EQ(string("abc/") + sep + "fonts", "abc/fonts"); // do I need to use //f for linux?  is /f a form feed here?
+#elif _WIN32
+    EXPECT_EQ(string("abc") + sep + "fonts", "abc\\fonts");
+    EXPECT_EQ(string("abc\\") + sep + "fonts", "abc\\fonts");
+#else
+    #error unknown OS
+#endif
+}

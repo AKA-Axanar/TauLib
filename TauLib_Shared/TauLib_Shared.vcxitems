@@ -14,10 +14,12 @@
     <ProjectCapability Include="SourceItemsFromImports" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)sep.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)src\Str.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)src\Win.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)sep.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)src\Str.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)src\Tau.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)src\TauLib.h" />

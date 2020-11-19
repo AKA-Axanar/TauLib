@@ -2,20 +2,30 @@
 #include <iostream>
 
 using namespace std;
-using namespace Tau;
 
+namespace Tau {
+
+//*******************************
+// Win::Win
+//*******************************
 Win::Win(const string& _title, int _x, int _y, int _width, int _height, Uint32 _flags)
         : title(_title), x(_x), y(_y), width(_width), height(_height), flags(_flags) {
 
 
 }
 
+//*******************************
+// Win::~Win
+//*******************************
 Win::~Win() {
     SDL_DestroyWindow(window);
     SDL_Quit();
 }
 
-bool Tau::Win::Init() {
+//*******************************
+// Win::Init
+//*******************************
+bool Win::Init() {
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
         cerr << "SDL_Init failed" << endl;
         return false;
@@ -36,4 +46,5 @@ bool Tau::Win::Init() {
 
     open = true;
     return open;
+}
 }

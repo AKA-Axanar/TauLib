@@ -6,6 +6,10 @@
 
 namespace Tau {
 
+//*******************************
+// Win
+//*******************************
+    
 struct TAULIBDLL_API Win
 {
     std::string title;
