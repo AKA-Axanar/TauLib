@@ -201,7 +201,6 @@
     <ClInclude Include="src\getExecutablePath.h" />
     <ClInclude Include="src\sep.h" />
     <ClInclude Include="src\Str.h" />
-    <ClInclude Include="src\Tau.h" />
     <ClInclude Include="src\TauLib.h" />
     <ClInclude Include="src\whereami.h" />
     <ClInclude Include="src\Win.h" />

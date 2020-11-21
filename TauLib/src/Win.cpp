@@ -62,11 +62,11 @@ void Win::pollEvents() {
                 }
 
             case SDL_MOUSEMOTION:
-                cout << event.motion.x << ", " << event.motion.y << endl;
+                //cout << event.motion.x << ", " << event.motion.y << endl;
                 break;
 
             case SDL_MOUSEBUTTONDOWN:
-                cout << "button down " << event.motion.x << ", " << event.motion.y << endl;
+                //cout << "button down " << event.motion.x << ", " << event.motion.y << endl;
                 break;
 
             default:

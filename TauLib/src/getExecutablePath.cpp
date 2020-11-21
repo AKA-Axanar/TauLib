@@ -17,7 +17,7 @@ string getExePath() {
 }
 
 // get the executing .dll or .so path.  returns getExePath() if not in a DLL.
-string TAULIBDLL_API getDLLPath() {
+string getDLLPath() {
     int length = wai_getModulePath(NULL, 0, NULL);
     unique_ptr<char[]> buf = make_unique<char[]>(length + 1);
     wai_getModulePath(buf.get(), length, NULL);

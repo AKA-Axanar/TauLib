@@ -36,9 +36,6 @@
     <ClInclude Include="src\Str.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Tau.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\TauLib.h">
       <Filter>Header Files</Filter>
     </ClInclude>

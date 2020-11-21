@@ -10,7 +10,7 @@ namespace Tau {
 // Win
 //*******************************
     
-struct TAULIBDLL_API Win
+struct Win
 {
     std::string title;
     int x = SDL_WINDOWPOS_CENTERED;
