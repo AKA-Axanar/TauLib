@@ -33,6 +33,12 @@
     <ClInclude Include="..\TauLib_Shared\src\sep.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\TauLib_Shared\src\whereami.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TauLib_Shared\src\getExecutablePath.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TauLib_Static.cpp">
@@ -45,6 +51,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\TauLib_Shared\src\sep.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TauLib_Shared\src\whereami.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TauLib_Shared\src\getExecutablePath.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

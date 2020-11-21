@@ -191,16 +191,20 @@
     </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\TauLib_Shared\src\getExecutablePath.h" />
     <ClInclude Include="..\TauLib_Shared\src\sep.h" />
     <ClInclude Include="..\TauLib_Shared\src\Str.h" />
     <ClInclude Include="..\TauLib_Shared\src\Tau.h" />
     <ClInclude Include="..\TauLib_Shared\src\TauLib.h" />
+    <ClInclude Include="..\TauLib_Shared\src\whereami.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\TauLib_Shared\src\getExecutablePath.cpp" />
     <ClCompile Include="..\TauLib_Shared\src\sep.cpp" />
     <ClCompile Include="..\TauLib_Shared\src\Str.cpp" />
+    <ClCompile Include="..\TauLib_Shared\src\whereami.c" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
