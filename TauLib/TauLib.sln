@@ -3,9 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30711.63
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TauLib_Static", "TauLib_Static.vcxproj", "{355CD1BE-967E-4D90-B18B-36CA67154631}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TauLib_Shared", "..\TauLib_Shared\TauLib_Shared.vcxitems", "{36015B56-90A7-4085-848D-9D89055ADE62}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TauLib", "TauLib.vcxproj", "{355CD1BE-967E-4D90-B18B-36CA67154631}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -16,7 +16,7 @@ string getExePath() {
     return buf.get();
 }
 
-// get the executing .dll or .so path
+// get the executing .dll or .so path.  returns getExePath() if not in a DLL.
 string TAULIBDLL_API getDLLPath() {
     int length = wai_getModulePath(NULL, 0, NULL);
     unique_ptr<char[]> buf = make_unique<char[]>(length + 1);

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30711.63
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TauLib_Static", "TauLib_WinStatic\TauLib_Static.vcxproj", "{355CD1BE-967E-4D90-B18B-36CA67154631}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TauLib", "TauLib\TauLib.vcxproj", "{355CD1BE-967E-4D90-B18B-36CA67154631}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TauLib_UnitTests", "TauLib_UnitTests\TauLib_UnitTests.vcxproj", "{AADA4F42-2F69-45F4-BCE6-1EEE3B1E516E}"
 	ProjectSection(ProjectDependencies) = postProject
