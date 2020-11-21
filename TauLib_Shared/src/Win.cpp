@@ -10,16 +10,14 @@ namespace Tau {
 //*******************************
 Win::Win(const string& _title, int _x, int _y, int _width, int _height, Uint32 _flags)
         : title(_title), x(_x), y(_y), width(_width), height(_height), flags(_flags) {
-
-
 }
 
 //*******************************
 // Win::~Win
 //*******************************
 Win::~Win() {
-    SDL_DestroyWindow(window);
-    SDL_Quit();
+    if (isOpen)
+        closeWindow();
 }
 
 //*******************************
@@ -40,11 +38,61 @@ bool Win::Init() {
         cerr << "SDL_CreateRenderer failed" << endl;
         return false;
     }
-    SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
+
+    isOpen = true;
+    return isOpen;
+}
+
+//*******************************
+// Win::pollEvents
+//*******************************
+void Win::pollEvents() {
+    SDL_Event event;
+    while (isOpen && SDL_PollEvent(&event)) {
+        switch (event.type) {
+            case SDL_QUIT:
+                closeWindow();
+                break;
+
+            case SDL_KEYDOWN:
+                switch (event.key.keysym.sym) {
+                    case SDLK_ESCAPE:
+                        closeWindow();
+                        break;
+                }
+
+            case SDL_MOUSEMOTION:
+                cout << event.motion.x << ", " << event.motion.y << endl;
+                break;
+
+            case SDL_MOUSEBUTTONDOWN:
+                cout << "button down " << event.motion.x << ", " << event.motion.y << endl;
+                break;
+
+            default:
+                break;
+        }
+    }
+}
+
+//*******************************
+// Win::clear
+//*******************************
+void Win::clear(Uint8 r, Uint8 g, Uint8 b, Uint8 alpha) const {
+    SDL_SetRenderDrawColor(renderer, r, g, b, alpha);
     SDL_RenderClear(renderer);
     SDL_RenderPresent(renderer);
-
-    open = true;
-    return open;
 }
+
+//*******************************
+// Win::closeWindow
+//*******************************
+void Win::closeWindow() {
+    SDL_DestroyWindow(window);
+    SDL_Quit();
+    window = nullptr;
+    renderer = nullptr;
+    isOpen = false;
+}
+
 }
