@@ -98,6 +98,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(SDL2)\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -123,6 +124,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(SDL2)\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -148,6 +150,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(SDL2)\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -173,6 +176,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(SDL2)\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -191,27 +195,28 @@
     </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\TauLib_Shared\src\getExecutablePath.h" />
-    <ClInclude Include="..\TauLib_Shared\src\sep.h" />
-    <ClInclude Include="..\TauLib_Shared\src\Str.h" />
-    <ClInclude Include="..\TauLib_Shared\src\Tau.h" />
-    <ClInclude Include="..\TauLib_Shared\src\TauLib.h" />
-    <ClInclude Include="..\TauLib_Shared\src\whereami.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="src\getExecutablePath.h" />
+    <ClInclude Include="src\sep.h" />
+    <ClInclude Include="src\Str.h" />
+    <ClInclude Include="src\Tau.h" />
+    <ClInclude Include="src\TauLib.h" />
+    <ClInclude Include="src\whereami.h" />
+    <ClInclude Include="src\Win.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\TauLib_Shared\src\getExecutablePath.cpp" />
-    <ClCompile Include="..\TauLib_Shared\src\sep.cpp" />
-    <ClCompile Include="..\TauLib_Shared\src\Str.cpp" />
-    <ClCompile Include="..\TauLib_Shared\src\whereami.c" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="TauLib_Static.cpp" />
+    <ClCompile Include="src\getExecutablePath.cpp" />
+    <ClCompile Include="src\sep.cpp" />
+    <ClCompile Include="src\Str.cpp" />
+    <ClCompile Include="src\whereami.c" />
+    <ClCompile Include="src\Win.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
