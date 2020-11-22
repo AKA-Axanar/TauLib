@@ -31,5 +31,5 @@ void operator += (std::string& leftside, Sep);
 // changes any / or \ in the string to be the preferred path separator for the OS
 //
 std::string useOSSeparator(const std::string& str);
-void useOSSeparator(std::string* str) { *str = useOSSeparator(*str); }
+void useOSSeparator(std::string* str);
 }
