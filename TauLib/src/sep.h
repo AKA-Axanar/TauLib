@@ -2,30 +2,34 @@
 
 #include "TauLib.h"
 #include <string>
-#include <vector>
+#include <filesystem>
+
+using namespace std;
 
 namespace Tau {
 
 //*******************************
 // separator
 //*******************************
-#ifdef __linux__ 
-    static const char separator = '/';
-#elif _WIN32
-    static const char separator = '\\';
-#else
-    #error unknown OS
-#endif
+static const char separator = std::filesystem::path::preferred_separator;
+static const wchar_t wseparator = std::filesystem::path::preferred_separator;
+
 
 //*******************************
-// append separator helper function
+// append path separator helper function
 //*******************************
 struct Sep { };
 const Sep sep;  // use sep in your code
 
-// example:  somepath is a string of a path but you do not know for sure if there is or is not a "/" at the end or not
+// example:  somepath is a string of a path but you do not know for sure if there is a "/" at the end or not
 // somepath + sep + "font" + sep + "default.ttf" will append the separator to somepath only if it's not there
 std::string operator + (const std::string& leftside, Sep);
 void operator += (std::string& leftside, Sep);
 
+//
+// useOSSeparator
+// changes any / or \ in the string to be the preferred path separator for the OS
+//
+std::string useOSSeparator(const std::string& str);
+void useOSSeparator(std::string* str) { *str = useOSSeparator(*str); }
 }

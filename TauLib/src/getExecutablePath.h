@@ -3,6 +3,8 @@
 #include "TauLib.h"
 
 namespace Tau {
-    std::string getExePath();     // get the executing .exe or .o path
-    std::string getDLLPath();     // get the executing .dll or .so path.  returns getExePath() if not in a DLL.
+    std::string getExeFilePath();       // get the full path of the executing .exe or .o path
+    std::string getDLLFilePath();       // get the full path of the executing .dll or .so path.  returns getExeFilePath() if not in a DLL.
+    std::string getExeFileParentDir();  // get the full path of the executing .exe or .o parent dir
+    std::string getDLLFileParentDir();  // get the full path of the executing .dll or .so parent dir.  returns getExeFileParentPath() if not in a DLL.
 }
