@@ -1,5 +1,7 @@
 #include "Win.h"
 #include <iostream>
+#include "SDL_image.h"
+#include "SDL_ttf.h"
 
 using namespace std;
 
@@ -24,10 +26,6 @@ Win::~Win() {
 // Win::Init
 //*******************************
 bool Win::Init() {
-    if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
-        cerr << "SDL_Init failed" << endl;
-        return false;
-    }
     window = SDL_CreateWindow(title.c_str(), x, y, width, height, flags);
     if (window == nullptr) {
         cerr << "SDL_CreateWindow failed" << endl;
@@ -89,7 +87,6 @@ void Win::clear(Uint8 r, Uint8 g, Uint8 b, Uint8 alpha) const {
 //*******************************
 void Win::closeWindow() {
     SDL_DestroyWindow(window);
-    SDL_Quit();
     window = nullptr;
     renderer = nullptr;
     isOpen = false;
