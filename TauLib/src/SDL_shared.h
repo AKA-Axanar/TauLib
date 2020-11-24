@@ -20,7 +20,7 @@ struct SDL_Shared {
     std::shared_ptr<T> sdl_shared_ptr;
 
     SDL_Shared(T* t = nullptr) : sdl_shared_ptr(t, [](T *t)
-        { SDL_DelRes(t); } ) {};    // automatically destroy/free when the last shared_ptr goes away
+        { SDL_DelResource(t); } ) {};    // automatically destroy/free when the last shared_ptr goes away
 
     operator T* () { return sdl_shared_ptr.get(); };
     T & operator * () { return *sdl_shared_ptr.get(); };

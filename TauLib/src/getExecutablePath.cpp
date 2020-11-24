@@ -37,7 +37,7 @@ string getDLLFilePath() {
 string getExeFileParentDir() {
     filesystem::path p(getExeFilePath());
     auto parent = p.parent_path();
-    return parent.generic_string();
+    return parent.string();
 }
 
 //
@@ -46,7 +46,7 @@ string getExeFileParentDir() {
 string getDLLFileParentDir() {
     filesystem::path p(getDLLFilePath());
     auto parent = p.parent_path();
-    return parent.generic_string();
+    return parent.string();
 }
 
 }

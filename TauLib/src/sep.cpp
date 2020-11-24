@@ -37,7 +37,7 @@ void operator += (std::string& leftside, Sep) {
 std::string useOSSeparator(const std::string& str) {
     filesystem::path p(str);
     p.make_preferred();
-    return p.generic_string();
+    return p.string();
 }
 void useOSSeparator(std::string* str)
     { *str = useOSSeparator(*str); }
