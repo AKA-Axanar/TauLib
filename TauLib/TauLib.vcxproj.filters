@@ -39,6 +39,9 @@
     <ClInclude Include="src\TauLib.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\SDL_shared.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -57,6 +60,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\whereami.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SDL_shared.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
