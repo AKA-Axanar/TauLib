@@ -20,8 +20,8 @@ struct Win
     int height = 720;
     Uint32 flags = SDL_WINDOW_SHOWN;
 
-    SDL_Window* window = nullptr;
-    SDL_Renderer* renderer = nullptr;
+    SDL_Shared<SDL_Window> window = nullptr;
+    SDL_Shared<SDL_Renderer> renderer = nullptr;
     bool isOpen = false;
 
     Win() {}
@@ -30,7 +30,7 @@ struct Win
 
     bool Init();
     void pollEvents();
-    void clear(Uint8 r = 0, Uint8 g = 0, Uint8 b = 0, Uint8 alpha = 0) const;
+    void clear(Uint8 r = 0, Uint8 g = 0, Uint8 b = 0, Uint8 alpha = 0);
     void closeWindow();
 };
 

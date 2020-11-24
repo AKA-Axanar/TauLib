@@ -18,8 +18,6 @@ Win::Win(const string& _title, int _x, int _y, int _width, int _height, Uint32 _
 // Win::~Win
 //*******************************
 Win::~Win() {
-    if (isOpen)
-        closeWindow();
 }
 
 //*******************************
@@ -76,7 +74,7 @@ void Win::pollEvents() {
 //*******************************
 // Win::clear
 //*******************************
-void Win::clear(Uint8 r, Uint8 g, Uint8 b, Uint8 alpha) const {
+void Win::clear(Uint8 r, Uint8 g, Uint8 b, Uint8 alpha) {
     SDL_SetRenderDrawColor(renderer, r, g, b, alpha);
     SDL_RenderClear(renderer);
     SDL_RenderPresent(renderer);
@@ -86,9 +84,8 @@ void Win::clear(Uint8 r, Uint8 g, Uint8 b, Uint8 alpha) const {
 // Win::closeWindow
 //*******************************
 void Win::closeWindow() {
-    SDL_DestroyWindow(window);
-    window = nullptr;
     renderer = nullptr;
+    window = nullptr;
     isOpen = false;
 }
 
