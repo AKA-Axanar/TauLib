@@ -3,8 +3,9 @@
 #include <string>
 #include "TauLib.h"
 #include "SDL.h"
+#include "SDL_shared.h"
 
-namespace Tau {
+namespace Tau { // too avoid conflict with other libraries
 
 //*******************************
 // Win

@@ -5,7 +5,7 @@
 
 using namespace std;
 
-namespace Tau {
+namespace Tau { // too avoid conflict with other libraries
 
 void sortStrings(Strings& strings) {
     sort(strings.begin(), strings.end());

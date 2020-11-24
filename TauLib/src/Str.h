@@ -4,7 +4,7 @@
 #include <vector>
 #include "TauLib.h"
 
-namespace Tau {
+namespace Tau { // too avoid conflict with other libraries
 
 //*******************************
 // Strings
