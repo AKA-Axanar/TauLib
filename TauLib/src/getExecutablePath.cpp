@@ -10,7 +10,7 @@ using namespace std;
 namespace Tau { // too avoid conflict with other libraries
 
 //
-// get the executing .exe or .o path
+// get the executing .exe or .o path file
 //
 string getExeFilePath() {
     int length = wai_getExecutablePath(NULL, 0, NULL);
@@ -21,7 +21,7 @@ string getExeFilePath() {
 }
 
 //
-// get the executing .dll or .so path.  returns getExePath() if not in a DLL.
+// get the executing .dll or .so path file.  returns getExePath() if not in a DLL.
 //
 string getDLLFilePath() {
     int length = wai_getModulePath(NULL, 0, NULL);
@@ -32,18 +32,18 @@ string getDLLFilePath() {
 }
 
 //
-// get the executing .exe or .o parent dir
+// get the full path of the directory containing the executing .exe or .o
 //
-string getExeFileParentDir() {
+string getExeDirPath() {
     filesystem::path p(getExeFilePath());
     auto parent = p.parent_path();
     return parent.string();
 }
 
 //
-// get the executing .dll or .so parent dir.  returns getExeFileParentPath() if not in a DLL.
+// get the full path of the directory containing the executing .dll or .so.  returns getExeDirPath() if not in a DLL.
 //
-string getDLLFileParentDir() {
+string getDLLDirPath() {
     filesystem::path p(getDLLFilePath());
     auto parent = p.parent_path();
     return parent.string();
