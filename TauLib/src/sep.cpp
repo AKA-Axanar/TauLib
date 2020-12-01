@@ -31,15 +31,15 @@ void operator += (std::string& leftside, Sep) {
 }
 
 //
-// useOSSeparator
+// fixPathSeparators
 // changes any / or \ in the string to be the preferred path separator for the OS
 //
-std::string useOSSeparator(const std::string& str) {
+std::string fixPathSeparators(const std::string& str) {
     filesystem::path p(str);
     p.make_preferred();
     return p.string();
 }
-void useOSSeparator(std::string* str)
-    { *str = useOSSeparator(*str); }
+void fixPathSeparators(std::string* str)
+    { *str = fixPathSeparators(*str); }
 
 }

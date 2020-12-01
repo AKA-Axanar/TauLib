@@ -27,9 +27,9 @@ std::string operator + (const std::string& leftside, Sep);
 void operator += (std::string& leftside, Sep);
 
 //
-// useOSSeparator
+// fixPathSeparators
 // changes any / or \ in the string to be the preferred path separator for the OS
 //
-std::string useOSSeparator(const std::string& str);
-void useOSSeparator(std::string* str);
+std::string fixPathSeparators(const std::string& str);
+void fixPathSeparators(std::string* str);
 }

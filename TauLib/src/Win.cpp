@@ -35,6 +35,10 @@ bool Win::Init() {
         return false;
     }
 
+    // if the window is full screen get the width and height
+    if (flags & SDL_WINDOW_FULLSCREEN)
+        SDL_GetRendererOutputSize(renderer, &width, &height);
+
     isOpen = true;
     return isOpen;
 }
@@ -42,18 +46,18 @@ bool Win::Init() {
 //*******************************
 // Win::pollEvents
 //*******************************
-void Win::pollEvents() {
+void Win::PollEvents() {
     SDL_Event event;
     while (isOpen && SDL_PollEvent(&event)) {
         switch (event.type) {
             case SDL_QUIT:
-                closeWindow();
+                Close();
                 break;
 
             case SDL_KEYDOWN:
                 switch (event.key.keysym.sym) {
                     case SDLK_ESCAPE:
-                        closeWindow();
+                        Close();
                         break;
                 }
 
@@ -72,20 +76,27 @@ void Win::pollEvents() {
 }
 
 //*******************************
-// Win::clear
+// Win::Fill
 //*******************************
-void Win::clear(Uint8 r, Uint8 g, Uint8 b, Uint8 alpha) {
+void Win::Fill(Uint8 r, Uint8 g, Uint8 b, Uint8 alpha) {
     SDL_SetRenderDrawColor(renderer, r, g, b, alpha);
     SDL_RenderClear(renderer);
+}
+
+//*******************************
+// Win::Clear
+//*******************************
+void Win::Clear(Uint8 r, Uint8 g, Uint8 b, Uint8 alpha) {
+    Fill(r, g, b, alpha);
     SDL_RenderPresent(renderer);
 }
 
 //*******************************
 // Win::closeWindow
 //*******************************
-void Win::closeWindow() {
-    renderer = nullptr;
-    window = nullptr;
+void Win::Close() {
+    renderer = nullptr;     // SDL_Shared dtor takes care of calling the proper destroy routine
+    window = nullptr;       // SDL_Shared dtor takes care of calling the proper destroy routine
     isOpen = false;
 }
 
