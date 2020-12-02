@@ -28,8 +28,8 @@ struct Win
     Win(const std::string& _title, int _x, int _y, int _width, int _height, Uint32 _flags);
     ~Win();
 
-    bool Init();
-    void PollEvents();
+    bool Init(const std::string& _title, int _x, int _y, int _width, int _height, Uint32 _flags);
+
     void Fill(Uint8 r = 0, Uint8 g = 0, Uint8 b = 0, Uint8 alpha = 255);
     void Clear(Uint8 r = 0, Uint8 g = 0, Uint8 b = 0, Uint8 alpha = 255);
     void Close();

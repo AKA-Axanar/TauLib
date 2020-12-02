@@ -1,9 +1,8 @@
 #include "getExecutablePath.h"
 #include <string>
-#include "whereami.h"
 #include <memory>
-#include <string>
 #include <filesystem>
+#include "whereami.h"
 
 using namespace std;
 

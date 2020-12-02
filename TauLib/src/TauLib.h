@@ -6,4 +6,11 @@
 // #if defined(__x86_64__) || defined(_M_X64)       Intel/AMD CPU
 // #if defined(_M_ARM64)                            Arm CPU
 
+namespace Tau { // too avoid conflict with other libraries
+
+bool Init_SDL();
+void Quit_SDL();
+
+}
+
 

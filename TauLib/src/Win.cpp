@@ -12,18 +12,27 @@ namespace Tau { // too avoid conflict with other libraries
 //*******************************
 Win::Win(const string& _title, int _x, int _y, int _width, int _height, Uint32 _flags)
         : title(_title), x(_x), y(_y), width(_width), height(_height), flags(_flags) {
+    Init(_title, _x, _y, _width, _height, _flags);
 }
 
 //*******************************
 // Win::~Win
 //*******************************
 Win::~Win() {
+    Close();
 }
 
 //*******************************
 // Win::Init
 //*******************************
-bool Win::Init() {
+bool Win::Init(const string& _title, int _x, int _y, int _width, int _height, Uint32 _flags) {
+    title = _title;
+    x = _x;
+    y = _y;
+    width = _width;
+    height = _height;
+    flags = _flags;
+
     window = SDL_CreateWindow(title.c_str(), x, y, width, height, flags);
     if (window == nullptr) {
         cerr << "SDL_CreateWindow failed" << endl;
@@ -36,43 +45,11 @@ bool Win::Init() {
     }
 
     // if the window is full screen get the width and height
-    if (flags & SDL_WINDOW_FULLSCREEN)
+    if (flags & SDL_WINDOW_FULLSCREEN_DESKTOP)
         SDL_GetRendererOutputSize(renderer, &width, &height);
 
     isOpen = true;
     return isOpen;
-}
-
-//*******************************
-// Win::pollEvents
-//*******************************
-void Win::PollEvents() {
-    SDL_Event event;
-    while (isOpen && SDL_PollEvent(&event)) {
-        switch (event.type) {
-            case SDL_QUIT:
-                Close();
-                break;
-
-            case SDL_KEYDOWN:
-                switch (event.key.keysym.sym) {
-                    case SDLK_ESCAPE:
-                        Close();
-                        break;
-                }
-
-            case SDL_MOUSEMOTION:
-                //cout << event.motion.x << ", " << event.motion.y << endl;
-                break;
-
-            case SDL_MOUSEBUTTONDOWN:
-                //cout << "button down " << event.motion.x << ", " << event.motion.y << endl;
-                break;
-
-            default:
-                break;
-        }
-    }
 }
 
 //*******************************
