@@ -202,6 +202,7 @@
   <ItemGroup>
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="src\DirFile.h" />
     <ClInclude Include="src\getExecutablePath.h" />
     <ClInclude Include="src\SDL_shared.h" />
     <ClInclude Include="src\sep.h" />
@@ -217,6 +218,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="src\DirFile.cpp" />
     <ClCompile Include="src\getExecutablePath.cpp" />
     <ClCompile Include="src\SDL_shared.cpp" />
     <ClCompile Include="src\sep.cpp" />
