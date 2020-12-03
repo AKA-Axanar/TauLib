@@ -7,6 +7,14 @@ using namespace std;
 
 namespace Tau { // too avoid conflict with other libraries
 
+                //*******************************
+                // Strings
+                //*******************************
+    
+//
+// sortStrings
+// sortStringsInsensitive
+//
 void sortStrings(Strings& strings) {
     sort(strings.begin(), strings.end());
 }
@@ -15,9 +23,13 @@ void sortStringsInsensitive(Strings& strings) {
     sort(strings.begin(), strings.end(), [] (string& str1, string& str2) { return lowerCase(str1) < lowerCase(str2); });
 }
 
-//*******************************
+                //*******************************
+                // string trim
+                //*******************************
+
+//
 // ltrim.  trim the left leading whitespace.
-//*******************************
+//
 string ltrim(const string& s) {
     string temp = s;
     ltrim(&temp);
@@ -27,9 +39,9 @@ void ltrim(string* s) {
     auto itr = s->erase(s->begin(), find_if_not(s->begin(), s->end(), [&] ( char c) { return isspace(c); }));
 }
 
-//*******************************
+//
 // rtrim.  trim the right trailing whitespace.
-//*******************************
+//
 string rtrim(const string& s) {
     string temp = s;
     rtrim(&temp);
@@ -39,9 +51,9 @@ void rtrim(string* s) {
     s->erase(find_if_not(s->rbegin(), s->rend(), [&](char c) { return isspace(c); }).base(), s->end());
 }
 
-//*******************************
+//
 // trim.  trim the left and right whitespace.
-//*******************************
+//
 string trim(const string& s) {
     return rtrim(ltrim(s));
 }
@@ -50,9 +62,13 @@ void trim(string* s) {
     rtrim(s);
 }
 
-//*******************************
+                //*******************************
+                // string case
+                //*******************************
+
+//
 // lowerCase
-//*******************************
+//
 std::string lowerCase(const std::string& _s) {
     string s = _s;
     transform(s.begin(), s.end(), s.begin(),
@@ -64,9 +80,9 @@ void lowerCase(std::string* s) {
         [](unsigned char c) { return tolower(c); });
 }
 
-//*******************************
+//
 // upperCase
-//*******************************
+//
 std::string upperCase(const std::string& _s) {
     string s = _s;
     transform(s.begin(), s.end(), s.begin(),
@@ -78,9 +94,13 @@ void upperCase(std::string* s) {
         [](unsigned char c) { return toupper(c); });
 }
 
-//*******************************
+                //*******************************
+                // string compare
+                //*******************************
+
+//
 // icompareBool - case insensitive compare.  returns a bool
-//*******************************
+//
 bool icompareBool(const std::string& a, const std::string& b) {
     if (a.length() != b.length())
         return false;   // not the same length
@@ -89,16 +109,20 @@ bool icompareBool(const std::string& a, const std::string& b) {
         [](unsigned char a1, unsigned char b1) { return tolower(a1) == tolower(b1); });
 }
 
-//*******************************
+//
 // icompareInt - case insensitive compare.  returns an int (-1, 0, 1)
-//*******************************
+//
 int icompareInt(const std::string& a, const std::string& b) {
     return _stricmp(a.c_str(), b.c_str());
 }
 
-//*******************************
+                //*******************************
+                // string replace
+                //*******************************
+
+//
 // ReplaceSubStrings
-//*******************************
+//
 string ReplaceSubStrings(const std::string& str, const std::string& fromSubStringOrLexicalExpression,
     const std::string& toSubString) {
     string result;
@@ -113,23 +137,27 @@ void ReplaceSubStrings(std::string* str, const std::string& fromSubStringOrLexic
     *str = ReplaceSubStrings(*str, fromSubStringOrLexicalExpression, toSubString);
 }
 
-//*******************************
+                //*******************************
+                // string find
+                //*******************************
+
+//
 // FoundLexExpr
 // returns whether the lexical expression (or plain string) is found in a string.
 // example lexical expression = "[A-Za-z0-9]+"
 // example lexical expression = "FindMe"
-//*******************************
+//
 bool FoundLexExpr(const string& lexicalExpressionOrString, const string str) {
     regex expr(lexicalExpressionOrString);
     return regex_search(str, expr);
 }
 
-//*******************************
+//
 // FindLexExprMatches
 // returns all the matches of the lexical expression found in the string
 // example: FindLexExprMatches("[0-9]+", "abc 12, alpha 34 ,,5678XYZ");
 // returns "12", "34", "5678"
-//*******************************
+//
 vector<string> FindLexExprMatches(const string& lexicalExpressionOrString, const string str) {
     regex expr(lexicalExpressionOrString);
     smatch match;
