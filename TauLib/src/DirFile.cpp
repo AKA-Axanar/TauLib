@@ -6,6 +6,11 @@
 using namespace std;
 namespace fs = std::filesystem;
 
+///
+/// @file
+/// CPP file for directory and file routines.
+///
+
 namespace Tau {  // to avoid conflict with other libraries
 
                 //*******************************
@@ -13,8 +18,9 @@ namespace Tau {  // to avoid conflict with other libraries
                 //*******************************
 
 //
+// GetFileExtension
 // returns the file extension of the path.  ex: returns ".dat" for "foo.dat"
-// the return includes the "."
+// the return includes the file extension "."
 //
 std::string GetFileExtension(const std::string& str) {
     fs::path p(str);
@@ -22,6 +28,7 @@ std::string GetFileExtension(const std::string& str) {
 }
 
 //
+// GetFileExtensionWithoutDot
 // returns the file extension of the path without the leading ".".  ex: returns "dat" for "foo.dat"
 //
 std::string GetFileExtensionWithoutDot(const std::string& str) {
@@ -32,6 +39,7 @@ std::string GetFileExtensionWithoutDot(const std::string& str) {
 }
 
 //
+// GetFilename
 // returns the filename in the path.  ex: returns "foo.dat" from "aaa/bbb/foo.dat"
 //
 std::string GetFilename(const std::string& str) {
@@ -48,12 +56,18 @@ std::string GetFilenameBase(const std::string& str) {
 }
 
 //
-// Replace Filename
+// ReplaceFilename
+// The modified path is returned.  the passed string is not modified.
 //
 std::string ReplaceFilename(const std::string& str, const std::string& new_filename) {
     fs::path p(str);
     return p.replace_filename(new_filename).string();   
 }
+
+//
+// ReplaceFilename
+// The passed path string is modified.  
+//
 void ReplaceFilename(std::string* str, const std::string& new_filename) {
     fs::path p(*str);
     *str = p.replace_filename(new_filename).string();   
@@ -72,16 +86,16 @@ void ReplaceFileExtension(std::string* str, const std::string& new_extension) {
 }
 
 //
-// Remove Filename.  the "/" or "\" is at the end of the path.
+// Remove FilenameFromPath.  the "/" or "\" is at the end of the path.
 // GetParentPath() is similar but does not have a "/" or "\" at the end.
 //
-std::string RemoveFilename(const std::string& str) {
-    fs::path p(str);
+std::string RemoveFilenameFromPath(const std::string& filePath) {
+    fs::path p(filePath);
     return p.remove_filename().string();   
 }
-void RemoveFilename(std::string* str) {
-    fs::path p(*str);
-    *str =  p.remove_filename().string();   
+void RemoveFilenameFromPath(std::string* filePath) {
+    fs::path p(*filePath);
+    *filePath =  p.remove_filename().string();   
 }
 
                 //*******************************

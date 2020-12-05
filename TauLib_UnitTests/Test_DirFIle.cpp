@@ -31,13 +31,13 @@ TEST(TestDirFile, TestDirFile) {
     temp = GetParentPath("aaa/bbb");
     EXPECT_EQ(temp, "aaa");
 
-    temp = ReplaceFilename("aaa/bbb/foo.dat", "bar.dat");
-    EXPECT_EQ(temp, "aaa/bbb/bar.dat");
+    temp = ReplaceFilename("aaa/bbb/foo.dat", "bar.txt");
+    EXPECT_EQ(temp, "aaa/bbb/bar.txt");
     temp = ReplaceFileExtension("aaa/bbb/foo.dat", ".txt");
     EXPECT_EQ(temp, "aaa/bbb/foo.txt");
     temp = ReplaceFileExtension("aaa/bbb/foo.dat", "txt");
     EXPECT_EQ(temp, "aaa/bbb/foo.txt");
-    temp = RemoveFilename("aaa/bbb/foo.dat");
+    temp = RemoveFilenameFromPath("aaa/bbb/foo.dat");
     EXPECT_EQ(temp, "aaa/bbb/");
 
     //cout << "PWD: " << GetCurrentPath() << endl;

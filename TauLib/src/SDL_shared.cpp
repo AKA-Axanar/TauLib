@@ -1,3 +1,8 @@
+///
+/// @file
+/// CPP file for SDL_Shared which is a shared_ptr with a custom destructor based on the type.
+///
+
 #include "SDL_shared.h"
 
 // Code came from https://blog.galowicz.de/2016/02/21/automatic_resource_release_with_sdl/

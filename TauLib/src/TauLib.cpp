@@ -6,14 +6,9 @@
 #include <iostream>
 
 using namespace std;
-/**
- *  \brief avoid conflict with other libraries
- */
 namespace Tau { // to avoid conflict with other libraries
 
-//
-// Init
-//
+// Init_SDL Initialize SDL, Audio, TTF fonts, etc
 bool Init_SDL() {
     // init almost everything
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
@@ -37,9 +32,7 @@ bool Init_SDL() {
     return true;
 }
 
-//
-// Quit_SDL
-//
+// Quit_SDL Quit SDL, Audio, TTF fonts, etc
 void Quit_SDL() {
     Mix_CloseAudio();
     Mix_Quit();

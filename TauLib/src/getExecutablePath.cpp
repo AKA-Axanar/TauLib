@@ -8,9 +8,9 @@ using namespace std;
 
 namespace Tau { // to avoid conflict with other libraries
 
-//
-// get the executing .exe or .o path file
-//
+///
+/// @brief getExeFilePath - get the executing .exe or .o path file
+///
 string getExeFilePath() {
     int length = wai_getExecutablePath(NULL, 0, NULL);
     unique_ptr<char[]> buf = make_unique<char[]>(length + 1);
@@ -19,9 +19,9 @@ string getExeFilePath() {
     return buf.get();
 }
 
-//
-// get the executing .dll or .so path file.  returns getExePath() if not in a DLL.
-//
+///
+/// @brief getDLLFilePath - get the executing .dll or .so path file.  returns getExePath() if not in a DLL.
+///
 string getDLLFilePath() {
     int length = wai_getModulePath(NULL, 0, NULL);
     unique_ptr<char[]> buf = make_unique<char[]>(length + 1);
@@ -30,18 +30,18 @@ string getDLLFilePath() {
     return buf.get();
 }
 
-//
-// get the full path of the directory containing the executing .exe or .o
-//
+///
+/// @brief getExeDirPath - get the full path of the directory containing the executing .exe or .o
+///
 string getExeDirPath() {
     filesystem::path p(getExeFilePath());
     auto parent = p.parent_path();
     return parent.string();
 }
 
-//
-// get the full path of the directory containing the executing .dll or .so.  returns getExeDirPath() if not in a DLL.
-//
+///
+/// @brief getDLLDirPath - get the full path of the directory containing the executing .dll or .so.  returns getExeDirPath() if not in a DLL.
+///
 string getDLLDirPath() {
     filesystem::path p(getDLLFilePath());
     auto parent = p.parent_path();

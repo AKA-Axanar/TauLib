@@ -11,14 +11,20 @@ namespace Tau { // to avoid conflict with other libraries
                 // Strings
                 //*******************************
     
-//
-// sortStrings
-// sortStringsInsensitive
-//
+///
+/// @brief sortStrings - Sorts the passed vector of strings.
+/// @param strings vector<string> to be sorted.
+/// @return none.
+///
 void sortStrings(Strings& strings) {
     sort(strings.begin(), strings.end());
 }
 
+///
+/// @brief sortStringsInsensitive - Does a case insensitive sort of the passed vector of strings.
+/// @param strings vector<string> to be case insensitive sorted.
+/// @return none.
+///
 void sortStringsInsensitive(Strings& strings) {
     sort(strings.begin(), strings.end(), [] (string& str1, string& str2) { return lowerCase(str1) < lowerCase(str2); });
 }
@@ -27,36 +33,60 @@ void sortStringsInsensitive(Strings& strings) {
                 // string trim
                 //*******************************
 
-//
-// ltrim.  trim the left leading whitespace.
-//
+///
+/// @brief ltrim - trim the left leading whitespace from a string.
+/// @param s string to trim (const& not modified).
+/// @return The trimmed string.
+///
 string ltrim(const string& s) {
     string temp = s;
     ltrim(&temp);
     return temp;
 }
+
+///
+/// @brief ltrim - trim the left leading whitespace from a string.
+/// @param &string to trim (string is modified).
+/// @return none
+///
 void ltrim(string* s) {
     auto itr = s->erase(s->begin(), find_if_not(s->begin(), s->end(), [&] ( char c) { return isspace(c); }));
 }
 
-//
-// rtrim.  trim the right trailing whitespace.
-//
+///
+/// @brief rtrim - trim the right leading whitespace from a string.
+/// @param string to trim (const& not modified).
+/// @return The trimmed string.
+///
 string rtrim(const string& s) {
     string temp = s;
     rtrim(&temp);
     return temp;
 }
+
+///
+/// @brief rtrim - trim the right leading whitespace from a string.
+/// @param &string to trim (string is modified).
+/// @return none
+///
 void rtrim(string* s) {
     s->erase(find_if_not(s->rbegin(), s->rend(), [&](char c) { return isspace(c); }).base(), s->end());
 }
 
-//
-// trim.  trim the left and right whitespace.
-//
+///
+/// @brief trim - trim both the leading and trailing whitespace from a string.
+/// @param string to trim (const& not modified).
+/// @return The trimmed string.
+///
 string trim(const string& s) {
     return rtrim(ltrim(s));
 }
+
+///
+/// @brief trim - trim both the leading and trailing whitespace from a string.
+/// @param &string to trim (string is modified).
+/// @return none
+///
 void trim(string* s) {
     ltrim(s);
     rtrim(s);
@@ -66,29 +96,45 @@ void trim(string* s) {
                 // string case
                 //*******************************
 
-//
-// lowerCase
-//
+///
+/// @brief lowerCase - Return the passed string as lower case.
+/// @param string to convert to lower case.
+/// @return The lower case string.
+///
 std::string lowerCase(const std::string& _s) {
     string s = _s;
     transform(s.begin(), s.end(), s.begin(),
         [](unsigned char c) { return std::tolower(c); });
     return s;
 }
+
+///
+/// @brief lowerCase - Convert the passed satring to lower case.
+/// @param &string to convert to lower case.
+/// @return none
+///
 void lowerCase(std::string* s) {
     transform(s->begin(), s->end(), s->begin(),
         [](unsigned char c) { return tolower(c); });
 }
 
-//
-// upperCase
-//
+///
+/// @brief upperCase - Return the passed string as upper case.
+/// @param string to convert to upper case.
+/// @return The upper case string.
+///
 std::string upperCase(const std::string& _s) {
     string s = _s;
     transform(s.begin(), s.end(), s.begin(),
         [](unsigned char c) { return std::toupper(c); });
     return s;
 }
+
+///
+/// @brief upperCase - Convert the passed satring to upper case.
+/// @param &string to convert to upper case.
+/// @return none
+///
 void upperCase(std::string* s) {
     transform(s->begin(), s->end(), s->begin(),
         [](unsigned char c) { return toupper(c); });
@@ -98,9 +144,12 @@ void upperCase(std::string* s) {
                 // string compare
                 //*******************************
 
-//
-// icompareBool - case insensitive compare.  returns a bool
-//
+///
+/// @brief icompareBool - Case insensitive string compare.
+/// @param str_a Left hand string to compare.
+/// @param str_b Right hand string to compare.
+/// @return true if lower(str_a) == tolower(str_b)
+///
 bool icompareBool(const std::string& a, const std::string& b) {
     if (a.length() != b.length())
         return false;   // not the same length
@@ -109,9 +158,12 @@ bool icompareBool(const std::string& a, const std::string& b) {
         [](unsigned char a1, unsigned char b1) { return tolower(a1) == tolower(b1); });
 }
 
-//
-// icompareInt - case insensitive compare.  returns an int (-1, 0, 1)
-//
+///
+/// @brief icompareInt - Case insensitive string compare for sorting.
+/// @param str_a Left hand string to compare.
+/// @param str_b Right hand string to compare.
+/// @return -1 if str_a < str_b, 0 if str_a == str_b, +1 if str_a > str_b
+///
 int icompareInt(const std::string& a, const std::string& b) {
     return _stricmp(a.c_str(), b.c_str());
 }
@@ -120,9 +172,13 @@ int icompareInt(const std::string& a, const std::string& b) {
                 // string replace
                 //*******************************
 
-//
-// ReplaceSubStrings
-//
+///
+/// @brief ReplaceSubStrings - Replace all the matching substrings in a string.
+/// @param str The string to search.
+/// @param fromSubStringOrLexicalExpression The substring or lexical expression to match.
+/// @param toSubString The substring to replace the substring with.
+/// @return The resulting string.
+///
 string ReplaceSubStrings(const std::string& str, const std::string& fromSubStringOrLexicalExpression,
     const std::string& toSubString) {
     string result;
@@ -132,6 +188,14 @@ string ReplaceSubStrings(const std::string& str, const std::string& fromSubStrin
     regex_replace(back_inserter(result), str.begin(), str.end(), from, to);
     return result;
 }
+
+///
+/// @brief ReplaceSubStrings - Replace all the matching substrings in a string.
+/// @param str The &string to search.  The string is modified.
+/// @param fromSubStringOrLexicalExpression The substring or lexical expression to match.
+/// @param toSubString The substring to replace the substring with.
+/// @return none
+///
 void ReplaceSubStrings(std::string* str, const std::string& fromSubStringOrLexicalExpression,
     const std::string& toSubString) {
     *str = ReplaceSubStrings(*str, fromSubStringOrLexicalExpression, toSubString);
@@ -141,23 +205,27 @@ void ReplaceSubStrings(std::string* str, const std::string& fromSubStringOrLexic
                 // string find
                 //*******************************
 
-//
-// FoundLexExpr
-// returns whether the lexical expression (or plain string) is found in a string.
-// example lexical expression = "[A-Za-z0-9]+"
-// example lexical expression = "FindMe"
-//
+///
+/// @brief FoundLexExpr - returns whether the lexical expression (or plain string) is found in a string.
+/// @param lexicalExpressionOrString The string or lexical expression to look for in the string.
+/// @param str The string to search.
+/// @remark lexical expression = "[A-Za-z0-9]+"
+/// @remark lexical expression = "FindMe"
+/// @return true or false
+///
 bool FoundLexExpr(const string& lexicalExpressionOrString, const string str) {
     regex expr(lexicalExpressionOrString);
     return regex_search(str, expr);
 }
 
-//
-// FindLexExprMatches
-// returns all the matches of the lexical expression found in the string
-// example: FindLexExprMatches("[0-9]+", "abc 12, alpha 34 ,,5678XYZ");
-// returns "12", "34", "5678"
-//
+///
+/// @brief FindLexExprMatches - returns all the matches of the lexical expression found in the string.
+/// @param lexicalExpression The lexical expression to look for in the string.
+/// @param str The string to search.
+/// @remark FindLexExprMatches("[0-9]+", "abc 12, alpha 34 ,,5678XYZ");
+/// @remark returns "12", "34", "5678"
+/// @return vector<string> of results
+///
 vector<string> FindLexExprMatches(const string& lexicalExpression, const string str) {
     regex expr(lexicalExpression);
     smatch match;
