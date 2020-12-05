@@ -58,4 +58,53 @@ void RemoveFilename(std::string* str);
 //
 std::string GetParentPath(const std::string& str);
 
+                //*******************************
+                // Directories and Files
+                //*******************************
+
+//
+// get the current directory (pwd)
+//
+std::string GetCurrentDirPath();
+
+//
+// Create a Directory path.  
+// CreateDirectory("aaa/bbb/ccc") will also create the directories aaa and aaa/bbb if they don't already exist.
+//
+bool CreateDirPath(const std::string& dirPath);
+
+//
+// does file or directory exist
+//
+bool FileExists(const std::string& filePath);
+bool DirExists(const std::string& dirPath);
+
+//
+// get file size
+//
+uintmax_t GetFileSize(const std::string& filePath);
+
+//
+// delete file or directory
+//
+bool DeleteFile(const std::string& filePath);
+bool DeleteDirectory(const std::string& dirPath);   // this is recursive
+
+//
+// rename file or directory
+//
+bool RenameFile(const std::string& filePathFrom, const std::string& filePathTo);
+bool RenameDir(const std::string& dirPathFrom, const std::string& dirPathTo);
+
+//
+// copy file
+//
+bool CopyFileOverwrite(const std::string& filePathSrc, const std::string& filePathDest);
+bool CopyFileSkipExisting(const std::string& filePathSrc, const std::string& filePathDest);
+
+//
+// copy directories (recursive)
+//
+bool CopyDirOverwrite(const std::string& dirPathSrc, const std::string& dirPathDest);
+bool CopyDirSkipExisting(const std::string& dirPathSrc, const std::string& dirPathDest);
 }

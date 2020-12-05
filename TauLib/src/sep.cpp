@@ -12,7 +12,7 @@ namespace Tau { // too avoid conflict with other libraries
 // somepath + sep + "font" + sep + "default.ttf" will append the separator to somepath only if it's not there
 string operator + (const string& leftside, Sep) {
     string ret = leftside;
-    ret += sep;
+    ret += sep;     // += only appends if needed
 
     return ret;
 }
@@ -25,8 +25,8 @@ void operator += (std::string& leftside, Sep) {
     if (leftside.size() > 0)
     {
         char lastChar = leftside.back();
-        if (lastChar != separator)
-            leftside += separator; // add slash at end
+        if (lastChar != '/' && lastChar != '\\')        // handle either linux or windows path separator being on the end
+            leftside += separator; // add separator for this OS at end
     }
 }
 

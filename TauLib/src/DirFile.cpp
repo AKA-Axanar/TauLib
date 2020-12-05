@@ -97,4 +97,102 @@ std::string GetParentPath(const std::string& str) {
     return p.parent_path().string();   
 }
 
+                //*******************************
+                // Directories and Files
+                //*******************************
+
+//
+// get the current directory (pwd)
+//
+string GetCurrentDirPath() {
+    return fs::current_path().string();
+}
+
+//
+// Create a Directory path.  
+// CreateDirectory("aaa/bbb/ccc") will also create the directires aaa and aaa/bbb if they don't already exist.
+//
+bool CreateDirPath(const std::string& str) {
+    return fs::create_directories(str);
+}
+
+//
+// does file or directory exist
+//
+bool FileExists(const std::string& filePath) {
+    return fs::exists(filePath) && fs::is_regular_file(filePath);
+}
+bool DirExists(const std::string& dirPath) {
+    return fs::exists(dirPath) && fs::is_directory(dirPath);
+}
+
+
+//
+// get file size
+//
+uintmax_t GetFileSize(const std::string& filePath) {
+    return fs::file_size(filePath);
+}
+
+//
+// delete file or directory
+//
+bool DeleteFile(const std::string& filePath) {
+    return FileExists(filePath) && fs::remove(filePath);
+}
+bool DeleteDirectory(const std::string& dirPath) {
+    return DirExists(dirPath) && fs::remove_all(dirPath);
+}
+
+//
+// rename file or directory (recursive)
+//
+bool RenameFile(const std::string& filePathFrom, const std::string& filePathTo) {
+    if (!FileExists(filePathFrom))
+        return false;           // the file doesn't exist
+    if (FileExists(filePathTo))
+        return false;           // to file name exists.  delete it first.
+
+    fs::rename(filePathFrom, filePathTo);
+    return true;
+}
+// this is recursive
+bool RenameDir(const std::string& dirPathFrom, const std::string& dirPathTo) {
+    if (!DirExists(dirPathFrom))
+        return false;           // the dir doesn't exist
+    if (DirExists(dirPathTo))
+        return false;           // to dir name exists.  delete it first.
+
+    fs::rename(dirPathFrom, dirPathTo);
+    return true;
+}
+
+//
+// copy file
+//
+bool CopyFileOverwrite(const std::string& filePathSrc, const std::string& filePathDest) {
+    return fs::copy_file(filePathSrc, filePathDest, fs::copy_options::overwrite_existing);
+}
+bool CopyFileSkipExisting(const std::string& filePathSrc, const std::string& filePathDest) {
+    return fs::copy_file(filePathSrc, filePathDest, fs::copy_options::skip_existing);
+}
+
+//
+// copy directories (recursive)
+//
+bool CopyDirOverwrite(const std::string& dirPathSrc, const std::string& dirPathDest) {
+    if (!DirExists(dirPathSrc))
+        return false;
+
+    fs::copy(dirPathSrc, dirPathDest, fs::copy_options::recursive | fs::copy_options::overwrite_existing);
+    return true;
+}
+bool CopyDirSkipExisting(const std::string& dirPathSrc, const std::string& dirPathDest) {
+    if (!DirExists(dirPathSrc))
+        return false;
+
+    fs::copy(dirPathSrc, dirPathDest, fs::copy_options::recursive | fs::copy_options::skip_existing);
+    return true;
+}
+
 }
