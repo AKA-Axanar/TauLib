@@ -6,7 +6,10 @@
 #include <iostream>
 
 using namespace std;
-namespace Tau { // too avoid conflict with other libraries
+/**
+ *  \brief avoid conflict with other libraries
+ */
+namespace Tau { // to avoid conflict with other libraries
 
 //
 // Init
@@ -45,4 +48,4 @@ void Quit_SDL() {
     SDL_Quit();
 }
 
-}
+} // end namespace Tau

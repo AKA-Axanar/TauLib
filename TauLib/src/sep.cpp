@@ -3,7 +3,7 @@
 
 using namespace std;
 
-namespace Tau { // too avoid conflict with other libraries
+namespace Tau { // to avoid conflict with other libraries
 
 //*******************************
 // append path separator helper function
@@ -42,4 +42,4 @@ std::string fixPathSeparators(const std::string& str) {
 void fixPathSeparators(std::string* str)
     { *str = fixPathSeparators(*str); }
 
-}
+} // end namespace Tau

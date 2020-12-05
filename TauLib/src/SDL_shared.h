@@ -1,5 +1,12 @@
 #pragma once
 
+/**
+ *  @file
+ *
+ *  Header file for SDL_Shared which is a shared_ptr with a custom destructor based on the type.
+ *
+ */
+
 // Code came from https://blog.galowicz.de/2016/02/21/automatic_resource_release_with_sdl/
 //
 // Modified by steve@iterator.com to use a class with conversion operators so a class

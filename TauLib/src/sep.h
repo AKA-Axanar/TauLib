@@ -1,12 +1,22 @@
 #pragma once
 
+/**
+ *  @file
+ *
+ *  Header file for directory path seprarator tool.
+ *
+ */
+
 #include "TauLib.h"
 #include <string>
 #include <filesystem>
 
 using namespace std;
 
-namespace Tau { // too avoid conflict with other libraries
+/**
+ *  \brief avoid conflict with other libraries
+ */
+namespace Tau { // to avoid conflict with other libraries
 
 //*******************************
 // separator
@@ -32,4 +42,5 @@ void operator += (std::string& leftside, Sep);
 //
 std::string fixPathSeparators(const std::string& str);
 void fixPathSeparators(std::string* str);
-}
+
+} // end namespace Tau

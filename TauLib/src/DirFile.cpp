@@ -6,7 +6,7 @@
 using namespace std;
 namespace fs = std::filesystem;
 
-namespace Tau { // too avoid conflict with other libraries
+namespace Tau {  // to avoid conflict with other libraries
 
                 //*******************************
                 // Filenames
@@ -195,4 +195,4 @@ bool CopyDirSkipExisting(const std::string& dirPathSrc, const std::string& dirPa
     return true;
 }
 
-}
+} // end namespace Tau

@@ -6,7 +6,7 @@
 
 using namespace std;
 
-namespace Tau { // too avoid conflict with other libraries
+namespace Tau { // to avoid conflict with other libraries
 
 //
 // get the executing .exe or .o path file
@@ -48,4 +48,4 @@ string getDLLDirPath() {
     return parent.string();
 }
 
-}
+} // end namespace Tau

@@ -108,8 +108,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>doxygen.bat</Command>
     </PostBuildEvent>
     <CustomBuildStep>
       <Command>copy /y "$(SDL2)\lib\x86\*.dll" "$(OutDir)"</Command>
@@ -137,8 +136,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>$(ProjectDir)doxygen doxygen.cfg</Command>
     </PostBuildEvent>
     <CustomBuildStep>
       <Command>copy /y "$(SDL2)\lib\x86\*.dll" "$(OutDir)"</Command>
@@ -162,8 +160,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>doxygen.bat</Command>
     </PostBuildEvent>
     <CustomBuildStep>
       <Command>copy /y "$(SDL2)\lib\x64\*.dll" "$(OutDir)"</Command>
@@ -191,8 +188,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>$(ProjectDir)doxygen doxygen.cfg</Command>
     </PostBuildEvent>
     <CustomBuildStep>
       <Command>copy /y "$(SDL2)\lib\x64\*.dll" "$(OutDir)"</Command>

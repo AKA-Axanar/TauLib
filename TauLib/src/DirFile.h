@@ -2,7 +2,17 @@
 #include <string>
 #include "TauLib.h"
 
-namespace Tau { // too avoid conflict with other libraries
+/**
+ *  @file
+ *
+ *  Header file for directory and file routines.
+ *
+ */
+
+/**
+ *  \brief avoid conflict with other libraries
+ */
+namespace Tau {
 
                 //*******************************
                 // Filenames
@@ -107,4 +117,5 @@ bool CopyFileSkipExisting(const std::string& filePathSrc, const std::string& fil
 //
 bool CopyDirOverwrite(const std::string& dirPathSrc, const std::string& dirPathDest);
 bool CopyDirSkipExisting(const std::string& dirPathSrc, const std::string& dirPathDest);
-}
+
+} // end namespace Tau

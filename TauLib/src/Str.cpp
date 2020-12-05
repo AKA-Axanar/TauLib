@@ -5,7 +5,7 @@
 
 using namespace std;
 
-namespace Tau { // too avoid conflict with other libraries
+namespace Tau { // to avoid conflict with other libraries
 
                 //*******************************
                 // Strings
@@ -158,8 +158,8 @@ bool FoundLexExpr(const string& lexicalExpressionOrString, const string str) {
 // example: FindLexExprMatches("[0-9]+", "abc 12, alpha 34 ,,5678XYZ");
 // returns "12", "34", "5678"
 //
-vector<string> FindLexExprMatches(const string& lexicalExpressionOrString, const string str) {
-    regex expr(lexicalExpressionOrString);
+vector<string> FindLexExprMatches(const string& lexicalExpression, const string str) {
+    regex expr(lexicalExpression);
     smatch match;
     regex_match(str, match, expr);
 
