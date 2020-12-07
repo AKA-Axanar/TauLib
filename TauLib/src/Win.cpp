@@ -58,7 +58,6 @@ bool Win::Init(const string& _title, int _x, int _y, int _width, int _height, Ui
 
 ///
 /// @brief Win::FillWin - fill the window with a color
-///
 /// @param r red
 /// @param g green
 /// @param b blue
@@ -79,7 +78,6 @@ void Win::FillWin(SDL_Color color) {
 
 ///
 /// @brief Win::FillRect - fill an SDL_Rect with a color
-///
 /// @param rect SDL_Rect rectangle to fill
 /// @param r red
 /// @param g green
@@ -101,27 +99,14 @@ void Win::FillRect(const SDL_Rect& rect, SDL_Color color) {
 }
 
 ///
-/// @brief Win::DrawImageToRect
-///
-/// @param imgFilePath The image file path
-/// @param rect The rectangle area in the window to draw the image
-///
-void Win::DrawImageToRect(const string& imgFilePath, const SDL_Rect& rect) {
-    SDL_Shared<SDL_Texture> texture = IMG_LoadTexture(renderer, imgFilePath.c_str());
-    SDL_RenderCopy(renderer, texture, nullptr, &rect);
-}
-
-///
-/// @brief Win::DrawImageFullSize Draws the entire image on the window
-///
+/// @brief Win::DrawEntireImage Draws the entire image on the window at a point on the window
 /// @param imgFilePath The image file path
 /// @param point The point to draw the image
 /// @param point_posit Whether point is the upper left corner of the image or the s=center of the image
 ///
-void Win::DrawImageFullSize(const string& imgFile, const SDL_Point& point, POINT_POSITION point_posit) {
-    SDL_Shared<SDL_Texture> texture = IMG_LoadTexture(renderer, imgFile.c_str());
+void Win::DrawEntireImage(const string& imgFilePath, const SDL_Point& point, POINT_POSITION point_posit) {
     SDL_Rect rect;
-	SDL_QueryTexture(texture, NULL, NULL, &rect.w, &rect.h); // get the width and height of the texture
+    SDL_Shared<SDL_Texture> texture = GetTextureAndSizeOfImage(imgFilePath, &rect);
     if (point_posit == UL_CORNER) {
         rect.x = point.x; 
         rect.y = point.y;
@@ -139,6 +124,44 @@ void Win::DrawImageFullSize(const string& imgFile, const SDL_Point& point, POINT
     else
         { assert(false); }
     SDL_RenderCopy(renderer, texture, nullptr, &rect);
+}
+
+///
+/// @brief DrawImageToRect
+/// @param imgFilePath The image file path
+/// @param rect The rectangle area in the window to draw the image
+/// @remark the image will be scaled to fit in the rect
+///
+void Win::DrawImageToRect(const string& imgFilePath, const SDL_Rect& rect) {
+    SDL_Shared<SDL_Texture> texture = IMG_LoadTexture(renderer, imgFilePath.c_str());
+    SDL_RenderCopy(renderer, texture, nullptr, &rect);
+}
+
+///
+/// @brief GetTextureAndSizeOfImage
+/// @param imgFilePath The image file path
+/// @param &rect return width and height of image
+/// @return SDL_Shared<SDL_Texture> texture
+/// 
+SDL_Shared<SDL_Texture> Win::GetTextureAndSizeOfImage(const string& imgFilePath, SDL_Rect *rect) {
+    SDL_Shared<SDL_Texture> texture = IMG_LoadTexture(renderer, imgFilePath.c_str());
+    if (rect != nullptr) {
+        rect->x = 0;
+        rect->y = 0;
+    	SDL_QueryTexture(texture, NULL, NULL, &rect->w, &rect->h); // get the width and height of the texture
+    }
+    return texture;
+}
+
+///
+/// @brief DrawSectionOfTexture
+/// @param texture probably from calling GetTextureAndSizeOfImage
+/// @param srcRect The rectangle area in the texture to draw
+/// @param destRect The rectangle area in the window to draw the srcRect
+/// @remark the srcRect will be scaled to fit in the destRect
+/// 
+void Win::DrawSectionOfTexture(SDL_Shared<SDL_Texture> texture, const SDL_Rect& srcRect, const SDL_Rect& destRect) {
+    SDL_RenderCopy(renderer, texture, &srcRect, &destRect);
 }
 
 ///
