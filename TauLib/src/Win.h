@@ -2,7 +2,7 @@
 
 ///
 /// @file
-/// Header file for Window class.
+/// Header file for Win class.
 
 #include <string>
 #include "TauLib.h"

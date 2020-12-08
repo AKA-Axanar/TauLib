@@ -1,2 +1,1 @@
-cd $ProjectDir
-doxygen.exe doxygen.cfg
+doxygen.exe Doxyfile
