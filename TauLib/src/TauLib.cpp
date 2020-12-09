@@ -8,8 +8,12 @@
 using namespace std;
 namespace Tau { // to avoid conflict with other libraries
 
-// Init_SDL Initialize SDL, Audio, TTF fonts, etc
-bool Init_SDL() {
+//
+// Initialize SDL, Audio mixer, TTF fonts, etc.
+// audioFormats available: MIX_INIT_FLAC, MIX_INIT_MOD, MIX_INIT_MP3, MIX_INIT_OGG, MIX_INIT_MID, MIX_INIT_OPUS
+// audioFormats default: MIX_INIT_MP3 | MIX_INIT_OGG | MIX_INIT_FLAC
+// 
+bool Init_SDL(int audioFormats) {
     // init almost everything
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
         cerr << "SDL_Init failed" << endl;
@@ -23,7 +27,7 @@ bool Init_SDL() {
     }
 
     // init audio
-    Mix_Init(MIX_INIT_MP3 | MIX_INIT_OGG | MIX_INIT_FLAC);
+    Mix_Init(audioFormats);
     if (Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
         cerr << "Mix_OpenAudio failed" << endl;
         return false;
@@ -32,7 +36,9 @@ bool Init_SDL() {
     return true;
 }
 
-// Quit_SDL Quit SDL, Audio, TTF fonts, etc
+//
+// Quit_SDL Quit SDL, Audio mixer, TTF fonts, etc
+// 
 void Quit_SDL() {
     Mix_CloseAudio();
     Mix_Quit();

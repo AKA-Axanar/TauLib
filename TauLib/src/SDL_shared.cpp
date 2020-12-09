@@ -18,3 +18,5 @@ void SDL_DelResource(SDL_Renderer *r) { SDL_DestroyRenderer(r); }
 void SDL_DelResource(SDL_Texture  *r) { SDL_DestroyTexture(r);  }
 void SDL_DelResource(SDL_Surface  *r) { SDL_FreeSurface(r);     }
 
+void SDL_DelResource(Mix_Music  *r) { Mix_FreeMusic(r);     }
+void SDL_DelResource(Mix_Chunk  *r) { Mix_FreeChunk(r);     }

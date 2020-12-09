@@ -1,4 +1,5 @@
 #pragma once
+#include "SDL_mixer.h"
 
 /**
  *  @file
@@ -18,8 +19,18 @@
 ///
 namespace Tau { // to avoid conflict with other libraries
 
-bool Init_SDL();    ///< @brief Init_SDL Initialize SDL, Audio, TTF fonts, etc
-void Quit_SDL();    ///< @brief Quit_SDL Quit SDL, Audio, TTF fonts, etc
+///
+/// @brief Init_SDL(int audioFormats = MIX_INIT_MP3 | MIX_INIT_OGG | MIX_INIT_FLAC)
+/// Initialize SDL, Audio mixer, TTF fonts, etc.
+/// audioFormats available: MIX_INIT_FLAC, MIX_INIT_MOD, MIX_INIT_MP3, MIX_INIT_OGG, MIX_INIT_MID, MIX_INIT_OPUS
+/// audioFormats default: MIX_INIT_MP3 | MIX_INIT_OGG | MIX_INIT_FLAC
+/// 
+bool Init_SDL(int audioFormats = MIX_INIT_MP3 | MIX_INIT_OGG | MIX_INIT_FLAC);
+
+///
+/// @brief Quit_SDL Quit SDL, Audio mixer, TTF fonts, etc
+/// 
+void Quit_SDL();
 
 } // end namespace Tau
 

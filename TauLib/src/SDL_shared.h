@@ -14,11 +14,15 @@
 
 #include <memory>
 #include "SDL.h"
+#include "SDL_mixer.h"
 
-extern void SDL_DelResource(SDL_Window   *r);   ///< @brief a custom shared_ptr dtor for this type
-extern void SDL_DelResource(SDL_Renderer *r);   ///< @fn a custom shared_ptr dtor for this type
-extern void SDL_DelResource(SDL_Texture  *r);   ///< @fn a custom shared_ptr dtor for this type
-extern void SDL_DelResource(SDL_Surface  *r);   ///< @fn a custom shared_ptr dtor for this type
+extern void SDL_DelResource(SDL_Window   *r);   ///< @brief a custom shared_ptr dtor for SDL_Window
+extern void SDL_DelResource(SDL_Renderer *r);   ///< @fn a custom shared_ptr dtor for SDL_Renderer
+extern void SDL_DelResource(SDL_Texture  *r);   ///< @fn a custom shared_ptr dtor for SDL_Texture
+extern void SDL_DelResource(SDL_Surface  *r);   ///< @fn a custom shared_ptr dtor for SDL_Surface
+
+extern void SDL_DelResource(Mix_Music  *r);     ///< @fn a custom shared_ptr dtor for Mix_Music
+extern void SDL_DelResource(Mix_Chunk  *r);     ///< @fn a custom shared_ptr dtor for Mix_Chunk
 
 ///
 ///  @brief SDL_Shared - a templated shared_ptr with a custom dtor per type
