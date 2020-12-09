@@ -1,6 +1,6 @@
 doxygen.exe Doxyfile
-pushd Doc\latex
+pushd latex
 call make.bat
-del /y TauLib.pdf
+del /q TauLib.pdf
 ren refman.pdf TauLib.pdf
 popd
