@@ -6,6 +6,12 @@
 
 using namespace std;
 
+///
+/// @file
+/// @brief cpp file for getting the path of the executing exe or dll.
+/// @author Steve Simpson, steve@iterator.com, a.k.a. Axanar (AutoBleem project)
+///
+
 namespace Tau { // to avoid conflict with other libraries
 
 ///

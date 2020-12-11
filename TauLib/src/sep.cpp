@@ -4,8 +4,9 @@
 using namespace std;
 
 ///
-///  @file
-///  CPP file for directory path seprarator tool.
+/// @file
+/// @brief cpp file for directory path seprarator tool.
+/// @author Steve Simpson, steve@iterator.com, a.k.a. Axanar (AutoBleem project)
 ///
 
 namespace Tau { // to avoid conflict with other libraries

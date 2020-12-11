@@ -4,7 +4,8 @@
 
 ///
 /// @file
-/// Header file for directory and file routines.
+/// @brief Header file for directory and file routines.
+/// @author Steve Simpson, steve@iterator.com, a.k.a. Axanar (AutoBleem project)
 ///
 
 ///
@@ -215,5 +216,24 @@ bool CopyDirOverwrite(const std::string& dirPathSrc, const std::string& dirPathD
 /// @return true if successful
 /// 
 bool CopyDirSkipExisting(const std::string& dirPathSrc, const std::string& dirPathDest);
+
+                //*******************************
+                // Temp Directory and Temp File
+                //*******************************
+
+///
+/// @brief Get an existing directory where you can create temporary files.  
+/// @param none
+/// @return An existing directory where you can create temporary files.  
+/// Do NOT delete this directory, but create temporary files and dirs inside it.
+/// 
+std::string GetTempDir();
+
+///
+/// @brief Get a full path filename for creating a temporary file.
+/// @param none
+/// @return The full path of a unique filename you can use for creating a temporary file or dir.
+///
+std::string GetATempFilename();
 
 } // end namespace Tau

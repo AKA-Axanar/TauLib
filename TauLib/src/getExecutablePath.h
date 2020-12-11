@@ -4,7 +4,8 @@
 
 ///
 /// @file
-/// Header file for getting the path of the executing exe or dll.
+/// @brief Header file for getting the path of the executing exe or dll.
+/// @author Steve Simpson, steve@iterator.com, a.k.a. Axanar (AutoBleem project)
 ///
 
 ///

@@ -1,6 +1,7 @@
 ///
 /// @file
-/// CPP file for SDL_Shared which is a shared_ptr with a custom destructor based on the type.
+/// @brief CPP file for SDL_Shared which is a shared_ptr with a custom destructor based on the type.
+/// @author Steve Simpson, steve@iterator.com, a.k.a. Axanar (AutoBleem project)
 ///
 
 #include "SDL_shared.h"

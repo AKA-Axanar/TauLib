@@ -6,6 +6,12 @@
 
 using namespace std;
 
+///
+/// @file
+/// @brief cpp file for Win class.
+/// @author Steve Simpson, steve@iterator.com, a.k.a. Axanar (AutoBleem project)
+/// 
+
 namespace Tau { // to avoid conflict with other libraries
 
 

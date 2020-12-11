@@ -8,7 +8,8 @@ namespace fs = std::filesystem;
 
 ///
 /// @file
-/// CPP file for directory and file routines.
+/// @brief cpp file for directory and file routines.
+/// @author Steve Simpson, steve@iterator.com, a.k.a. Axanar (AutoBleem project)
 ///
 
 namespace Tau {  // to avoid conflict with other libraries
@@ -22,7 +23,7 @@ namespace Tau {  // to avoid conflict with other libraries
 // returns the file extension of the path.  ex: returns ".dat" for "foo.dat"
 // the return includes the file extension "."
 //
-std::string GetFileExtension(const std::string& str) {
+string GetFileExtension(const string& str) {
     fs::path p(str);
     return p.extension().string();
 }
@@ -31,7 +32,7 @@ std::string GetFileExtension(const std::string& str) {
 // GetFileExtensionWithoutDot
 // returns the file extension of the path without the leading ".".  ex: returns "dat" for "foo.dat"
 //
-std::string GetFileExtensionWithoutDot(const std::string& str) {
+string GetFileExtensionWithoutDot(const string& str) {
     string ext = GetFileExtension(str);
     if (ext.size() > 0 && ext[0] == '.')
         ext.erase(0, 1);
@@ -42,7 +43,7 @@ std::string GetFileExtensionWithoutDot(const std::string& str) {
 // GetFilename
 // returns the filename in the path.  ex: returns "foo.dat" from "aaa/bbb/foo.dat"
 //
-std::string GetFilename(const std::string& str) {
+string GetFilename(const string& str) {
     fs::path p(str);
     return p.filename().string();   
 }
@@ -50,7 +51,7 @@ std::string GetFilename(const std::string& str) {
 //
 // returns the filename base/stem in the path.  ex: returns "foo" from "aaa/bbb/foo.dat"
 // i.e. return the filename without the extension
-std::string GetFilenameBase(const std::string& str) {
+string GetFilenameBase(const string& str) {
     fs::path p(str);
     return p.stem().string();   
 }
@@ -59,7 +60,7 @@ std::string GetFilenameBase(const std::string& str) {
 // ReplaceFilename
 // The modified path is returned.  the passed string is not modified.
 //
-std::string ReplaceFilename(const std::string& str, const std::string& new_filename) {
+string ReplaceFilename(const string& str, const string& new_filename) {
     fs::path p(str);
     return p.replace_filename(new_filename).string();   
 }
@@ -68,7 +69,7 @@ std::string ReplaceFilename(const std::string& str, const std::string& new_filen
 // ReplaceFilename
 // The passed path string is modified.  
 //
-void ReplaceFilename(std::string* str, const std::string& new_filename) {
+void ReplaceFilename(string* str, const string& new_filename) {
     fs::path p(*str);
     *str = p.replace_filename(new_filename).string();   
 }
@@ -76,11 +77,11 @@ void ReplaceFilename(std::string* str, const std::string& new_filename) {
 //
 // Replace File Extension.  either including or not including a "." work.
 //
-std::string ReplaceFileExtension(const std::string& str, const std::string& new_extension) {
+string ReplaceFileExtension(const string& str, const string& new_extension) {
     fs::path p(str);
     return p.replace_extension(new_extension).string();   
 }
-void ReplaceFileExtension(std::string* str, const std::string& new_extension) {
+void ReplaceFileExtension(string* str, const string& new_extension) {
     fs::path p(*str);
     *str = p.replace_extension(new_extension).string();   
 }
@@ -89,11 +90,11 @@ void ReplaceFileExtension(std::string* str, const std::string& new_extension) {
 // Remove FilenameFromPath.  the "/" or "\" is at the end of the path.
 // GetParentPath() is similar but does not have a "/" or "\" at the end.
 //
-std::string RemoveFilenameFromPath(const std::string& filePath) {
+string RemoveFilenameFromPath(const string& filePath) {
     fs::path p(filePath);
     return p.remove_filename().string();   
 }
-void RemoveFilenameFromPath(std::string* filePath) {
+void RemoveFilenameFromPath(string* filePath) {
     fs::path p(*filePath);
     *filePath =  p.remove_filename().string();   
 }
@@ -106,7 +107,7 @@ void RemoveFilenameFromPath(std::string* filePath) {
 // returns the parent path.  ex: returns "aaa/bbb" from "aaa/bbb/foo.dat"
 //                           ex: returns "aaa" from "aaa/bbb"
 //
-std::string GetParentPath(const std::string& str) {
+string GetParentPath(const string& str) {
     fs::path p(str);
     return p.parent_path().string();   
 }
@@ -126,17 +127,17 @@ string GetCurrentDirPath() {
 // Create a Directory path.  
 // CreateDirectory("aaa/bbb/ccc") will also create the directires aaa and aaa/bbb if they don't already exist.
 //
-bool CreateDirPath(const std::string& str) {
+bool CreateDirPath(const string& str) {
     return fs::create_directories(str);
 }
 
 //
 // does file or directory exist
 //
-bool FileExists(const std::string& filePath) {
+bool FileExists(const string& filePath) {
     return fs::exists(filePath) && fs::is_regular_file(filePath);
 }
-bool DirExists(const std::string& dirPath) {
+bool DirExists(const string& dirPath) {
     return fs::exists(dirPath) && fs::is_directory(dirPath);
 }
 
@@ -144,24 +145,24 @@ bool DirExists(const std::string& dirPath) {
 //
 // get file size
 //
-uintmax_t GetFileSize(const std::string& filePath) {
+uintmax_t GetFileSize(const string& filePath) {
     return fs::file_size(filePath);
 }
 
 //
 // delete file or directory
 //
-bool DeleteFile(const std::string& filePath) {
+bool DeleteFile(const string& filePath) {
     return FileExists(filePath) && fs::remove(filePath);
 }
-bool DeleteDirectory(const std::string& dirPath) {
+bool DeleteDirectory(const string& dirPath) {
     return DirExists(dirPath) && fs::remove_all(dirPath);
 }
 
 //
 // rename file or directory (recursive)
 //
-bool RenameFile(const std::string& filePathFrom, const std::string& filePathTo) {
+bool RenameFile(const string& filePathFrom, const string& filePathTo) {
     if (!FileExists(filePathFrom))
         return false;           // the file doesn't exist
     if (FileExists(filePathTo))
@@ -171,7 +172,7 @@ bool RenameFile(const std::string& filePathFrom, const std::string& filePathTo) 
     return true;
 }
 // this is recursive
-bool RenameDir(const std::string& dirPathFrom, const std::string& dirPathTo) {
+bool RenameDir(const string& dirPathFrom, const string& dirPathTo) {
     if (!DirExists(dirPathFrom))
         return false;           // the dir doesn't exist
     if (DirExists(dirPathTo))
@@ -184,29 +185,53 @@ bool RenameDir(const std::string& dirPathFrom, const std::string& dirPathTo) {
 //
 // copy file
 //
-bool CopyFileOverwrite(const std::string& filePathSrc, const std::string& filePathDest) {
+bool CopyFileOverwrite(const string& filePathSrc, const string& filePathDest) {
     return fs::copy_file(filePathSrc, filePathDest, fs::copy_options::overwrite_existing);
 }
-bool CopyFileSkipExisting(const std::string& filePathSrc, const std::string& filePathDest) {
+bool CopyFileSkipExisting(const string& filePathSrc, const string& filePathDest) {
     return fs::copy_file(filePathSrc, filePathDest, fs::copy_options::skip_existing);
 }
 
 //
 // copy directories (recursive)
 //
-bool CopyDirOverwrite(const std::string& dirPathSrc, const std::string& dirPathDest) {
+bool CopyDirOverwrite(const string& dirPathSrc, const string& dirPathDest) {
     if (!DirExists(dirPathSrc))
         return false;
 
     fs::copy(dirPathSrc, dirPathDest, fs::copy_options::recursive | fs::copy_options::overwrite_existing);
     return true;
 }
-bool CopyDirSkipExisting(const std::string& dirPathSrc, const std::string& dirPathDest) {
+bool CopyDirSkipExisting(const string& dirPathSrc, const string& dirPathDest) {
     if (!DirExists(dirPathSrc))
         return false;
 
     fs::copy(dirPathSrc, dirPathDest, fs::copy_options::recursive | fs::copy_options::skip_existing);
     return true;
+}
+
+                //*******************************
+                // Temp Directory and Temp File
+                //*******************************
+//
+// Returns an existing directory where you can create temporary files.  
+// Do NOT delete this directory, but create temporary files and dirs inside it.
+// 
+string GetTempDir() {
+    string tempDirPath = filesystem::temp_directory_path().string();
+    return tempDirPath;
+}
+
+//
+// Get the full path of a unique filename you can use for creating a temporary file or dir.
+//
+string GetATempFilename() {
+    char buf[L_tmpnam_s];
+    int ret = tmpnam_s(buf, L_tmpnam_s);    // ret == 0 on success
+    if (ret == 0)
+        return buf;
+    else
+        return "";
 }
 
 } // end namespace Tau

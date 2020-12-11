@@ -1,12 +1,11 @@
 #pragma once
 #include "SDL_mixer.h"
 
-/**
- *  @file
- *
- *  Header file for TauLib initialization and exit routines.
- *
- */
+///
+/// @file
+/// @brief Header file for TauLib initialization and exit routines.
+/// @author Steve Simpson, steve@iterator.com, a.k.a. Axanar (AutoBleem project)
+/// 
 
 // Info:
 // #if defined(__linux__)                           Linux OS

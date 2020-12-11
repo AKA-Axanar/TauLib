@@ -1,8 +1,9 @@
 #pragma once
 
 ///
-///  @file
-///  Header file for directory path seprarator tool.
+/// @file
+/// @brief Header file for directory path seprarator tool.
+/// @author Steve Simpson, steve@iterator.com, a.k.a. Axanar (AutoBleem project)
 ///
 
 #include "TauLib.h"

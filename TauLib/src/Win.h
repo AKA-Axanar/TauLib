@@ -2,7 +2,9 @@
 
 ///
 /// @file
-/// Header file for Win class.
+/// @brief Header file for Win class.
+/// @author Steve Simpson, steve@iterator.com, a.k.a. Axanar (AutoBleem project)
+/// 
 
 #include <string>
 #include "TauLib.h"

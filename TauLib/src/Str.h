@@ -5,8 +5,9 @@
 
 ///
 /// @file
-/// Header file for string routines.
-///
+/// @brief Header file for string routines.
+/// @author Steve Simpson, steve@iterator.com, a.k.a. Axanar (AutoBleem project)
+/// 
 
 ///
 /// @brief namespace Tau - avoid conflict with other libraries
@@ -28,10 +29,6 @@ using Strings = std::vector<std::string>;
 /// @return none.
 ///
 void sortStrings(Strings& strings);
-
-//
-// sortStringsInsensitive
-//
 
 ///
 /// @brief sortStringsInsensitive - Does a case insensitive sort of the passed vector of strings.

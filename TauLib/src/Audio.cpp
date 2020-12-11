@@ -5,31 +5,49 @@ using namespace std;
 
 ///
 /// @file
-/// Audio - music, sounds.
+/// @brief Audio - music, sounds.
+/// @author Steve Simpson, steve@iterator.com, a.k.a. Axanar (AutoBleem project)
 ///
 
 namespace Tau {  // to avoid conflict with other libraries
 
-SDL_Shared<Mix_Music> LoadMusicFile(const string& filePath) {
+        //////////
+        // Music
+        //////////
+
+//
+// LoadMusicFile
+//
+SDL_Shared<Mix_Music> Audio::LoadMusicFile(const string& filePath) {
     return Mix_LoadMUS(filePath.c_str());
 }
 
 // loops = -1 for infinite
 // returns true on success
-bool PlayMusic(SDL_Shared<Mix_Music> music, int loops) {
+bool Audio::PlayMusic(SDL_Shared<Mix_Music> music, int loops) {
     int ret = Mix_PlayMusic(music, loops);
 
-    return ret == 0;
+    return ret == 0;    // 0 is success
 }
 
-SDL_Shared<Mix_Chunk> LoadSoundFile(const string& filePath) {
+        //////////
+        // Sounds
+        //////////
+
+//
+// LoadSoundFile
+//
+SDL_Shared<Mix_Chunk> Audio::LoadSoundFile(const string& filePath) {
     return Mix_LoadWAV(filePath.c_str());
 }
 
+//
+// PlaySound
 // channel = -1 is next available channel
 // loops = 0 is play once (loops is the number of additional loops)
 // return is the channel the sound is on.  or -1 if error.
-int PlaySound(SDL_Shared<Mix_Chunk> sound, int channel, int loops) {
+//
+int Audio::PlaySound(SDL_Shared<Mix_Chunk> sound, int channel, int loops) {
     int channelOrError = Mix_PlayChannel(channel, sound, loops);
 
     return channelOrError;
