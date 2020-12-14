@@ -15,7 +15,7 @@
 namespace Tau { // to avoid conflict with other libraries
 
                 //*******************************
-                // Strings
+                // Strings (vector<string>)
                 //*******************************
     
 ///
@@ -184,5 +184,41 @@ bool FoundLexExpr(const std::string& lexicalExpressionOrString, const std::strin
 /// @return vector<string> of results
 ///
 std::vector<std::string> FindLexExprMatches(const std::string& lexicalExpression, const std::string str);
+
+                //*******************************
+                // string remove
+                //*******************************
+
+///
+/// @brief RemoveCharFromString - removes all instances of a char from the string
+/// @param str The string to search
+/// @param ch The char remove.
+/// @return none
+///
+void RemoveCharFromString(std::string* str, char ch);
+
+///
+/// @brief RemoveCharFromString - removes all instances of a char from the string
+/// @param str The string to search
+/// @param ch The char remove.
+/// @return The string with the chars removed
+///
+std::string RemoveCharFromString(const std::string& str, char ch);
+
+///
+/// @brief RemoveMultipleCharsFromString - removes all instances of multiple chars from the string
+/// @param str The string to search
+/// @param charsToRemove The characters to be removed.
+/// @return none
+///
+void RemoveMultipleCharsFromString(std::string* str, const std::string& charsToRemove);
+
+///
+/// @brief RemoveMultipleCharsFromString - removes all instances of multiple chars from the string
+/// @param str The string to search
+/// @param charsToRemove The characters to be removed.
+/// @return The string with those characters removed.
+///
+std::string RemoveMultipleCharsFromString(const std::string& str, const std::string& charsToRemove);
 
 } // end namespace Tau

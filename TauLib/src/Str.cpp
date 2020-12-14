@@ -248,4 +248,56 @@ vector<string> FindLexExprMatches(const string& lexicalExpression, const string 
     return ret;
 }
 
+                //*******************************
+                // string remove
+                //*******************************
+
+///
+/// @brief RemoveCharFromString - removes all instances of a char from the string
+/// @param str The string to search
+/// @param ch The char remove.
+/// @return none
+///
+void RemoveCharFromString(string* str, char ch) {
+    str->erase( remove(str->begin(), str->end(), ch), str->end() );
+}
+
+///
+/// @brief RemoveCharFromString - removes all instances of a char from the string
+/// @param str The string to search
+/// @param ch The char remove.
+/// @return The string with the chars removed
+///
+string RemoveCharFromString(const string& str, char ch) {
+    string temp = str;
+    RemoveCharFromString(&temp, ch);
+    return temp;
+}
+
+///
+/// @brief RemoveMultipleCharsFromString - removes all instances of multiple chars from the string
+/// @param str The string to search
+/// @param charsToRemove The characters to be removed.
+/// @return none
+///
+void RemoveMultipleCharsFromString(string* str, const string& charsToRemove) {
+    auto matchFound = [&](char c) {
+        return charsToRemove.find(c) != string::npos; // return if the char is to be removed
+    };
+
+    str->erase( remove_if(str->begin(), str->end(), matchFound), str->end() );
+}
+
+///
+/// @brief RemoveMultipleCharsFromString - removes all instances of multiple chars from the string
+/// @param str The string to search
+/// @param charsToRemove The characters to be removed.
+/// @return The string with those characters removed.
+///
+string RemoveMultipleCharsFromString(const string& str, const string& charsToRemove) {
+    string temp = str;
+    RemoveMultipleCharsFromString(&temp, charsToRemove);
+    return temp;
+}
+
 } // end namespace Tau
