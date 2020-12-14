@@ -203,6 +203,7 @@
     <ClInclude Include="src\Audio.h" />
     <ClInclude Include="src\DirFile.h" />
     <ClInclude Include="src\getExecutablePath.h" />
+    <ClInclude Include="src\IniFile.h" />
     <ClInclude Include="src\SDL_shared.h" />
     <ClInclude Include="src\sep.h" />
     <ClInclude Include="src\Str.h" />
@@ -220,6 +221,7 @@
     <ClCompile Include="src\Audio.cpp" />
     <ClCompile Include="src\DirFile.cpp" />
     <ClCompile Include="src\getExecutablePath.cpp" />
+    <ClCompile Include="src\IniFile.cpp" />
     <ClCompile Include="src\SDL_shared.cpp" />
     <ClCompile Include="src\sep.cpp" />
     <ClCompile Include="src\Str.cpp" />
