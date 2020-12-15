@@ -248,6 +248,21 @@ vector<string> FindLexExprMatches(const string& lexicalExpression, const string 
     return ret;
 }
 
+///
+/// @brief FindLexExprMatch - returns a match of the lexical expression if found in the string.
+/// @param lexicalExpression The lexical expression to look for in the string.
+/// @param str The string to search.
+/// @return string of a match.  "" if none.
+///
+string FindLexExprMatch(const std::string& lexicalExpression, const std::string str) {
+    regex expr(lexicalExpression);
+    smatch match;
+    if (regex_search(str, match, expr))
+        return match.str();
+    else
+        return "";
+}
+
                 //*******************************
                 // string remove
                 //*******************************

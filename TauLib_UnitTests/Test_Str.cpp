@@ -83,6 +83,12 @@ TEST(TestStr, TestStr_regex) {
         EXPECT_EQ(matches[1], "34");
         EXPECT_EQ(matches[2], "5678");
     }
+
+    string serial = FindLexExprMatch("^[A-Za-z]{4}-[0-9]{5}", "SLUS-00119 # Die Hard Trilogy US (Justifier/Hyperblaster)");
+    EXPECT_EQ(serial, "SLUS-00119");
+
+    string s = FindLexExprMatch("^[[:alnum:]]+", "abc123##");
+    EXPECT_EQ(s, "abc123");
 }
 
 //
