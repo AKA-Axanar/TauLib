@@ -1,7 +1,9 @@
 #include "DirFile.h"
 #include <string>
-//#include <memory>
 #include <filesystem>
+#include <iostream>
+#include <fstream>
+#include <stdio.h>
 
 using namespace std;
 namespace fs = std::filesystem;
@@ -232,6 +234,35 @@ string GetATempFilename() {
         return buf;
     else
         return "";
+}
+
+///
+/// @brief Return the contents of a text file in a vector of string.
+/// @param filePath The File to read.
+/// @param removeCRLF Wether to remove any CR or LF's fromt he strings.
+/// @return A vector<string> containing the contents of the file (optionally minus any CR or LF's).
+/// @note CR's and LF's are removed.
+/// 
+Strings ReadTextFileAsAStringArray(const std::string& filePath, bool removeCRLF) {
+    ifstream file;
+    string line;
+    Strings contents;
+
+    file.open(filePath);
+    if (!file.good()) {
+        cout << "Error opening file: " << filePath << endl;
+        return contents;
+    }
+
+    while (getline(file, line)) {
+        if (removeCRLF)
+            RemoveCRLFCharsFromEndOfString(&line);
+
+        contents.emplace_back(line);
+    };
+    file.close();
+
+    return contents;
 }
 
 } // end namespace Tau

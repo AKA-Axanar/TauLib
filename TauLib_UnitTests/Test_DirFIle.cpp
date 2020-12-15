@@ -64,5 +64,19 @@ TEST(TestDirFile, TestDirFile) {
     EXPECT_EQ(FileExists(filename2), true);
 
     DeleteDirectory(testDir);
+
+    // test reading a file into a Strings array
+    string filePath = GetATempFilename();
+    ofstream ofile(filePath, std::ofstream::out);
+    ofile << "one" << endl;     // purposely adding a cr,lf or lf at the end to test removal in ReadTextFileAsAStringArray()
+    ofile << "two" << endl;
+    ofile << "three" << endl;
+    ofile.close();
+    Strings contents = ReadTextFileAsAStringArray(filePath, true);
+    EXPECT_TRUE(contents.size() == 3);
+    EXPECT_EQ(contents[0], "one");
+    EXPECT_EQ(contents[1], "two");
+    EXPECT_EQ(contents[2], "three");
+    DeleteFile(filePath);
 }
 

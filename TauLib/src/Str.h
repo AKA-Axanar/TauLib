@@ -191,7 +191,7 @@ std::vector<std::string> FindLexExprMatches(const std::string& lexicalExpression
 
 ///
 /// @brief RemoveCharFromString - removes all instances of a char from the string
-/// @param str The string to search
+/// @param str The string to search and modify
 /// @param ch The char remove.
 /// @return none
 ///
@@ -207,7 +207,7 @@ std::string RemoveCharFromString(const std::string& str, char ch);
 
 ///
 /// @brief RemoveMultipleCharsFromString - removes all instances of multiple chars from the string
-/// @param str The string to search
+/// @param str The string to search and modify
 /// @param charsToRemove The characters to be removed.
 /// @return none
 ///
@@ -220,5 +220,19 @@ void RemoveMultipleCharsFromString(std::string* str, const std::string& charsToR
 /// @return The string with those characters removed.
 ///
 std::string RemoveMultipleCharsFromString(const std::string& str, const std::string& charsToRemove);
+
+///
+/// @brief RemoveCRLFCharsFromEndOfString - removes any CR or LF chars from the end of the string.
+/// @param str The string to search and modify
+/// @return none
+///
+void RemoveCRLFCharsFromEndOfString(std::string* str);
+
+///
+/// @brief RemoveCRLFCharsFromEndOfString - removes any CR or LF chars from the end of the string.
+/// @param str The string to search
+/// @return The string with CR and LF's removed.
+///
+std::string RemoveCRLFCharsFromEndOfString(const std::string& str);
 
 } // end namespace Tau

@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include "TauLib.h"
+#include "Str.h"
 
 ///
 /// @file
@@ -235,5 +236,19 @@ std::string GetTempDir();
 /// @return The full path of a unique filename you can use for creating a temporary file or dir.
 ///
 std::string GetATempFilename();
+
+
+                //*******************************
+                // Read Files
+                //*******************************
+
+///
+/// @brief Return the contents of a text file in a vector of string.
+/// @param filePath The File to read.
+/// @param removeCRLF Wether to remove any CR or LF's fromt he strings.
+/// @return A vector<string> containing the contents of the file (optionally minus any CR or LF's).
+/// @note CR's and LF's are removed.
+/// 
+Strings ReadTextFileAsAStringArray(const std::string& filePath, bool removeCRLF);
 
 } // end namespace Tau

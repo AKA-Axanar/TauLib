@@ -300,4 +300,25 @@ string RemoveMultipleCharsFromString(const string& str, const string& charsToRem
     return temp;
 }
 
+///
+/// @brief RemoveCRLFCharsFromEndOfString - removes any CR or LF chars from the end of the string.
+/// @param str The string to search and modify
+/// @return none
+///
+void RemoveCRLFCharsFromEndOfString(std::string* str) {
+    while (!str->empty() && (*str->rbegin() == '\r' || *str->rbegin() == '\n'))
+        str->erase(str->length()-1, 1);
+}
+
+///
+/// @brief RemoveCRLFCharsFromEndOfString - removes any CR or LF chars from the end of the string.
+/// @param str The string to search
+/// @return The string with CR and LF's removed.
+///
+std::string RemoveCRLFCharsFromEndOfString(const std::string& str) {
+    string temp = str;
+    RemoveCRLFCharsFromEndOfString(&temp);
+    return temp;
+}
+
 } // end namespace Tau
