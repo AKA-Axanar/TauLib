@@ -219,7 +219,7 @@ void ReplaceSubStrings(std::string* str, const std::string& fromSubStringOrLexic
 /// @remark lexical expression = "FindMe"
 /// @return true or false
 ///
-bool FoundLexExpr(const string& lexicalExpressionOrString, const string str) {
+bool FoundLexExpr(const string& lexicalExpressionOrString, const string& str) {
     regex expr(lexicalExpressionOrString);
     return regex_search(str, expr);
 }
@@ -232,7 +232,7 @@ bool FoundLexExpr(const string& lexicalExpressionOrString, const string str) {
 /// @remark returns "12", "34", "5678"
 /// @return vector<string> of results
 ///
-vector<string> FindLexExprMatches(const string& lexicalExpression, const string str) {
+Strings FindLexExprMatches(const string& lexicalExpression, const string& str) {
     regex expr(lexicalExpression);
     smatch match;
     regex_match(str, match, expr);
@@ -254,7 +254,7 @@ vector<string> FindLexExprMatches(const string& lexicalExpression, const string 
 /// @param str The string to search.
 /// @return string of a match.  "" if none.
 ///
-string FindLexExprMatch(const std::string& lexicalExpression, const std::string str) {
+string FindLexExprMatch(const std::string& lexicalExpression, const std::string& str) {
     regex expr(lexicalExpression);
     smatch match;
     if (regex_search(str, match, expr))
