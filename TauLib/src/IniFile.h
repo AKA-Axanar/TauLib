@@ -21,6 +21,8 @@
 /// A semicolon to the end of the line is a comment.
 /// When you save a modified ini file the comments are restored to the original key/value pair.
 ///
+/// @todo add quoted string support?
+/// 
 struct IniFile {
     std::string iniFilePath;
     bool open {false};
@@ -30,7 +32,7 @@ struct IniFile {
 
     bool Load(const std::string& _iniFilePath);
     bool Save();
-    bool SaveAs(const std::string& _iniFilePath);
+    bool SaveAs(const std::string& filePath);
     void Clear();
 
     bool SectionExists(const std::string& sectionName);

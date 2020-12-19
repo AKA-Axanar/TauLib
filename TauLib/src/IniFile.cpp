@@ -4,6 +4,7 @@
 #include "DirFile.h"
 #include <assert.h>
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 using namespace Tau;
@@ -54,15 +55,25 @@ bool IniFile::Load(const string& _iniFilePath) {
 }
 
 bool IniFile::Save() {
-    bool success = false;
+    ofstream ofile(iniFilePath.c_str(), ofstream::out | ofstream::trunc);
+    if (!ofile.is_open())
+        return false;
 
-    return success;
+    ofile << *this;
+    ofile.close();
+
+    return true;
 }
 
-bool IniFile::SaveAs(const string& _iniFilePath) {
-    bool success = false;
+bool IniFile::SaveAs(const string& filePath) {
+    ofstream ofile(filePath.c_str(), ofstream::out | ofstream::trunc);
+    if (!ofile.is_open())
+        return false;
 
-    return success;
+    ofile << *this;
+    ofile.close();
+
+    return true;
 }
 
 void IniFile::Clear() {
