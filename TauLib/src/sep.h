@@ -6,6 +6,8 @@
 /// @author Steve Simpson, steve@iterator.com, a.k.a. Axanar (AutoBleem project)
 ///
 
+/// @todo should detect either / or \ at end of path
+
 #include "TauLib.h"
 #include <string>
 #include <filesystem>

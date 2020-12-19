@@ -1,6 +1,7 @@
 #include "IniFile.h"
 #include <regex>
 #include "Str.h"
+#include "sep.h"
 #include "DirFile.h"
 #include <assert.h>
 #include <iostream>
@@ -153,6 +154,29 @@ void IniFile::IniSection::SetKey(const std::string& key, const std::string& valu
     }
 }
 
+///
+/// @brief Fix any / or \ path separators to be correct for the OS.
+/// @param iniFilePath - the path of the ini file
+/// @return true if any key was changed and the ini file rewritten
+/// 
+bool IniFile::FixPathSeparators(const std::string& iniFilePath) {
+    IniFile iniFile(iniFilePath);
+    bool changed = false;
+    for (auto& section : iniFile.iniSections) {
+        for (auto& keyPair : section.values) {
+            string newValue = fixPathSeparators(keyPair.second);
+            if (newValue != keyPair.second) {
+                iniFile.SetKeyValue(keyPair.first, newValue, section.sectionName);
+                changed = true;
+            }
+        }
+    }
+    if (changed)
+        iniFile.Save();
+
+    return changed;
+}
+
 bool IniFile::IniSection::DeleteKey(const std::string& key) {
     if (KeyExists(key)) {
         values.erase(key);
@@ -186,7 +210,7 @@ void IniFile::IniLineInfo::scanLine(const string& _line) {
     if (FoundLexExpr("^[[:space:]]*;", line)) {
         // only a comment on the line
         string ws = GetAndRemoveLeadingWhitespace(&line);
-        commentColumn = ws.size();
+        commentColumn = (int) ws.size();
         comment = line;
         return;
     }
@@ -196,7 +220,7 @@ void IniFile::IniLineInfo::scanLine(const string& _line) {
     // removing the comment simplifies the rest
     bool hasComment = FoundLexExpr("^.*;", line);                  // "key = value     ;"
     if (hasComment) {
-        commentColumn = FindLexExprMatch("^.*;", line).size() - 1;   // "key = value     ;"
+        commentColumn = (int) FindLexExprMatch("^.*;", line).size() - 1;   // "key = value     ;"
         assert(commentColumn >= 0);
         comment = line.substr(commentColumn);   // ";comment"
         line.erase(commentColumn);              // erase the comment from the string
@@ -260,7 +284,7 @@ string IniFile::IniLineInfo::rebuildLine() const {
 
 // column starts at 0
 void IniFile::IniLineInfo::padToCommentColumn(std::string* line, int column) const {
-    int padCount = column - line->size();
+    int padCount = column - (int) line->size();
     if (padCount < 0)
         padCount = 0;
 

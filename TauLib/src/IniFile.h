@@ -21,7 +21,10 @@
 /// A semicolon to the end of the line is a comment.
 /// When you save a modified ini file the comments are restored to the original key/value pair.
 ///
-/// @todo add quoted string support?
+/// @todo add quoted string support
+/// @todo add # for comment as well as ;
+/// @todo handle escape key.  \#, \;, \\.  output \ during save.
+/// @todo unit tests
 /// 
 struct IniFile {
     std::string iniFilePath;
@@ -45,6 +48,13 @@ struct IniFile {
     bool DeleteKey(const std::string& key, const std::string& sectionName="");
 
     friend std::ostream& operator << (std::ostream& os, const IniFile& iniFile);
+
+    ///
+    /// @brief Fix any / or \ path separators to be correct for the OS.
+    /// @param iniFilePath - the path of the ini file
+    /// @return true if any key was changed and the ini file rewritten
+    /// 
+    static bool FixPathSeparators(const std::string& iniFilePath);
 
 private:
     struct IniSection;
