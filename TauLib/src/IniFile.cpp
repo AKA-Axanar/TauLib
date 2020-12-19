@@ -239,8 +239,9 @@ void IniFile::IniLineInfo::scanLine(const string& _line) {
 
 string IniFile::IniLineInfo::rebuildLine() const {
     string line;
-
-    if (!key.empty()) {
+    if (sectionDefine != "")
+        line += "[" + sectionDefine + "]";
+    else if (!key.empty()) {
         line += key;
         line += whiteSpaceAfterKey;
         line += '=';
@@ -286,7 +287,7 @@ string IniFile::IniLineInfo::GetAndRemoveLeadingWhitespace(string* line) const {
 ostream& operator << (ostream& os, const IniFile& iniFile) {
     for (const auto& section : iniFile.iniSections) {
         if (section.sectionName != "")
-            os << "[" << section.sectionName << "]" << endl;
+            os << section.sectionLine.rebuildLine() << endl;
 
         for(const auto& iniLineInfo : section.iniLineInfos) {
             os << iniLineInfo.rebuildLine() << endl;
