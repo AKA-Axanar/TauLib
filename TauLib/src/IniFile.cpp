@@ -201,19 +201,7 @@ void IniFile::IniLineInfo::scanLine(const string& _line) {
         comment = line.substr(commentColumn);   // ";comment"
         line.erase(commentColumn);              // erase the comment from the string
     }
-#if 0
-    // there is other text on the line
-    // if there is a comment find the column, save and remove the comment.
-    // removing the comment simplifies the rest
-    //hasKey = FoundLexExpr("^[[:alnum:]]+[[:space:]]*=", line);                                                      // "key ="
-    bool hasComment = FoundLexExpr("^[[:alnum:]]+[[:space:]]*=[[:space:]]*[[:print:]^;]+;", line);                  // "key = value     ;"
-    if (hasComment) {
-        commentColumn = FindLexExprMatch("^[[:alnum:]]+[[:space:]]*=[[:space:]]*[[:print:]^;]+;", line).size() - 1;   // "key = value     ;"
-        assert(commentColumn >= 0);
-        comment = line.substr(commentColumn);   // ";comment"
-        line.erase(commentColumn);              // erase the comment from the string
-    }
-#endif
+
     // continue.  scan any text prior to the comment.
 
     // if it is a section name
@@ -226,9 +214,9 @@ void IniFile::IniLineInfo::scanLine(const string& _line) {
     // if not a section name, continue to scan for "key = value" or "key = "
 
     // save the key.  save the value, if any.
-    bool hasKey = FoundLexExpr("^[[:alnum:]]+[[:space:]]*=", line);  // "key ="
+    bool hasKey = FoundLexExpr("^[[:alnum:]_-]+[[:space:]]*=", line);  // "key ="
     if (hasKey) {
-        key = FindLexExprMatch("^[[:alnum:]]+", line);  // "key"
+        key = FindLexExprMatch("^[[:alnum:]_-]+", line);  // "key"
         if (key.size() > 0) {
             line.erase(0, key.size());
             whiteSpaceAfterKey = GetAndRemoveLeadingWhitespace(&line);
@@ -284,7 +272,7 @@ void IniFile::IniLineInfo::padToCommentColumn(std::string* line, int column) con
 }
 
 string IniFile::IniLineInfo::GetAndRemoveLeadingWhitespace(string* line) const {
-    string ws = FindLexExprMatch("^[[:space:]]", *line);
+    string ws = FindLexExprMatch("^[[:space:]]+", *line);
     if (ws.size() > 0)
         line->erase(0, ws.size());
 
