@@ -18,7 +18,7 @@ namespace Tau { // to avoid conflict with other libraries
 //*******************************
 string operator + (const string& leftside, Sep) {
     string ret = leftside;
-    ret += sep;     // += only appends if needed
+    ret += sep;     // call the routine below.  += only appends if needed.
 
     return ret;
 }
@@ -32,7 +32,9 @@ void operator += (std::string& leftside, Sep) {
     {
         char lastChar = leftside.back();
         if (lastChar != '/' && lastChar != '\\')        // handle either linux or windows path separator being on the end
-            leftside += separator; // add separator for this OS at end
+            leftside += separator; // last char not a separator.  add separator for this OS at end
+        else if (lastChar != separator)     // if last char is a separator but it's for the wrong OS
+            leftside.back() = separator;    // change the last char to the correct OS separator
     }
 }
 
