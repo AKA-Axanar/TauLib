@@ -77,7 +77,8 @@ private:
         std::string GetAndRemoveLeadingWhitespace(std::string* line) const;
 
         // scan result
-        std::string sectionDefine;  // if it's a section (example: "[config]") it's the only thing on the line
+        std::string leadingWhiteSpace;
+        std::string sectionDefine;  // if it's a section (example: "[config]")
         std::string key;
         std::string whiteSpaceAfterKey;
         std::string whiteSpaceBeforeValue;

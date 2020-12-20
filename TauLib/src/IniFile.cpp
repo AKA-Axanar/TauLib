@@ -191,7 +191,6 @@ bool IniFile::IniSection::DeleteKey(const std::string& key) {
 // returns end(iniLineInfos) if not found
 vector<IniFile::IniLineInfo>::iterator IniFile::IniSection::FindKeyLine(const std::string& key) {
     return find_if(begin(iniLineInfos), end(iniLineInfos), [&] (const IniLineInfo& iniLineInfo) { return iniLineInfo.key == key; } );
-
 }
 
                 //*******************************
@@ -202,7 +201,7 @@ void IniFile::IniLineInfo::scanLine(const string& _line) {
     string line = _line;    // line is modified as we find items and remove them
 
     // test for blank line
-    if (FoundLexExpr("^[[:space:]]*$", line)) {
+    if (line.size() == 0) {
         return; // blank line
     }
 
@@ -214,6 +213,9 @@ void IniFile::IniLineInfo::scanLine(const string& _line) {
         comment = line;
         return;
     }
+
+    // save leading whitespaceGetAndRemoveLeadingWhitespace(&line);
+    leadingWhiteSpace = GetAndRemoveLeadingWhitespace(&line);
 
     // there is other text on the line
     // if there is a comment find the column, save and remove the comment.
@@ -262,6 +264,9 @@ void IniFile::IniLineInfo::scanLine(const string& _line) {
 
 string IniFile::IniLineInfo::rebuildLine() const {
     string line;
+
+    line += leadingWhiteSpace;
+
     if (sectionDefine != "")
         line += "[" + sectionDefine + "]";
     else if (!key.empty()) {
@@ -289,7 +294,7 @@ void IniFile::IniLineInfo::padToCommentColumn(std::string* line, int column) con
         padCount = 0;
 
     if (padCount == 0 && line->size() > 0)
-        padCount = 1;           // leave a one space gap between the existing string and the comment
+        padCount = 0;           // leave a one space gap between the existing string and the comment
 
     if (padCount > 0)
         *line += string(padCount, ' ');
