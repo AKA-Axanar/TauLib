@@ -207,7 +207,7 @@ void IniFile::IniLineInfo::scanLine(const string& _line) {
     }
 
     // test if only a comment on the line
-    if (FoundLexExpr("^[[:space:]]*;", line)) {
+    if (FoundLexExpr("^[[:space:]]*[;#]", line)) {
         // only a comment on the line
         string ws = GetAndRemoveLeadingWhitespace(&line);
         commentColumn = (int) ws.size();
@@ -218,9 +218,9 @@ void IniFile::IniLineInfo::scanLine(const string& _line) {
     // there is other text on the line
     // if there is a comment find the column, save and remove the comment.
     // removing the comment simplifies the rest
-    bool hasComment = FoundLexExpr("^.*;", line);                  // "key = value     ;"
+    bool hasComment = FoundLexExpr("^.*[;#]", line);                  // "key = value     ;"
     if (hasComment) {
-        commentColumn = (int) FindLexExprMatch("^.*;", line).size() - 1;   // "key = value     ;"
+        commentColumn = (int) FindLexExprMatch("^.*[;#]", line).size() - 1;   // "key = value     ;"
         assert(commentColumn >= 0);
         comment = line.substr(commentColumn);   // ";comment"
         line.erase(commentColumn);              // erase the comment from the string

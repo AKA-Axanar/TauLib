@@ -22,8 +22,7 @@
 /// When you save a modified ini file the comments are restored to the original key/value pair.
 ///
 /// @todo add quoted string support
-/// @todo add # for comment as well as ;
-/// @todo handle escape key.  \#, \;, \\.  output \ during save.
+/// @todo handle escape char.  \#, \;, \\.  output \ during save.
 /// @todo unit tests
 /// 
 struct IniFile {
