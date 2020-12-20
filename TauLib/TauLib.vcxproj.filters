@@ -27,12 +27,6 @@
     <ClInclude Include="src\Win.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\getExecutablePath.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sep.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Str.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -51,18 +45,18 @@
     <ClInclude Include="src\IniFile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Sep.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GetExecutablePath.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Win.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\getExecutablePath.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\sep.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Str.cpp">
@@ -84,6 +78,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\IniFile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Sep.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GetExecutablePath.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

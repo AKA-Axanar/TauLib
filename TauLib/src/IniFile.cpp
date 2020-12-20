@@ -1,7 +1,7 @@
 #include "IniFile.h"
 #include <regex>
 #include "Str.h"
-#include "sep.h"
+#include "Sep.h"
 #include "DirFile.h"
 #include <assert.h>
 #include <iostream>

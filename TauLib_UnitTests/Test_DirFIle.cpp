@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "DirFile.h"
 #include <filesystem>
-#include "sep.h"
+#include "Sep.h"
 #include <fstream>
 
 using namespace std;
