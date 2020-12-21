@@ -21,9 +21,12 @@ using namespace Tau;
                 //*******************************
 
 IniFile::IniFile() {
+    // add a dummy "" section for keys that aren't inside a section.  the saved "[]" is not written to the file.  
+    // any keys not in a section are written to the top of the file with no section name above them.
+    iniSections.emplace_back("");
 }
 
-IniFile::IniFile(const string& _iniFilePath) {
+IniFile::IniFile(const string& _iniFilePath) : IniFile() {
     Load(_iniFilePath);
 }
 
@@ -32,10 +35,6 @@ bool IniFile::Load(const string& _iniFilePath) {
     iniFilePath = _iniFilePath;
 
     Strings fileLines = ReadTextFileAsAStringArray(iniFilePath, /*removeCRLF*/ true);
-
-    // add a dummy "" section for keys that aren't inside a section.  the saved "[]" is not written to the file.  
-    // any keys not in a section are written to the top of the file with no section name above them.
-    iniSections.emplace_back("");
 
     for (const auto& fileLine : fileLines) {
         IniLineInfo iniLineInfo(fileLine);      // scan the line for a section name, key, value, and comment
@@ -247,9 +246,9 @@ cout << line << endl;
     }
 
     // save the key.  save the value, if any.
-    bool hasKey = FoundLexExpr("^[[:alnum:]_-]+[[:space:]]*=", line);  // "key ="
+    bool hasKey = FoundLexExpr("^[_\\-\\.[:alnum:]]+[[:space:]]*=", line);  // "key ="
     if (hasKey) {
-        key = FindLexExprMatch("^[[:alnum:]_-]+", line);  // "key"
+        key = FindLexExprMatch("^[_\\-\\.[:alnum:]]+", line);  // "key"
         if (key.size() > 0) {
             line.erase(0, key.size());  // erase key from line
             whiteSpaceAfterKey = GetAndRemoveLeadingWhitespace(&line);  // get spaces before =

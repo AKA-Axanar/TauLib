@@ -10,6 +10,7 @@ using namespace Tau;
 // test DirFile routines.
 //
 TEST(TestIniFile, TestIniFile) {
+    // load an existing ini file, edit, save, and compare to expectd output
     IniFile iniTest("ini_Input.ini");
     iniTest.SetKeyValue("Logo", "Tau.png", "Theme");
     iniTest.SetKeyValue("Font", "z.ttf", "Theme");
@@ -17,4 +18,15 @@ TEST(TestIniFile, TestIniFile) {
     iniTest.DeleteKey("alpha", "Theme");
     iniTest.SaveAs("ini_TestResult.ini");
     EXPECT_TRUE(CompareFiles("testResult.ini", "testOut.ini"));
+
+    // create a new ini file, add keys and sections, save, and compare to expectd output
+    IniFile newIni;
+    newIni.SetKeyValue("line1", "value1");
+    newIni.SetKeyValue("line2", "value2");
+    newIni.SetKeyValue("line3", "value3", "config");
+    newIni.SetKeyValue("line4", "value4", "config");
+    newIni.SetKeyValue("line_5", "value_5", "config");
+    newIni.SetKeyValue("line2.1", "value2.1");
+    newIni.SaveAs("ini_TestResult2.ini");
+    EXPECT_TRUE(CompareFiles("testResult2.ini", "testOut2.ini"));
 }
