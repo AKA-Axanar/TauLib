@@ -14,6 +14,7 @@
 ///
 namespace Tau {
 
+/// @struct Audio
 struct Audio {
             //////////
             // Music

@@ -25,7 +25,7 @@ static const wchar_t wseparator = std::filesystem::path::preferred_separator;
 
 
 ///
-/// @class Sep - append path separator helper function
+/// @struct Sep - append path separator helper function
 ///
 struct Sep { };
 /// @brief sep - a global Sep object that can be used anywhere to add a '/' or '\' at the end of a path string if needed.

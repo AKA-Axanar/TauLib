@@ -24,7 +24,7 @@ extern void SDL_DelResource(Mix_Music  *r);     ///< @fn a custom shared_ptr dto
 extern void SDL_DelResource(Mix_Chunk  *r);     ///< @fn a custom shared_ptr dtor for Mix_Chunk
 
 ///
-/// @brief SDL_Shared - a templated shared_ptr with a custom dtor per type
+/// @struct SDL_Shared - a templated shared_ptr with a custom dtor per type
 /// @note Don't call SDL_Quit(), Mix_Quit(), etc while there are outstanding shared_ptr's.
 /// @note The last copy of a shared_ptr can be destroyed by setting it equal to nullptr.  
 /// @note Destroy any saved shared_ptr assets before calling SDL_Quit(), Mix_Quit(), IMG_Quit(), TTF_Quit(), etc.
@@ -33,7 +33,7 @@ template <typename T>
 struct SDL_Shared {
     std::shared_ptr<T> sdl_shared_ptr;                      //!< the shared_ptr of the template type
 
-    /// @brief  @brief SDL_Shared() constructor
+    /// @brief SDL_Shared() constructor
     /// @param t a pointer to the templated type
     SDL_Shared(T* t = nullptr) : sdl_shared_ptr(t, [](T *t)
         { SDL_DelResource(t); } ) {};    // automatically destroy/free when the last shared_ptr goes away

@@ -22,8 +22,7 @@ namespace Tau { // to avoid conflict with other libraries
 enum POINT_POSITION { UL_CORNER, CENTERED_AT, CENTER_OF_WINDOW };
 
 ///
-/// @class Win
-/// @brief SDL WIndow class
+/// @struct Win SDL_Window class
 ///
 struct Win
 {

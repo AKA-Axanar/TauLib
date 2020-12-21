@@ -241,7 +241,6 @@ std::string GetATempFilename();
                 //*******************************
                 // Read Files
                 //*******************************
-
 ///
 /// @brief Return the contents of a text file in a vector of string.
 /// @param filePath The File to read.
