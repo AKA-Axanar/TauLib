@@ -67,10 +67,12 @@ private:
                 //*******************************
 
     struct IniLineInfo {
+        IniLineInfo() { }
+
         IniLineInfo(const std::string& line)
             { scanLine(line); }
 
-        void scanLine(const std::string& line);
+        bool scanLine(const std::string& line);
         std::string rebuildLine() const;
 
         void padToCommentColumn(std::string* line, int column) const;
@@ -78,12 +80,19 @@ private:
 
         // scan result
         std::string leadingWhiteSpace;
-        std::string sectionDefine;  // if it's a section (example: "[config]")
+
+        // section name
+        bool lineContainsASectionDefine = false;    // this bool exists because there is a dummy define of "" at the top
+        std::string section;                        // if it's a section (example: "[config]")
+        std::string whiteSpaceAfterSection;
+
+        // key = value
         std::string key;
         std::string whiteSpaceAfterKey;
         std::string whiteSpaceBeforeValue;
         std::string value;
-        int commentColumn = 0;      // index starts at 0
+        std::string whiteSpaceAfterValue;
+
         std::string comment;
     };
 
@@ -92,14 +101,12 @@ private:
                 //*******************************
 
     struct IniSection {
-        IniSection(const std::string& _sectionLine) : sectionLine(_sectionLine) { 
-            sectionName = sectionLine.sectionDefine;
-         }
+        IniSection(const std::string& line);
 
         std::string sectionName;    // section name example: for "[config]" the sectionName == "config"
         // the info from the scanned sectionName line.  
         // if sectionDefine is "" this line does not get written to the ini file.
-        IniLineInfo sectionLine;    
+        IniLineInfo sectionLine;    // the line defining the section name which may or may not have a comment
 
         std::vector<IniLineInfo> iniLineInfos;
         std::map<std::string, std::string> values;  // see example data above

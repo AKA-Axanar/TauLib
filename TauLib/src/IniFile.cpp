@@ -40,15 +40,16 @@ bool IniFile::Load(const string& _iniFilePath) {
     for (const auto& fileLine : fileLines) {
         IniLineInfo iniLineInfo(fileLine);      // scan the line for a section name, key, value, and comment
 
-        if (!iniLineInfo.sectionDefine.empty()) {
-            // if start of a new section add the section name to the section list
+        if (!iniLineInfo.section.empty()) {
+            // if the line is a new section add the section name to the section list
             iniSections.emplace_back(fileLine);
         } else {
-            // add the line info to the list of lines in the current section
-            iniSections.back().iniLineInfos.emplace_back(iniLineInfo);
             // if the line has a key definition, add it to the map of key/value pairs
             if (!iniLineInfo.key.empty())
                 iniSections.back().values[iniLineInfo.key] = iniLineInfo.value;
+
+            // add the line info to the list of lines and map of keys in the current/last section
+            iniSections.back().iniLineInfos.emplace_back(iniLineInfo);
         }
     }
 
@@ -129,6 +130,12 @@ bool IniFile::DeleteKey(const string& key, const string& sectionName) {
                 // IniFile::IniSection
                 //*******************************
 
+IniFile::IniSection::IniSection(const std::string& line) : sectionLine(line) { 
+    sectionName = sectionLine.section;
+    if (line == "")
+        sectionLine.lineContainsASectionDefine = true;  // it's the dummy "" section
+}
+
 bool IniFile::IniSection::KeyExists(const std::string& key) {
     return values.count(key) > 0;
 }
@@ -148,9 +155,20 @@ void IniFile::IniSection::SetKey(const std::string& key, const std::string& valu
     }
     else {
         auto it = FindKeyLine(key);
-        if (it != end(iniLineInfos))
-            it->value = value;
-        values[key] = value;
+        if (it != end(iniLineInfos)) {
+            // try to adjust the whitespace before the comment if the size of the key value changes.
+            // the result may not be in correct column if you are using tabs instead of spaces.
+            int oldSize = it->value.size();
+            int newSize = value.size();
+            if (oldSize > newSize) {
+                it->whiteSpaceAfterValue += Spaces(oldSize - newSize);
+            } else if (oldSize < newSize && ((newSize - oldSize) < it->whiteSpaceAfterValue.size())) {
+                it->whiteSpaceAfterValue.erase(0, newSize - oldSize);
+            }
+
+            it->value = value;  // change the value text in the iniLine
+        }
+        values[key] = value;    // change the key value in the map
     }
 }
 
@@ -190,76 +208,73 @@ bool IniFile::IniSection::DeleteKey(const std::string& key) {
 
 // returns end(iniLineInfos) if not found
 vector<IniFile::IniLineInfo>::iterator IniFile::IniSection::FindKeyLine(const std::string& key) {
-    return find_if(begin(iniLineInfos), end(iniLineInfos), [&] (const IniLineInfo& iniLineInfo) { return iniLineInfo.key == key; } );
+    return find_if(begin(iniLineInfos), end(iniLineInfos), [&] (IniLineInfo& iniLineInfo) { return iniLineInfo.key == key; } );
 }
 
                 //*******************************
                 // IniFile::IniLineInfo
                 //*******************************
 
-void IniFile::IniLineInfo::scanLine(const string& _line) {
+bool IniFile::IniLineInfo::scanLine(const string& _line) {
     string line = _line;    // line is modified as we find items and remove them
+cout << line << endl;
 
-    // test for blank line
-    if (line.size() == 0) {
-        return; // blank line
-    }
-
-    // test if only a comment on the line
-    if (FoundLexExpr("^[[:space:]]*[;#]", line)) {
-        // only a comment on the line
-        string ws = GetAndRemoveLeadingWhitespace(&line);
-        commentColumn = (int) ws.size();
-        comment = line;
-        return;
-    }
+// to scan for a quoted string /"([^"\\]*(\\.[^"\\]*)*)"/
+// to scan for either single or double quoted strings /"([^"\\]*(\\.[^"\\]*)*)"|\'([^\'\\]*(\\.[^\'\\]*)*)\'/
+//https://stackoverflow.com/questions/249791/regex-for-quoted-string-with-escaping-quotes
 
     // save leading whitespaceGetAndRemoveLeadingWhitespace(&line);
     leadingWhiteSpace = GetAndRemoveLeadingWhitespace(&line);
 
-    // there is other text on the line
-    // if there is a comment find the column, save and remove the comment.
-    // removing the comment simplifies the rest
-    bool hasComment = FoundLexExpr("^.*[;#]", line);                  // "key = value     ;"
-    if (hasComment) {
-        commentColumn = (int) FindLexExprMatch("^.*[;#]", line).size() - 1;   // "key = value     ;"
-        assert(commentColumn >= 0);
-        comment = line.substr(commentColumn);   // ";comment"
-        line.erase(commentColumn);              // erase the comment from the string
-    }
-
-    // continue.  scan any text prior to the comment.
-
     // if it is a section name
     bool hasSectionDefine = FoundLexExpr("^\\[[[:alnum:]]+\\]", line);     // [sectionName]
     if (hasSectionDefine) {
-        line.erase(0, 1);   // remove [
-        sectionDefine = FindLexExprMatch("^[[:alnum:]]+", line);    // sectionName
-        return;
+        lineContainsASectionDefine = true;
+        line.erase(0, 1);   // remove "["
+        section = FindLexExprMatch("^[[:alnum:]]+", line);    // sectionName
+        line.erase(0, section.size() + 1);  // remove "name]"
+
+        whiteSpaceAfterSection = GetAndRemoveLeadingWhitespace(&line);
+        bool hasComment = FoundLexExpr("^[;#]", line);          // ";" or "#"
+        if (hasComment)
+            comment = FindLexExprMatch("^[;#].*", line);
+        else if (line.size() > 0) {
+            cerr << "Extra text in ini file = " << line << endl;
+            return false;
+        }
+
+        return true;
     }
-    // if not a section name, continue to scan for "key = value" or "key = "
 
     // save the key.  save the value, if any.
     bool hasKey = FoundLexExpr("^[[:alnum:]_-]+[[:space:]]*=", line);  // "key ="
     if (hasKey) {
         key = FindLexExprMatch("^[[:alnum:]_-]+", line);  // "key"
         if (key.size() > 0) {
-            line.erase(0, key.size());
-            whiteSpaceAfterKey = GetAndRemoveLeadingWhitespace(&line);
+            line.erase(0, key.size());  // erase key from line
+            whiteSpaceAfterKey = GetAndRemoveLeadingWhitespace(&line);  // get spaces before =
             assert(line.size() > 0);
             assert(line[0] == '=');
             line.erase(0, 1);   // erase the '='
-            whiteSpaceBeforeValue = GetAndRemoveLeadingWhitespace(&line);
-            if (line .size() > 0) {
-                value = FindLexExprMatch("^[^[:space:]]+", line);  // "value"
+            whiteSpaceBeforeValue = GetAndRemoveLeadingWhitespace(&line);   // get spacces before value if any
+            if (line.size() > 0) {
+                value = FindLexExprMatch("^[^[:space:];#]+", line);  // "value"
+                line.erase(0, value.size());   // erase the value
+                whiteSpaceAfterValue = GetAndRemoveLeadingWhitespace(&line);   // get spacces before value if any
             }
         }
-        return;
     }
 
-    // if not blank, not a section, no key, no comment, and something is left
-    if (!comment.empty())
-        cout << "Invalid ini line: " << _line << endl;
+    bool hasComment = FoundLexExpr("^[;#]", line);          // ";" or "#"
+    if (hasComment) {
+        comment = FindLexExprMatch("^[;#].*", line);
+    }
+    else if (line.size() > 0) {
+        cerr << "Extra text in ini file = " << line << endl;
+        return false;
+    }
+
+    return true;
 }
 
 string IniFile::IniLineInfo::rebuildLine() const {
@@ -267,21 +282,15 @@ string IniFile::IniLineInfo::rebuildLine() const {
 
     line += leadingWhiteSpace;
 
-    if (sectionDefine != "")
-        line += "[" + sectionDefine + "]";
-    else if (!key.empty()) {
-        line += key;
-        line += whiteSpaceAfterKey;
-        line += '=';
-        if (!value.empty()) {
-            line += whiteSpaceBeforeValue;
-            line += value;
+    if (lineContainsASectionDefine) {
+        if (section != "") {
+            line += "[" + section + "]" + whiteSpaceAfterSection + comment;
         }
-    }
-
-    if (!comment.empty()) {
-        padToCommentColumn(&line, commentColumn);
-        line += comment;
+    } else {
+        line += key + whiteSpaceAfterKey;
+        if (key != "")
+            line += "=";
+        line += whiteSpaceBeforeValue + value + whiteSpaceAfterValue + comment;
     }
 
     return line;

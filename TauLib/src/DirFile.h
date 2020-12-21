@@ -251,4 +251,6 @@ std::string GetATempFilename();
 /// 
 Strings ReadTextFileAsAStringArray(const std::string& filePath, bool removeCRLF);
 
+bool CompareFiles(const std::string& filePath1, const std::string& filePath2, bool ignoreCRLF=false);
+
 } // end namespace Tau

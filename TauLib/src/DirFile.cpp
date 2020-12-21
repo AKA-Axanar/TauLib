@@ -265,4 +265,24 @@ Strings ReadTextFileAsAStringArray(const std::string& filePath, bool removeCRLF)
     return contents;
 }
 
+bool CompareFiles(const std::string& filePath1, const std::string& filePath2, bool ignoreCRLF) {
+    Strings file1 = ReadTextFileAsAStringArray(filePath1, ignoreCRLF);
+    Strings file2 = ReadTextFileAsAStringArray(filePath2, ignoreCRLF);
+
+    if (file1.size() != file2.size())
+        return false;   // different file size
+
+    for (int i=0; i < file1.size(); ++i) {
+        auto a = file1[i];
+        auto b = file2[i];
+        if (file1[i] != file2[i]) {
+            cout << '"' << file1[i] << '"' << endl;
+            cout << '"' << file2[i] << '"' << endl;
+            return false;   // different content
+        }
+    }
+
+    return true;    // files are equal
+}
+
 } // end namespace Tau

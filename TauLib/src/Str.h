@@ -242,4 +242,15 @@ void RemoveCRLFCharsFromEndOfString(std::string* str);
 ///
 std::string RemoveCRLFCharsFromEndOfString(const std::string& str);
 
+                //*******************************
+                // string misc
+                //*******************************
+
+///
+/// @brief Spaces(count)
+/// @param count The number of spaces you want in the string
+/// @return A string containing the desired number of spaces
+///
+inline std::string Spaces(int count) { return std::string(count, ' '); }
+
 } // end namespace Tau
