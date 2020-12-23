@@ -208,6 +208,7 @@
     <ClInclude Include="src\Sep.h" />
     <ClInclude Include="src\Str.h" />
     <ClInclude Include="src\TauLib.h" />
+    <ClInclude Include="src\ThirdParty\sqlite3.h" />
     <ClInclude Include="src\ThirdParty\whereami.h" />
     <ClInclude Include="src\Win.h" />
   </ItemGroup>
@@ -226,6 +227,7 @@
     <ClCompile Include="src\Sep.cpp" />
     <ClCompile Include="src\Str.cpp" />
     <ClCompile Include="src\TauLib.cpp" />
+    <ClCompile Include="src\ThirdParty\sqlite3.c" />
     <ClCompile Include="src\ThirdParty\whereami.c" />
     <ClCompile Include="src\Win.cpp" />
   </ItemGroup>
