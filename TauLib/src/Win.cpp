@@ -40,7 +40,7 @@ bool Win::Init(const string& _title, int _x, int _y, int _width, int _height, Ui
     y = _y;
     width = _width;
     height = _height;
-    flags = _flags;
+    flags = _flags;         // https://wiki.libsdl.org/SDL_WindowFlags
 
     window = SDL_CreateWindow(title.c_str(), x, y, width, height, flags);
     if (window == nullptr) {

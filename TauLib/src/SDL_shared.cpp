@@ -6,12 +6,12 @@
 
 #include "SDL_shared.h"
 
-// Code came from https://blog.galowicz.de/2016/02/21/automatic_resource_release_with_sdl/
-//
-// Modified by steve@iterator.com to use a class with conversion operators so a class
-// onject can be treated as a ordinary pointer to the SDL object.
-// Uses a shared_ptr optional custom destructor to call the correct SDL_Destroy/SDL_Free for the SDL type.
-// Take care to not call the destroy function elsewhere causing it to be destroyed twice.
+/// @note Original code technique came from [here](https://blog.galowicz.de/2016/02/21/automatic_resource_release_with_sdl).
+/// and modified by steve@iterator.com into a class containing conversion operators.  The conversion operators let you treate
+/// the object as an ordinary pointer to the SDL object.
+/// Uses a shared_ptr optional custom destructor to call the correct SDL_Destroy/SDL_Free for the SDL type.
+/// Take care to not manually call the destroy function elsewhere causing it to be destroyed twice.
+/// Destroy all instances so the destrutor will be called before calling SDL_Quit(). 
 
 // see the template in the header for the implementation
 void SDL_DelResource(SDL_Window   *r) { SDL_DestroyWindow(r);   }

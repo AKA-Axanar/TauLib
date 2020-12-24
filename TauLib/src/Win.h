@@ -31,7 +31,7 @@ struct Win
     int y = SDL_WINDOWPOS_CENTERED;
     int width = 1280;
     int height = 720;
-    Uint32 flags = SDL_WINDOW_SHOWN;
+    Uint32 flags = SDL_WINDOW_SHOWN;    
 
     SDL_Shared<SDL_Window> window = nullptr;
     SDL_Shared<SDL_Renderer> renderer = nullptr;
@@ -42,11 +42,11 @@ struct Win
     ///
     /// @brief Win constructor
     /// @param title
-    /// @param x
-    /// @param y
-    /// @param width
-    /// @param height
-    /// @param flags - options
+    /// @param x of upper left corner of the window
+    /// @param y of upper left corner of the window
+    /// @param width width of the window
+    /// @param height height of the window
+    /// @param flags [SDL_WindowFlags](https://wiki.libsdl.org/SDL_WindowFlags)
     ///
     Win(const std::string& _title, int _x, int _y, int _width, int _height, Uint32 _flags);
 
@@ -59,11 +59,11 @@ struct Win
     /// @brief Init - Initialize the Window object
     ///
     /// @param title
-    /// @param x
-    /// @param y
-    /// @param width
-    /// @param height
-    /// @param flags - options
+    /// @param x of upper left corner of the window
+    /// @param y of upper left corner of the window
+    /// @param width width of the window
+    /// @param height height of the window
+    /// @param flags [SDL_WindowFlags](https://wiki.libsdl.org/SDL_WindowFlags)
     ///
     bool Init(const std::string& _title, int _x, int _y, int _width, int _height, Uint32 _flags);
 

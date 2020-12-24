@@ -6,10 +6,13 @@
 /// the correct SDL_Destroy/SDL_Free function for that type.
 /// @author Steve Simpson, steve@iterator.com, a.k.a. Axanar (AutoBleem project)
 ///
-/// @note Original code came from https://blog.galowicz.de/2016/02/21/automatic_resource_release_with_sdl/.
-/// And modified by steve@iterator.com to use a class with conversion operators so a class
-/// object can be treated as a ordinary pointer to the SDL object.
-///
+/// @note Original code technique came from [here](https://blog.galowicz.de/2016/02/21/automatic_resource_release_with_sdl).
+/// and modified by steve@iterator.com into a class containing conversion operators.  The conversion operators let you treate
+/// the object as an ordinary pointer to the SDL object.
+/// Uses a shared_ptr optional custom destructor to call the correct SDL_Destroy/SDL_Free for the SDL type.
+/// Take care to not manually call the destroy function elsewhere causing it to be destroyed twice.
+/// Destroy all instances before calling SDL_Quit() so the destrutor will be called. 
+
 
 #include <memory>
 #include "SDL.h"
@@ -26,8 +29,8 @@ extern void SDL_DelResource(Mix_Chunk  *r);     ///< @fn a custom shared_ptr dto
 ///
 /// @struct SDL_Shared - a templated shared_ptr with a custom dtor per type
 /// @note Don't call SDL_Quit(), Mix_Quit(), etc while there are outstanding shared_ptr's.
-/// @note The last copy of a shared_ptr can be destroyed by setting it equal to nullptr.  
-/// @note Destroy any saved shared_ptr assets before calling SDL_Quit(), Mix_Quit(), IMG_Quit(), TTF_Quit(), etc.
+/// Destroy all instances of the shared+ptr so the destrutor will be called prior to calling SDL_Quit(). 
+/// If needed the last remaining copy of a shared_ptr can be destroyed by setting it equal to nullptr.  
 ///
 template <typename T>
 struct SDL_Shared {
