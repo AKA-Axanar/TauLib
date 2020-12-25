@@ -63,6 +63,9 @@
     <ClInclude Include="src\ThirdParty\SDL_FontCache.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\TTF_Shared.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
