@@ -197,6 +197,7 @@ std::string FindLexExprMatch(const std::string& lexicalExpression, const std::st
 /// @param str The string to search.
 /// @return vector<string> of results
 ///
+Strings SplitStringAtCommasAndSemiColon(const std::string& str, bool trimTheWhitespaceFromThePieces);
 
                 //*******************************
                 // string remove
@@ -257,6 +258,6 @@ std::string RemoveCRLFCharsFromEndOfString(const std::string& str);
 /// @param count The number of spaces you want in the string
 /// @return A string containing the desired number of spaces
 ///
-inline std::string Spaces(int count) { return std::string(count, ' '); }
+inline std::string Spaces(size_t count) { return std::string(count, ' '); }
 
 } // end namespace Tau

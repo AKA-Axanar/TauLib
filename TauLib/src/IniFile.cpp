@@ -208,8 +208,8 @@ void IniFile::IniSection::SetKeyValue(const std::string& key, const std::string&
         if (it != end(iniLines)) {
             // try to adjust the whitespace before the comment if the size of the key value changes.
             // the result may not be in correct column if you are using tabs instead of spaces.
-            int oldSize = it->value.size();
-            int newSize = value.size();
+            size_t oldSize = it->value.size();
+            size_t newSize = value.size();
             if (oldSize > newSize) {
                 it->whiteSpaceAfterValue += Spaces(oldSize - newSize);
             } else if (oldSize < newSize && ((newSize - oldSize) < it->whiteSpaceAfterValue.size())) {
