@@ -210,6 +210,7 @@
     <ClInclude Include="src\TauLib.h" />
     <ClInclude Include="src\ThirdParty\fifo_map.hpp" />
     <ClInclude Include="src\ThirdParty\json.hpp" />
+    <ClInclude Include="src\ThirdParty\SDL_FontCache.h" />
     <ClInclude Include="src\ThirdParty\sqlite3.h" />
     <ClInclude Include="src\ThirdParty\whereami.h" />
     <ClInclude Include="src\Win.h" />
@@ -229,6 +230,16 @@
     <ClCompile Include="src\Sep.cpp" />
     <ClCompile Include="src\Str.cpp" />
     <ClCompile Include="src\TauLib.cpp" />
+    <ClCompile Include="src\ThirdParty\SDL_FontCache.c">
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS
+</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS
+</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">_DEBUG;_LIB;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS
+</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NDEBUG;_LIB;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS
+</PreprocessorDefinitions>
+    </ClCompile>
     <ClCompile Include="src\ThirdParty\sqlite3.c" />
     <ClCompile Include="src\ThirdParty\whereami.c" />
     <ClCompile Include="src\Win.cpp" />

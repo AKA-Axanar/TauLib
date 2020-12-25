@@ -11,6 +11,8 @@ See SDL_FontCache.h for license info.
 #include <stdlib.h>
 #include <string.h>
 
+#pragma warning(disable : 4244 4267)
+
 // Visual C does not support static inline
 #ifndef static_inline
 	#ifdef _MSC_VER
@@ -128,7 +130,6 @@ static void set_color(FC_Image* src, Uint8 r, Uint8 g, Uint8 b, Uint8 a)
     SDL_SetTextureAlphaMod(src, a);
     #endif
 }
-
 
 
 static char* new_concat(const char* a, const char* b)
