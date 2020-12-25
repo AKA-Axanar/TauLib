@@ -66,6 +66,9 @@
     <ClInclude Include="src\TTF_Shared.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Tau_Rect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
