@@ -92,6 +92,17 @@ TEST(TestStr, TestStr_regex) {
 }
 
 //
+// TestStr_split
+//
+TEST(TestStr, TestStr_split) {
+    Strings temp = SplitStringAtCommasAndSemiColon("This is, not   , a drill.;", true);
+    EXPECT_EQ(temp.size(), 3);
+    EXPECT_EQ(temp[0], "This is");
+    EXPECT_EQ(temp[1], "not");
+    EXPECT_EQ(temp[2], "a drill.");
+}
+
+//
 // test sep
 //
 TEST(TestStr, TestStr_sep) {

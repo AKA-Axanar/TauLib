@@ -192,6 +192,12 @@ Strings FindLexExprMatches(const std::string& lexicalExpression, const std::stri
 ///
 std::string FindLexExprMatch(const std::string& lexicalExpression, const std::string& str);
 
+///
+/// @brief SplitStringAtCommasAndSemiColon - returns the string pieces after splitting the string at the commas and any (ending) semicolon.
+/// @param str The string to search.
+/// @return vector<string> of results
+///
+
                 //*******************************
                 // string remove
                 //*******************************

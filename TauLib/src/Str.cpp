@@ -2,6 +2,7 @@
 #include "Str.h"
 #include <regex>
 #include <algorithm>
+#include <iostream>
 
 using namespace std;
 
@@ -246,6 +247,17 @@ Strings FindLexExprMatches(const string& lexicalExpression, const string& str) {
     }
 
     return ret;
+}
+
+///
+/// @brief SplitStringAtCommasAndSemiColon - returns the string pieces after splitting the string at the commas and any (ending) semicolon.
+/// @param str The string to search.
+/// @return vector<string> of results
+///
+Strings SplitStringAtCommasAndSemiColon(const std::string& str, bool trimTheWhitespaceFromThePieces) {
+    Strings temp = FindLexExprMatches("[^,;\n\r]+", str);
+    for_each(begin(temp), end(temp), [&] (string& s) { trim(&s); });
+    return temp;
 }
 
 ///
