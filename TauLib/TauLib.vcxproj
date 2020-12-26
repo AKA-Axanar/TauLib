@@ -214,7 +214,8 @@
     <ClInclude Include="src\ThirdParty\SDL_FontCache.h" />
     <ClInclude Include="src\ThirdParty\sqlite3.h" />
     <ClInclude Include="src\ThirdParty\whereami.h" />
-    <ClInclude Include="src\TTF_Shared.h" />
+    <ClInclude Include="src\TTF_Font_Cache_Shared.h" />
+    <ClInclude Include="src\TTF_Font_Shared.h" />
     <ClInclude Include="src\Win.h" />
   </ItemGroup>
   <ItemGroup>

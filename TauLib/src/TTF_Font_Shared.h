@@ -22,10 +22,19 @@
 struct TTF_Font_Shared {
     std::shared_ptr<TTF_Font> font_shared_ptr;
 
+#if 0
+    // Control is passed to the shared_ptr!  The last shared_ptr dtor will close the font.
     TTF_Font_Shared(TTF_Font* font = nullptr) : font_shared_ptr(font, [](TTF_Font *font)
         { if (font) TTF_CloseFont(font); } ) {};    // automatically destroy/free when the last shared_ptr goes away.
+#endif
 
-    TTF_Font_Shared(const std::string& filename, int fontSize) : TTF_Font_Shared(TTF_OpenFont(filename.c_str(), fontSize)) { }
+    TTF_Font_Shared(const std::string& filename, int fontSize) {
+        TTF_Font* font = TTF_OpenFont(filename.c_str(), fontSize);
+        if (font)
+            font_shared_ptr.reset(font, [](TTF_Font *font) { TTF_CloseFont(font); } );  // automatically destroy/free when the last shared_ptr goes away.
+        else
+            cerr << "error opening font: " << filename << endl;
+    }
 
     operator TTF_Font* () { return font_shared_ptr.get(); };
     TTF_Font & operator * () { return *font_shared_ptr.get(); };

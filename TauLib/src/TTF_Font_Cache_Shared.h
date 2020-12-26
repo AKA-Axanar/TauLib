@@ -63,22 +63,9 @@ struct FC_Font_Shared {
         Uint8 ret = FC_LoadFont(font, renderer, filename.c_str(), fontSize, color, 0);
         if (ret != 0)
             font_shared_ptr.reset(font, [](FC_Font *font) { if (font) FC_FreeFont(font); });
-}
-
-#if 0
-    /// @brief FC_Font_Shared free allocated structures when the last shared_ptr goes away.
-    /// note that "owns_ttf_source" is false so it will not close the TTF_Font* that was passed to it.
-    /// the passed TTF_Font* is owned by the caller.
-    FC_Font_Shared(FC_Font* font = nullptr) : font_shared_ptr(font, [](FC_Font *font) { if (font) FC_FreeFont(font); } ) {};
-
-    FC_Font_Shared(const std::string& filename, int fontSize, SDL_Renderer* renderer, SDL_Color color) : FC_Font_Shared(FC_CreateFont()) {
-        TTF_Font_Shared ttf_font(filename, fontSize);
-        if (ttf_font)
-            FC_LoadFontFromTTF(font_shared_ptr.get(), renderer, ttf_font, color);
         else
-            font_shared_ptr = nullptr;  // failed to open the ttf file
-    }
-#endif
+            cerr << "error opening font: " << filename << endl;
+}
 
     operator FC_Font* () { return font_shared_ptr.get(); };
     FC_Font & operator * () { return *font_shared_ptr.get(); };

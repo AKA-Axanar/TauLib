@@ -63,10 +63,13 @@
     <ClInclude Include="src\ThirdParty\SDL_FontCache.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\TTF_Shared.h">
+    <ClInclude Include="src\Tau_Rect.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Tau_Rect.h">
+    <ClInclude Include="src\TTF_Font_Cache_Shared.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TTF_Font_Shared.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
