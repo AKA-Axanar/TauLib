@@ -22,6 +22,11 @@
 /// SDL_Color FC_GetDefaultColor(FC_Font* font);
 /// void FC_SetDefaultColor(FC_Font* font, SDL_Color color);
 /// 
+/// Get the text size
+/// FC_GetLineHeight(font);             // get the font height
+/// FC_GetHeight(font, char* text);     // get the height of multiple lines
+/// FC_GetWidth(font, char* text);      // get the width of the text
+/// 
 /// FC_Font Rendering
 /// 
 /// FC_Rect FC_Draw(FC_Font* font, FC_Target* dest, float x, float y, const char* formatted_text, ...);
@@ -48,7 +53,7 @@
 #include "SDL.h"
 #include "SDL_ttf.h"
 #include "ThirdParty\SDL_FontCache.h"
-#include "TTF_Font_Shared.h"
+//#include "TTF_Font_Shared.h"
 #include <string>
 
 ///
@@ -58,6 +63,13 @@
 struct FC_Font_Shared {
     std::shared_ptr<FC_Font> font_shared_ptr;
 
+    ///
+    /// @brief FC_Font_Shared The last shared_ptr destroyed closes the font.
+    /// @param filename full path
+    /// @param fontSize in points (72 per inch)
+    /// @param renderer The screen renderer.  Needed by the font cache to create the font textures
+    /// @param color The default color of the font.  It can be changed with FC_SetDefaultColor() and revrieved with FC_GetDefaultColor.
+    /// 
     FC_Font_Shared(const std::string& filename, int fontSize, SDL_Renderer* renderer, SDL_Color color) {
         FC_Font* font = FC_CreateFont();
         Uint8 ret = FC_LoadFont(font, renderer, filename.c_str(), fontSize, color, 0);

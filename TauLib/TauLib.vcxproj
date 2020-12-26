@@ -202,6 +202,7 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="src\Audio.h" />
     <ClInclude Include="src\DirFile.h" />
+    <ClInclude Include="src\FC_Font_shared.h" />
     <ClInclude Include="src\GetExecutablePath.h" />
     <ClInclude Include="src\IniFile.h" />
     <ClInclude Include="src\SDL_shared.h" />
@@ -214,7 +215,6 @@
     <ClInclude Include="src\ThirdParty\SDL_FontCache.h" />
     <ClInclude Include="src\ThirdParty\sqlite3.h" />
     <ClInclude Include="src\ThirdParty\whereami.h" />
-    <ClInclude Include="src\TTF_Font_Cache_Shared.h" />
     <ClInclude Include="src\TTF_Font_Shared.h" />
     <ClInclude Include="src\Win.h" />
   </ItemGroup>

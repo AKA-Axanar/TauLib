@@ -66,10 +66,10 @@
     <ClInclude Include="src\Tau_Rect.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\TTF_Font_Cache_Shared.h">
+    <ClInclude Include="src\TTF_Font_Shared.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\TTF_Font_Shared.h">
+    <ClInclude Include="src\FC_Font_shared.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
