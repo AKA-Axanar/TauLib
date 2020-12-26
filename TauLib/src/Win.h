@@ -140,6 +140,12 @@ struct Win
     /// @param Uint8 b
     /// @param Uint8 alpha
     ///
+    void ClearWin(SDL_Color color);
+
+    ///
+    /// @brief ClearWin - clear the window. defaults to black.
+    /// @param color
+    ///
     void ClearWin(Uint8 r = 0, Uint8 g = 0, Uint8 b = 0, Uint8 alpha = 255);
 
     ///

@@ -184,6 +184,15 @@ void Win::ClearWin(Uint8 r, Uint8 g, Uint8 b, Uint8 alpha) {
 }
 
 ///
+/// @brief ClearWin - clear the window. defaults to black.
+/// @param color
+///
+void Win::ClearWin(SDL_Color color = {0,0,0,255}) {
+    FillWin(color);
+    SDL_RenderPresent(renderer);
+}
+
+///
 /// @brief Win::Close - close the window
 ///
 void Win::Close() {
