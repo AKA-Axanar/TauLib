@@ -10,6 +10,7 @@
 #include "TauLib.h"
 #include "SDL.h"
 #include "SDL_shared.h"
+#include "Tau_Rect.h"
 
 ///
 /// @brief namespace Tau - avoid conflict with other libraries
@@ -26,11 +27,13 @@ enum POINT_POSITION { UL_CORNER, CENTERED_AT, CENTER_OF_WINDOW };
 ///
 struct Win
 {
-    std::string title;
-    int x = SDL_WINDOWPOS_CENTERED;
-    int y = SDL_WINDOWPOS_CENTERED;
-    int width = 1280;
-    int height = 720;
+    int displayIndex = 0;                           ///< physical display index starting at 0
+
+    std::string title;                              ///< title of window if not full screen
+    Tau_Posit posit;                                ///< x,y position of the window
+//    int x = SDL_WINDOWPOS_CENTERED;
+//    int y = SDL_WINDOWPOS_CENTERED;
+    Tau_Size size { 1280, 720 };
     Uint32 flags = SDL_WINDOW_SHOWN;    
 
     SDL_Shared<SDL_Window> window = nullptr;
@@ -42,13 +45,12 @@ struct Win
     ///
     /// @brief Win constructor
     /// @param title
-    /// @param x of upper left corner of the window
-    /// @param y of upper left corner of the window
+    /// @param posit position of the window
     /// @param width width of the window
     /// @param height height of the window
     /// @param flags [SDL_WindowFlags](https://wiki.libsdl.org/SDL_WindowFlags)
     ///
-    Win(const std::string& _title, int _x, int _y, int _width, int _height, Uint32 _flags);
+    Win(const std::string& _title, Tau_Posit posit, Tau_Size size, Uint32 _flags);
 
     ///
     /// @brief ~Win destructor
@@ -59,13 +61,12 @@ struct Win
     /// @brief Init - Initialize the Window object
     ///
     /// @param title
-    /// @param x of upper left corner of the window
-    /// @param y of upper left corner of the window
+    /// @param posit position of the window
     /// @param width width of the window
     /// @param height height of the window
     /// @param flags [SDL_WindowFlags](https://wiki.libsdl.org/SDL_WindowFlags)
     ///
-    bool Init(const std::string& _title, int _x, int _y, int _width, int _height, Uint32 _flags);
+    bool Init(const std::string& _title, Tau_Posit posit, Tau_Size size, Uint32 _flags);
 
     ///
     /// @brief FillWin - fill the window with a color

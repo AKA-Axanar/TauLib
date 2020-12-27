@@ -18,9 +18,9 @@ namespace Tau { // to avoid conflict with other libraries
 //
 // Win ctor
 //
-Win::Win(const string& _title, int _x, int _y, int _width, int _height, Uint32 _flags)
-        : title(_title), x(_x), y(_y), width(_width), height(_height), flags(_flags) {
-    Init(_title, _x, _y, _width, _height, _flags);
+Win::Win(const string& _title, Tau_Posit _posit, Tau_Size _size, Uint32 _flags)
+        : title(_title), posit(_posit), size(_size), flags(_flags) {
+    Init(_title, posit, size, _flags);
 }
 
 
@@ -34,15 +34,13 @@ Win::~Win() {
 //
 // Init the object
 //
-bool Win::Init(const string& _title, int _x, int _y, int _width, int _height, Uint32 _flags) {
+bool Win::Init(const string& _title, Tau_Posit _posit, Tau_Size _size, Uint32 _flags) {
     title = _title;
-    x = _x;
-    y = _y;
-    width = _width;
-    height = _height;
+    posit = _posit;
+    size = _size;
     flags = _flags;         // https://wiki.libsdl.org/SDL_WindowFlags
 
-    window = SDL_CreateWindow(title.c_str(), x, y, width, height, flags);
+    window = SDL_CreateWindow(title.c_str(), posit.x, posit.y, size.w, size.h, flags);
     if (window == nullptr) {
         cerr << "SDL_CreateWindow failed" << endl;
         return false;
@@ -55,7 +53,7 @@ bool Win::Init(const string& _title, int _x, int _y, int _width, int _height, Ui
 
     // if the window is full screen get the width and height
     if (flags & SDL_WINDOW_FULLSCREEN_DESKTOP)
-        SDL_GetRendererOutputSize(renderer, &width, &height);
+        SDL_GetRendererOutputSize(renderer, &size.w, &size.h);
 
     isOpen = true;
     return isOpen;
@@ -124,8 +122,8 @@ void Win::DrawEntireImage(const string& imgFilePath, const SDL_Point& point, POI
     }
     else if (point_posit == CENTER_OF_WINDOW) {
         // adjust the corner x,y so that the center of the image is at the of the window
-        rect.x = (width / 2) - (rect.w / 2);
-        rect.y = (height / 2) - (rect.h / 2);
+        rect.x = (size.w / 2) - (rect.w / 2);
+        rect.y = (size.h / 2) - (rect.h / 2);
     }
     else
         { assert(false); }
