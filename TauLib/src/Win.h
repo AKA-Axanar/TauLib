@@ -27,7 +27,7 @@ enum POINT_POSITION { UL_CORNER, CENTERED_AT, CENTER_OF_WINDOW };
 ///
 struct Win
 {
-    int displayIndex = 0;                           ///< physical display index starting at 0
+    unsigned int displayIndex = 0;                           ///< physical display index starting at 0
 
     std::string title;                              ///< title of window if not full screen
     Tau_Posit posit;                                ///< x,y position of the window
@@ -50,7 +50,7 @@ struct Win
     /// @param height height of the window
     /// @param flags [SDL_WindowFlags](https://wiki.libsdl.org/SDL_WindowFlags)
     ///
-    Win(const std::string& _title, Tau_Posit posit, Tau_Size size, Uint32 _flags);
+    Win(unsigned int _displayIndex, const std::string& _title, Tau_Posit posit, Tau_Size size, Uint32 _flags);
 
     ///
     /// @brief ~Win destructor
@@ -66,7 +66,7 @@ struct Win
     /// @param height height of the window
     /// @param flags [SDL_WindowFlags](https://wiki.libsdl.org/SDL_WindowFlags)
     ///
-    bool Init(const std::string& _title, Tau_Posit posit, Tau_Size size, Uint32 _flags);
+    bool Init(unsigned int _displayIndex, const std::string& _title, Tau_Posit posit, Tau_Size size, Uint32 _flags);
 
     ///
     /// @brief FillWin - fill the window with a color
@@ -153,6 +153,8 @@ struct Win
     /// @brief Close - close the window
     ///
     void Close();
+
+static int GetNumberOfDisplays() { return SDL_GetNumVideoDisplays(); }
 };
 
 } // end namespace Tau

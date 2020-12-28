@@ -18,9 +18,10 @@ namespace Tau { // to avoid conflict with other libraries
 //
 // Win ctor
 //
-Win::Win(const string& _title, Tau_Posit _posit, Tau_Size _size, Uint32 _flags)
-        : title(_title), posit(_posit), size(_size), flags(_flags) {
-    Init(_title, posit, size, _flags);
+Win::Win(unsigned int _displayIndex, const string& _title, Tau_Posit _posit, Tau_Size _size, Uint32 _flags)
+        : title(_title), posit(_posit), size(_size), flags(_flags)
+{
+    Init(_displayIndex, _title, posit, size, _flags);
 }
 
 
@@ -34,7 +35,10 @@ Win::~Win() {
 //
 // Init the object
 //
-bool Win::Init(const string& _title, Tau_Posit _posit, Tau_Size _size, Uint32 _flags) {
+bool Win::Init(unsigned int _displayIndex, const string& _title, Tau_Posit _posit, Tau_Size _size, Uint32 _flags) {
+    assert(_displayIndex < (unsigned int)GetNumberOfDisplays());
+
+    displayIndex = _displayIndex;
     title = _title;
     posit = _posit;
     size = _size;

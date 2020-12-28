@@ -6,8 +6,8 @@
 /// @brief Tau_Point An SDL_Point with additional functions
 ///
 struct Tau_Point : public SDL_Point {
-//    /// @brief Tau_Point ctor
-//    Tau_Point(int _x=0, int _y=0) : SDL_Point(_x, _y) { }
+    /// @brief Tau_Point ctor
+    Tau_Point(int _x=0, int _y=0) : SDL_Point(_x, _y) { }
 
 //    /// @brief Tau_Point copy ctor
 //    Tau_Point(const Tau_Point& pnt) { x = pnt.x; y = pnt.y; }
@@ -33,7 +33,7 @@ struct Tau_Size {
     int w;
     int h;
 
-    Tau_Size(int _w, int _h) { w = _w; h = _h; }
+    Tau_Size(int _w=0, int _h=0) { w = _w; h = _h; }
     Tau_Size(const SDL_Rect& rect) : w(rect.w), h(rect.h) { }
  
     Tau_Point GetCenter() { return { w/2, h/2 }; }
@@ -43,8 +43,8 @@ struct Tau_Size {
 /// @brief Tau_Rect An SDL_Rect with additional functions
 ///
 struct Tau_Rect : public SDL_Rect {
-//    /// @brief Tau_Rect ctor
-//    Tau_Rect(int _x, int _y, int _w, int _h) : SDL_Rect(_x, _y, _w, _h) { }
+    /// @brief Tau_Rect ctor
+    Tau_Rect(int _x=0, int _y=0, int _w=0, int _h=0) : SDL_Rect(_x, _y, _w, _h) { }
 
     /// @brief Tau_Rect Contrust from the corner point and the size
     /// @param p The top left corner point position of the rectangle

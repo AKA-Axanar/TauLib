@@ -202,6 +202,7 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="src\Audio.h" />
     <ClInclude Include="src\DirFile.h" />
+    <ClInclude Include="src\Display.h" />
     <ClInclude Include="src\FC_Font_shared.h" />
     <ClInclude Include="src\GetExecutablePath.h" />
     <ClInclude Include="src\IniFile.h" />
@@ -227,6 +228,7 @@
     </ClCompile>
     <ClCompile Include="src\Audio.cpp" />
     <ClCompile Include="src\DirFile.cpp" />
+    <ClCompile Include="src\Display.cpp" />
     <ClCompile Include="src\GetExecutablePath.cpp" />
     <ClCompile Include="src\IniFile.cpp" />
     <ClCompile Include="src\SDL_shared.cpp" />

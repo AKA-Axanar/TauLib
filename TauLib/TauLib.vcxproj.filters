@@ -72,6 +72,9 @@
     <ClInclude Include="src\FC_Font_shared.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Display.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -111,6 +114,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\ThirdParty\SDL_FontCache.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Display.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
