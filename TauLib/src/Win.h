@@ -308,12 +308,6 @@ struct Win
     void DrawLine(const Tau_Point& p1, const Tau_Point& p2);
 
     void DrawLine(const std::vector<Tau_Point>& points);
-
-//                  ===========
-//                     Misc
-//                  ===========
-
-    static int GetNumberOfDisplays() { return SDL_GetNumVideoDisplays(); }
 };
 
-} // end namespace Tau
+ } // end namespace Tau

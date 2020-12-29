@@ -23,6 +23,8 @@ struct Display : public Win {
 
     Tau_Rect displayBounds;
     Tau_Size displayResolution;
+
+    static int GetNumberOfDisplays() { return SDL_GetNumVideoDisplays(); }
 };
 
 }

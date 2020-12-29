@@ -3,6 +3,7 @@
 #include "SDL_image.h"
 #include "SDL_ttf.h"
 #include <assert.h>
+#include "Display.h"
 
 using namespace std;
 
@@ -27,7 +28,7 @@ Win::Win(unsigned int _displayIndex, const string& _title, const Tau_Rect& bound
 // Init the object
 //
 bool Win::Init(unsigned int _displayIndex, const string& _title, const Tau_Rect& bounds, Uint32 _flags) {
-    assert(_displayIndex < (unsigned int)GetNumberOfDisplays());
+    assert(_displayIndex < (unsigned int)Display::GetNumberOfDisplays());
 
     displayIndex = _displayIndex;
     title = _title;
