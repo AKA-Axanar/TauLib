@@ -13,6 +13,7 @@ namespace Tau {
 struct Display : public Win {
 
     Display() : Win() { }
+    Display(unsigned int _displayIndex) : Display() { Init(_displayIndex); }
     
     /// @brief Init Uses flag SDL_WINDOW_FULLSCREEN_DESKTOP and takes over the entire display at the current resolution.
     bool Init(unsigned int _displayIndex);
@@ -21,7 +22,7 @@ struct Display : public Win {
     bool Init(int _displayIndex, Tau_Size newResolution);
 
     Tau_Rect displayBounds;
-    Tau_Size GetResolution() { return displayBounds.GetSize(); }
+    Tau_Size displayResolution;
 };
 
 }

@@ -46,7 +46,7 @@ struct Tau_Rect : public SDL_Rect {
     /// @brief Tau_Rect ctor
     Tau_Rect(int _x=0, int _y=0, int _w=0, int _h=0) : SDL_Rect(_x, _y, _w, _h) { }
 
-    /// @brief Tau_Rect Contrust from the corner point and the size
+    /// @brief Tau_Rect Construct from upper left corner point and the size
     /// @param p The top left corner point position of the rectangle
     /// @param size The size of the rectangle
     Tau_Rect(const Tau_Point& pnt, const Tau_Size& size) : SDL_Rect(pnt.x, pnt.y, size.w, size.h) { }
@@ -55,17 +55,24 @@ struct Tau_Rect : public SDL_Rect {
 
     /// @brief GetPoint
     /// @return The top left corner point position of the rectangle
-    Tau_Point GetPoint() { return { x, y }; }
+    Tau_Point GetPoint() const { return { x, y }; }
 
     /// @brief GetSize
     /// @return The size of the rectangle
-    Tau_Size GetSize() { return { w, h }; }
+    Tau_Size GetSize() const { return { w, h }; }
 
     /// @brief SetPoint Sets the value of the top left position
     void SetPoint(const SDL_Point& pnt) { x = pnt.x; y = pnt.y; }
 
     /// @brief SetSize Sets the size (width and height) of the rectangle
     void SetSize(const Tau_Size& size) { w = size.w; h = size.h; }
+
+    /// @brief Return the center point of the rectangle.
+    /// @return The center point of the rectangle
+    Tau_Point Center() const { return { x + w/2, y + h/2 }; }
+
+    void CenterMeInsideRectangle(const Tau_Rect& outerRect) 
+        { SetPoint(outerRect.Center() - Tau_Point(w/2, h/2)); }
 
 //    /// @brief Tau_Rect conversion operators.  The compiler might do this automatically.
 //    operator SDL_Rect& () { return *this; }

@@ -14,37 +14,27 @@ using namespace std;
 
 namespace Tau { // to avoid conflict with other libraries
 
-
 //
 // Win ctor
 //
-Win::Win(unsigned int _displayIndex, const string& _title, Tau_Posit _posit, Tau_Size _size, Uint32 _flags)
-        : title(_title), posit(_posit), size(_size), flags(_flags)
+Win::Win(unsigned int _displayIndex, const string& _title, const Tau_Rect& bounds, Uint32 _flags)
+        : title(_title), winBounds(bounds), flags(_flags)
 {
-    Init(_displayIndex, _title, posit, size, _flags);
-}
-
-
-//
-// ~Win destructor
-//
-Win::~Win() {
-    Close();
+    Init(_displayIndex, _title, bounds, _flags);
 }
 
 //
 // Init the object
 //
-bool Win::Init(unsigned int _displayIndex, const string& _title, Tau_Posit _posit, Tau_Size _size, Uint32 _flags) {
+bool Win::Init(unsigned int _displayIndex, const string& _title, const Tau_Rect& bounds, Uint32 _flags) {
     assert(_displayIndex < (unsigned int)GetNumberOfDisplays());
 
     displayIndex = _displayIndex;
     title = _title;
-    posit = _posit;
-    size = _size;
+    winBounds = bounds;
     flags = _flags;         // https://wiki.libsdl.org/SDL_WindowFlags
 
-    window = SDL_CreateWindow(title.c_str(), posit.x, posit.y, size.w, size.h, flags);
+    window = SDL_CreateWindow(title.c_str(), bounds.x, bounds.y, bounds.w, bounds.h, flags);
     if (window == nullptr) {
         cerr << "SDL_CreateWindow failed" << endl;
         return false;
@@ -55,14 +45,16 @@ bool Win::Init(unsigned int _displayIndex, const string& _title, Tau_Posit _posi
         return false;
     }
 
-    // if the window is full screen get the width and height
-    if (flags & SDL_WINDOW_FULLSCREEN_DESKTOP)
-        SDL_GetRendererOutputSize(renderer, &size.w, &size.h);
-
     isOpen = true;
     return isOpen;
 }
 
+//
+// ~Win destructor
+//
+Win::~Win() {
+    Close();
+}
 
 ///
 /// @brief Win::FillWin - fill the window with a color
@@ -126,8 +118,8 @@ void Win::DrawEntireImage(const string& imgFilePath, const SDL_Point& point, POI
     }
     else if (point_posit == CENTER_OF_WINDOW) {
         // adjust the corner x,y so that the center of the image is at the of the window
-        rect.x = (size.w / 2) - (rect.w / 2);
-        rect.y = (size.h / 2) - (rect.h / 2);
+        rect.x = (winBounds.w / 2) - (rect.w / 2);
+        rect.y = (winBounds.h / 2) - (rect.h / 2);
     }
     else
         { assert(false); }
