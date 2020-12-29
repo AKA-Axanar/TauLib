@@ -4,6 +4,7 @@
 
 ///
 /// @brief Tau_Point An SDL_Point with additional functions
+/// @note Do not add additional member variables to this struct!
 ///
 struct Tau_Point : public SDL_Point {
     /// @brief Tau_Point ctor
@@ -16,10 +17,10 @@ struct Tau_Point : public SDL_Point {
 //    Tau_Point(const SDL_Rect& rect) { x = rect.x; y = rect.y; }
 
     /// @brief Tau_Point math operators
-    Tau_Point operator + (const SDL_Point& pnt) { return { x + pnt.x, y + pnt.y }; }
-    Tau_Point operator - (const SDL_Point& pnt) { return { x - pnt.x, y - pnt.y }; }
-    void operator += (SDL_Point& pnt) { x += pnt.x; y += pnt.y; }
-    void operator -= (SDL_Point& pnt) { x -= pnt.x; y -= pnt.y; }
+    Tau_Point operator + (const Tau_Point& pnt) const { return { x + pnt.x, y + pnt.y }; }
+    Tau_Point operator - (const Tau_Point& pnt) const { return { x - pnt.x, y - pnt.y }; }
+    void operator += (Tau_Point& pnt) { x += pnt.x; y += pnt.y; }
+    void operator -= (Tau_Point& pnt) { x -= pnt.x; y -= pnt.y; }
 
 //    /// @brief Tau_Point conversion operators.  The compiler might do this automatically.
 //    operator SDL_Point& () { return *this; }
@@ -28,6 +29,7 @@ struct Tau_Point : public SDL_Point {
 
 ///
 /// @brief Tau_Size The width and height portion of an SDL_Rect.
+/// @note Do not add additional member variables to this struct!
 ///
 struct Tau_Size {
     int w;
@@ -41,6 +43,7 @@ struct Tau_Size {
 
 ///
 /// @brief Tau_Rect An SDL_Rect with additional functions
+/// @note Do not add additional member variables to this struct!
 ///
 struct Tau_Rect : public SDL_Rect {
     /// @brief Tau_Rect ctor

@@ -237,10 +237,10 @@ std::string GetTempDir();
 ///
 std::string GetATempFilename();
 
+                //*******************************
+                // Read File
+                //*******************************
 
-                //*******************************
-                // Read Files
-                //*******************************
 ///
 /// @brief Return the contents of a text file in a vector of string.
 /// @param filePath The File to read.
@@ -250,6 +250,15 @@ std::string GetATempFilename();
 /// 
 Strings ReadTextFileAsAStringArray(const std::string& filePath, bool removeCRLF);
 
+                //*******************************
+                // Compare Text Files
+                //*******************************
+
+/// @brief CompareFiles
+/// @param filePath1 fullpath to file1
+/// @param filePath2 fullpath to file2
+/// @param ignoreCRLF true to ignore CR/LF's when comparing
+/// @return true if the file strings are the same (considering ignoreCRLF flag)
 bool CompareFiles(const std::string& filePath1, const std::string& filePath2, bool ignoreCRLF=false);
 
 } // end namespace Tau

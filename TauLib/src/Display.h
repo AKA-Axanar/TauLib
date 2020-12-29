@@ -18,7 +18,7 @@ struct Display : public Win {
     /// @brief Init Uses flag SDL_WINDOW_FULLSCREEN_DESKTOP and takes over the entire display at the current resolution.
     bool Init(unsigned int _displayIndex);
 
-    /// @brief Uses flag SDL_WINDOW_FULLSCREEN_DESKTOP and takes over the display at the new resolution
+    /// @brief Init Uses flag SDL_WINDOW_FULLSCREEN and takes over the display at the new resolution
     bool Init(int _displayIndex, Tau_Size newResolution);
 
     Tau_Rect displayBounds;

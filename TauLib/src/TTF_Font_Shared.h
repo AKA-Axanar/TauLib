@@ -15,6 +15,8 @@
 #include <memory>
 #include "SDL.h"
 #include "SDL_ttf.h"
+#include <string>
+#include <iostream>
 
 ///
 /// @struct TTF_Font_Shared
@@ -32,7 +34,7 @@ struct TTF_Font_Shared {
         if (font)
             font_shared_ptr.reset(font, [](TTF_Font *font) { TTF_CloseFont(font); } );  // automatically destroy/free when the last shared_ptr goes away.
         else
-            cerr << "error opening font: " << filename << endl;
+            std::cerr << "error opening font: " << filename << std::endl;
     }
 
     operator TTF_Font* () { return font_shared_ptr.get(); };

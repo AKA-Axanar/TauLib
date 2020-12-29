@@ -236,6 +236,9 @@ string GetATempFilename() {
         return "";
 }
 
+                //*******************************
+                // Read File
+                //*******************************
 ///
 /// @brief Return the contents of a text file in a vector of string.
 /// @param filePath The File to read.
@@ -265,6 +268,15 @@ Strings ReadTextFileAsAStringArray(const std::string& filePath, bool removeCRLF)
     return contents;
 }
 
+                //*******************************
+                // Compare Text Files
+                //*******************************
+
+/// @brief CompareFiles
+/// @param filePath1 fullpath to file1
+/// @param filePath2 fullpath to file2
+/// @param ignoreCRLF true to ignore CR/LF's when comparing
+/// @return true if the file strings are the same (considering ignoreCRLF flag)
 bool CompareFiles(const std::string& filePath1, const std::string& filePath2, bool ignoreCRLF) {
     Strings file1 = ReadTextFileAsAStringArray(filePath1, ignoreCRLF);
     Strings file2 = ReadTextFileAsAStringArray(filePath2, ignoreCRLF);
