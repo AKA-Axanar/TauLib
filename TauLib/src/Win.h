@@ -18,11 +18,6 @@
 namespace Tau { // to avoid conflict with other libraries
 
 ///
-/// @brief POINT_POSITION - The position of a passed point
-///
-enum POINT_POSITION { UL_CORNER, CENTERED_AT, CENTER_OF_WINDOW };
-
-///
 /// @struct Win SDL_Window class
 ///
 struct Win
@@ -31,8 +26,6 @@ struct Win
 
     std::string title;                              ///< title of window if not full screen
     Tau_Rect winBounds {{0, 0}, {1280, 720}};
-//    Tau_Posit posit;                                ///< x,y position of the window
-//    Tau_Size size { 1280, 720 };
     Uint32 flags = SDL_WINDOW_SHOWN;    
 
     SDL_Shared<SDL_Window> window = nullptr;
@@ -101,20 +94,46 @@ struct Win
     void FillRect(const SDL_Rect& rect, SDL_Color color);
 
     ///
-    /// @brief DrawEntireImage Draws the entire image on the window at a point on the window
+    /// @brief DrawImageAt Draws the entire image at a point on the window
     /// @param imgFilePath The image file path
     /// @param point The point to draw the image
-    /// @param point_posit Whether point is the upper left corner of the image or the s=center of the image
     ///
-    void DrawEntireImage(const std::string& imgFilePath, const SDL_Point& point, POINT_POSITION point_posit = UL_CORNER);
+    void DrawImageAt(const std::string& imgFilePath, const Tau_Point& point);
+
+    ///
+    /// @brief DrawImageCenteredAt Draws the entire image centered at a point on the window
+    /// @param imgFilePath The image file path
+    /// @param point The center point to draw the image
+    ///
+    void DrawImageCenteredAt(const std::string& imgFilePath, const Tau_Point& point);
+
+    ///
+    /// @brief DrawImageCenteredInWindow Draws the entire image centered in the window
+    /// @param imgFilePath The image file path
+    ///
+    void DrawImageCenteredInWindow(const std::string& imgFilePath);
 
     ///
     /// @brief DrawImageToRect
     /// @param imgFilePath The image file path
-    /// @param rect The rectangle area in the window to draw the image
-    /// @remark the image will be scaled to fit in the rect
+    /// @param rect The rectangle area in the window to draw the scaled image
+    /// @note the image will be scaled to fit in the rect
     /// 
-    void DrawImageToRect(const std::string& imgFilePath, const SDL_Rect& rect);
+    void DrawImageToRect(const std::string& imgFilePath, const Tau_Rect& rect);
+
+    ///
+    /// @brief GetTextureOfImage
+    /// @param imgFilePath The image file path
+    /// @return SDL_Shared<SDL_Texture> texture
+    /// 
+    SDL_Shared<SDL_Texture> GetTextureOfImage(const std::string& imgFilePath);
+
+    ///
+    /// @brief GetSizeOfTexture
+    /// @param texture The texture to get the size of
+    /// @return SDL_Shared<SDL_Texture> texture
+    /// 
+    Tau_Size GetSizeOfTexture(SDL_Shared<SDL_Texture> texture);
 
     ///
     /// @brief GetTextureAndSizeOfImage
@@ -122,7 +141,7 @@ struct Win
     /// @param &rect return width and height of image
     /// @return SDL_Shared<SDL_Texture> texture
     /// 
-    SDL_Shared<SDL_Texture> GetTextureAndSizeOfImage(const std::string& imgFilePath, SDL_Rect *rect = nullptr);
+    SDL_Shared<SDL_Texture> GetTextureAndSizeOfImage(const std::string& imgFilePath, Tau_Size* size = nullptr);
 
     ///
     /// @brief DrawSectionOfTexture

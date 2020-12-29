@@ -99,42 +99,70 @@ void Win::FillRect(const SDL_Rect& rect, SDL_Color color) {
 }
 
 ///
-/// @brief Win::DrawEntireImage Draws the entire image on the window at a point on the window
+/// @brief DrawImageAt Draws the entire image at a point on the window
 /// @param imgFilePath The image file path
 /// @param point The point to draw the image
-/// @param point_posit Whether point is the upper left corner of the image or the s=center of the image
 ///
-void Win::DrawEntireImage(const string& imgFilePath, const SDL_Point& point, POINT_POSITION point_posit) {
-    SDL_Rect rect;
-    SDL_Shared<SDL_Texture> texture = GetTextureAndSizeOfImage(imgFilePath, &rect);
-    if (point_posit == UL_CORNER) {
-        rect.x = point.x; 
-        rect.y = point.y;
-    }
-    else if (point_posit == CENTERED_AT) {
-        // adjust the corner x,y so that the center of the image is at the point
-        rect.x = point.x - (rect.w / 2);
-        rect.y = point.y - (rect.h / 2);
-    }
-    else if (point_posit == CENTER_OF_WINDOW) {
-        // adjust the corner x,y so that the center of the image is at the of the window
-        rect.x = (winBounds.w / 2) - (rect.w / 2);
-        rect.y = (winBounds.h / 2) - (rect.h / 2);
-    }
-    else
-        { assert(false); }
+void Win::DrawImageAt(const string& imgFilePath, const Tau_Point& point) {
+    Tau_Size size;
+    SDL_Shared<SDL_Texture> texture = GetTextureAndSizeOfImage(imgFilePath, &size);
+    Tau_Rect rect(point, size);
+
     SDL_RenderCopy(renderer, texture, nullptr, &rect);
+}
+
+///
+/// @brief DrawImageCenteredAt Draws the entire image centered at a point on the window
+/// @param imgFilePath The image file path
+/// @param point The center point to draw the image
+///
+void Win::DrawImageCenteredAt(const std::string& imgFilePath, const Tau_Point& point) {
+    Tau_Size size;
+    SDL_Shared<SDL_Texture> texture = GetTextureAndSizeOfImage(imgFilePath, &size);
+    // adjust the corner x,y so that the center of the image is at the point
+    Tau_Rect rect ({ point.x - (size.w / 2), point.y - (size.h / 2) }, size );
+
+    SDL_RenderCopy(renderer, texture, nullptr, &rect);
+}
+
+///
+/// @brief DrawImageCenteredInWindow Draws the entire image centered in the window
+/// @param imgFilePath The image file path
+///
+void Win::DrawImageCenteredInWindow(const std::string& imgFilePath) {
+    DrawImageCenteredAt(imgFilePath, winBounds.Center());
 }
 
 ///
 /// @brief DrawImageToRect
 /// @param imgFilePath The image file path
 /// @param rect The rectangle area in the window to draw the image
-/// @remark the image will be scaled to fit in the rect
+/// @note the image will be scaled to fit in the rect
 ///
-void Win::DrawImageToRect(const string& imgFilePath, const SDL_Rect& rect) {
+void Win::DrawImageToRect(const string& imgFilePath, const Tau_Rect& rect) {
     SDL_Shared<SDL_Texture> texture = IMG_LoadTexture(renderer, imgFilePath.c_str());
     SDL_RenderCopy(renderer, texture, nullptr, &rect);
+}
+
+///
+/// @brief GetTextureOfImage
+/// @param imgFilePath The image file path
+/// @return SDL_Shared<SDL_Texture> texture
+/// 
+SDL_Shared<SDL_Texture> Win::GetTextureOfImage(const string& imgFilePath) {
+    SDL_Shared<SDL_Texture> texture = IMG_LoadTexture(renderer, imgFilePath.c_str());
+    return texture;
+}
+
+    ///
+    /// @brief GetSizeOfTexture
+    /// @param texture The texture to get the size of
+    /// @return SDL_Shared<SDL_Texture> texture
+    /// 
+Tau_Size Win:: GetSizeOfTexture(SDL_Shared<SDL_Texture> texture) {
+    Tau_Size size;
+    SDL_QueryTexture(texture, NULL, NULL, &size.w, &size.h); // get the width and height of the texture
+    return size;
 }
 
 ///
@@ -143,13 +171,12 @@ void Win::DrawImageToRect(const string& imgFilePath, const SDL_Rect& rect) {
 /// @param &rect return width and height of image
 /// @return SDL_Shared<SDL_Texture> texture
 /// 
-SDL_Shared<SDL_Texture> Win::GetTextureAndSizeOfImage(const string& imgFilePath, SDL_Rect *rect) {
-    SDL_Shared<SDL_Texture> texture = IMG_LoadTexture(renderer, imgFilePath.c_str());
-    if (rect != nullptr) {
-        rect->x = 0;
-        rect->y = 0;
-    	SDL_QueryTexture(texture, NULL, NULL, &rect->w, &rect->h); // get the width and height of the texture
-    }
+SDL_Shared<SDL_Texture> Win::GetTextureAndSizeOfImage(const string& imgFilePath, Tau_Size* _size) {
+    SDL_Shared<SDL_Texture> texture = GetTextureOfImage(imgFilePath);
+    Tau_Size size = GetSizeOfTexture(texture);
+    if (_size != nullptr)
+        *_size = size;
+
     return texture;
 }
 
