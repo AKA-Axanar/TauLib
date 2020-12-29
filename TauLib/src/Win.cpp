@@ -391,4 +391,23 @@ Tau_Color Win::GetColor() {
     return color;
 }
 
+//                  ===========
+//                   Draw Line
+//                  ===========
+
+void Win::DrawLine(const Tau_Point& p1, const Tau_Point& p2) {
+    SDL_RenderDrawLine(renderer, p1.x, p1.y, p2.x, p2.y);
+}
+
+void Win::DrawLine(const vector<Tau_Point>& points) {
+    if (points.size() >= 2) {
+        Tau_Point p1 = points[0];
+        for (int i=1; i < points.size(); ++i) {
+            Tau_Point p2 = points[i];
+            DrawLine(p1, p2);
+            p1 = p2;
+        }
+    }
+}
+
 } // end namespace Tau

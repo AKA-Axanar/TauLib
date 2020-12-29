@@ -13,6 +13,7 @@
 #include "Tau_Rect.h"
 #include "TTF_Font_Shared.h"
 #include "Tau_Color.h"
+#include <vector>
 
 ///
 /// @brief namespace Tau - avoid conflict with other libraries
@@ -299,6 +300,14 @@ struct Win
     /// @brief GetColor Get the rendering color
     /// @return Tau_Color
     Tau_Color GetColor();
+
+//                  ===========
+//                   Draw Line
+//                  ===========
+
+    void DrawLine(const Tau_Point& p1, const Tau_Point& p2);
+
+    void DrawLine(const std::vector<Tau_Point>& points);
 
 //                  ===========
 //                     Misc
