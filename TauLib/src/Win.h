@@ -138,10 +138,9 @@ struct Win
     ///
     /// @brief GetTextureAndSizeOfImage
     /// @param imgFilePath The image file path
-    /// @param &rect return width and height of image
-    /// @return SDL_Shared<SDL_Texture> texture
+    /// @return SDL_Shared<SDL_Texture> texture and Tau_Size size
     /// 
-    SDL_Shared<SDL_Texture> GetTextureAndSizeOfImage(const std::string& imgFilePath, Tau_Size* size = nullptr);
+    std::tuple<SDL_Shared<SDL_Texture>, Tau_Size> GetTextureAndSizeOfImage(const std::string& imgFilePath);
 
     ///
     /// @brief DrawSectionOfTexture

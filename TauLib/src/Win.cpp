@@ -104,8 +104,7 @@ void Win::FillRect(const SDL_Rect& rect, SDL_Color color) {
 /// @param point The point to draw the image
 ///
 void Win::DrawImageAt(const string& imgFilePath, const Tau_Point& point) {
-    Tau_Size size;
-    SDL_Shared<SDL_Texture> texture = GetTextureAndSizeOfImage(imgFilePath, &size);
+    auto [ texture, size ] = GetTextureAndSizeOfImage(imgFilePath);
     Tau_Rect rect(point, size);
 
     SDL_RenderCopy(renderer, texture, nullptr, &rect);
@@ -117,8 +116,7 @@ void Win::DrawImageAt(const string& imgFilePath, const Tau_Point& point) {
 /// @param point The center point to draw the image
 ///
 void Win::DrawImageCenteredAt(const std::string& imgFilePath, const Tau_Point& point) {
-    Tau_Size size;
-    SDL_Shared<SDL_Texture> texture = GetTextureAndSizeOfImage(imgFilePath, &size);
+    auto [ texture, size ] = GetTextureAndSizeOfImage(imgFilePath);
     // adjust the corner x,y so that the center of the image is at the point
     Tau_Rect rect ({ point.x - (size.w / 2), point.y - (size.h / 2) }, size );
 
@@ -171,13 +169,11 @@ Tau_Size Win:: GetSizeOfTexture(SDL_Shared<SDL_Texture> texture) {
 /// @param &rect return width and height of image
 /// @return SDL_Shared<SDL_Texture> texture
 /// 
-SDL_Shared<SDL_Texture> Win::GetTextureAndSizeOfImage(const string& imgFilePath, Tau_Size* _size) {
+tuple<SDL_Shared<SDL_Texture>, Tau_Size> Win::GetTextureAndSizeOfImage(const string& imgFilePath) {
     SDL_Shared<SDL_Texture> texture = GetTextureOfImage(imgFilePath);
     Tau_Size size = GetSizeOfTexture(texture);
-    if (_size != nullptr)
-        *_size = size;
 
-    return texture;
+    return make_tuple(texture, size);
 }
 
 ///
