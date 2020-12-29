@@ -12,7 +12,7 @@ struct Tau_Point : public SDL_Point {
 
 //    /// @brief Tau_Point copy ctor
 //    Tau_Point(const Tau_Point& pnt) { x = pnt.x; y = pnt.y; }
-
+//
 //    /// @brief Tau_Point ctor from a SDL_Rect top left corner position
 //    Tau_Point(const SDL_Rect& rect) { x = rect.x; y = rect.y; }
 

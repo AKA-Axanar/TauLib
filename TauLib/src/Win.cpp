@@ -377,4 +377,18 @@ void Win::DrawSectionOfTextureToRect(SDL_Shared<SDL_Texture> texture, const Tau_
     SDL_RenderCopy(renderer, texture, &srcRect, &destRect);
 }
 
+//                  ===========
+//                     Color
+//                  ===========
+
+void Win::SetColor(const Tau_Color& color) {
+    SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
+}
+
+Tau_Color Win::GetColor() {
+    Tau_Color color;
+    SDL_GetRenderDrawColor(renderer, &color.r, &color.g, &color.b, &color.a);
+    return color;
+}
+
 } // end namespace Tau

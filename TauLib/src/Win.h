@@ -12,6 +12,7 @@
 #include "SDL_shared.h"
 #include "Tau_Rect.h"
 #include "TTF_Font_Shared.h"
+#include "Tau_Color.h"
 
 ///
 /// @brief namespace Tau - avoid conflict with other libraries
@@ -288,10 +289,22 @@ struct Win
     void DrawSectionOfTextureToRect(SDL_Shared<SDL_Texture> texture, const Tau_Rect& srcRect, const Tau_Rect& destRect);
 
 //                  ===========
+//                     Color
+//                  ===========
+
+    /// @brief SetColor Set the rendering color
+    /// @param color 
+    void SetColor(const Tau_Color& color);
+
+    /// @brief GetColor Get the rendering color
+    /// @return Tau_Color
+    Tau_Color GetColor();
+
+//                  ===========
 //                     Misc
 //                  ===========
 
-static int GetNumberOfDisplays() { return SDL_GetNumVideoDisplays(); }
+    static int GetNumberOfDisplays() { return SDL_GetNumVideoDisplays(); }
 };
 
 } // end namespace Tau
