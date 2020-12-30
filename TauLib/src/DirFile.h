@@ -219,6 +219,53 @@ bool CopyDirOverwrite(const std::string& dirPathSrc, const std::string& dirPathD
 bool CopyDirSkipExisting(const std::string& dirPathSrc, const std::string& dirPathDest);
 
                 //*******************************
+                // Get list of files and directories
+                //*******************************
+
+/// @brief GetFileNamesInDir Return the list of file names in a directory.
+/// @param The directory path to open.
+/// Ex: "aaa/bbb/foo.dat". if passed "aaa/bbb", "foo.dat" would be one of the file names returned.
+/// @return A vector of strings containing file names.
+/// 
+Strings GetFileNamesInDir(const std::string& dirPath);
+
+/// @brief GetDirNamesInDir Return the list of directory names in a directory.
+/// @param The directory path to open.
+/// Ex: "aaa/bbb/ccc/foo.dat". if passed "aaa/bbb", "ccc" would be one of the directory names returned.
+/// @return A vector of strings containing directory names.
+/// 
+Strings GetDirNamesInDir(const std::string& dirPath);
+
+/// @brief GetFileFullPathsInDir Return the list of file name full paths in a directory.
+/// @param The directory path to open.
+/// Ex: "aaa/bbb/foo.dat". if passed "aaa/bbb", "aaa/bbb/foo.dat" would be one of the file name full paths returned.
+/// @return A vector of strings containing file name full paths.
+/// 
+Strings GetFileFullPathsInDir(const std::string& dirPath);
+
+/// @brief GetDirFullPathsInDir Return the list of directory names in a directory.
+/// @param The directory path to open.
+/// Ex: "aaa/bbb/ccc/foo.dat". if passed "aaa/bbb", "aaa/bbb/ccc" would be one of the directory paths returned.
+/// @return A vector of strings containing directory names.
+/// 
+Strings GetDirFullPathsInDir(const std::string& dirPath);
+
+/// @brief GetFileFullPathsInDir_Recursive Return the list of file name full paths in a directory.
+/// Same as GetFileFullPathsInDir but it continues through the entire sub-directory hierarchy.
+/// @param The directory path to open.
+/// @return A vector of strings containing file name full paths.
+/// 
+Strings GetFileFullPathsInDir_Recursive(const std::string& dirPath);
+
+/// @brief GetDirFullPathsInDir_Recursive Return the list of directory names in a dir.
+/// Same as GetDirFullPathsInDir but it continues through the entire sub-directory hierarchy.
+/// @param The directory path to open.
+/// Ex: "aaa/bbb/ccc/foo.dat". if passed "aaa/bbb", "aaa/bbb/ccc" would be one of the directory paths returned.
+/// @return A vector of strings containing directory paths.
+/// 
+Strings GetDirFullPathsInDir_Recursive(const std::string& dirPath);
+
+                //*******************************
                 // Temp Directory and Temp File
                 //*******************************
 
