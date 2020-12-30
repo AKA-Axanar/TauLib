@@ -411,4 +411,9 @@ void Win::DrawLine(const vector<Tau_Point>& points) {
     }
 }
 
+void Win::DrawRect(const Tau_Rect& rect) {
+    auto temp = rect;
+    SDL_RenderDrawRect(renderer, &temp);
+}
+
 } // end namespace Tau

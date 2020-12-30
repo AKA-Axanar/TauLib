@@ -308,6 +308,8 @@ struct Win
     void DrawLine(const Tau_Point& p1, const Tau_Point& p2);
 
     void DrawLine(const std::vector<Tau_Point>& points);
+
+    void DrawRect(const Tau_Rect& rect);
 };
 
  } // end namespace Tau
