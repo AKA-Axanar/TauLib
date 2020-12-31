@@ -2,6 +2,10 @@
 #include <string>
 #include "TauLib.h"
 #include "Str.h"
+#include <filesystem>
+#include <functional>
+
+namespace fs = std::filesystem;
 
 ///
 /// @file
@@ -222,40 +226,69 @@ bool CopyDirSkipExisting(const std::string& dirPathSrc, const std::string& dirPa
                 // Get list of files and directories
                 //*******************************
 
+// Add new lambdas as needed
+
+/// @brief lambda to return if a directory_entry is a file
+inline auto is_file =      [] (fs::directory_entry& entry)->bool { return entry.is_regular_file(); };
+/// @brief lambda to return if a directory_entry is a directory
+inline auto is_directory = [] (fs::directory_entry& entry)->bool { return entry.is_directory(); };
+
+/// @brief lambda to return the file name or dir name portion of a directory_entry
+inline auto get_name =     [] (fs::directory_entry& entry)->std::string { return entry.path().filename().string(); };
+/// @brief lambda to return the ful path of a file name or dir name of a directory_entry
+inline auto get_fullpath = [] (fs::directory_entry& entry)->std::string { return entry.path().string(); };
+
+/// @brief return directory contents as strings of file or dir names
+/// @param dirPath The directory path to open
+/// @param testLambda A lambda function that tests the directory_entry as to whether to include the entry or not.
+/// @param getStringLambda What string you wish to return from the entry if it passed your test.
+/// @param recursive True to recursively read the entire directory hierarchy.
+/// @return A vector of strings of file names, dir names, or full file/dir paths.
+Strings GetDirectoryContents(const std::string& dirPath, 
+                             std::function<bool (fs::directory_entry&)> testLambda,
+                             std::function<std::string (fs::directory_entry&)> getStringLambda,
+                             bool recursive = false
+                             );
+
 /// @brief GetFileNamesInDir Return the list of file names in a directory.
 /// @param The directory path to open.
 /// Ex: "aaa/bbb/foo.dat". if passed "aaa/bbb", "foo.dat" would be one of the file names returned.
 /// @return A vector of strings containing file names.
 /// 
-Strings GetFileNamesInDir(const std::string& dirPath);
-
-/// @brief GetDirNamesInDir Return the list of directory names in a directory.
-/// @param The directory path to open.
-/// Ex: "aaa/bbb/ccc/foo.dat". if passed "aaa/bbb", "ccc" would be one of the directory names returned.
-/// @return A vector of strings containing directory names.
-/// 
-Strings GetDirNamesInDir(const std::string& dirPath);
+inline Strings GetFileNamesInDir(const std::string& dirPath)
+    { return GetDirectoryContents(dirPath, is_file, get_name); }
 
 /// @brief GetFileFullPathsInDir Return the list of file name full paths in a directory.
 /// @param The directory path to open.
 /// Ex: "aaa/bbb/foo.dat". if passed "aaa/bbb", "aaa/bbb/foo.dat" would be one of the file name full paths returned.
 /// @return A vector of strings containing file name full paths.
 /// 
-Strings GetFileFullPathsInDir(const std::string& dirPath);
+inline Strings GetFileFullPathsInDir(const std::string& dirPath)
+    { return GetDirectoryContents(dirPath, is_file, get_fullpath); }
+
+/// @brief GetDirNamesInDir Return the list of directory names in a directory.
+/// @param The directory path to open.
+/// Ex: "aaa/bbb/ccc/foo.dat". if passed "aaa/bbb", "ccc" would be one of the directory names returned.
+/// @return A vector of strings containing directory names.
+/// 
+inline Strings GetDirNamesInDir(const std::string& dirPath)
+    { return GetDirectoryContents(dirPath, is_directory, get_name); }
 
 /// @brief GetDirFullPathsInDir Return the list of directory names in a directory.
 /// @param The directory path to open.
 /// Ex: "aaa/bbb/ccc/foo.dat". if passed "aaa/bbb", "aaa/bbb/ccc" would be one of the directory paths returned.
 /// @return A vector of strings containing directory names.
 /// 
-Strings GetDirFullPathsInDir(const std::string& dirPath);
+inline Strings GetDirFullPathsInDir(const std::string& dirPath)
+    { return GetDirectoryContents(dirPath, is_directory, get_fullpath); }
 
 /// @brief GetFileFullPathsInDir_Recursive Return the list of file name full paths in a directory.
 /// Same as GetFileFullPathsInDir but it continues through the entire sub-directory hierarchy.
 /// @param The directory path to open.
 /// @return A vector of strings containing file name full paths.
 /// 
-Strings GetFileFullPathsInDir_Recursive(const std::string& dirPath);
+inline Strings GetFileFullPathsInDir_Recursive(const std::string& dirPath)
+    { return GetDirectoryContents(dirPath, is_file, get_fullpath, true); }
 
 /// @brief GetDirFullPathsInDir_Recursive Return the list of directory names in a dir.
 /// Same as GetDirFullPathsInDir but it continues through the entire sub-directory hierarchy.
@@ -263,7 +296,8 @@ Strings GetFileFullPathsInDir_Recursive(const std::string& dirPath);
 /// Ex: "aaa/bbb/ccc/foo.dat". if passed "aaa/bbb", "aaa/bbb/ccc" would be one of the directory paths returned.
 /// @return A vector of strings containing directory paths.
 /// 
-Strings GetDirFullPathsInDir_Recursive(const std::string& dirPath);
+inline Strings GetDirFullPathsInDir_Recursive(const std::string& dirPath)
+    { return GetDirectoryContents(dirPath, is_directory, get_fullpath, true); }
 
                 //*******************************
                 // Temp Directory and Temp File

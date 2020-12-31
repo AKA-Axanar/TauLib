@@ -1,6 +1,5 @@
 #include "DirFile.h"
 #include <string>
-#include <filesystem>
 #include <iostream>
 #include <fstream>
 #include <stdio.h>
@@ -220,84 +219,25 @@ bool CopyDirSkipExisting(const string& dirPathSrc, const string& dirPathDest) {
                 // Get list of files and directories
                 //*******************************
 
-// GetFileNamesInDir
-// Return the list of file names in a directory.
-// Ex: "aaa/bbb/foo.dat". if passed "aaa/bbb", "foo.dat" would be one of the file names returned.
-Strings GetFileNamesInDir(const std::string& dirPath) {
+// return directory contents as strings of file or dir names
+Strings GetDirectoryContents(const std::string& dirPath, 
+                             std::function<bool (fs::directory_entry&)> testLambda,
+                             std::function<string (fs::directory_entry&)> getStringLambda,
+                             bool recursive
+                             )
+{
     Strings result;
-    for (auto& dir_entry : fs::directory_iterator(dirPath)) {
-        if (dir_entry.is_regular_file()) {
-            result.emplace_back(dir_entry.path().filename().string());
+    if (recursive) {
+        for (auto dir_entry : fs::recursive_directory_iterator(dirPath)) {
+            if (testLambda(dir_entry)) {
+                result.emplace_back(getStringLambda(dir_entry));
+            }
         }
-    }
-
-    return result;
-}
-
-// GetDirNamesInDir
-// Return the list of directory names in a directory.
-// Ex: "aaa/bbb/ccc/foo.dat". if passed "aaa/bbb", "ccc" would be one of the directory names returned.
-Strings GetDirNamesInDir(const std::string& dirPath) {
-    Strings result;
-    for (auto& dir_entry : fs::directory_iterator(dirPath)) {
-        if (dir_entry.is_directory()) {
-            result.emplace_back(dir_entry.path().stem().string());
-        }
-    }
-
-    return result;
-}
-
-// GetFileFullPathsInDir
-// Return the list of file name full paths in a directory.
-// Ex: "aaa/bbb/foo.dat". if passed "aaa/bbb", "aaa/bbb/foo.dat" would be one of the file name full paths returned.
-Strings GetFileFullPathsInDir(const std::string& dirPath) {
-    Strings result;
-    for (auto& dir_entry : fs::directory_iterator(dirPath)) {
-        if (dir_entry.is_regular_file()) {
-            result.emplace_back(dir_entry.path().string());
-        }
-    }
-
-    return result;
-}
-
-// GetDirFullPathsInDir
-// Return the list of directory names in a directory.
-// Ex: "aaa/bbb/ccc/foo.dat". if passed "aaa/bbb", "aaa/bbb/ccc" would be one of the directory paths returned.
-Strings GetDirFullPathsInDir(const std::string& dirPath) {
-    Strings result;
-    for (auto& dir_entry : fs::directory_iterator(dirPath)) {
-        if (dir_entry.is_directory()) {
-            result.emplace_back(dir_entry.path().string());
-        }
-    }
-
-    return result;
-}
-
-// GetFileFullPathsInDir_Recursive
-// Return the list of file name full paths in a directory.
-// Same as GetFileFullPathsInDir but it continues through the entire sub-directory hierarchy.
-Strings GetFileFullPathsInDir_Recursive(const std::string& dirPath) {
-    Strings result;
-    for (auto& dir_entry : fs::recursive_directory_iterator(dirPath)) {
-        if (dir_entry.is_regular_file()) {
-            result.emplace_back(dir_entry.path().string());
-        }
-    }
-
-    return result;
-}
-
-// GetDirFullPathsInDir_Recursive
-// Return the list of directory names in a dir.
-// Same as GetDirFullPathsInDir but it continues through the entire sub-directory hierarchy.
-Strings GetDirFullPathsInDir_Recursive(const std::string& dirPath) {
-    Strings result;
-    for (auto& dir_entry : fs::recursive_directory_iterator(dirPath)) {
-        if (dir_entry.is_directory()) {
-            result.emplace_back(dir_entry.path().string());
+    } else {
+        for (auto dir_entry : fs::directory_iterator(dirPath)) {
+            if (testLambda(dir_entry)) {
+                result.emplace_back(getStringLambda(dir_entry));
+            }
         }
     }
 
