@@ -20,7 +20,7 @@ std::string _(const std::string & input);
 //******************
 class Lang {
 public:
-    std::string translationDir;             ///< The dir containing French.txt, Deutsch.txt, Spanish.txt, etc
+    std::string langDir;                    ///< The dir containing French.txt, Deutsch.txt, Spanish.txt, etc
     std::string currentLang {"English"};    ///< The name of the current language
 
     /// @brief Finds the language file and loads the map

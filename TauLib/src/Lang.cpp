@@ -26,11 +26,11 @@ string _(const string & input) {
 // Lang::LoadLanguage
 //*******************************
 void Lang::LoadLanguage(string languageName) {
-    assert(translationDir != "");
-    if (translationDir == "")
-        cerr << "translationDir has not been set" << endl;
+    assert(langDir != "");
+    if (langDir == "")
+        cerr << "langDir has not been set" << endl;
 
-    string path = translationDir + Tau::sep + languageName + ".txt";
+    string path = langDir + Tau::sep + languageName + ".txt";
     langData.clear();
     newData.clear();
     currentLang = languageName;
@@ -87,7 +87,7 @@ string Lang::Translate(string input){
 //*******************************
 void Lang::Dump(string fileName) {
 
-    string fileSave = translationDir + Tau::sep + fileName;
+    string fileSave = langDir + Tau::sep + fileName;
     map<string, string>::iterator it;
 
     ofstream os(fileSave);
@@ -107,7 +107,7 @@ vector<string> Lang::GetListOfLanguages()
 {
     vector<string> languages;
     languages.push_back("English");
-    Tau::Strings filenames = Tau::GetFileNamesInDir(translationDir);
+    Tau::Strings filenames = Tau::GetFileNamesInDir(langDir);
     for (auto const& name : filenames)
     {
         // if it's a*.txt file but not English.txt, add it to the list of languages
