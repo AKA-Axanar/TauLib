@@ -18,7 +18,7 @@
 ///
 /// @struct IniFile reads an ini file into a map of key/value pairs with section names [config], [info], [settings], etc.
 /// Keys can be modified, added, or deleted and saved in the original ini file or written to a new file.
-/// A semicolon or a # is a comment to the end of the line.
+/// A semicolon is a comment to the end of the line.
 /// When you save a modified ini file the comments are restored.
 /// @note Avoid using tabs as comments might not be restored to the file in the original column position if the key value is changed.
 /// The ini file can have zero, one, or more than one, section names enclosed in [ ].  Section declarations are on their own line.

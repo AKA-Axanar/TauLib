@@ -291,9 +291,9 @@ bool IniFile::IniLine::ParseLine(const string& _line) {
         line.erase(0, section.size() + 1);  // remove "name]"
 
         whiteSpaceAfterSection = GetAndRemoveLeadingWhitespace(&line);
-        bool hasComment = FoundLexExpr("^[;#]", line);          // ";" or "#"
+        bool hasComment = FoundLexExpr("^[;]", line);          // ";"
         if (hasComment)
-            comment = FindLexExprMatch("^[;#].*", line);
+            comment = FindLexExprMatch("^[;].*", line);
         else if (line.size() > 0) {
             cerr << "Extra text in ini file = " << line << endl;
             return false;
@@ -314,16 +314,16 @@ bool IniFile::IniLine::ParseLine(const string& _line) {
             line.erase(0, 1);   // erase the '='
             whiteSpaceBeforeValue = GetAndRemoveLeadingWhitespace(&line);   // get spacces before value if any
             if (line.size() > 0) {
-                value = FindLexExprMatch("^[^[:space:];#]+", line);  // "value"
+                value = FindLexExprMatch("^[^[:space:];]+", line);  // "value"
                 line.erase(0, value.size());   // erase the value
                 whiteSpaceAfterValue = GetAndRemoveLeadingWhitespace(&line);   // get spacces before value if any
             }
         }
     }
 
-    bool hasComment = FoundLexExpr("^[;#]", line);          // ";" or "#"
+    bool hasComment = FoundLexExpr("^[;]", line);          // ";"
     if (hasComment) {
-        comment = FindLexExprMatch("^[;#].*", line);
+        comment = FindLexExprMatch("^[;].*", line);
     }
     else if (line.size() > 0) {
         cerr << "Extra text in ini file = " << line << endl;
