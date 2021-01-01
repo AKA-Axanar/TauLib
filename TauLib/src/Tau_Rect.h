@@ -65,7 +65,13 @@ struct Tau_Rect : public SDL_Rect {
     Tau_Size GetSize() const { return { w, h }; }
 
     /// @brief SetPoint Sets the value of the top left position
+    void SetPoint(int _x, int _y) { x = _x; y = _y; }
+
+    /// @brief SetPoint Sets the value of the top left position
     void SetPoint(const SDL_Point& pnt) { x = pnt.x; y = pnt.y; }
+
+    /// @brief SetSize Sets the size (width and height) of the rectangle
+    void SetSize(int _w, int _h) { w = _w; h = _h; }
 
     /// @brief SetSize Sets the size (width and height) of the rectangle
     void SetSize(const Tau_Size& size) { w = size.w; h = size.h; }

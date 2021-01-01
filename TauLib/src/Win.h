@@ -14,6 +14,7 @@
 #include "TTF_Font_Shared.h"
 #include "Tau_Color.h"
 #include <vector>
+#include "DrawArea.h"
 
 ///
 /// @brief namespace Tau - avoid conflict with other libraries
@@ -23,7 +24,7 @@ namespace Tau { // to avoid conflict with other libraries
 ///
 /// @struct Win SDL_Window class
 ///
-struct Win
+struct Win : public DrawArea
 {
     unsigned int displayIndex = 0;                  ///< physical display index starting at 0
 
@@ -32,7 +33,6 @@ struct Win
     Uint32 flags = SDL_WINDOW_SHOWN;    
 
     SDL_Shared<SDL_Window> window = nullptr;
-    SDL_Shared<SDL_Renderer> renderer = nullptr;
     bool windowIsEntireDisplay = false;
     bool isOpen = false;
 

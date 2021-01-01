@@ -49,6 +49,13 @@ bool Win::Init(unsigned int _displayIndex, const string& _title, const Tau_Rect&
     if (flags & (SDL_WINDOW_FULLSCREEN_DESKTOP | SDL_WINDOW_FULLSCREEN))
         windowIsEntireDisplay = true;
 
+    // This is the window itself not just an area of a window.  If this is a fullscreen window then the bounds
+    // is already 0,0 and the width and height of the entire display screen.
+    // If it is a window smaller than the display size we need to change the corner position to be 0,0 as everything
+    // drawn in that window is relative to a upper left corner point of 0,0.
+    winArea = winBounds;
+    winArea.SetPoint(0, 0);
+
     isOpen = true;
     return isOpen;
 }
