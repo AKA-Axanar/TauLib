@@ -46,6 +46,9 @@ bool Win::Init(unsigned int _displayIndex, const string& _title, const Tau_Rect&
         return false;
     }
 
+    if (flags & (SDL_WINDOW_FULLSCREEN_DESKTOP | SDL_WINDOW_FULLSCREEN))
+        windowIsEntireDisplay = true;
+
     isOpen = true;
     return isOpen;
 }

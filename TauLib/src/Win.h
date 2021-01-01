@@ -28,11 +28,12 @@ struct Win
     unsigned int displayIndex = 0;                  ///< physical display index starting at 0
 
     std::string title;                              ///< title of window if not full screen
-    Tau_Rect winBounds {{0, 0}, {1280, 720}};
+    Tau_Rect winBounds {{0, 0}, {1280, 720}};       ///< window bounds on the display.
     Uint32 flags = SDL_WINDOW_SHOWN;    
 
     SDL_Shared<SDL_Window> window = nullptr;
     SDL_Shared<SDL_Renderer> renderer = nullptr;
+    bool windowIsEntireDisplay = false;
     bool isOpen = false;
 
     Win() {}
