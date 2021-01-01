@@ -16,7 +16,7 @@ bool Display::Init(unsigned int _displayIndex)                           ///< Us
 
     bool ret = Win::Init(_displayIndex, "", { { specifyDisplayNum, specifyDisplayNum }, { 0, 0 } }, SDL_WINDOW_FULLSCREEN_DESKTOP);
     SDL_GetDisplayBounds(displayIndex, &displayBounds);
-    winBounds = displayBounds;  // the window bounds is the display bounds as the window is the entire display screen
+    winArea = displayBounds;  // the window bounds is the display bounds as the window is the entire display screen
     displayResolution = displayBounds.GetSize();
     return ret;
 }
@@ -27,7 +27,7 @@ bool Display::Init(int _displayIndex, Tau_Size newResolution)   ///< Uses flag S
 
     bool ret = Win::Init(_displayIndex, "", { { specifyDisplayNum, specifyDisplayNum }, newResolution }, SDL_WINDOW_FULLSCREEN);
     SDL_GetDisplayBounds(displayIndex, &displayBounds);
-    winBounds = displayBounds;  // the window bounds is the display bounds as the window is the entire display screen
+    winArea = displayBounds;  // the window bounds is the display bounds as the window is the entire display screen
     displayResolution = displayBounds.GetSize();
     return ret;
 }

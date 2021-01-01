@@ -19,7 +19,7 @@ namespace Tau { // to avoid conflict with other libraries
 // Win ctor
 //
 Win::Win(unsigned int _displayIndex, const string& _title, const Tau_Rect& bounds, Uint32 _flags)
-        : title(_title), winBounds(bounds), flags(_flags)
+        : title(_title), flags(_flags)
 {
     Init(_displayIndex, _title, bounds, _flags);
 }
@@ -32,7 +32,7 @@ bool Win::Init(unsigned int _displayIndex, const string& _title, const Tau_Rect&
 
     displayIndex = _displayIndex;
     title = _title;
-    winBounds = bounds;
+    winArea = bounds;
     flags = _flags;         // https://wiki.libsdl.org/SDL_WindowFlags
 
     window = SDL_CreateWindow(title.c_str(), bounds.x, bounds.y, bounds.w, bounds.h, flags);
@@ -53,7 +53,6 @@ bool Win::Init(unsigned int _displayIndex, const string& _title, const Tau_Rect&
     // is already 0,0 and the width and height of the entire display screen.
     // If it is a window smaller than the display size we need to change the corner position to be 0,0 as everything
     // drawn in that window is relative to a upper left corner point of 0,0.
-    winArea = winBounds;
     winArea.SetPoint(0, 0);
 
     isOpen = true;
@@ -203,7 +202,7 @@ void Win::DrawImageCenteredAt(const std::string& imgFilePath, const Tau_Point& p
 /// @param imgFilePath The image file path
 ///
 void Win::DrawImageCenteredInWindow(const std::string& imgFilePath) {
-    DrawImageCenteredAt(imgFilePath, winBounds.Center());
+    DrawImageCenteredAt(imgFilePath, winArea.Center());
 }
 
 ///
