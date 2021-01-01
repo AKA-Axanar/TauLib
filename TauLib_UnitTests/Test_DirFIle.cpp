@@ -15,7 +15,7 @@ TEST(TestDirFile, TestDirFile) {
     string temp;
     string ret;
 
-    temp = GetFileExtension("a/b/foo.dat");
+    temp = GetFileExtensionWithDot("a/b/foo.dat");
     EXPECT_EQ(temp, ".dat");
     temp = GetFileExtensionWithoutDot("a/b/foo.dat");
     EXPECT_EQ(temp, "dat");

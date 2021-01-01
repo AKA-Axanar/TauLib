@@ -1,4 +1,4 @@
-#include "sep.h"
+#include "Sep.h"
 #include <string>
 
 using namespace std;

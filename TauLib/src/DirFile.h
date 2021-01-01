@@ -23,12 +23,12 @@ namespace Tau {
                 //*******************************
 
 ///
-/// @brief GetFileExtension
+/// @brief GetFileExtensionWithDot
 /// @param str the file path
 /// @return the file extension of the path.  ex: returns ".dat" from "foo.dat"
 /// @remark Note: the returned file extension includes the "."
 ///
-    std::string GetFileExtension(const std::string& str);
+    std::string GetFileExtensionWithDot(const std::string& str);
 
 ///
 /// @brief GetFileExtensionWithoutDot

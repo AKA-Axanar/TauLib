@@ -78,6 +78,9 @@
     <ClInclude Include="src\Tau_Color.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Lang.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -120,6 +123,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Display.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Lang.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

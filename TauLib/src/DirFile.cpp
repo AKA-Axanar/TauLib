@@ -20,11 +20,11 @@ namespace Tau {  // to avoid conflict with other libraries
                 //*******************************
 
 //
-// GetFileExtension
+// GetFileExtensionWithDot
 // returns the file extension of the path.  ex: returns ".dat" for "foo.dat"
 // the return includes the file extension "."
 //
-string GetFileExtension(const string& str) {
+string GetFileExtensionWithDot(const string& str) {
     fs::path p(str);
     return p.extension().string();
 }
@@ -34,7 +34,7 @@ string GetFileExtension(const string& str) {
 // returns the file extension of the path without the leading ".".  ex: returns "dat" for "foo.dat"
 //
 string GetFileExtensionWithoutDot(const string& str) {
-    string ext = GetFileExtension(str);
+    string ext = GetFileExtensionWithDot(str);
     if (ext.size() > 0 && ext[0] == '.')
         ext.erase(0, 1);
     return ext;
