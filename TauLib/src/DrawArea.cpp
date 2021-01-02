@@ -251,7 +251,7 @@ void DrawArea::DrawTextCenteredAt(TTF_Font_Shared font, const std::string& text,
 /// @return none
 /// 
 void DrawArea::DrawTextCenteredInWindow(TTF_Font_Shared font, const std::string& text, SDL_Color color) {
-
+    DrawTextCenteredAt(font, text, color, winArea.Center());
 }
 
 ///
