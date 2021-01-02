@@ -35,24 +35,11 @@ struct DrawArea {
     SDL_Shared<SDL_Texture> defaultImageTexture;    // save this for better performance later
     bool enableDefaultImage = false;
 
-    void SetDefaultFill(const Tau_Color& color, bool enable) 
-        { defaultFillColor = color; enableDefaultFill = enable; }
+    void SetDefaultFill(const Tau_Color& color, bool enable);
 
-    void SetDefaultImage(const std::string& filename, bool enable) {
-        defaultImageFile = filename;
-        enableDefaultImage = enable;
-        if (defaultImageFile != "") 
-            defaultImageTexture = GetTextureOfImage(defaultImageFile);  // make texture once for better performance
-        else
-            defaultImageTexture = nullptr;
-    }
+    void SetDefaultImage(const std::string& filename, bool enable);
 
-    void DoDefault() {
-        if (enableDefaultFill)
-            FillRect(winArea, defaultFillColor);
-        if (enableDefaultImage)
-            DrawTextureToRect(defaultImageTexture, winArea);
-    }
+    void DrawDefault();
 
     /// @brief Move the DrawArea rectangle within the window
     /// @param distance 
@@ -62,8 +49,13 @@ struct DrawArea {
     /// @param distance 
     void MoveTo(Tau_Point point);
 
+    bool enableDraw = true;
+
     /// @brief Draw just this DrawArea
     /// Overload this function unless the default action of fill, background image, and sub areas draw is all you need.
+    /// ::Draw();    // do any base class drawing such as a background image
+    /// do something special here
+
     virtual void Draw();
 
     /// @brief Draw this DrawArea and all the subAreas inside

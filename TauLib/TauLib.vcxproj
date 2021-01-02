@@ -233,6 +233,7 @@
     <ClCompile Include="src\DirFile.cpp" />
     <ClCompile Include="src\Display.cpp" />
     <ClCompile Include="src\DrawArea.cpp" />
+    <ClCompile Include="src\FC_Font_shared.cpp" />
     <ClCompile Include="src\GetExecutablePath.cpp" />
     <ClCompile Include="src\IniFile.cpp" />
     <ClCompile Include="src\Lang.cpp" />
@@ -252,6 +253,7 @@
     </ClCompile>
     <ClCompile Include="src\ThirdParty\sqlite3.c" />
     <ClCompile Include="src\ThirdParty\whereami.c" />
+    <ClCompile Include="src\TTF_Font_Shared.cpp" />
     <ClCompile Include="src\Win.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -50,10 +50,8 @@
 /// @endcode
 
 #include <memory>
-#include "SDL.h"
 #include "SDL_ttf.h"
 #include "ThirdParty\SDL_FontCache.h"
-//#include "TTF_Font_Shared.h"
 #include <string>
 
 ///
@@ -70,14 +68,7 @@ struct FC_Font_Shared {
     /// @param renderer The screen renderer.  Needed by the font cache to create the font textures
     /// @param color The default color of the font.  It can be changed with FC_SetDefaultColor() and revrieved with FC_GetDefaultColor.
     /// 
-    FC_Font_Shared(const std::string& filename, int fontSize, SDL_Renderer* renderer, SDL_Color color) {
-        FC_Font* font = FC_CreateFont();
-        Uint8 ret = FC_LoadFont(font, renderer, filename.c_str(), fontSize, color, 0);
-        if (ret != 0)
-            font_shared_ptr.reset(font, [](FC_Font *font) { if (font) FC_FreeFont(font); });
-        else
-            cerr << "error opening font: " << filename << endl;
-}
+    FC_Font_Shared(const std::string& filename, int fontSize, SDL_Renderer* renderer, SDL_Color color);
 
     operator FC_Font* () { return font_shared_ptr.get(); };
     FC_Font & operator * () { return *font_shared_ptr.get(); };

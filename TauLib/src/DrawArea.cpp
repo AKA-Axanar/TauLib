@@ -10,6 +10,29 @@ namespace Tau { // to avoid conflict with other libraries
 
 DrawArea::DrawArea(SDL_Shared<SDL_Renderer> _renderer, const Tau_Rect& _rect) : renderer(_renderer), winArea(_rect) { }
 
+void DrawArea::SetDefaultFill(const Tau_Color& color, bool enable) {
+    defaultFillColor = color; 
+    enableDefaultFill = enable;
+}
+
+void DrawArea::SetDefaultImage(const std::string& filename, bool enable) {
+    defaultImageFile = filename;
+    enableDefaultImage = enable;
+    if (defaultImageFile != "") 
+        defaultImageTexture = GetTextureOfImage(defaultImageFile);  // make texture once for better performance
+    else
+        defaultImageTexture = nullptr;
+}
+
+void DrawArea::DrawDefault() {
+    if (enableDraw) {
+        if (enableDefaultFill)
+            FillRect(winArea, defaultFillColor);
+        if (enableDefaultImage)
+            DrawTextureToRect(defaultImageTexture, winArea);
+    }
+}
+
 void DrawArea::MoveBy(Tau_Distance distance)
 {
     winArea.x += distance.x;
@@ -24,16 +47,22 @@ void DrawArea::MoveTo(Tau_Point point)
     MoveBy(distance);
 }
 
+// Overload this function unless the default action of fill, background image, and sub areas draw is all you need.  For example:
+// ::Draw();    // do any base class drawing such as a background image
+// do something special here
 void DrawArea::Draw()
 {
-     DoDefault();
+    if (enableDraw)
+        DrawDefault();
 }
 
 /// @brief Draw this DrawArea and all the subAreas inside
 void DrawArea::DrawAll() {
-    Draw();
-    for (auto& area : subAreas)
-        area.DrawAll();
+    if (enableDraw) {
+        Draw();
+        for (auto& area : subAreas)
+            area.DrawAll();
+    }
 }
 
 void DrawArea::AddSubArea(DrawArea& subArea) {
@@ -385,6 +414,10 @@ void DrawArea::DrawLine(const vector<Tau_Point>& points) {
         }
     }
 }
+
+//                  ===========
+//                   Draw Line
+//                  ===========
 
 void DrawArea::DrawRect(const Tau_Rect& rect) {
     auto temp = rect;

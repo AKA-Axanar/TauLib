@@ -29,13 +29,7 @@ struct TTF_Font_Shared {
     /// @param filename full path
     /// @param fontSize in points (72 per inch)
     /// 
-    TTF_Font_Shared(const std::string& filename, int fontSize) {
-        TTF_Font* font = TTF_OpenFont(filename.c_str(), fontSize);
-        if (font)
-            font_shared_ptr.reset(font, [](TTF_Font *font) { TTF_CloseFont(font); } );  // automatically destroy/free when the last shared_ptr goes away.
-        else
-            std::cerr << "error opening font: " << filename << std::endl;
-    }
+    TTF_Font_Shared(const std::string& filename, int fontSize);
 
     operator TTF_Font* () { return font_shared_ptr.get(); };
     TTF_Font & operator * () { return *font_shared_ptr.get(); };
