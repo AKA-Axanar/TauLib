@@ -30,17 +30,23 @@ struct Tau_Color : public SDL_Color {
     void SetRGB(const Tau_RGB& rgb) { r = rgb.r; g = rgb.g; b = rgb.b; }
 };
 
-const Tau_RGB RGB_black { 0, 0, 0 };
-const Tau_Color Tau_black { RGB_black, 0 };
+inline const Tau_RGB RGB_black { 0, 0, 0 };
+inline const Tau_Color Tau_black { RGB_black, 0 };
 
-const Tau_RGB RGB_white { 255, 255, 255 };
-const Tau_Color Tau_white { RGB_white, 255 };
+inline const Tau_RGB RGB_white { 255, 255, 255 };
+inline const Tau_Color Tau_white { RGB_white, 255 };
 
-const Tau_RGB RGB_red { 255, 0, 0 };
-const Tau_Color Tau_red { RGB_red, 255 };
+inline const Tau_RGB RGB_red { 255, 0, 0 };
+inline const Tau_Color Tau_red { RGB_red, 255 };
 
-const Tau_RGB RGB_green { 0, 255, 0 };
-const Tau_Color Tau_green { RGB_green, 255 };
+inline const Tau_RGB RGB_green { 0, 255, 0 };
+inline const Tau_Color Tau_green { RGB_green, 255 };
 
-const Tau_RGB RGB_blue { 0, 0, 255 };
-const Tau_Color Tau_blue { RGB_blue, 255 };
+inline const Tau_RGB RGB_blue { 0, 0, 255 };
+inline const Tau_Color Tau_blue { RGB_blue, 255 };
+
+inline Tau_RGB RGB_grey { 128, 128, 128 };
+inline const Tau_Color Tau_grey { RGB_grey, 255 };
+
+inline const Tau_RGB RGB_gray = RGB_grey;
+inline const Tau_Color Tau_gray = Tau_grey;
