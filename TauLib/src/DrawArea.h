@@ -185,7 +185,7 @@ struct DrawArea {
     std::tuple<SDL_Shared<SDL_Texture>, Tau_Size> GetTextureAndSizeOfText(TTF_Font_Shared font, const std::string& text, SDL_Color color);
 
 //                  ===========
-//                   Draw Text
+//                   Draw TTF Text
 //                  ===========
 
     ///
@@ -194,9 +194,9 @@ struct DrawArea {
     /// @param text The text to draw
     /// @param color The color to draw the text
     /// @param point The point to draw the image
-    /// @return none
+    /// @return The height of the text
     /// 
-    void DrawTextAt(TTF_Font_Shared font, const std::string& text, SDL_Color color, const Tau_Point& point);
+    int DrawTextAt(TTF_Font_Shared font, const std::string& text, SDL_Color color, const Tau_Point& point);
 
     ///
     /// @brief DrawTextCenteredAt Draws the text centered on a point on the window
@@ -206,16 +206,16 @@ struct DrawArea {
     /// @param point The point to draw the image
     /// @return none
     /// 
-    void DrawTextCenteredAt(TTF_Font_Shared font, const std::string& text, SDL_Color color, const Tau_Point& point);
+    int DrawTextCenteredAt(TTF_Font_Shared font, const std::string& text, SDL_Color color, const Tau_Point& point);
 
     ///
     /// @brief DrawTextCenteredInWindow Draws the text centered in the window
     /// @param font A shared font ptr
     /// @param text The text to draw
     /// @param color The color to draw the text
-    /// @return none
+    /// @return The height of the text
     /// 
-    void DrawTextCenteredInWindow(TTF_Font_Shared font, const std::string& text, SDL_Color color);
+    int DrawTextCenteredInWindow(TTF_Font_Shared font, const std::string& text, SDL_Color color);
 
     ///
     /// @brief DrawTextHorizCenteredAt Draws the text horizontally centered on a point on the window.  
@@ -224,9 +224,9 @@ struct DrawArea {
     /// @param text The text to draw
     /// @param color The color to draw the text
     /// @param point The point to draw the text
-    /// @return none
+    /// @return The height of the text
     /// 
-    void DrawTextHorizCenteredAt(TTF_Font_Shared font, const std::string& text, SDL_Color color, const Tau_Point& point);
+    int DrawTextHorizCenteredAt(TTF_Font_Shared font, const std::string& text, SDL_Color color, const Tau_Point& point);
 
     ///
     /// @brief DrawTextUpperRightCornerAt Draws the text such that the upper right corner is at the passed point.  
@@ -234,9 +234,9 @@ struct DrawArea {
     /// @param text The text to draw
     /// @param color The color to draw the text
     /// @param point The upper right corner point to draw the text
-    /// @return none
+    /// @return The height of the text
     /// 
-    void DrawTextUpperRightCornerAt(TTF_Font_Shared font, const std::string& text, SDL_Color color, const Tau_Point& point);
+    int DrawTextUpperRightCornerAt(TTF_Font_Shared font, const std::string& text, SDL_Color color, const Tau_Point& point);
 
 //                  ===========
 //                    Texture
@@ -250,34 +250,45 @@ struct DrawArea {
     Tau_Size GetSizeOfTexture(SDL_Shared<SDL_Texture> texture);
 
     ///
+    /// @brief GetHeightOfTexture
+    /// @param texture The texture to get the height of.  This is useful for text to find how many pixels to move down to the next line.
+    /// @return SDL_Shared<SDL_Texture> texture
+    /// 
+    int GetHeightOfTexture(SDL_Shared<SDL_Texture> texture) { return GetSizeOfTexture(texture).h; }
+
+    ///
     /// @brief DrawTextureAt
     /// @param texture perhaps from calling GetTextureAndSizeOfImage or GetTextureOfText
     /// @param posit The posit in the window to draw the texture
-    /// 
-    void DrawTextureAt(SDL_Shared<SDL_Texture> texture, const Tau_Posit& posit);
+    /// @return The height of the texture
+
+    int DrawTextureAt(SDL_Shared<SDL_Texture> texture, const Tau_Posit& posit);
 
     ///
     /// @brief DrawTextureCenteredAt
     /// @param texture perhaps from calling GetTextureAndSizeOfImage or GetTextureOfText
     /// @param posit The posit in the window to draw the centere of the texture
+    /// @return The height of the texture
     /// 
-    void DrawTextureCenteredAt(SDL_Shared<SDL_Texture> texture, const Tau_Posit& posit);
+    int DrawTextureCenteredAt(SDL_Shared<SDL_Texture> texture, const Tau_Posit& posit);
 
     ///
     /// @brief DrawTextureToRect
     /// @param texture perhaps from calling GetTextureAndSizeOfImage or GetTextureOfText
     /// @param destRect The rectangle area in the window to draw the srcRect
     /// @remark the srcRect will be scaled to fit in the destRect
+    /// @return The height of the texture
     /// 
-    void DrawTextureToRect(SDL_Shared<SDL_Texture> texture, const Tau_Rect& destRect);
+    int DrawTextureToRect(SDL_Shared<SDL_Texture> texture, const Tau_Rect& destRect);
 
     ///
     /// @brief DrawSectionOfTextureAt
     /// @param texture probably from calling GetTextureAndSizeOfImage
     /// @param srcRect The rectangle area in the texture to draw
     /// @param posit The posit in the window to draw the texture
+    /// @return The height of the drawn dest area
     /// 
-    void DrawSectionOfTextureAt(SDL_Shared<SDL_Texture> texture, const Tau_Rect& srcRect, const Tau_Posit& posit);
+    int DrawSectionOfTextureAt(SDL_Shared<SDL_Texture> texture, const Tau_Rect& srcRect, const Tau_Posit& posit);
 
     ///
     /// @brief DrawSectionOfTextureToRect
@@ -285,8 +296,9 @@ struct DrawArea {
     /// @param srcRect The rectangle area in the texture to draw
     /// @param destRect The rectangle area in the window to draw the srcRect
     /// @remark the srcRect will be scaled to fit in the destRect
+    /// @return The height of the drawn dest area
     /// 
-    void DrawSectionOfTextureToRect(SDL_Shared<SDL_Texture> texture, const Tau_Rect& srcRect, const Tau_Rect& destRect);
+    int DrawSectionOfTextureToRect(SDL_Shared<SDL_Texture> texture, const Tau_Rect& srcRect, const Tau_Rect& destRect);
 
 //                  ===========
 //                     Color
