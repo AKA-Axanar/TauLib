@@ -137,7 +137,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>$(ProjectDir)doxygen doxygen.cfg</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
     <CustomBuildStep>
       <Command>copy /y "$(SDL2)\lib\x86\*.dll" "$(OutDir)"</Command>
@@ -190,7 +191,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>$(ProjectDir)doxygen doxygen.cfg</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
     <CustomBuildStep>
       <Command>copy /y "$(SDL2)\lib\x64\*.dll" "$(OutDir)"</Command>
