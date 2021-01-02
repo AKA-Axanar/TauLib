@@ -88,4 +88,5 @@ struct Tau_Rect : public SDL_Rect {
 //    operator const SDL_Rect& () const { return *this; }
 };
 
-using Tau_Posit = Tau_Point;    ///< An x,y position.  same as an x,y point.
+using Tau_Posit = Tau_Point;    ///< An x,y position.
+using Tau_Distance = Tau_Point;    ///< An x,y distance.

@@ -10,6 +10,37 @@ namespace Tau { // to avoid conflict with other libraries
 
 DrawArea::DrawArea(SDL_Shared<SDL_Renderer> _renderer, const Tau_Rect& _rect) : renderer(_renderer), winArea(_rect) { }
 
+void DrawArea::MoveBy(Tau_Distance distance)
+{
+    winArea.x += distance.x;
+    winArea.y += distance.y;
+    for (auto& area : subAreas)
+        area.MoveBy(distance);
+}
+
+void DrawArea::MoveTo(Tau_Point point)
+{
+    Tau_Distance distance = point - winArea.GetPoint();
+    MoveBy(distance);
+}
+
+void DrawArea::Draw()
+{
+     DoDefault();
+}
+
+/// @brief Draw this DrawArea and all the subAreas inside
+void DrawArea::DrawAll() {
+    Draw();
+    for (auto& area : subAreas)
+        area.DrawAll();
+}
+
+void DrawArea::AddSubArea(DrawArea& subArea) {
+    subAreas.emplace_back(subArea);
+    subAreas.back().renderer = renderer;    // just to make sure it has the right renderer to draw to this window.
+}
+
 //                  ===========
 //                     Fill Win
 //                  ===========

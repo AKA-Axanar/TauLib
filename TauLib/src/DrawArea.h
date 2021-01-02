@@ -18,14 +18,62 @@
 namespace Tau { // to avoid conflict with other libraries
 
 ///
-/// @struct Win SDL_Window class
+/// @structDrawArea class
 ///
 struct DrawArea {
     SDL_Shared<SDL_Renderer> renderer = nullptr;
-    Tau_Rect winArea;       ///< The rect area of the window to draw in
+    Tau_Rect winArea;       ///< The rect area of the window to draw in.
+                            /// Relative to the window NOT to any parent DrawArea.
 
     DrawArea() {}
     DrawArea(SDL_Shared<SDL_Renderer> _renderer, const Tau_Rect& rect);
+
+    // Default Background Draw Action
+    Tau_Color defaultFillColor = Tau_black;
+    bool enableDefaultFill = false;
+    std::string defaultImageFile;
+    SDL_Shared<SDL_Texture> defaultImageTexture;    // save this for better performance later
+    bool enableDefaultImage = false;
+
+    void SetDefaultFill(const Tau_Color& color, bool enable) 
+        { defaultFillColor = color; enableDefaultFill = enable; }
+
+    void SetDefaultImage(const std::string& filename, bool enable) {
+        defaultImageFile = filename;
+        enableDefaultImage = enable;
+        if (defaultImageFile != "") 
+            defaultImageTexture = GetTextureOfImage(defaultImageFile);  // make texture once for better performance
+        else
+            defaultImageTexture = nullptr;
+    }
+
+    void DoDefault() {
+        if (enableDefaultFill)
+            FillRect(winArea, defaultFillColor);
+        if (enableDefaultImage)
+            DrawTextureToRect(defaultImageTexture, winArea);
+    }
+
+    /// @brief Move the DrawArea rectangle within the window
+    /// @param distance 
+    void MoveBy(Tau_Distance distance);
+
+    /// @brief Move the DrawArea rectangle within the window
+    /// @param distance 
+    void MoveTo(Tau_Point point);
+
+    /// @brief Draw just this DrawArea
+    /// Overload this function unless the default action of fill, background image, and sub areas draw is all you need.
+    virtual void Draw();
+
+    /// @brief Draw this DrawArea and all the subAreas inside
+    void DrawAll();
+
+    /// @brief Add a sub rectangle DrawArea to the vector of items to draw within the DrawArea
+    /// @param subArea 
+    void AddSubArea(DrawArea& subArea);
+
+    std::vector<DrawArea> subAreas;     ///< Children rect draw areas that fall within this winArea.  A button icon for example.
 
 //                  ===========
 //                     Fill Win
