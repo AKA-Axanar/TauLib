@@ -299,6 +299,15 @@ inline Strings GetFileFullPathsInDir_Recursive(const std::string& dirPath)
 inline Strings GetDirFullPathsInDir_Recursive(const std::string& dirPath)
     { return GetDirectoryContents(dirPath, is_directory, get_fullpath, true); }
 
+/// @brief GetFileNamesWithExtInDir Return the list of file names in a directory that have a particular extension.
+/// @param The directory path to open.
+/// @return A vector of strings containing file names with that file extension.
+/// @note The passed extension must have a '.' at the front.  The file extension is compared case insensitive.
+inline Strings GetFileNamesWithExtInDir(const std::string& dirPath, const std::string& ext) {
+    auto is_file_with_ext = [&] (fs::directory_entry& entry)->bool { return entry.is_regular_file() && icompareBool(entry.path().extension().string(), ext); };
+    return GetDirectoryContents(dirPath, is_file_with_ext, get_name);
+}
+
                 //*******************************
                 // Temp Directory and Temp File
                 //*******************************

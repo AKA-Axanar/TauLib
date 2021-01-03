@@ -58,10 +58,16 @@ TEST(TestDirFile, TestDirFile) {
     EXPECT_EQ(DirExists(subDira), false);
 
     string filename = testDir + sep + "file.txt";
-    string filename2 = testDir + sep + "file.txt";
+    string filename2 = testDir + sep + "file2.txt";
     ofstream(filename).put('a');
     RenameFile(filename, filename2);
     EXPECT_EQ(FileExists(filename2), true);
+
+    string filenameDat = testDir + sep + "file.dat";
+    CopyFileOverwrite(filename2, filenameDat);
+    auto filenames = GetFileNamesWithExtInDir(testDir, ".dat");
+    EXPECT_EQ(filenames.size(), 1);
+    EXPECT_EQ(filenames[0], "file.dat");
 
     DeleteDirectory(testDir);
 
