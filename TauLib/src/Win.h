@@ -9,7 +9,7 @@
 #include <string>
 #include "TauLib.h"
 #include "SDL.h"
-#include "SDL_shared.h"
+#include "SDL_Shared.h"
 #include "Tau_Rect.h"
 #include "TTF_Font_Shared.h"
 #include "Tau_Color.h"
@@ -29,7 +29,7 @@ struct Win : public DrawArea
     unsigned int displayIndex = 0;                  ///< physical display index starting at 0
 
     std::string title;                              ///< title of window if not full screen
-    Uint32 flags = SDL_WINDOW_SHOWN;    
+    Uint32 flags = SDL_WINDOW_SHOWN;
 
     SDL_Shared<SDL_Window> window = nullptr;
     bool windowIsEntireDisplay = false;

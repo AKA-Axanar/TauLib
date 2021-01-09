@@ -10,6 +10,8 @@ namespace Tau {
 /// 1) SDL_WINDOW_FULLSCREEN and you specify a resolution of the display, the display switches to that resolution.  The window is the full screen at that resolution.
 /// 2) SDL_WINDOW_FULLSCREEN_DESKTOP where you take over the entire display at the current resolution.
 /// 
+/// To make a Window that is not full screen use a Win object instead.
+///
 struct Display : public Win {
 
     Display() : Win() { }

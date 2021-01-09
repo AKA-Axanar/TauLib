@@ -4,7 +4,7 @@
 /// @author Steve Simpson, steve@iterator.com, a.k.a. Axanar (AutoBleem project)
 ///
 
-#include "SDL_shared.h"
+#include "SDL_Shared.h"
 
 /// @note Original code technique came from [here](https://blog.galowicz.de/2016/02/21/automatic_resource_release_with_sdl).
 /// and modified by steve@iterator.com into a class containing conversion operators.  The conversion operators let you treate

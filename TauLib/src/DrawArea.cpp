@@ -65,7 +65,7 @@ void DrawArea::DrawAll() {
     }
 }
 
-void DrawArea::AddSubArea(DrawArea& subArea) {
+void DrawArea::AddSubArea(const DrawArea& subArea) {
     subAreas.emplace_back(subArea);
     subAreas.back().renderer = renderer;    // just to make sure it has the right renderer to draw to this window.
 }

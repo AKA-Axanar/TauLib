@@ -30,9 +30,6 @@
     <ClInclude Include="src\TauLib.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\SDL_shared.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\DirFile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -84,6 +81,9 @@
     <ClInclude Include="src\DrawArea.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\SDL_shared.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -93,9 +93,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Str.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SDL_shared.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\TauLib.cpp">
@@ -138,6 +135,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\FC_Font_shared.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SDL_shared.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

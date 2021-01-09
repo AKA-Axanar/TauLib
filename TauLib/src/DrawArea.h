@@ -6,7 +6,7 @@
 /// @author Steve Simpson, steve@iterator.com, a.k.a. Axanar (AutoBleem project)
 /// 
 
-#include "SDL_shared.h"
+#include "SDL_Shared.h"
 #include "Tau_Rect.h"
 #include "TTF_Font_Shared.h"
 #include "Tau_Color.h"
@@ -61,11 +61,13 @@ struct DrawArea {
     /// @brief Draw this DrawArea and all the subAreas inside
     void DrawAll();
 
+    // I don't know if the technique of having sub-area rectangles and sub-areas within them will work out or not.
+    // But they are easy to implement and try out.  They might be useful for implementing menus.  Will give it a try.
+    std::vector<DrawArea> subAreas;     ///< Children rect draw areas that fall within this winArea.  A button icon for example.
+
     /// @brief Add a sub rectangle DrawArea to the vector of items to draw within the DrawArea
     /// @param subArea 
-    void AddSubArea(DrawArea& subArea);
-
-    std::vector<DrawArea> subAreas;     ///< Children rect draw areas that fall within this winArea.  A button icon for example.
+    void AddSubArea(const DrawArea& subArea);
 
 //                  ===========
 //                     Fill Win
