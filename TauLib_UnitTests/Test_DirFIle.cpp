@@ -42,19 +42,19 @@ TEST(TestDirFile, TestDirFile) {
 
     //cout << "PWD: " << GetCurrentPath() << endl;
     string testDir { "DirFileTestArea" };
-    CreateDirPath(testDir);
+    CreateDir(testDir);
     EXPECT_EQ(DirExists(testDir), true);
 
     string subDir = testDir + sep + "a" + sep + "b";
-    CreateDirPath(subDir);
+    CreateDir(subDir);
     EXPECT_EQ(DirExists(subDir), true);
 
     string subDira = testDir + sep + "a";
     string subDira2 = testDir + sep + "a2";
-    CopyDirOverwrite(subDira, subDira2);
+    CopyDir(subDira, subDira2);
     EXPECT_EQ(DirExists(subDira2), true);
 
-    DeleteDirectory(subDira);
+    DeleteDir(subDira);
     EXPECT_EQ(DirExists(subDira), false);
 
     string filename = testDir + sep + "file.txt";
@@ -64,12 +64,12 @@ TEST(TestDirFile, TestDirFile) {
     EXPECT_EQ(FileExists(filename2), true);
 
     string filenameDat = testDir + sep + "file.dat";
-    CopyFileOverwrite(filename2, filenameDat);
+    CopyFile(filename2, filenameDat);
     auto filenames = GetFileNamesWithExtInDir(testDir, ".dat");
     EXPECT_EQ(filenames.size(), 1);
     EXPECT_EQ(filenames[0], "file.dat");
 
-    DeleteDirectory(testDir);
+    DeleteDir(testDir);
 
     // test reading a file into a Strings array
     string filePath = GetATempFilename();

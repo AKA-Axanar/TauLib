@@ -130,9 +130,9 @@ string GetCurrentDirPath() {
 
 //
 // Create a Directory path.  
-// CreateDirectory("aaa/bbb/ccc") will also create the directires aaa and aaa/bbb if they don't already exist.
+// CreateDir("aaa/bbb/ccc") will also create the directires aaa and aaa/bbb if they don't already exist.
 //
-bool CreateDirPath(const string& str) {
+bool CreateDir(const string& str) {
     return fs::create_directories(str);
 }
 
@@ -160,7 +160,7 @@ uintmax_t GetFileSize(const string& filePath) {
 bool DeleteFile(const string& filePath) {
     return FileExists(filePath) && fs::remove(filePath);
 }
-bool DeleteDirectory(const string& dirPath) {
+bool DeleteDir(const string& dirPath) {
     return DirExists(dirPath) && fs::remove_all(dirPath);
 }
 
@@ -190,24 +190,24 @@ bool RenameDir(const string& dirPathFrom, const string& dirPathTo) {
 //
 // copy file
 //
-bool CopyFileOverwrite(const string& filePathSrc, const string& filePathDest) {
+bool CopyFile(const string& filePathSrc, const string& filePathDest) {
     return fs::copy_file(filePathSrc, filePathDest, fs::copy_options::overwrite_existing);
 }
-bool CopyFileSkipExisting(const string& filePathSrc, const string& filePathDest) {
+bool CopyFile_SkipExisting(const string& filePathSrc, const string& filePathDest) {
     return fs::copy_file(filePathSrc, filePathDest, fs::copy_options::skip_existing);
 }
 
 //
 // copy directories (recursive)
 //
-bool CopyDirOverwrite(const string& dirPathSrc, const string& dirPathDest) {
+bool CopyDir(const string& dirPathSrc, const string& dirPathDest) {
     if (!DirExists(dirPathSrc))
         return false;
 
     fs::copy(dirPathSrc, dirPathDest, fs::copy_options::recursive | fs::copy_options::overwrite_existing);
     return true;
 }
-bool CopyDirSkipExisting(const string& dirPathSrc, const string& dirPathDest) {
+bool CopyDir_SkipExisting(const string& dirPathSrc, const string& dirPathDest) {
     if (!DirExists(dirPathSrc))
         return false;
 

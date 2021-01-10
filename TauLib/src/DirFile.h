@@ -128,12 +128,12 @@ std::string GetParentPath(const std::string& str);
 std::string GetCurrentDirPath();
 
 ///
-/// @brief CreateDirPath Create a Directory path.
+/// @brief CreateDir Create a Directory path.
 /// @param dirPath the directory path to create
 /// @remark CreateDirectory("aaa/bbb/ccc") will also create the directories aaa and aaa/bbb if they don't already exist.
 /// @return bool true if successfull
 ///
-bool CreateDirPath(const std::string& dirPath);
+bool CreateDir(const std::string& dirPath);
 
 ///
 /// @brief FileExists Does the file exist?
@@ -164,11 +164,11 @@ uintmax_t GetFileSize(const std::string& filePath);
 bool DeleteFile(const std::string& filePath);
 
 ///
-/// @brief DeleteDirectory
+/// @brief DeleteDir
 /// @param dirPath the directory path
 /// @return true if the directory and it's subdirectories were deleted
 ///
-bool DeleteDirectory(const std::string& dirPath);   // this is recursive
+bool DeleteDir(const std::string& dirPath);   // this is recursive
 
 ///
 /// @brief RenameFile
@@ -187,40 +187,40 @@ bool RenameFile(const std::string& filePathFrom, const std::string& filePathTo);
 bool RenameDir(const std::string& dirPathFrom, const std::string& dirPathTo);
 
 ///
-/// @brief CopyFileOverwrite
+/// @brief CopyFile
 /// @param filePathSrc the file being copied
 /// @param filePathDest the file it's being copied to
 /// @remark if the destination file already exists, it is overwritten
 /// @return true if successful
 /// 
-bool CopyFileOverwrite(const std::string& filePathSrc, const std::string& filePathDest);
+bool CopyFile(const std::string& filePathSrc, const std::string& filePathDest);
 
 ///
-/// @brief CopyFileSkipExisting
+/// @brief CopyFile_SkipExisting
 /// @param filePathSrc the file being copied
 /// @param filePathDest the file it's being copied to
 /// @remark if the destination file already exists, the copy is skipped
 /// @return true if successful
 /// 
-bool CopyFileSkipExisting(const std::string& filePathSrc, const std::string& filePathDest);
+bool CopyFile_SkipExisting(const std::string& filePathSrc, const std::string& filePathDest);
 
 ///
-/// @brief CopyDirOverwrite
+/// @brief CopyDir
 /// @param dirPathSrc the file being copied
 /// @param dirPathDest the file it's being copied to
 /// @remark if the destination file already exists, the copy is overwritten
 /// @return true if successful
 /// 
-bool CopyDirOverwrite(const std::string& dirPathSrc, const std::string& dirPathDest);
+bool CopyDir(const std::string& dirPathSrc, const std::string& dirPathDest);
 
 ///
-/// @brief CopyDirOverwrite
+/// @brief CopyDir_SkipExisting
 /// @param dirPathSrc the file being copied
 /// @param dirPathDest the file it's being copied to
 /// @remark if the destination file already exists, the copy is skipped
 /// @return true if successful
 /// 
-bool CopyDirSkipExisting(const std::string& dirPathSrc, const std::string& dirPathDest);
+bool CopyDir_SkipExisting(const std::string& dirPathSrc, const std::string& dirPathDest);
 
                 //*******************************
                 // Get list of files and directories
