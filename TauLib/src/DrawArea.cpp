@@ -8,7 +8,7 @@ using namespace std;
 
 namespace Tau { // to avoid conflict with other libraries
 
-DrawArea::DrawArea(SDL_Shared<SDL_Renderer> _renderer, const Tau_Rect& _rect) : renderer(_renderer), winArea(_rect) { }
+DrawArea::DrawArea(SDL_Shared<SDL_Renderer> _renderer, const Tau_Rect& _rect) : renderer(_renderer), winRect(_rect) { }
 
 void DrawArea::SetDefaultFill(const Tau_Color& color, bool enable) {
     defaultFillColor = color; 
@@ -27,41 +27,32 @@ void DrawArea::SetDefaultImage(const std::string& filename, bool enable) {
 void DrawArea::DrawDefault() {
     if (enableDraw) {
         if (enableDefaultFill)
-            FillRect(winArea, defaultFillColor);
+            FillRect(winRect, defaultFillColor);
         if (enableDefaultImage)
-            DrawTextureToRect(defaultImageTexture, winArea);
+            DrawTextureToRect(defaultImageTexture, winRect);
     }
 }
 
 void DrawArea::MoveBy(Tau_Distance distance)
 {
-    winArea.x += distance.x;
-    winArea.y += distance.y;
+    winRect.x += distance.x;
+    winRect.y += distance.y;
     for (auto& area : subAreas)
         area.MoveBy(distance);
 }
 
 void DrawArea::MoveTo(Tau_Point point)
 {
-    Tau_Distance distance = point - winArea.GetPoint();
+    Tau_Distance distance = point - winRect.GetPoint();
     MoveBy(distance);
 }
 
-// Overload this function unless the default action of fill, background image, and sub areas draw is all you need.  For example:
-// ::Draw();    // do any base class drawing such as a background image
-// do something special here
-void DrawArea::Draw()
-{
-    if (enableDraw)
-        DrawDefault();
-}
-
 /// @brief Draw this DrawArea and all the subAreas inside
-void DrawArea::DrawAll() {
+void DrawArea::Draw() {
     if (enableDraw) {
-        Draw();
+        DrawDefault();
         for (auto& area : subAreas)
-            area.DrawAll();
+            area.Draw();
     }
 }
 
@@ -197,7 +188,7 @@ void DrawArea::DrawImageCenteredAt(const std::string& imgFilePath, const Tau_Poi
 /// @param imgFilePath The image file path
 ///
 void DrawArea::DrawImageCenteredInWindow(const std::string& imgFilePath) {
-    DrawImageCenteredAt(imgFilePath, winArea.Center());
+    DrawImageCenteredAt(imgFilePath, winRect.Center());
 }
 
 ///
@@ -282,7 +273,7 @@ int DrawArea::DrawTextCenteredAt(TTF_Font_Shared font, const std::string& text, 
 /// @return The height of the text
 /// 
 int DrawArea::DrawTextCenteredInWindow(TTF_Font_Shared font, const std::string& text, SDL_Color color) {
-    return DrawTextCenteredAt(font, text, color, winArea.Center());
+    return DrawTextCenteredAt(font, text, color, winRect.Center());
 }
 
 ///

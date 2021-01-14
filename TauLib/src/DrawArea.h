@@ -22,7 +22,7 @@ namespace Tau { // to avoid conflict with other libraries
 ///
 struct DrawArea {
     SDL_Shared<SDL_Renderer> renderer = nullptr;
-    Tau_Rect winArea;       ///< The rect area of the window to draw in.
+    Tau_Rect winRect;       ///< The rect area of the window to draw in.
                             /// Relative to the window NOT to any parent DrawArea.
 
     DrawArea() {}
@@ -51,19 +51,12 @@ struct DrawArea {
 
     bool enableDraw = true;
 
-    /// @brief Draw just this DrawArea
-    /// Overload this function unless the default action of fill, background image, and sub areas draw is all you need.
-    /// ::Draw();    // do any base class drawing such as a background image
-    /// do something special here
-
-    virtual void Draw();
-
     /// @brief Draw this DrawArea and all the subAreas inside
-    void DrawAll();
+    virtual void Draw();
 
     // I don't know if the technique of having sub-area rectangles and sub-areas within them will work out or not.
     // But they are easy to implement and try out.  They might be useful for implementing menus.  Will give it a try.
-    std::vector<DrawArea> subAreas;     ///< Children rect draw areas that fall within this winArea.  A button icon for example.
+    std::vector<DrawArea> subAreas;     ///< Children rect draw areas that fall within this winRect.  A button icon for example.
 
     /// @brief Add a sub rectangle DrawArea to the vector of items to draw within the DrawArea
     /// @param subArea 

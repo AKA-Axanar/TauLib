@@ -32,7 +32,7 @@ bool Win::Init(unsigned int _displayIndex, const string& _title, const Tau_Rect&
 
     displayIndex = _displayIndex;
     title = _title;
-    winArea = bounds;
+    winRect = bounds;
     flags = _flags;         // https://wiki.libsdl.org/SDL_WindowFlags
 
     window = SDL_CreateWindow(title.c_str(), bounds.x, bounds.y, bounds.w, bounds.h, flags);
@@ -53,7 +53,7 @@ bool Win::Init(unsigned int _displayIndex, const string& _title, const Tau_Rect&
     // is already 0,0 and the width and height of the entire display screen.
     // If it is a window smaller than the display size we need to change the corner position to be 0,0 as everything
     // drawn in that window is relative to a upper left corner point of 0,0.
-    winArea.SetPoint(0, 0);
+    winRect.SetPoint(0, 0);
 
     isOpen = true;
     return isOpen;
