@@ -84,6 +84,9 @@
     <ClInclude Include="src\SDL_shared.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\SplitRect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -138,6 +141,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\SDL_shared.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SplitRect.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

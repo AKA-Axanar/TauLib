@@ -212,6 +212,7 @@
     <ClInclude Include="src\Lang.h" />
     <ClInclude Include="src\SDL_shared.h" />
     <ClInclude Include="src\Sep.h" />
+    <ClInclude Include="src\SplitRect.h" />
     <ClInclude Include="src\Str.h" />
     <ClInclude Include="src\TauLib.h" />
     <ClInclude Include="src\Tau_Color.h" />
@@ -241,6 +242,7 @@
     <ClCompile Include="src\Lang.cpp" />
     <ClCompile Include="src\SDL_shared.cpp" />
     <ClCompile Include="src\Sep.cpp" />
+    <ClCompile Include="src\SplitRect.cpp" />
     <ClCompile Include="src\Str.cpp" />
     <ClCompile Include="src\TauLib.cpp" />
     <ClCompile Include="src\ThirdParty\SDL_FontCache.c">
