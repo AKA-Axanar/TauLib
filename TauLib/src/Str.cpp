@@ -250,14 +250,28 @@ Strings FindLexExprMatches(const string& lexicalExpression, const string& str) {
 }
 
 ///
-/// @brief SplitStringAtCommasAndSemiColon - returns the string pieces after splitting the string at the commas and any (ending) semicolon.
-/// @param str The string to search.
+/// @brief SplitStringAtChars - returns the string pieces after splitting the string at the passed char or chars.
+/// @param str The string to split.
+/// @param splitAt The char or chars to split the string at.
 /// @return vector<string> of results
 ///
-Strings SplitStringAtCommasAndSemiColon(const std::string& str, bool trimTheWhitespaceFromThePieces) {
-    Strings temp = FindLexExprMatches("[^,;\n\r]+", str);
-    for_each(begin(temp), end(temp), [&] (string& s) { trim(&s); });
+Strings SplitStringAtChars(const string& str, const string& splitAt, bool trimTheWhitespaceFromThePieces) {
+    string expr = "[^" + splitAt + "\n\r]+";
+    Strings temp = FindLexExprMatches(expr, str);
+    if (trimTheWhitespaceFromThePieces)
+        for_each(begin(temp), end(temp), [&](string& s) { trim(&s); });
+
     return temp;
+}
+
+///
+/// @brief SplitStringAtCommas - returns the string pieces after splitting the string at the commas.
+/// @param str The string to split.
+/// @return vector<string> of results
+///
+Strings SplitStringAtCommas(const std::string& str, bool trimTheWhitespaceFromThePieces)
+{
+    return SplitStringAtChars(str, ",", trimTheWhitespaceFromThePieces);
 }
 
 ///

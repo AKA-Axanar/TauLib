@@ -193,11 +193,19 @@ Strings FindLexExprMatches(const std::string& lexicalExpression, const std::stri
 std::string FindLexExprMatch(const std::string& lexicalExpression, const std::string& str);
 
 ///
-/// @brief SplitStringAtCommasAndSemiColon - returns the string pieces after splitting the string at the commas and any (ending) semicolon.
-/// @param str The string to search.
+/// @brief SplitStringAtChars - returns the string pieces after splitting the string at the passed char or chars.
+/// @param str The string to split.
+/// @param splitAt The char or chars to split the string at.
 /// @return vector<string> of results
 ///
-Strings SplitStringAtCommasAndSemiColon(const std::string& str, bool trimTheWhitespaceFromThePieces);
+Strings SplitStringAtChars(const std::string& str, const std::string& splitAt, bool trimTheWhitespaceFromThePieces);
+
+///
+/// @brief SplitStringAtCommas - returns the string pieces after splitting the string at the commas.
+/// @param str The string to split.
+/// @return vector<string> of results
+///
+Strings SplitStringAtCommas(const std::string& str, bool trimTheWhitespaceFromThePieces);
 
                 //*******************************
                 // string remove
