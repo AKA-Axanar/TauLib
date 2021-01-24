@@ -143,6 +143,48 @@ string IniFile::GetKeyValue(const string& key, const string& sectionName) {
 }
 
 //
+// IniFile::GetKeyValue_Int
+//
+int IniFile::GetKeyValue_Int(const std::string& key, const std::string& sectionName) {
+    return stoi(GetKeyValue(key, sectionName));
+}
+
+//
+// IniFile::GetKeyValue_Float
+//
+float IniFile::GetKeyValue_Float(const std::string& key, const std::string& sectionName) {
+    return stof(GetKeyValue(key, sectionName));
+}
+
+//
+// IniFile::GetKeyValue_Double
+//
+double IniFile::GetKeyValue_Double(const std::string& key, const std::string& sectionName) {
+    return stod(GetKeyValue(key, sectionName));
+}
+
+//
+// IniFile::GetKeyValue_Ints
+//
+vector<int> IniFile::GetKeyValue_Ints(const std::string& key, const std::string& sectionName) {
+    return CommaSepStringToInts(GetKeyValue(key, sectionName));
+}
+
+//
+// IniFile::GetKeyValue_Floats
+//
+vector<float> IniFile::GetKeyValue_Floats(const std::string& key, const std::string& sectionName) {
+    return CommaSepStringToFloats(GetKeyValue(key, sectionName));
+}
+
+//
+// IniFile::GetKeyValue_Doubles
+//
+vector<double> IniFile::GetKeyValue_Doubles(const std::string& key, const std::string& sectionName) {
+    return CommaSepStringToDoubles(GetKeyValue(key, sectionName));
+}
+
+//
 // IniFile::SetKeyValue
 //
 // if the key doesn't already exist, this will create it

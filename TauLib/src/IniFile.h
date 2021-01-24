@@ -71,7 +71,28 @@ struct IniFile {
     /// @param key - the key to search for
     /// @param sectionName - the section name the key is in, if any
     /// @return Returns the string value of the key/value pair.
-    std::string GetKeyValue(const std::string& key, const std::string& sectionName="");
+    std::string GetKeyValue(const std::string& key, const std::string& sectionName = "");
+
+    /// @brief Returns a key value for a passed key and section name
+    /// @param key - the key to search for
+    /// @param sectionName - the section name the key is in, if any
+    /// @return Returns the value of the key/value pair converted to an integer.
+    int GetKeyValue_Int(const std::string& key, const std::string& sectionName = "");
+    std::vector<int> GetKeyValue_Ints(const std::string& key, const std::string& sectionName = "");
+
+    /// @brief Returns a key value for a passed key and section name
+    /// @param key - the key to search for
+    /// @param sectionName - the section name the key is in, if any
+    /// @return Returns the value of the key/value pair converted to a float.
+    float GetKeyValue_Float(const std::string& key, const std::string& sectionName = "");
+    std::vector<float> GetKeyValue_Floats(const std::string& key, const std::string& sectionName = "");
+
+    /// @brief Returns a key value for a passed key and section name
+    /// @param key - the key to search for
+    /// @param sectionName - the section name the key is in, if any
+    /// @return Returns the value of the key/value pair converted to a double.
+    double GetKeyValue_Double(const std::string& key, const std::string& sectionName = "");
+    std::vector<double> GetKeyValue_Doubles(const std::string& key, const std::string& sectionName = "");
 
     /// @brief Sets a key value of a passed key and section name
     /// @param key - the key to search for
