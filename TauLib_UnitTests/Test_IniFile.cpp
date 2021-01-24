@@ -16,6 +16,7 @@ TEST(TestIniFile, TestIniFile) {
     iniTest.SetKeyValue("Font", "z.ttf", "Theme");
     iniTest.SetKeyValue("new", "xxx", "");
     iniTest.DeleteKey("alpha", "Theme");
+    EXPECT_EQ(iniTest.GetKeyValue("Datetimeformat", "Theme"), "%F %I:%M:%S %p");
     iniTest.SaveAs("ini_TestResult.ini");
     EXPECT_TRUE(CompareFiles("testResult.ini", "testOut.ini"));
 
