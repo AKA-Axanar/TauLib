@@ -175,6 +175,28 @@ void ReplaceSubStrings(std::string* str, const std::string& fromSubStringOrLexic
 bool FoundLexExpr(const std::string& lexicalExpressionOrString, const std::string& str);
 
 ///
+/// @brief IsLexExpr - returns whether the string matches exactly the lexical expression (or plain string).
+/// @param lexicalExpressionOrString The string or lexical expression to look for in the string.
+/// @param str The string to search.
+/// @remark lexical expression = "[A-Za-z0-9]+"
+/// @remark lexical expression = "FindMe"
+/// @return true or false
+/// @note To test if the string exactly matches the leical expression "^" is prefixed nd "$" is postfixed to the string.
+/// For example, if "[A-Za-z0-9]+" is passed, it searches for "^[A-Za-z0-9]+$"
+///
+bool IsLexExpr(const std::string& lexicalExpressionOrString, const std::string& str);
+
+///
+/// @brief IsInt - Returns if the string is an integer.
+///
+bool IsInt(const std::string& str);
+
+///
+/// @brief IsFloat - Returns if the string is a float.
+///
+bool IsFloat(const std::string& str);
+
+///
 /// @brief FindLexExprMatches - returns all the matches of the lexical expression found in the string.
 /// @param lexicalExpression The lexical expression to look for in the string.
 /// @param str The string to search.
@@ -192,6 +214,10 @@ Strings FindLexExprMatches(const std::string& lexicalExpression, const std::stri
 ///
 std::string FindLexExprMatch(const std::string& lexicalExpression, const std::string& str);
 
+//*******************************
+// split string
+//*******************************
+
 ///
 /// @brief SplitStringAtChars - returns the string pieces after splitting the string at the passed char or chars.
 /// @param str The string to split.
@@ -205,7 +231,28 @@ Strings SplitStringAtChars(const std::string& str, const std::string& splitAt, b
 /// @param str The string to split.
 /// @return vector<string> of results
 ///
-Strings SplitStringAtCommas(const std::string& str, bool trimTheWhitespaceFromThePieces);
+Strings SplitStringAtCommas(const std::string& str, bool trimTheWhitespaceFromThePieces = true);
+
+///
+/// @brief CommaSepStringToInts - Takes a comma separated string of int's and returns a vector of int's.
+/// @param str The string of comma separated int's.
+/// @return vector<int> of the int's.
+///
+std::vector<int> CommaSepStringToInts(const std::string& str);
+
+///
+/// @brief CommaSepStringToFloats - Takes a comma separated string of floats and returns a vector of floats.
+/// @param str The string of comma separated floats.
+/// @return vector<int> of the floats.
+///
+std::vector<float> CommaSepStringToFloats(const std::string& str);
+
+///
+/// @brief CommaSepStringToDoubles - Takes a comma separated string of Doubles and returns a vector of Doubles.
+/// @param str The string of comma separated Doubles.
+/// @return vector<int> of the Doubles.
+///
+std::vector<double> CommaSepStringToDoubles(const std::string& str);
 
                 //*******************************
                 // string remove

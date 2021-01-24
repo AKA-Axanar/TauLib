@@ -316,7 +316,7 @@ bool IniFile::IniLine::ParseLine(const string& _line) {
             if (line.size() > 0 && line[0] != ';') {
                 value = FindLexExprMatch("^[^;]*[^\\s;]+", line);  // "value"
                 line.erase(0, value.size());   // erase the value
-                whiteSpaceAfterValue = GetAndRemoveLeadingWhitespace(&line);   // get spacces before value if any
+                whiteSpaceAfterValue = GetAndRemoveLeadingWhitespace(&line);   // get spaces before value if any
             }
         }
     }

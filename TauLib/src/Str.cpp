@@ -3,6 +3,7 @@
 #include <regex>
 #include <algorithm>
 #include <iostream>
+#include <assert.h>
 
 using namespace std;
 
@@ -226,6 +227,37 @@ bool FoundLexExpr(const string& lexicalExpressionOrString, const string& str) {
 }
 
 ///
+/// @brief IsLexExpr - returns whether the string matches exactly the lexical expression (or plain string).
+/// @param lexicalExpressionOrString The string or lexical expression to look for in the string.
+/// @param str The string to search.
+/// @remark lexical expression = "[A-Za-z0-9]+"
+/// @remark lexical expression = "FindMe"
+/// @return true or false
+/// @note To test if the string exactly matches the leical expression "^" is prefixed nd "$" is postfixed to the string.
+/// For example, if "[A-Za-z0-9]+" is passed, it searches for "^[A-Za-z0-9]+$"
+///
+bool IsLexExpr(const std::string& lexicalExpressionOrString, const std::string& str) {
+    return FoundLexExpr("^" + lexicalExpressionOrString + "$", str);
+}
+
+static string Int_LexExpr{ "[+-]?[:digit:]+" };
+static string Float_LexExpr{ "[-+] ? [0 - 9] * \\. ? [0 - 9] + ([eE][-+] ? [0 - 9] + ) ?" };
+
+///
+/// @brief IsInt - Returns if the string is an integer.
+///
+bool IsInt(const string& str) {
+    return IsLexExpr(Int_LexExpr, str);
+}
+
+///
+/// @brief IsFloat - Returns if the string is a float.
+///
+bool IsFloat(const string& str) {
+    return IsLexExpr(Float_LexExpr, str);
+}
+
+///
 /// @brief FindLexExprMatches - returns all the matches of the lexical expression found in the string.
 /// @param lexicalExpression The lexical expression to look for in the string.
 /// @param str The string to search.
@@ -248,6 +280,25 @@ Strings FindLexExprMatches(const string& lexicalExpression, const string& str) {
 
     return ret;
 }
+
+///
+/// @brief FindLexExprMatch - returns a match of the lexical expression if found in the string.
+/// @param lexicalExpression The lexical expression to look for in the string.
+/// @param str The string to search.
+/// @return string of a match.  "" if none.
+///
+string FindLexExprMatch(const std::string& lexicalExpression, const std::string& str) {
+    regex expr(lexicalExpression);
+    smatch match;
+    if (regex_search(str, match, expr))
+        return match.str();
+    else
+        return "";
+}
+
+//*******************************
+// split string
+//*******************************
 
 ///
 /// @brief SplitStringAtChars - returns the string pieces after splitting the string at the passed char or chars.
@@ -275,18 +326,63 @@ Strings SplitStringAtCommas(const std::string& str, bool trimTheWhitespaceFromTh
 }
 
 ///
-/// @brief FindLexExprMatch - returns a match of the lexical expression if found in the string.
-/// @param lexicalExpression The lexical expression to look for in the string.
-/// @param str The string to search.
-/// @return string of a match.  "" if none.
+/// @brief CommaSepStringToInts - Takes a comma separated string of int's and returns a vector of int's.
+/// @param str The string of comma separated int's.
+/// @return vector<int> of the int's.
 ///
-string FindLexExprMatch(const std::string& lexicalExpression, const std::string& str) {
-    regex expr(lexicalExpression);
-    smatch match;
-    if (regex_search(str, match, expr))
-        return match.str();
-    else
-        return "";
+vector<int> CommaSepStringToInts(const string& str) {
+    auto strings = SplitStringAtCommas(str);
+    vector<int> ret;
+    for (const auto& s : strings) {
+        if (IsLexExpr(Int_LexExpr, s))
+            ret.emplace_back(stoi(s));
+        else {
+            assert(false);
+            cerr << "CommaSepStringToInts: invalid integer in '" << str << "'" << endl;
+        }
+    }
+
+    return ret;
+}
+
+///
+/// @brief CommaSepStringToFloats - Takes a comma separated string of floats and returns a vector of floats.
+/// @param str The string of comma separated floats.
+/// @return vector<int> of the floats.
+///
+vector<float> CommaSepStringToFloats(const string& str) {
+    auto strings = SplitStringAtCommas(str);
+    vector<float> ret;
+    for (const auto& s : strings) {
+        if (IsLexExpr(Int_LexExpr, s))
+            ret.emplace_back(stof(s));
+        else {
+            assert(false);
+            cerr << "CommaSepStringToInts: invalid float in '" << str << "'" << endl;
+        }
+    }
+
+    return ret;
+}
+
+///
+/// @brief CommaSepStringToDoubles - Takes a comma separated string of Doubles and returns a vector of Doubles.
+/// @param str The string of comma separated Doubles.
+/// @return vector<int> of the Doubles.
+///
+vector<double> CommaSepStringToDoubles(const string& str) {
+    auto strings = SplitStringAtCommas(str);
+    vector<double> ret;
+    for (const auto& s : strings) {
+        if (IsLexExpr(Int_LexExpr, s))
+            ret.emplace_back(stod(s));
+        else {
+            assert(false);
+            cerr << "CommaSepStringToInts: invalid double in '" << str << "'" << endl;
+        }
+    }
+
+    return ret;
 }
 
                 //*******************************
