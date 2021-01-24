@@ -1,6 +1,7 @@
 #pragma once
 
 #include "SDL_Pixels.h"
+#include "Str.h"
 
 struct Tau_RGB {
     Uint8 r;
@@ -9,6 +10,11 @@ struct Tau_RGB {
 
     Tau_RGB(Uint8 _r=0, Uint8 _g=0, Uint8 _b=0) : r(_r), g(_g), b(_b) { }
     Tau_RGB(Uint8 value) : r(value), g(value), b(value) { }
+
+    /// @brief these ctors are useful when getting the RGB values from an IniFile
+    Tau_RGB(const std::vector<int>& values) : Tau_RGB() 
+        { if (values.size() == 3) { r = values[0]; g = values[1]; b = values[2]; } }
+    Tau_RGB(const std::string& str) : Tau_RGB(Tau::CommaSepStringToInts(str)) { }
 
     /// @brief Tau_RGB math operators
     Tau_RGB operator + (const Tau_RGB& rgb) const { return Tau_RGB(r + rgb.r, g + rgb.g, b + rgb.b); }
@@ -25,6 +31,14 @@ struct Tau_Color : public SDL_Color {
     /// @brief Tau_Color ctor
     Tau_Color(Uint8 _r=0, Uint8 _g=0, Uint8 _b=0, Uint8 _a=0) : SDL_Color(_r, _g, _b, _a) { }
     Tau_Color(const Tau_RGB& rgb, Uint8 _a=0) : SDL_Color(rgb.r, rgb.g, rgb.b, _a) { }
+
+    /// @brief these ctors are useful when getting the color values from an IniFile
+    Tau_Color(const std::vector<int>& values) : Tau_Color()
+    {
+        if (values.size() == 4) { r = values[0]; g = values[1]; b = values[2]; a = values[3]; }
+        if (values.size() == 3) { r = values[0]; g = values[1]; b = values[2]; a = 255; }
+    }
+    Tau_Color(const std::string& str) : Tau_Color(Tau::CommaSepStringToInts(str)) { }
 
     Tau_RGB GetRGB() const { return Tau_RGB(r, g, b); }
     void SetRGB(const Tau_RGB& rgb) { r = rgb.r; g = rgb.g; b = rgb.b; }

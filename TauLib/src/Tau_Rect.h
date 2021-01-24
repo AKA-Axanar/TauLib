@@ -1,6 +1,7 @@
 #pragma once
 
 #include "SDL_Rect.h"
+#include "Str.h"
 
 ///
 /// @brief Tau_Point An SDL_Point with additional functions
@@ -15,6 +16,11 @@ struct Tau_Point : public SDL_Point {
 //
 //    /// @brief Tau_Point ctor from a SDL_Rect top left corner position
 //    Tau_Point(const SDL_Rect& rect) { x = rect.x; y = rect.y; }
+
+    /// @brief these ctors are useful when getting the values from an IniFile
+    Tau_Point(const std::vector<int>& values) : Tau_Point()
+        { if (values.size() == 2) { x = values[0]; y = values[1]; } }
+    Tau_Point(const std::string& str) : Tau_Point(Tau::CommaSepStringToInts(str)) { }
 
     /// @brief Tau_Point math operators
     Tau_Point operator + (const Tau_Point& pnt) const { return { x + pnt.x, y + pnt.y }; }
@@ -38,6 +44,11 @@ struct Tau_Size {
     Tau_Size(int _w=0, int _h=0) { w = _w; h = _h; }
     Tau_Size(const SDL_Rect& rect) : w(rect.w), h(rect.h) { }
  
+    /// @brief these ctors are useful when getting the values from an IniFile
+    Tau_Size(const std::vector<int>& values) : Tau_Size()
+        { if (values.size() == 2) { w = values[0]; h = values[1]; } }
+    Tau_Size(const std::string& str) : Tau_Size(Tau::CommaSepStringToInts(str)) { }
+
     Tau_Point GetCenter() { return { w/2, h/2 }; }
 };
 
@@ -53,6 +64,11 @@ struct Tau_Rect : public SDL_Rect {
     /// @param p The top left corner point position of the rectangle
     /// @param size The size of the rectangle
     Tau_Rect(const Tau_Point& pnt, const Tau_Size& size) : SDL_Rect(pnt.x, pnt.y, size.w, size.h) { }
+
+    /// @brief these ctors are useful when getting the values from an IniFile
+    Tau_Rect(const std::vector<int>& values) : Tau_Rect()
+        { if (values.size() == 4) { x = values[0]; y = values[1]; w = values[2]; h = values[3]; } }
+    Tau_Rect(const std::string& str) : Tau_Rect(Tau::CommaSepStringToInts(str)) { }
 
     void MoveBy(const Tau_Point& pnt) { x += pnt.x; y += pnt.y; }
 
