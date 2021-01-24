@@ -17,6 +17,11 @@ TEST(TestIniFile, TestIniFile) {
     iniTest.SetKeyValue("new", "xxx", "");
     iniTest.DeleteKey("alpha", "Theme");
     EXPECT_EQ(iniTest.GetKeyValue("Datetimeformat", "Theme"), "%F %I:%M:%S %p");
+    EXPECT_EQ(iniTest.GetKeyValue_Int("top", "Theme"), 20);
+    auto temp = iniTest.GetKeyValue_Ints("point", "Theme");
+    EXPECT_TRUE(temp.size() == 2);
+    EXPECT_TRUE(temp[0] == 200);
+    EXPECT_TRUE(temp[1] == 100);
     iniTest.SaveAs("ini_TestResult.ini");
     EXPECT_TRUE(CompareFiles("testResult.ini", "testOut.ini"));
 

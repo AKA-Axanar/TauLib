@@ -240,7 +240,7 @@ bool IsLexExpr(const std::string& lexicalExpressionOrString, const std::string& 
     return FoundLexExpr("^" + lexicalExpressionOrString + "$", str);
 }
 
-static string Int_LexExpr{ "[+-]?[:digit:]+" };
+static string Int_LexExpr{ "[+-]?[\\d]+" };
 static string Float_LexExpr{ "[-+] ? [0 - 9] * \\. ? [0 - 9] + ([eE][-+] ? [0 - 9] + ) ?" };
 
 ///
