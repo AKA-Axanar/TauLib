@@ -38,17 +38,7 @@ struct Win : public DrawArea
     Win() {}
 
     ///
-    /// @brief Win constructor
-    /// @param title
-    /// @param posit position of the window
-    /// @param width width of the window
-    /// @param height height of the window
-    /// @param flags [SDL_WindowFlags](https://wiki.libsdl.org/SDL_WindowFlags)
-    ///
-    Win(unsigned int _displayIndex, const std::string& _title, const Tau_Rect& bounds, Uint32 _flags);
-
-    ///
-    /// @brief Init - Initialize the Window object
+    /// @brief InitWin - Initialize the Window
     ///
     /// @param title
     /// @param posit position of the window
@@ -56,7 +46,7 @@ struct Win : public DrawArea
     /// @param height height of the window
     /// @param flags [SDL_WindowFlags](https://wiki.libsdl.org/SDL_WindowFlags)
     ///
-    bool Init(unsigned int _displayIndex, const std::string& _title, const Tau_Rect& bounds, Uint32 _flags);
+    bool InitWin(unsigned int _displayIndex, const std::string& _title, const Tau_Rect& bounds, Uint32 _flags);
 
     ///
     /// @brief ~Win destructor

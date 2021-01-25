@@ -2,6 +2,12 @@
 
 #include "Win.h"
 
+///
+/// @file
+/// @brief Header file for Display class.
+/// @author Steve Simpson, steve@iterator.com, a.k.a. Axanar (AutoBleem project)
+///
+
 namespace Tau {
 
 /// @struct Display A Display is a Win (Window) that takes over the entire display.
@@ -15,13 +21,12 @@ namespace Tau {
 struct Display : public Win {
 
     Display() : Win() { }
-    Display(unsigned int _displayIndex) : Display() { Init(_displayIndex); }
     
-    /// @brief Init Uses flag SDL_WINDOW_FULLSCREEN_DESKTOP and takes over the entire display at the current resolution.
-    bool Init(unsigned int _displayIndex);
+    /// @brief InitDisplay Uses flag SDL_WINDOW_FULLSCREEN_DESKTOP and takes over the entire display at the current resolution.
+    bool InitDisplay(unsigned int _displayIndex);
 
-    /// @brief Init Uses flag SDL_WINDOW_FULLSCREEN and takes over the display at the new resolution
-    bool Init(int _displayIndex, Tau_Size newResolution);
+    /// @brief InitDisplay Uses flag SDL_WINDOW_FULLSCREEN and takes over the display at the new resolution
+    bool InitDisplay(int _displayIndex, Tau_Size newResolution);
 
     Tau_Rect displayBounds;
     Tau_Size displayResolution;

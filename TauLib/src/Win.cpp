@@ -16,18 +16,9 @@ using namespace std;
 namespace Tau { // to avoid conflict with other libraries
 
 //
-// Win ctor
+// InitWin
 //
-Win::Win(unsigned int _displayIndex, const string& _title, const Tau_Rect& bounds, Uint32 _flags)
-        : title(_title), flags(_flags)
-{
-    Init(_displayIndex, _title, bounds, _flags);
-}
-
-//
-// Init the object
-//
-bool Win::Init(unsigned int _displayIndex, const string& _title, const Tau_Rect& bounds, Uint32 _flags) {
+bool Win::InitWin(unsigned int _displayIndex, const string& _title, const Tau_Rect& bounds, Uint32 _flags) {
     assert(_displayIndex < (unsigned int)Display::GetNumberOfDisplays());
 
     displayIndex = _displayIndex;

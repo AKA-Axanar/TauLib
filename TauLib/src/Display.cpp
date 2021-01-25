@@ -1,6 +1,12 @@
 #include "Display.h"
 #include <assert.h>
 
+///
+/// @file
+/// @brief CPP file for Display class.
+/// @author Steve Simpson, steve@iterator.com, a.k.a. Axanar (AutoBleem project)
+///
+
 using namespace std;
 using namespace Tau;
 
@@ -10,22 +16,22 @@ using namespace Tau;
 // 1) SDL_WINDOW_FULLSCREEN and you specify a resolution of the display, the display switches to that resolution.  The window is the full screen at that resolution.
 // 2) SDL_WINDOW_FULLSCREEN_DESKTOP where you take over the entire display at the current resolution.
 
-bool Display::Init(unsigned int _displayIndex)                           ///< Uses flag SDL_WINDOW_FULLSCREEN_DESKTOP
+bool Display::InitDisplay(unsigned int _displayIndex)                           ///< Uses flag SDL_WINDOW_FULLSCREEN_DESKTOP
 {
     int specifyDisplayNum = (int)SDL_WINDOWPOS_UNDEFINED_DISPLAY(_displayIndex);
 
-    bool ret = Win::Init(_displayIndex, "", { { specifyDisplayNum, specifyDisplayNum }, { 0, 0 } }, SDL_WINDOW_FULLSCREEN_DESKTOP);
+    bool ret = Win::InitWin(_displayIndex, "", { { specifyDisplayNum, specifyDisplayNum }, { 0, 0 } }, SDL_WINDOW_FULLSCREEN_DESKTOP);
     SDL_GetDisplayBounds(displayIndex, &displayBounds);
     winRect = displayBounds;  // the window bounds is the display bounds as the window is the entire display screen
     displayResolution = displayBounds.GetSize();
     return ret;
 }
 
-bool Display::Init(int _displayIndex, Tau_Size newResolution)   ///< Uses flag SDL_WINDOW_FULLSCREEN and passes the new resolution
+bool Display::InitDisplay(int _displayIndex, Tau_Size newResolution)   ///< Uses flag SDL_WINDOW_FULLSCREEN and passes the new resolution
 {
     int specifyDisplayNum = (int)SDL_WINDOWPOS_UNDEFINED_DISPLAY(_displayIndex);
 
-    bool ret = Win::Init(_displayIndex, "", { { specifyDisplayNum, specifyDisplayNum }, newResolution }, SDL_WINDOW_FULLSCREEN);
+    bool ret = Win::InitWin(_displayIndex, "", { { specifyDisplayNum, specifyDisplayNum }, newResolution }, SDL_WINDOW_FULLSCREEN);
     SDL_GetDisplayBounds(displayIndex, &displayBounds);
     winRect = displayBounds;  // the window bounds is the display bounds as the window is the entire display screen
     displayResolution = displayBounds.GetSize();
