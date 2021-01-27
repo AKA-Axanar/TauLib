@@ -218,6 +218,13 @@
     <ClInclude Include="src\Tau_Color.h" />
     <ClInclude Include="src\Tau_Rect.h" />
     <ClInclude Include="src\ThirdParty\fifo_map.hpp" />
+    <ClInclude Include="src\ThirdParty\imgui\imconfig.h" />
+    <ClInclude Include="src\ThirdParty\imgui\imgui.h" />
+    <ClInclude Include="src\ThirdParty\imgui\imgui_internal.h" />
+    <ClInclude Include="src\ThirdParty\imgui\imgui_sdl.h" />
+    <ClInclude Include="src\ThirdParty\imgui\imstb_rectpack.h" />
+    <ClInclude Include="src\ThirdParty\imgui\imstb_textedit.h" />
+    <ClInclude Include="src\ThirdParty\imgui\imstb_truetype.h" />
     <ClInclude Include="src\ThirdParty\json.hpp" />
     <ClInclude Include="src\ThirdParty\SDL_FontCache.h" />
     <ClInclude Include="src\ThirdParty\sqlite3.h" />
@@ -245,6 +252,12 @@
     <ClCompile Include="src\SplitRect.cpp" />
     <ClCompile Include="src\Str.cpp" />
     <ClCompile Include="src\TauLib.cpp" />
+    <ClCompile Include="src\ThirdParty\imgui\imgui.cpp" />
+    <ClCompile Include="src\ThirdParty\imgui\imgui_demo.cpp" />
+    <ClCompile Include="src\ThirdParty\imgui\imgui_draw.cpp" />
+    <ClCompile Include="src\ThirdParty\imgui\imgui_sdl.cpp" />
+    <ClCompile Include="src\ThirdParty\imgui\imgui_tables.cpp" />
+    <ClCompile Include="src\ThirdParty\imgui\imgui_widgets.cpp" />
     <ClCompile Include="src\ThirdParty\SDL_FontCache.c">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS
 </PreprocessorDefinitions>
