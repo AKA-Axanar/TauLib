@@ -227,3 +227,5 @@ private:
         std::vector<IniLine>::iterator FindKeyLine(const std::string& key);
     };
 };
+
+using CfgFile = IniFile;
