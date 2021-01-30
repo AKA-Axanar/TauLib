@@ -26,22 +26,23 @@ using namespace Tau;
 IniFile::IniFile() {
     // add a dummy "" section for keys that aren't inside a section.  the saved "[]" is not written to the file.  
     // any keys not in a section are written to the top of the file with no section name above them.
-    iniSections.emplace_back("");
+    iniSections.emplace_back(this, "");
 }
 
 //
 // IniFile::IniFile
 //
-IniFile::IniFile(const string& _iniFilePath) : IniFile() {
-    Load(_iniFilePath);
+IniFile::IniFile(const string& _iniFilePath, bool _caseInsensitiveKeys) : IniFile() {
+    Load(_iniFilePath, _caseInsensitiveKeys);
 }
 
 //
 // bool IniFile::Load
 //
-bool IniFile::Load(const string& _iniFilePath) {
+bool IniFile::Load(const string& _iniFilePath, bool _caseInsensitiveKeys) {
     bool success = false;
     iniFilePath = _iniFilePath;
+    caseInsensitiveKeys = _caseInsensitiveKeys;
 
     Strings fileLines = ReadTextFileAsAStringArray(iniFilePath, /*removeCRLF*/ true);
 
@@ -50,11 +51,11 @@ bool IniFile::Load(const string& _iniFilePath) {
 
         if (!iniLine.section.empty()) {
             // if the line is a new section add the section name to the section list
-            iniSections.emplace_back(fileLine);
+            iniSections.emplace_back(this, fileLine);
         } else {
             // if the line has a key definition, add it to the map of key/value pairs
             if (!iniLine.key.empty())
-                iniSections.back().values[iniLine.key] = iniLine.value;
+                iniSections.back().values[AdjustKeyCase(iniLine.key)] = iniLine.value;
 
             // add the line info to the list of lines and map of keys in the current/last section
             iniSections.back().iniLines.emplace_back(iniLine);
@@ -112,7 +113,7 @@ void IniFile::Clear() {
 //
 // returns an iterator to the section in the vector or end(iniSections) if the section was not found.
 std::vector<IniFile::IniSection>::iterator IniFile::FindSectionName(const std::string& sectionName) {
-    return find_if(begin(iniSections), end(iniSections), [&] (const IniSection& iniSection) { return iniSection.sectionName == sectionName; } );
+    return find_if(begin(iniSections), end(iniSections), [&] (const IniSection& iniSection) { return CompareKeys(iniSection.sectionName, sectionName); } );
 }
 
 //
@@ -191,7 +192,7 @@ vector<double> IniFile::GetKeyValue_Doubles(const std::string& key, const std::s
 // if the sectionName doesn't already exist, this will create it
 void IniFile::SetKeyValue(const string& key, const string& value, const string& sectionName) {
     if (!SectionExists(sectionName))
-        iniSections.emplace_back(string("[") + sectionName + "]");
+        iniSections.emplace_back(this, string("[") + sectionName + "]");
 
     FindSectionName(sectionName)->SetKeyValue(key, value);
 }
@@ -213,7 +214,7 @@ bool IniFile::DeleteKey(const string& key, const string& sectionName) {
 //
 // IniFile::IniSection::IniSection
 //
-IniFile::IniSection::IniSection(const std::string& line) : sectionLine(line) { 
+IniFile::IniSection::IniSection(IniFile* _iniFile, const std::string& line) : iniFile(_iniFile), sectionLine(line) { 
     sectionName = sectionLine.section;
     if (line == "")
         sectionLine.lineContainsASectionDefine = true;  // it's the dummy "" section
@@ -223,7 +224,7 @@ IniFile::IniSection::IniSection(const std::string& line) : sectionLine(line) {
 // IniFile::IniSection::KeyExists
 //
 bool IniFile::IniSection::KeyExists(const std::string& key) {
-    return values.count(key) > 0;
+    return values.count(iniFile->AdjustKeyCase(key)) > 0;
 }
 
 //
@@ -231,7 +232,7 @@ bool IniFile::IniSection::KeyExists(const std::string& key) {
 //
 std::string IniFile::IniSection::GetKey(const std::string& key) {
     if (KeyExists(key))
-        return values[key];
+        return values[iniFile->AdjustKeyCase(key)];
     else
         return "";  // key doesn't exist
 }
@@ -243,7 +244,7 @@ std::string IniFile::IniSection::GetKey(const std::string& key) {
 void IniFile::IniSection::SetKeyValue(const std::string& key, const std::string& value) {
     if (!KeyExists(key)) {
         iniLines.emplace_back(key + " = " + value);
-        values[key] = value;
+        values[iniFile->AdjustKeyCase(key)] = value;
     }
     else {
         auto it = FindKeyLine(key);
@@ -286,11 +287,33 @@ bool IniFile::FixPathSeparators(const std::string& iniFilePath) {
 }
 
 //
+// IniFile::CompareKeys
+//
+bool IniFile::CompareKeys(const string& key1, const string& key2) const
+{
+    if (caseInsensitiveKeys)
+        return lowerCase(key1) == lowerCase(key2);
+    else
+        return key1 == key2;
+}
+
+//
+// IniFile::AdjustKeyCase
+//
+string IniFile::AdjustKeyCase(const string& key) const
+{
+    if (caseInsensitiveKeys)
+        return lowerCase(key);
+    else
+        return key;
+}
+
+//
 // IniFile::IniSection::DeleteKey
 //
 bool IniFile::IniSection::DeleteKey(const std::string& key) {
     if (KeyExists(key)) {
-        values.erase(key);
+        values.erase(iniFile->AdjustKeyCase(key));
         auto it = FindKeyLine(key);
         if (it != end(iniLines))
             iniLines.erase(it);
@@ -304,7 +327,7 @@ bool IniFile::IniSection::DeleteKey(const std::string& key) {
 //
 // returns end(iniLines) if not found
 vector<IniFile::IniLine>::iterator IniFile::IniSection::FindKeyLine(const std::string& key) {
-    return find_if(begin(iniLines), end(iniLines), [&] (IniLine& iniLine) { return iniLine.key == key; } );
+    return find_if(begin(iniLines), end(iniLines), [&] (IniLine& iniLine) { return iniFile->CompareKeys(iniLine.key, key); } );
 }
 
                 //*******************************

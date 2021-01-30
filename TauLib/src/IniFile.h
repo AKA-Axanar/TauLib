@@ -28,8 +28,9 @@
 /// @todo add quoted string support
 /// 
 struct IniFile {
-    std::string iniFilePath;    ///< The file path of the opened ini file.  Used by Save().
-    bool open {false};          ///< true if an ini file has been opened and parsed.
+    std::string iniFilePath;            ///< The file path of the opened ini file.  Used by Save().
+    bool open {false};                  ///< true if an ini file has been opened and parsed.
+    bool caseInsensitiveKeys {true};    ///< if true, keys (and section names) are case insensitive.
 
     /// @brief IniFile ctor.  
     /// Creates an empty IniFile.  Also adds the dummy [] section name where key that aren't inside a section name are added.
@@ -37,11 +38,11 @@ struct IniFile {
 
     /// @brief Calls IniFile().  Then loads the passed ini file.
     /// @param _iniFilePath The path of the ini file to load.
-    IniFile(const std::string& _iniFilePath);
+    IniFile(const std::string& _iniFilePath, bool _caseInsensitiveKeys = true);
 
     /// @brief Loads the passed ini file, scans the lines in the ini file saving the parsed pieces, and builds a map of the key/value pairs.
     /// @param _iniFilePath The path of the ini file to load.
-    bool Load(const std::string& _iniFilePath);
+    bool Load(const std::string& _iniFilePath, bool _caseInsensitiveKeys = true);
 
     /// @brief Save the ini key/value pairs, section names, and comments back to original opened ini file.
     /// @return true if data successfully save back to the file.
@@ -119,6 +120,13 @@ struct IniFile {
     static bool FixPathSeparators(const std::string& iniFilePath);
 
 private:
+    /// @brief Compares two key strings depending on the caseInsensitiveKeys flag.
+    /// @return true if the two key strings are "equal" depending on the caseInsensitiveKeys flag.<returns></returns>
+    bool CompareKeys(const std::string& key1, const std::string& key2) const;
+
+    /// @brief Returns the passed key as lowercase if the caseInsensitiveKeys is true
+    std::string AdjustKeyCase(const std::string& key) const;
+
     struct IniSection;
     std::vector<IniSection> iniSections;    ///< vector of IniSection's.  Each section conatins the map of key/value's and the parsed line info from the file
 
@@ -180,8 +188,9 @@ private:
 
     /// @struct IniSection An ini file section
     struct IniSection {
-        IniSection(const std::string& line);
+        IniSection(IniFile* _iniFile, const std::string& line);
 
+        IniFile* iniFile;
         std::string sectionName;    ///< section name. example: for "[config]" the sectionName == "config"
         IniLine sectionLine;        ///< The parsed info from the line containing the section name declaration.
                                     ///< if section name is "" this line does not get written to the ini file.
