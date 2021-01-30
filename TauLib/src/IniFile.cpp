@@ -317,6 +317,7 @@ vector<IniFile::IniLine>::iterator IniFile::IniSection::FindKeyLine(const std::s
 bool IniFile::IniLine::ParseLine(const string& _line) {
     string line = _line;    // line is modified as we find items and remove them
 
+    // quoted strings isn't supported yet.  but here is some info.
     // to scan for a quoted string /"([^"\\]*(\\.[^"\\]*)*)"/
     // to scan for either single or double quoted strings /"([^"\\]*(\\.[^"\\]*)*)"|\'([^\'\\]*(\\.[^\'\\]*)*)\'/
     // https://stackoverflow.com/questions/249791/regex-for-quoted-string-with-escaping-quotes
@@ -345,9 +346,9 @@ bool IniFile::IniLine::ParseLine(const string& _line) {
     }
 
     // save the key.  save the value, if any.
-    bool hasKey = FoundLexExpr("^[_\\-\\.[:alnum:]]+[[:space:]]*=", line);  // "key ="
+    bool hasKey = FoundLexExpr("^[\\w\\-\\.][\\w\\-\\.\\s]*=", line);  // "key ="
     if (hasKey) {
-        key = FindLexExprMatch("^[_\\-\\.[:alnum:]]+", line);  // "key"
+        key = rtrim(line.substr(0, line.find('=')));    // "key"
         if (key.size() > 0) {
             line.erase(0, key.size());  // erase key from line
             whiteSpaceAfterKey = GetAndRemoveLeadingWhitespace(&line);  // get spaces before =
