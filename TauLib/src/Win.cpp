@@ -18,26 +18,27 @@ namespace Tau { // to avoid conflict with other libraries
 //
 // InitWin
 //
-bool Win::InitWin(unsigned int _displayIndex, const string& _title, const Tau_Rect& bounds, Uint32 _flags) {
+bool Win::InitWin(unsigned int _displayIndex, const string& _title, const Tau_Rect& bounds, Uint32 _flagsWin, Uint32 _flagsRenderer) {
     assert(_displayIndex < (unsigned int)Display::GetNumberOfDisplays());
 
     displayIndex = _displayIndex;
     title = _title;
     winRect = bounds;
-    flags = _flags;         // https://wiki.libsdl.org/SDL_WindowFlags
+    flagsWin = _flagsWin;         // https://wiki.libsdl.org/SDL_WindowFlags
+    flagsRenderer = _flagsRenderer;
 
-    window = SDL_CreateWindow(title.c_str(), bounds.x, bounds.y, bounds.w, bounds.h, flags);
+    window = SDL_CreateWindow(title.c_str(), bounds.x, bounds.y, bounds.w, bounds.h, flagsWin);
     if (window == nullptr) {
         cerr << "SDL_CreateWindow failed" << endl;
         return false;
     }
-    renderer = SDL_CreateRenderer(window, -1, 0);
+    renderer = SDL_CreateRenderer(window, -1, flagsRenderer);
     if (renderer == nullptr) {
         cerr << "SDL_CreateRenderer failed" << endl;
         return false;
     }
 
-    if (flags & (SDL_WINDOW_FULLSCREEN_DESKTOP | SDL_WINDOW_FULLSCREEN))
+    if (flagsWin & (SDL_WINDOW_FULLSCREEN_DESKTOP | SDL_WINDOW_FULLSCREEN))
         windowIsEntireDisplay = true;
 
     // This is the window itself not just an area of a window.  If this is a fullscreen window then the bounds
