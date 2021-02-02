@@ -29,6 +29,8 @@ struct TTF_Font_Shared {
     /// @param filename full path
     /// @param fontSize in points (72 per inch)
     /// 
+    ///
+    TTF_Font_Shared(TTF_Font* font = nullptr);
     TTF_Font_Shared(const std::string& filename, int fontSize);
 
     operator TTF_Font* () { return font_shared_ptr.get(); };

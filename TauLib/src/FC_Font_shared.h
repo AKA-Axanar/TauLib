@@ -68,6 +68,7 @@ struct FC_Font_Shared {
     /// @param renderer The screen renderer.  Needed by the font cache to create the font textures
     /// @param color The default color of the font.  It can be changed with FC_SetDefaultColor() and revrieved with FC_GetDefaultColor.
     /// 
+    FC_Font_Shared(FC_Font* font = nullptr);
     FC_Font_Shared(const std::string& filename, int fontSize, SDL_Renderer* renderer, SDL_Color color);
 
     operator FC_Font* () { return font_shared_ptr.get(); };
