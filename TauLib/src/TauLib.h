@@ -11,6 +11,7 @@
 /// #if defined(_WIN32)                              // Windows OS
 /// #if defined(__x86_64__) || defined(_M_X64)       // Intel/AMD CPU
 /// #if defined(_M_ARM64)                            // Arm CPU
+/// #if defined (PI_DEBUG)                           // Pi (build defined)
 
 ///
 /// @namespace Tau - avoid conflict with other libraries

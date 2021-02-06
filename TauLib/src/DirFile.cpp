@@ -220,9 +220,9 @@ bool CopyDir_SkipExisting(const string& dirPathSrc, const string& dirPathDest) {
                 //*******************************
 
 // return directory contents as strings of file or dir names
-Strings GetDirectoryContents(const std::string& dirPath, 
-                             std::function<bool (fs::directory_entry&)> testLambda,
-                             std::function<string (fs::directory_entry&)> getStringLambda,
+Strings GetDirectoryContents(const string& dirPath, 
+                             function<bool (fs::directory_entry&)> testLambda,
+                             function<string (fs::directory_entry&)> getStringLambda,
                              bool recursive
                              )
 {
@@ -278,7 +278,7 @@ string GetATempFilename() {
 /// @return A vector<string> containing the contents of the file (optionally minus any CR or LF's).
 /// @note CR's and LF's are removed.
 /// 
-Strings ReadTextFileAsAStringArray(const std::string& filePath, bool removeCRLF) {
+Strings ReadTextFileAsAStringArray(const string& filePath, bool removeCRLF) {
     ifstream file;
     string line;
     Strings contents;
@@ -309,7 +309,7 @@ Strings ReadTextFileAsAStringArray(const std::string& filePath, bool removeCRLF)
 /// @param filePath2 fullpath to file2
 /// @param ignoreCRLF true to ignore CR/LF's when comparing
 /// @return true if the file strings are the same (considering ignoreCRLF flag)
-bool CompareFiles(const std::string& filePath1, const std::string& filePath2, bool ignoreCRLF) {
+bool CompareFiles(const string& filePath1, const string& filePath2, bool ignoreCRLF) {
     Strings file1 = ReadTextFileAsAStringArray(filePath1, ignoreCRLF);
     Strings file2 = ReadTextFileAsAStringArray(filePath2, ignoreCRLF);
 
@@ -327,6 +327,17 @@ bool CompareFiles(const std::string& filePath1, const std::string& filePath2, bo
     }
 
     return true;    // files are equal
+}
+
+                //*******************************
+                // Space Available
+                //*******************************
+
+/// @brief SpaceAvailable
+/// @param A path on the drive you want the free space available
+/// @return Disk space available on the drive the passed path is on
+uintmax_t SpaceAvailable(const string& fileOrDirPath) {
+    return fs::space(fileOrDirPath).available;
 }
 
 } // end namespace Tau

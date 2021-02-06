@@ -27,7 +27,7 @@ string operator + (const string& leftside, Sep) {
 // append path separator helper function
 // to use "operator +" below, "path + sep" will append the separator only if it's not already on the end of path
 //*******************************
-void operator += (std::string& leftside, Sep) {
+void operator += (string& leftside, Sep) {
     if (leftside.size() > 0)
     {
         char lastChar = leftside.back();
@@ -42,7 +42,7 @@ void operator += (std::string& leftside, Sep) {
 // fixPathSeparators
 // changes any / or \ in the string to be the preferred path separator for the OS
 //
-std::string fixPathSeparators(const std::string& str) {
+string fixPathSeparators(const string& str) {
     filesystem::path p(str);
     p.make_preferred();
     return p.string();
@@ -53,7 +53,7 @@ std::string fixPathSeparators(const std::string& str) {
 // changes any / or \ in the string to be the preferred path separator for the OS
 // modifies the passed pathStr.
 //
-void fixPathSeparators(std::string* str)
+void fixPathSeparators(string* str)
     { *str = fixPathSeparators(*str); }
 
 } // end namespace Tau

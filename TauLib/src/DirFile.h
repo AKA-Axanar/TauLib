@@ -351,4 +351,13 @@ Strings ReadTextFileAsAStringArray(const std::string& filePath, bool removeCRLF)
 /// @return true if the file strings are the same (considering ignoreCRLF flag)
 bool CompareFiles(const std::string& filePath1, const std::string& filePath2, bool ignoreCRLF=false);
 
+                //*******************************
+                // Space Available
+                //*******************************
+
+/// @brief SpaceAvailable
+/// @param A path on the drive you want the free space available
+/// @return Disk space available on the drive the passed path is on
+std::uintmax_t SpaceAvailable(const std::string& fileOrDirPath);
+
 } // end namespace Tau
