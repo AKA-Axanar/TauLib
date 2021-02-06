@@ -72,14 +72,7 @@ bool IniFile::Save() {
     if (iniFilePath == "")
         return false;
 
-    ofstream ofile(iniFilePath.c_str(), ofstream::out | ofstream::trunc);
-    if (!ofile.is_open())
-        return false;
-
-    ofile << *this;
-    ofile.close();
-
-    return true;
+    return SaveAs(iniFilePath);
 }
 
 //
@@ -102,18 +95,6 @@ bool IniFile::SaveAs(const string& filePath) {
 //
 void IniFile::Clear() {
     iniSections.clear();
-}
-
-                //*******************************
-                // IniFile Private
-                //*******************************
-
-//
-// IniFile::FindSectionName
-//
-// returns an iterator to the section in the vector or end(iniSections) if the section was not found.
-std::vector<IniFile::IniSection>::iterator IniFile::FindSectionName(const std::string& sectionName) {
-    return find_if(begin(iniSections), end(iniSections), [&] (const IniSection& iniSection) { return CompareKeys(iniSection.sectionName, sectionName); } );
 }
 
 //
@@ -151,20 +132,6 @@ int IniFile::GetKeyValue_Int(const std::string& key, const std::string& sectionN
 }
 
 //
-// IniFile::GetKeyValue_Float
-//
-float IniFile::GetKeyValue_Float(const std::string& key, const std::string& sectionName) {
-    return stof(GetKeyValue(key, sectionName));
-}
-
-//
-// IniFile::GetKeyValue_Double
-//
-double IniFile::GetKeyValue_Double(const std::string& key, const std::string& sectionName) {
-    return stod(GetKeyValue(key, sectionName));
-}
-
-//
 // IniFile::GetKeyValue_Ints
 //
 vector<int> IniFile::GetKeyValue_Ints(const std::string& key, const std::string& sectionName) {
@@ -172,10 +139,24 @@ vector<int> IniFile::GetKeyValue_Ints(const std::string& key, const std::string&
 }
 
 //
+// IniFile::GetKeyValue_Float
+//
+float IniFile::GetKeyValue_Float(const std::string& key, const std::string& sectionName) {
+    return stof(GetKeyValue(key, sectionName));
+}
+
+//
 // IniFile::GetKeyValue_Floats
 //
 vector<float> IniFile::GetKeyValue_Floats(const std::string& key, const std::string& sectionName) {
     return CommaSepStringToFloats(GetKeyValue(key, sectionName));
+}
+
+//
+// IniFile::GetKeyValue_Double
+//
+double IniFile::GetKeyValue_Double(const std::string& key, const std::string& sectionName) {
+    return stod(GetKeyValue(key, sectionName));
 }
 
 //
@@ -205,6 +186,18 @@ bool IniFile::DeleteKey(const string& key, const string& sectionName) {
         return FindSectionName(sectionName)->DeleteKey(key);
     else
         return false;
+}
+
+                //*******************************
+                // IniFile Private
+                //*******************************
+
+//
+// IniFile::FindSectionName
+//
+// returns an iterator to the section in the vector or end(iniSections) if the section was not found.
+std::vector<IniFile::IniSection>::iterator IniFile::FindSectionName(const std::string& sectionName) {
+    return find_if(begin(iniSections), end(iniSections), [&] (const IniSection& iniSection) { return CompareKeys(iniSection.sectionName, sectionName); } );
 }
 
                 //*******************************
@@ -250,7 +243,7 @@ void IniFile::IniSection::SetKeyValue(const std::string& key, const std::string&
         auto it = FindKeyLine(key);
         if (it != end(iniLines)) {
             // try to adjust the whitespace before the comment if the size of the key value changes.
-            // the result may not be in correct column if you are using tabs instead of spaces.
+            // the result may not be in the correct column if you are using tabs instead of spaces.
             size_t oldSize = it->value.size();
             size_t newSize = value.size();
             if (oldSize > newSize) {

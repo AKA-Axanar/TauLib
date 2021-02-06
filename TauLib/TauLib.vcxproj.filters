@@ -108,6 +108,9 @@
     <ClInclude Include="src\ThirdParty\imgui\imgui_sdl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\IniFileWithDefault.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -183,6 +186,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\ThirdParty\imgui\imgui_demo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IniFileWithDefault.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

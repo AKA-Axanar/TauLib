@@ -124,7 +124,7 @@ private:
     /// @return true if the two key strings are "equal" depending on the caseInsensitiveKeys flag.<returns></returns>
     bool CompareKeys(const std::string& key1, const std::string& key2) const;
 
-    /// @brief Returns the passed key as lowercase if the caseInsensitiveKeys is true
+    /// @brief Returns the passed key as lowercase if caseInsensitiveKeys is true
     std::string AdjustKeyCase(const std::string& key) const;
 
     struct IniSection;
