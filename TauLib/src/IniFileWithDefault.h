@@ -33,9 +33,22 @@ struct IniFileWithDefault : public IniFile {
     IniFileWithDefault(const std::string& _iniFilePath, const std::string& _defaltIniFilePath, bool _caseInsensitiveKeys = true) : IniFile(_iniFilePath, _caseInsensitiveKeys) 
         { LoadDefaultIniFile(_defaltIniFilePath, _caseInsensitiveKeys); }
 
+    /// @brief Creates the base IniFile and the default IniFile.
+    /// @param _iniFilePath The path of the ini file to load.
+    /// @param _defaltIniFilePath The path of the ini file to load.
+    bool LoadWithDefault(const std::string& _iniFilePath, const std::string& _defaltIniFilePath, bool _caseInsensitiveKeys = true) {
+        bool ok = IniFile::Load(_iniFilePath, _caseInsensitiveKeys) ;
+        if (!ok)
+            return false;
+        ok = LoadDefaultIniFile(_defaltIniFilePath, _caseInsensitiveKeys);
+        return ok;
+        }
+
+private:
     /// @brief Loads the default IniFile
     bool LoadDefaultIniFile(const std::string& _iniFilePath, bool _caseInsensitiveKeys = true);
 
+public:
     /// @brief If the section doesn't exist try the default ini file
     bool SectionExists(const std::string& sectionName) const;
 
