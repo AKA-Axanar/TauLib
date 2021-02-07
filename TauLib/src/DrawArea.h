@@ -307,6 +307,10 @@ struct DrawArea {
     /// @return Tau_Color
     Tau_Color GetColor();
 
+    /// @brief SetColor Set the rendering color
+    /// @param color 
+    void SetDrawBlendMode(SDL_BlendMode mode) { SDL_SetRenderDrawBlendMode(renderer, mode); }
+
 //                  ===========
 //                   Draw Line
 //                  ===========
