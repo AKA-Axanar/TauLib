@@ -135,6 +135,16 @@ bool icompareBool(const std::string& str_a, const std::string& str_b);
 ///
 int icompareInt(const std::string& str_a, const std::string& bstr_b);
 
+///
+/// @brief sortStringCompare - Compare two strings (for lambdas).
+///
+bool sortStringCompare(const std::string& string1, const std::string& string2);
+
+///
+/// @brief sortStringCompare - Compare two strings (for lambdas).
+///
+bool sortStringCompareInsensitive(const std::string& string1, const std::string& string2);
+
                 //*******************************
                 // string replace
                 //*******************************

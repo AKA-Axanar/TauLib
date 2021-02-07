@@ -176,6 +176,20 @@ int icompareInt(const std::string& a, const std::string& b) {
     return _stricmp(a.c_str(), b.c_str());
 }
 
+///
+/// @brief sortStringCompare - Compare two strings (for lambdas).
+///
+bool sortStringCompare(const std::string& string1, const std::string& string2) {
+    return string1 < string2;
+}
+
+///
+/// @brief sortStringCompareInsensitive - Compare two strings (for lambdas).
+///
+bool sortStringCompareInsensitive(const std::string& string1, const std::string& string2) {
+    return lowerCase(string1) < lowerCase(string2);
+}
+
                 //*******************************
                 // string replace
                 //*******************************
