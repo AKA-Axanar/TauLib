@@ -43,6 +43,7 @@ bool IniFile::Load(const string& _iniFilePath, bool _caseInsensitiveKeys) {
     bool success = false;
     iniFilePath = _iniFilePath;
     caseInsensitiveKeys = _caseInsensitiveKeys;
+    Clear();
 
     Strings fileLines = ReadTextFileAsAStringArray(iniFilePath, /*removeCRLF*/ true);
 
