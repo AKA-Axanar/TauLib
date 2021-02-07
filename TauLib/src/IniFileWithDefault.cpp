@@ -18,7 +18,7 @@ bool IniFileWithDefault::LoadDefaultIniFile(const std::string& _iniFilePath, boo
 //
 // IniFileWithDefault::SectionExists
 //
-bool IniFileWithDefault::SectionExists(const std::string& sectionName) {
+bool IniFileWithDefault::SectionExists(const std::string& sectionName) const {
     if (IniFile::SectionExists(sectionName))
         return true;
     else
@@ -28,7 +28,7 @@ bool IniFileWithDefault::SectionExists(const std::string& sectionName) {
 //
 // IniFileWithDefault::KeyExists
 //
-bool IniFileWithDefault::KeyExists(const string& key, const string& sectionName) {
+bool IniFileWithDefault::KeyExists(const string& key, const string& sectionName) const {
     if (IniFile::KeyExists(key, sectionName))
         return true;
     else
@@ -38,7 +38,7 @@ bool IniFileWithDefault::KeyExists(const string& key, const string& sectionName)
 //
 // IniFileWithDefault::GetKeyValue
 //
-string IniFileWithDefault::GetKeyValue(const string& key, const string& sectionName) {
+string IniFileWithDefault::GetKeyValue(const string& key, const string& sectionName) const {
     if (IniFile::KeyExists(key, sectionName))
         return IniFile::GetKeyValue(key, sectionName);
     else
@@ -48,7 +48,7 @@ string IniFileWithDefault::GetKeyValue(const string& key, const string& sectionN
 //
 // IniFileWithDefault::GetKeyValue_Int
 //
-int IniFileWithDefault::GetKeyValue_Int(const std::string& key, const std::string& sectionName) {
+int IniFileWithDefault::GetKeyValue_Int(const std::string& key, const std::string& sectionName) const {
     if (IniFile::KeyExists(key, sectionName))
         return IniFile::GetKeyValue_Int(key, sectionName);
     else
@@ -58,7 +58,7 @@ int IniFileWithDefault::GetKeyValue_Int(const std::string& key, const std::strin
 //
 // IniFileWithDefault::GetKeyValue_Ints
 //
-vector<int> IniFileWithDefault::GetKeyValue_Ints(const std::string& key, const std::string& sectionName) {
+vector<int> IniFileWithDefault::GetKeyValue_Ints(const std::string& key, const std::string& sectionName) const {
     if (IniFile::KeyExists(key, sectionName))
         return IniFile::GetKeyValue_Ints(key, sectionName);
     else
@@ -68,7 +68,7 @@ vector<int> IniFileWithDefault::GetKeyValue_Ints(const std::string& key, const s
 //
 // IniFileWithDefault::GetKeyValue_Float
 //
-float IniFileWithDefault::GetKeyValue_Float(const std::string& key, const std::string& sectionName) {
+float IniFileWithDefault::GetKeyValue_Float(const std::string& key, const std::string& sectionName) const {
     if (IniFile::KeyExists(key, sectionName))
         return IniFile::GetKeyValue_Float(key, sectionName);
     else
@@ -78,7 +78,7 @@ float IniFileWithDefault::GetKeyValue_Float(const std::string& key, const std::s
 //
 // IniFileWithDefault::GetKeyValue_Floats
 //
-vector<float> IniFileWithDefault::GetKeyValue_Floats(const std::string& key, const std::string& sectionName) {
+vector<float> IniFileWithDefault::GetKeyValue_Floats(const std::string& key, const std::string& sectionName) const {
     if (IniFile::KeyExists(key, sectionName))
         return IniFile::GetKeyValue_Floats(key, sectionName);
     else
@@ -88,7 +88,7 @@ vector<float> IniFileWithDefault::GetKeyValue_Floats(const std::string& key, con
 //
 // IniFileWithDefault::GetKeyValue_Double
 //
-double IniFileWithDefault::GetKeyValue_Double(const std::string& key, const std::string& sectionName) {
+double IniFileWithDefault::GetKeyValue_Double(const std::string& key, const std::string& sectionName) const {
     if (IniFile::KeyExists(key, sectionName))
         return IniFile::GetKeyValue_Double(key, sectionName);
     else
@@ -98,7 +98,7 @@ double IniFileWithDefault::GetKeyValue_Double(const std::string& key, const std:
 //
 // IniFileWithDefault::GetKeyValue_Doubles
 //
-vector<double> IniFileWithDefault::GetKeyValue_Doubles(const std::string& key, const std::string& sectionName) {
+vector<double> IniFileWithDefault::GetKeyValue_Doubles(const std::string& key, const std::string& sectionName) const {
     if (IniFile::KeyExists(key, sectionName))
         return IniFile::GetKeyValue_Doubles(key, sectionName);
     else

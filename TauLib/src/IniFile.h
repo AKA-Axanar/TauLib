@@ -46,12 +46,12 @@ struct IniFile {
 
     /// @brief Save the ini key/value pairs, section names, and comments back to original opened ini file.
     /// @return true if data successfully save back to the file.
-    bool Save();
+    bool Save() const;
 
     /// @brief Save the ini key/value pairs, section names, and comments to passed filename.
     /// @param filePath - The path of the file to save the save.
     /// @return true if data successfully save back to the file.
-    bool SaveAs(const std::string& filePath);
+    bool SaveAs(const std::string& filePath) const;
 
     /// @brief Clears the data.  Keeps the filename if any.
     /// @return none
@@ -60,40 +60,40 @@ struct IniFile {
     /// @brief tests if a sction name exists in the data
     /// @param sectionName - the [sectionName] to look for.
     /// @return Returns true if the section name exists
-    bool SectionExists(const std::string& sectionName);
+    bool SectionExists(const std::string& sectionName) const;
 
     /// @brief Tests if the key exists
     /// @param key - the key to search for
     /// @param sectionName - the section name the key is in, if any
     /// @return Returns true if the key exists in the section
-    bool KeyExists(const std::string& key, const std::string& sectionName="");
+    bool KeyExists(const std::string& key, const std::string& sectionName="") const;
 
     /// @brief Returns a key value for a passed key and section name
     /// @param key - the key to search for
     /// @param sectionName - the section name the key is in, if any
     /// @return Returns the string value of the key/value pair.
-    std::string GetKeyValue(const std::string& key, const std::string& sectionName = "");
+    std::string GetKeyValue(const std::string& key, const std::string& sectionName = "") const;
 
     /// @brief Returns a key value for a passed key and section name
     /// @param key - the key to search for
     /// @param sectionName - the section name the key is in, if any
     /// @return Returns the value of the key/value pair converted to an integer.
-    int GetKeyValue_Int(const std::string& key, const std::string& sectionName = "");
-    std::vector<int> GetKeyValue_Ints(const std::string& key, const std::string& sectionName = "");
+    int GetKeyValue_Int(const std::string& key, const std::string& sectionName = "") const;
+    std::vector<int> GetKeyValue_Ints(const std::string& key, const std::string& sectionName = "") const;
 
     /// @brief Returns a key value for a passed key and section name
     /// @param key - the key to search for
     /// @param sectionName - the section name the key is in, if any
     /// @return Returns the value of the key/value pair converted to a float.
-    float GetKeyValue_Float(const std::string& key, const std::string& sectionName = "");
-    std::vector<float> GetKeyValue_Floats(const std::string& key, const std::string& sectionName = "");
+    float GetKeyValue_Float(const std::string& key, const std::string& sectionName = "") const;
+    std::vector<float> GetKeyValue_Floats(const std::string& key, const std::string& sectionName = "") const;
 
     /// @brief Returns a key value for a passed key and section name
     /// @param key - the key to search for
     /// @param sectionName - the section name the key is in, if any
     /// @return Returns the value of the key/value pair converted to a double.
-    double GetKeyValue_Double(const std::string& key, const std::string& sectionName = "");
-    std::vector<double> GetKeyValue_Doubles(const std::string& key, const std::string& sectionName = "");
+    double GetKeyValue_Double(const std::string& key, const std::string& sectionName = "") const;
+    std::vector<double> GetKeyValue_Doubles(const std::string& key, const std::string& sectionName = "") const;
 
     /// @brief Sets a key value of a passed key and section name
     /// @param key - the key to search for
@@ -119,6 +119,23 @@ struct IniFile {
     /// @return true if any key was changed and the ini file rewritten
     static bool FixPathSeparators(const std::string& iniFilePath);
 
+    //
+    // Get list of section names and key names
+    //
+
+    /// @brief Return the list of section names.
+    std::vector<std::string> GetSectionNames() const;
+ 
+    /// @brief Return the list of keys in a section.
+    std::vector<std::string> GetKeyNamesInSection(const std::string& sectionName) const;
+ 
+    /// @brief Return the list of keys in a section.
+    std::map<std::string, std::string> GetKeyPairsInSection(const std::string& sectionName) const;
+ 
+    /// @brief Return all the keys.
+    /// @return A vector of tuples of <string, string, string> = <section, key, value>
+    std::vector<std::tuple<std::string, std::string, std::string>> GetAllKeyPairs() const;
+ 
 private:
     /// @brief Compares two key strings depending on the caseInsensitiveKeys flag.
     /// @return true if the two key strings are "equal" depending on the caseInsensitiveKeys flag.<returns></returns>
@@ -134,6 +151,7 @@ private:
     /// @param sectionName The secontion to search for.
     /// @return An iterator to the section in the vector or end(iniSections) if not found
     std::vector<IniSection>::iterator FindSectionName(const std::string& sectionName);
+    std::vector<IniSection>::const_iterator FindSectionName(const std::string& sectionName) const;
 
                 //*******************************
                 // IniFile::IniLine
@@ -203,12 +221,12 @@ private:
         /// @brief Test if a key exists
         /// @param key The key to test for existence.
         /// @return true if the key exists.
-        bool KeyExists(const std::string& key);
+        bool KeyExists(const std::string& key) const;
         
         /// @brief Get the value of a key.
         /// @param key The key to get the value of.
         /// @return the key's value string.  Returns "" if the key does not exist.
-        std::string GetKey(const std::string& key);
+        std::string GetKey(const std::string& key) const;
 
         /// @brief Set a key's value string.
         /// @param key The key to set.
@@ -225,6 +243,7 @@ private:
         /// @param key The key to find.
         /// @return An iterator to the IniLine for the key.  Returns end(iniLines) if the key isn't found.
         std::vector<IniLine>::iterator FindKeyLine(const std::string& key);
+        std::vector<IniLine>::const_iterator FindKeyLine(const std::string& key) const;
     };
 };
 

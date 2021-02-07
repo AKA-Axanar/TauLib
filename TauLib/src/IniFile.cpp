@@ -68,7 +68,7 @@ bool IniFile::Load(const string& _iniFilePath, bool _caseInsensitiveKeys) {
 //
 // IniFile::Save
 //
-bool IniFile::Save() {
+bool IniFile::Save() const {
     if (iniFilePath == "")
         return false;
 
@@ -78,7 +78,7 @@ bool IniFile::Save() {
 //
 // IniFile::SaveAs
 //
-bool IniFile::SaveAs(const string& filePath) {
+bool IniFile::SaveAs(const string& filePath) const {
     ofstream ofile(filePath.c_str(), ofstream::out | ofstream::trunc);
     if (!ofile.is_open())
         return false;
@@ -100,14 +100,14 @@ void IniFile::Clear() {
 //
 // IniFile::SectionExists
 //
-bool IniFile::SectionExists(const std::string& sectionName) {
+bool IniFile::SectionExists(const std::string& sectionName) const {
     return FindSectionName(sectionName) != end(iniSections);
 }
 
 //
 // IniFile::KeyExists
 //
-bool IniFile::KeyExists(const string& key, const string& sectionName) {
+bool IniFile::KeyExists(const string& key, const string& sectionName) const {
     if (SectionExists(sectionName))
         return FindSectionName(sectionName)->KeyExists(key);
     else
@@ -117,7 +117,7 @@ bool IniFile::KeyExists(const string& key, const string& sectionName) {
 //
 // IniFile::GetKeyValue
 //
-string IniFile::GetKeyValue(const string& key, const string& sectionName) {
+string IniFile::GetKeyValue(const string& key, const string& sectionName) const {
     if (SectionExists(sectionName))
         return FindSectionName(sectionName)->GetKey(key);
     else
@@ -127,42 +127,42 @@ string IniFile::GetKeyValue(const string& key, const string& sectionName) {
 //
 // IniFile::GetKeyValue_Int
 //
-int IniFile::GetKeyValue_Int(const std::string& key, const std::string& sectionName) {
+int IniFile::GetKeyValue_Int(const std::string& key, const std::string& sectionName) const {
     return stoi(GetKeyValue(key, sectionName));
 }
 
 //
 // IniFile::GetKeyValue_Ints
 //
-vector<int> IniFile::GetKeyValue_Ints(const std::string& key, const std::string& sectionName) {
+vector<int> IniFile::GetKeyValue_Ints(const std::string& key, const std::string& sectionName) const {
     return CommaSepStringToInts(GetKeyValue(key, sectionName));
 }
 
 //
 // IniFile::GetKeyValue_Float
 //
-float IniFile::GetKeyValue_Float(const std::string& key, const std::string& sectionName) {
+float IniFile::GetKeyValue_Float(const std::string& key, const std::string& sectionName) const {
     return stof(GetKeyValue(key, sectionName));
 }
 
 //
 // IniFile::GetKeyValue_Floats
 //
-vector<float> IniFile::GetKeyValue_Floats(const std::string& key, const std::string& sectionName) {
+vector<float> IniFile::GetKeyValue_Floats(const std::string& key, const std::string& sectionName) const {
     return CommaSepStringToFloats(GetKeyValue(key, sectionName));
 }
 
 //
 // IniFile::GetKeyValue_Double
 //
-double IniFile::GetKeyValue_Double(const std::string& key, const std::string& sectionName) {
+double IniFile::GetKeyValue_Double(const std::string& key, const std::string& sectionName) const {
     return stod(GetKeyValue(key, sectionName));
 }
 
 //
 // IniFile::GetKeyValue_Doubles
 //
-vector<double> IniFile::GetKeyValue_Doubles(const std::string& key, const std::string& sectionName) {
+vector<double> IniFile::GetKeyValue_Doubles(const std::string& key, const std::string& sectionName) const {
     return CommaSepStringToDoubles(GetKeyValue(key, sectionName));
 }
 
@@ -200,6 +200,14 @@ std::vector<IniFile::IniSection>::iterator IniFile::FindSectionName(const std::s
     return find_if(begin(iniSections), end(iniSections), [&] (const IniSection& iniSection) { return CompareKeys(iniSection.sectionName, sectionName); } );
 }
 
+//
+// IniFile::FindSectionName const
+//
+// returns an iterator to the section in the vector or end(iniSections) if the section was not found.
+std::vector<IniFile::IniSection>::const_iterator IniFile::FindSectionName(const std::string& sectionName) const {
+    return find_if(begin(iniSections), end(iniSections), [&] (const IniSection& iniSection) { return CompareKeys(iniSection.sectionName, sectionName); } );
+}
+
                 //*******************************
                 // IniFile::IniSection
                 //*******************************
@@ -216,16 +224,16 @@ IniFile::IniSection::IniSection(IniFile* _iniFile, const std::string& line) : in
 //
 // IniFile::IniSection::KeyExists
 //
-bool IniFile::IniSection::KeyExists(const std::string& key) {
+bool IniFile::IniSection::KeyExists(const std::string& key) const {
     return values.count(iniFile->AdjustKeyCase(key)) > 0;
 }
 
 //
 // IniFile::IniSection::GetKey
 //
-std::string IniFile::IniSection::GetKey(const std::string& key) {
+std::string IniFile::IniSection::GetKey(const std::string& key) const {
     if (KeyExists(key))
-        return values[iniFile->AdjustKeyCase(key)];
+        return values.at(iniFile->AdjustKeyCase(key));  // note: use at() instead of operator [] because of const
     else
         return "";  // key doesn't exist
 }
@@ -280,6 +288,73 @@ bool IniFile::FixPathSeparators(const std::string& iniFilePath) {
 }
 
 //
+// Get list of section names and key names
+//
+
+//
+// GetSectionNames. Return the list of section names.
+//
+vector<string> IniFile::GetSectionNames() const {
+    Strings ret;
+    for (const auto& section : iniSections) {
+        if (section.sectionName == "" && section.values.size() == 0)
+            continue;   // skip section "" if it has no keys
+        else {
+            ret.emplace_back(section.sectionName);
+        }
+    }
+
+    return ret;
+}
+ 
+//
+// GetKeyNames Return the list of keys in a section.
+//
+std::vector<std::string> IniFile::GetKeyNamesInSection(const std::string& sectionName) const {
+    Strings ret;
+    const auto it = FindSectionName(sectionName);
+    if (it != iniSections.end()) {
+        const auto& values = it->values;
+        for_each (begin(values), end(values), [&] (const pair<string, string>& keypair) 
+            { ret.emplace_back(keypair.first); });
+    }
+
+    return ret;
+}
+ 
+//
+// GetKeyPairsInSection Return the list of keys in a section.
+//
+std::map<std::string, std::string> IniFile::GetKeyPairsInSection(const std::string& sectionName) const {
+    std::map<std::string, std::string> ret;
+    auto it = FindSectionName(sectionName);
+    if (it != iniSections.end()) {
+        ret = it->values;
+    }
+
+    return ret;
+}
+
+// 
+// Return all the keys.
+// Returns a vector of tuples of <string, string, string> = <section, key, value>
+//
+vector<tuple<string, string, string>> IniFile::GetAllKeyPairs() const {
+    vector<tuple<string, string, string>> ret;
+    for (const auto& section : iniSections) {
+        if (section.sectionName == "" && section.values.size() == 0)
+            continue;   // skip section "" if it has no keys
+        else {
+            for (const auto& keypair : section.values) {
+                ret.emplace_back(make_tuple(section.sectionName, keypair.first, keypair.second));
+            }
+        }
+    }
+
+    return ret;
+}
+ 
+//
 // IniFile::CompareKeys
 //
 bool IniFile::CompareKeys(const string& key1, const string& key2) const
@@ -320,7 +395,15 @@ bool IniFile::IniSection::DeleteKey(const std::string& key) {
 //
 // returns end(iniLines) if not found
 vector<IniFile::IniLine>::iterator IniFile::IniSection::FindKeyLine(const std::string& key) {
-    return find_if(begin(iniLines), end(iniLines), [&] (IniLine& iniLine) { return iniFile->CompareKeys(iniLine.key, key); } );
+    return find_if(begin(iniLines), end(iniLines), [&] (const IniLine& iniLine) { return iniFile->CompareKeys(iniLine.key, key); } );
+}
+
+//
+// IniFile::IniSection::FindKeyLine const
+//
+// returns end(iniLines) if not found
+vector<IniFile::IniLine>::const_iterator IniFile::IniSection::FindKeyLine(const std::string& key) const {
+    return find_if(begin(iniLines), end(iniLines), [&] (const IniLine& iniLine) { return iniFile->CompareKeys(iniLine.key, key); } );
 }
 
                 //*******************************
