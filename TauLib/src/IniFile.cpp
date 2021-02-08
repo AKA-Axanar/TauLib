@@ -180,6 +180,75 @@ void IniFile::SetKeyValue(const string& key, const string& value, const string& 
 }
 
 //
+// IniFile::SetKeyValue_Int
+//
+void IniFile::SetKeyValue_Int(const std::string& key, int value, const std::string& sectionName) {
+    string s = to_string(value);
+    SetKeyValue(key, s, sectionName);
+}
+
+//
+// IniFile::SetKeyValue_Ints
+//
+void IniFile::SetKeyValue_Ints(const std::string& key, std::vector<int> values, const std::string& sectionName) {
+    if (values.size() > 0) {
+        string s;
+        for (int i = 0; i < values.size(); ++i) {
+            s += to_string(values[i]);
+            if (i < values.size() - 1)
+                s += ",";
+        }
+        SetKeyValue(key, s, sectionName);
+    }
+}
+
+//
+// IniFile::SetKeyValue_Float
+//
+void IniFile::SetKeyValue_Float(const std::string& key, float value, const std::string& sectionName) {
+    string s = to_string(value);
+    SetKeyValue(key, s, sectionName);
+}
+
+//
+// IniFile::SetKeyValue_Floats
+//
+void IniFile::SetKeyValue_Floats(const std::string& key, std::vector<float> values, const std::string& sectionName) {
+    if (values.size() > 0) {
+        string s;
+        for (int i = 0; i < values.size(); ++i) {
+            s += to_string(values[i]);
+            if (i < values.size() - 1)
+                s += ",";
+        }
+        SetKeyValue(key, s, sectionName);
+    }
+}
+
+//
+// IniFile::SetKeyValue_Double
+//
+void IniFile::SetKeyValue_Double(const std::string& key, double value, const std::string& sectionName) {
+    string s = to_string(value);
+    SetKeyValue(key, s, sectionName);
+}
+
+//
+// IniFile::SetKeyValue_Doubles
+//
+void IniFile::SetKeyValue_Doubles(const std::string& key, std::vector<double> values, const std::string& sectionName) {
+    if (values.size() > 0) {
+        string s;
+        for (int i = 0; i < values.size(); ++i) {
+            s += to_string(values[i]);
+            if (i < values.size() - 1)
+                s += ",";
+        }
+        SetKeyValue(key, s, sectionName);
+    }
+}
+
+//
 // IniFile::DeleteKey
 //
 bool IniFile::DeleteKey(const string& key, const string& sectionName) {

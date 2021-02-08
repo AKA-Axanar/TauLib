@@ -22,8 +22,17 @@ TEST(TestIniFile, TestIniFile) {
     EXPECT_TRUE(temp.size() == 2);
     EXPECT_TRUE(temp[0] == 200);
     EXPECT_TRUE(temp[1] == 100);
+    iniTest.SetKeyValue_Int("value", 100, "Theme");
+    EXPECT_EQ(iniTest.GetKeyValue_Int("value", "Theme"), 100);
+    iniTest.SetKeyValue_Ints("rect", {10,20,100,200}, "Theme");
+    temp = iniTest.GetKeyValue_Ints("rect", "Theme");
+    EXPECT_EQ(temp[0], 10);
+    EXPECT_EQ(temp[1], 20);
+    EXPECT_EQ(temp[2], 100);
+    EXPECT_EQ(temp[3], 200);
+
     iniTest.SaveAs("ini_TestResult.ini");
-    EXPECT_TRUE(CompareFiles("testResult.ini", "testOut.ini"));
+    EXPECT_TRUE(CompareFiles("ini_TestResult.ini", "ini_Output.ini"));
 
     // create a new ini file, add keys and sections, save, and compare to expectd output
     IniFile newIni;

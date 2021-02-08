@@ -104,6 +104,60 @@ struct IniFile {
     /// @note if the sectionName doesn't already exist, it's created
     void SetKeyValue(const std::string& key, const std::string& value, const std::string& sectionName="");
 
+    /// @brief Sets a key value to an int
+    /// @param key - the key to search for
+    /// @param value - the integer value to set
+    /// @param sectionName - the section name the key is in, if any
+    /// @return none
+    /// @note if the key doesn't already exist, it's created
+    /// @note if the sectionName doesn't already exist, it's created
+    void SetKeyValue_Int(const std::string& key, int value, const std::string& sectionName="");
+
+    /// @brief Sets a key value to the comma delimited string of a series of int's
+    /// @param key - the key to search for
+    /// @param value - a vector of int's to set the comma delimited string to
+    /// @param sectionName - the section name the key is in, if any
+    /// @return none
+    /// @note if the key doesn't already exist, it's created
+    /// @note if the sectionName doesn't already exist, it's created
+    void SetKeyValue_Ints(const std::string& key, std::vector<int> values, const std::string& sectionName="");
+
+    /// @brief Sets a key value to a float
+    /// @param key - the key to search for
+    /// @param value - the float value to set
+    /// @param sectionName - the section name the key is in, if any
+    /// @return none
+    /// @note if the key doesn't already exist, it's created
+    /// @note if the sectionName doesn't already exist, it's created
+    void SetKeyValue_Float(const std::string& key, float value, const std::string& sectionName="");
+
+    /// @brief Sets a key value to the comma delimited string of a series of floats
+    /// @param key - the key to search for
+    /// @param value - a vector of floats to set the comma delimited string to
+    /// @param sectionName - the section name the key is in, if any
+    /// @return none
+    /// @note if the key doesn't already exist, it's created
+    /// @note if the sectionName doesn't already exist, it's created
+    void SetKeyValue_Floats(const std::string& key, std::vector<float> values, const std::string& sectionName="");
+
+    /// @brief Sets a key value to a double
+    /// @param key - the key to search for
+    /// @param value - the double value to set
+    /// @param sectionName - the section name the key is in, if any
+    /// @return none
+    /// @note if the key doesn't already exist, it's created
+    /// @note if the sectionName doesn't already exist, it's created
+    void SetKeyValue_Double(const std::string& key, double value, const std::string& sectionName="");
+
+    /// @brief Sets a key value to the comma delimited string of a series of doubles
+    /// @param key - the key to search for
+    /// @param value - a vector of doubles to set the comma delimited string to
+    /// @param sectionName - the section name the key is in, if any
+    /// @return none
+    /// @note if the key doesn't already exist, it's created
+    /// @note if the sectionName doesn't already exist, it's created
+    void SetKeyValue_Doubles(const std::string& key, std::vector<double> values, const std::string& sectionName="");
+
     /// @brief Deletes a key value for a passed key and section name
     /// @param key - the key to delete
     /// @param sectionName - the section name the key is in, if any
