@@ -59,6 +59,7 @@ struct Tau_Size {
 struct Tau_Rect : public SDL_Rect {
     /// @brief Tau_Rect ctor
     Tau_Rect(int _x=0, int _y=0, int _w=0, int _h=0) : SDL_Rect(_x, _y, _w, _h) { }
+    Tau_Rect(const SDL_Rect& rect) : SDL_Rect(rect) {}
 
     /// @brief Tau_Rect Construct from upper left corner point and the size
     /// @param p The top left corner point position of the rectangle

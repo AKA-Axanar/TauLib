@@ -31,6 +31,7 @@ struct Tau_Color : public SDL_Color {
     /// @brief Tau_Color ctor
     Tau_Color(Uint8 _r=0, Uint8 _g=0, Uint8 _b=0, Uint8 _a=0) : SDL_Color(_r, _g, _b, _a) { }
     Tau_Color(const Tau_RGB& rgb, Uint8 _a=0) : SDL_Color(rgb.r, rgb.g, rgb.b, _a) { }
+    Tau_Color(const SDL_Color& color) : SDL_Color(color) {}
 
     /// @brief these ctors are useful when getting the color values from an IniFile
     Tau_Color(const std::vector<int>& values) : Tau_Color()

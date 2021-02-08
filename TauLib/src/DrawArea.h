@@ -67,49 +67,34 @@ struct DrawArea {
 //                  ===========
 
     /// @brief FillWin - fill the window with a color
-    /// @param r red
-    /// @param g green
-    /// @param b blue
-    /// @param alpha
-    /// @note does not call SDL_RenderPresent
-    void FillWin(Uint8 r = 0, Uint8 g = 0, Uint8 b = 0, Uint8 alpha = 255);
-
-    /// @brief FillWin - fill the window with a color
     /// @param color The color to fill the window with
     /// @note does not call SDL_RenderPresent
-    void FillWin(SDL_Color color);
+    void FillWin(Tau_Color color = Tau_black);
 
     /// @brief ClearWin - clear the window. defaults to black.
     /// @param Uint8 r
     /// @param Uint8 g
     /// @param Uint8 b
     /// @param Uint8 alpha
-    void ClearWin(SDL_Color color);
-
-    /// @brief ClearWin - clear the window. defaults to black.
-    /// @param color
-    void ClearWin(Uint8 r = 0, Uint8 g = 0, Uint8 b = 0, Uint8 alpha = 255);
+    /// @note calls SDL_RenderPresent
+    void ClearWin(Tau_Color color = Tau_black);
 
 //                  ===========
 //                   Fill Rect
 //                  ===========
 
     ///
-    /// @brief FillRect - fill an Tau_Rect with a color
-    /// @param rect Tau_Rect rectangle to fill
-    /// @param r red
-    /// @param g green
-    /// @param b blue
-    /// @param alpha
+    /// @brief FillRect - fill an Tau_Rect with the current color or blend
+    /// @param rect rectangle to fill
     ///
-    void FillRect(const Tau_Rect& rect, Uint8 r = 0, Uint8 g = 0, Uint8 b = 0, Uint8 alpha = 255);
+    void FillRect(const Tau_Rect& rect);
 
     ///
     /// @brief FillRect - fill an Tau_Rect with a color
     /// @param rect rectangle to fill
     /// @param color Color to fill
     ///
-    void FillRect(const Tau_Rect& rect, SDL_Color color);
+    void FillRect(const Tau_Rect& rect, Tau_Color color);
 
 //                  ===========
 //                  Image Texture

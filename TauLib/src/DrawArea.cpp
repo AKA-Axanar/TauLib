@@ -89,32 +89,17 @@ void DrawArea::AddSubArea(const DrawArea& subArea) {
 //                  ===========
 
 //
-// FillWin - fill the window with a color
+//  FillWin - fill the window with a color
 //
-void DrawArea::FillWin(Uint8 r, Uint8 g, Uint8 b, Uint8 alpha) {
-    SDL_SetRenderDrawColor(renderer, r, g, b, alpha);
+void DrawArea::FillWin(Tau_Color color) {
+    SetColor(color);
     SDL_RenderClear(renderer);
 }
 
 //
-//  FillWin - fill the window with a color
+// ClearWin - clear the window. defaults to black.  calls SDL_RenderPresent
 //
-void DrawArea::FillWin(SDL_Color color) {
-    FillWin(color.r, color.g, color.b, color.a);
-}
-
-//
-// ClearWin - clear the window. defaults to black.
-//
-void DrawArea::ClearWin(Uint8 r, Uint8 g, Uint8 b, Uint8 alpha) {
-    FillWin(r, g, b, alpha);
-    SDL_RenderPresent(renderer);
-}
-
-//
-// ClearWin - clear the window. defaults to black.
-//
-void DrawArea::ClearWin(SDL_Color color = {0,0,0,255}) {
+void DrawArea::ClearWin(Tau_Color color) {
     FillWin(color);
     SDL_RenderPresent(renderer);
 }
@@ -124,18 +109,18 @@ void DrawArea::ClearWin(SDL_Color color = {0,0,0,255}) {
 //                  ===========
 
 //
-// FillRect - fill an Tau_Rect with a color
+// FillRect - fill an Tau_Rect with current color or blend
 //
-void DrawArea::FillRect(const Tau_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 alpha) {
-    SDL_SetRenderDrawColor(renderer, r, g, b, alpha);
+void DrawArea::FillRect(const Tau_Rect& rect) {
     SDL_RenderFillRect(renderer, &rect);
 }
 
 //
 // FillRect - fill an Tau_Rect with a color
 //
-void DrawArea::FillRect(const Tau_Rect& rect, SDL_Color color) {
-    FillRect(rect, color.r, color.g, color.b, color.a);
+void DrawArea::FillRect(const Tau_Rect& rect, Tau_Color color) {
+    SetColor(color);
+    FillRect(rect);
 }
 
 //                  ===========
