@@ -43,6 +43,7 @@ string GetFileExtensionWithoutDot(const string& str) {
 //
 // GetFilename
 // returns the filename in the path.  ex: returns "foo.dat" from "aaa/bbb/foo.dat"
+// If the path is a directory it returns the last part of the dir path.  ex: returns "ccc" from "aaa/bbb/ccc"
 //
 string GetFilename(const string& str) {
     fs::path p(str);
@@ -50,8 +51,9 @@ string GetFilename(const string& str) {
 }
 
 //
-// returns the filename base/stem in the path.  ex: returns "foo" from "aaa/bbb/foo.dat"
-// i.e. return the filename without the extension
+// returns the base/stem of the filename.  ex: returns "foo" from "aaa/bbb/foo.dat".  i.e. return the filename without the extension
+// If the path is a directory it returns the last part of the dir path.  ex: returns "ccc" from "aaa/bbb/ccc"
+
 string GetFilenameBase(const string& str) {
     fs::path p(str);
     return p.stem().string();   

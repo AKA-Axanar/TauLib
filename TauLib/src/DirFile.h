@@ -40,14 +40,16 @@ std::string GetFileExtensionWithoutDot(const std::string& str);
 ///
 /// @brief GetFilename
 /// @param str the file path
-/// @return the filename in the path.  ex: returns "foo.dat" from "aaa/bbb/foo.dat"
+/// @return the filename in the path.  ex: returns "foo.dat" from "aaa/bbb/foo.dat".  
+/// @return If the path is a directory it returns the last part of the dir path.  ex: returns "ccc" from "aaa/bbb/ccc"
 ///
 std::string GetFilename(const std::string& str);
 
 ///
 /// @brief GetFilenameBase
 /// @param str the file path
-/// @return the filename base/stem in the path.  ex: returns "foo" from "aaa/bbb/foo.dat"
+/// @return If the path ends in a filename it returns the filename base/stem of the filename.  ex: returns "foo" from "aaa/bbb/foo.dat"
+/// @return If the path is a directory it returns the last part of the dir path.  ex: returns "ccc" from "aaa/bbb/ccc"
 ///
 std::string GetFilenameBase(const std::string& str);
 

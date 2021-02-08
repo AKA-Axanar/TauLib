@@ -23,8 +23,14 @@ TEST(TestDirFile, TestDirFile) {
     temp = GetFilename("aaa/bbb/foo.dat");
     EXPECT_EQ(temp, "foo.dat");
 
+    temp = GetFilename("aaa/bbb/ccc");
+    EXPECT_EQ(temp, "ccc");
+
     temp = GetFilenameBase("aaa/bbb/foo.dat");
     EXPECT_EQ(temp, "foo");
+
+    temp = GetFilenameBase("aaa/bbb/ccc");
+    EXPECT_EQ(temp, "ccc");
 
     temp = GetParentPath("aaa/bbb/foo.dat");
     EXPECT_EQ(temp, "aaa/bbb");
