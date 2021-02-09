@@ -287,7 +287,7 @@ std::vector<IniFile::IniSection>::const_iterator IniFile::FindSectionName(const 
 //
 IniFile::IniSection::IniSection(IniFile* _iniFile, const std::string& line) : iniFile(_iniFile), sectionLine(line) { 
     sectionName = sectionLine.section;
-    if (line == "")
+    if (line == "" || line == "[]")
         sectionLine.lineContainsASectionDefine = true;  // it's the dummy "" section
 }
 
@@ -495,11 +495,11 @@ bool IniFile::IniLine::ParseLine(const string& _line) {
     leadingWhiteSpace = GetAndRemoveLeadingWhitespace(&line);
 
     // if it is a section name
-    bool hasSectionDefine = FoundLexExpr("^\\[[[:alnum:]]+\\]", line);     // [sectionName]
+    bool hasSectionDefine = FoundLexExpr("^\\[[[:alnum:]]*\\]", line);     // [sectionName]
     if (hasSectionDefine) {
         lineContainsASectionDefine = true;
         line.erase(0, 1);   // remove "["
-        section = FindLexExprMatch("^[[:alnum:]]+", line);    // sectionName
+        section = FindLexExprMatch("^[[:alnum:]]*", line);    // sectionName
         line.erase(0, section.size() + 1);  // remove "name]"
 
         whiteSpaceAfterSection = GetAndRemoveLeadingWhitespace(&line);
@@ -586,12 +586,21 @@ string IniFile::IniLine::GetAndRemoveLeadingWhitespace(string* line) const {
 // operator <<
 //
 ostream& operator << (ostream& os, const IniFile& iniFile) {
+    // output any empty theme keys at the top
+    auto it = iniFile.FindSectionName("");  // find any "" theme
+    if (it != iniFile.iniSections.end()) {
+        for(const auto& iniLine : it->iniLines) {
+            os << iniLine.RebuildLine() << endl;
+        }
+    }
+
     for (const auto& section : iniFile.iniSections) {
-        if (section.sectionName != "")
+        if (section.sectionName != "") {
             os << section.sectionLine.RebuildLine() << endl;
 
-        for(const auto& iniLine : section.iniLines) {
-            os << iniLine.RebuildLine() << endl;
+            for(const auto& iniLine : section.iniLines) {
+                os << iniLine.RebuildLine() << endl;
+            }
         }
     }
 
