@@ -12,8 +12,8 @@ using namespace Tau;
 //
 // IniFileWithDefault::LoadDefaultIniFile
 //
-bool IniFileWithDefault::LoadDefaultIniFile(const std::string& _iniFilePath, bool _caseInsensitiveKeys)
-    { return defaultIni.Load(_iniFilePath, _caseInsensitiveKeys); }
+bool IniFileWithDefault::LoadDefaultIniFile(const std::string& _iniFilePath, const std::string& _defaultSectionName)
+    { return defaultIni.Load(_iniFilePath, _defaultSectionName); }
 
 //
 // IniFileWithDefault::SectionExists

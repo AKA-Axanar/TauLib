@@ -32,18 +32,18 @@ IniFile::IniFile() {
 //
 // IniFile::IniFile
 //
-IniFile::IniFile(const string& _iniFilePath, bool _caseInsensitiveKeys) : IniFile() {
-    Load(_iniFilePath, _caseInsensitiveKeys);
+IniFile::IniFile(const string& _iniFilePath, const std::string& _defaultSectionName) : IniFile() {
+    Load(_iniFilePath, _defaultSectionName);
 }
 
 //
 // bool IniFile::Load
 //
-bool IniFile::Load(const string& _iniFilePath, bool _caseInsensitiveKeys) {
+bool IniFile::Load(const string& _iniFilePath, const std::string& _defaultSectionName) {
+    Clear();
     bool success = false;
     iniFilePath = _iniFilePath;
-    caseInsensitiveKeys = _caseInsensitiveKeys;
-    Clear();
+    defaultSectionName = _defaultSectionName;
 
     Strings fileLines = ReadTextFileAsAStringArray(iniFilePath, /*removeCRLF*/ true);
 

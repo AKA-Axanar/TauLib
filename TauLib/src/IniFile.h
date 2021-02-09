@@ -31,6 +31,7 @@ struct IniFile {
     std::string iniFilePath;            ///< The file path of the opened ini file.  Used by Save().
     bool open {false};                  ///< true if an ini file has been opened and parsed.
     bool caseInsensitiveKeys {true};    ///< if true, keys (and section names) are case insensitive.
+    std::string defaultSectionName;
 
     /// @brief IniFile ctor.  
     /// Creates an empty IniFile.  Also adds the dummy [] section name where key that aren't inside a section name are added.
@@ -38,11 +39,11 @@ struct IniFile {
 
     /// @brief Calls IniFile().  Then loads the passed ini file.
     /// @param _iniFilePath The path of the ini file to load.
-    IniFile(const std::string& _iniFilePath, bool _caseInsensitiveKeys = true);
+    IniFile(const std::string& _iniFilePath, const std::string& _defaultSectionName = "");
 
     /// @brief Loads the passed ini file, scans the lines in the ini file saving the parsed pieces, and builds a map of the key/value pairs.
     /// @param _iniFilePath The path of the ini file to load.
-    bool Load(const std::string& _iniFilePath, bool _caseInsensitiveKeys = true);
+    bool Load(const std::string& _iniFilePath, const std::string& _defaultSectionName = "");
 
     /// @brief Save the ini key/value pairs, section names, and comments back to original opened ini file.
     /// @return true if data successfully save back to the file.
@@ -66,34 +67,42 @@ struct IniFile {
     /// @param key - the key to search for
     /// @param sectionName - the section name the key is in, if any
     /// @return Returns true if the key exists in the section
-    bool KeyExists(const std::string& key, const std::string& sectionName="") const;
+    bool KeyExists(const std::string& key, const std::string& sectionName) const;
+    bool KeyExists(const std::string& key) const { return KeyExists(key, defaultSectionName); }
 
     /// @brief Returns a key value for a passed key and section name
     /// @param key - the key to search for
     /// @param sectionName - the section name the key is in, if any
     /// @return Returns the string value of the key/value pair.
-    std::string GetKeyValue(const std::string& key, const std::string& sectionName = "") const;
+    std::string GetKeyValue(const std::string& key, const std::string& sectionName) const;
+    std::string GetKeyValue(const std::string& key) const { return GetKeyValue(key, defaultSectionName); }
 
     /// @brief Returns a key value for a passed key and section name
     /// @param key - the key to search for
     /// @param sectionName - the section name the key is in, if any
     /// @return Returns the value of the key/value pair converted to an integer.
-    int GetKeyValue_Int(const std::string& key, const std::string& sectionName = "") const;
-    std::vector<int> GetKeyValue_Ints(const std::string& key, const std::string& sectionName = "") const;
+    int GetKeyValue_Int(const std::string& key, const std::string& sectionName) const;
+    std::vector<int> GetKeyValue_Ints(const std::string& key, const std::string& sectionName) const;
+    int GetKeyValue_Int(const std::string& key) const { return GetKeyValue_Int(key, defaultSectionName); }
+    std::vector<int> GetKeyValue_Ints(const std::string& key) const { return GetKeyValue_Ints(key, defaultSectionName); }
 
     /// @brief Returns a key value for a passed key and section name
     /// @param key - the key to search for
     /// @param sectionName - the section name the key is in, if any
     /// @return Returns the value of the key/value pair converted to a float.
-    float GetKeyValue_Float(const std::string& key, const std::string& sectionName = "") const;
-    std::vector<float> GetKeyValue_Floats(const std::string& key, const std::string& sectionName = "") const;
+    float GetKeyValue_Float(const std::string& key, const std::string& sectionName) const;
+    std::vector<float> GetKeyValue_Floats(const std::string& key, const std::string& sectionName) const;
+    float GetKeyValue_Float(const std::string& key) const { return GetKeyValue_Float(key, defaultSectionName); }
+    std::vector<float> GetKeyValue_Floats(const std::string& key) const { GetKeyValue_Floats(key, defaultSectionName); }
 
     /// @brief Returns a key value for a passed key and section name
     /// @param key - the key to search for
     /// @param sectionName - the section name the key is in, if any
     /// @return Returns the value of the key/value pair converted to a double.
-    double GetKeyValue_Double(const std::string& key, const std::string& sectionName = "") const;
-    std::vector<double> GetKeyValue_Doubles(const std::string& key, const std::string& sectionName = "") const;
+    double GetKeyValue_Double(const std::string& key, const std::string& sectionName) const;
+    std::vector<double> GetKeyValue_Doubles(const std::string& key, const std::string& sectionName) const;
+    double GetKeyValue_Double(const std::string& key) const { return GetKeyValue_Double(key, defaultSectionName); }
+    std::vector<double> GetKeyValue_Doubles(const std::string& key) const { return GetKeyValue_Doubles(key, defaultSectionName); }
 
     /// @brief Sets a key value of a passed key and section name
     /// @param key - the key to search for
@@ -102,7 +111,8 @@ struct IniFile {
     /// @return none
     /// @note if the key doesn't already exist, it's created
     /// @note if the sectionName doesn't already exist, it's created
-    void SetKeyValue(const std::string& key, const std::string& value, const std::string& sectionName="");
+    void SetKeyValue(const std::string& key, const std::string& value, const std::string& sectionName);
+    void SetKeyValue(const std::string& key, const std::string& value) { return SetKeyValue(key, value, defaultSectionName); }
 
     /// @brief Sets a key value to an int
     /// @param key - the key to search for
@@ -111,7 +121,8 @@ struct IniFile {
     /// @return none
     /// @note if the key doesn't already exist, it's created
     /// @note if the sectionName doesn't already exist, it's created
-    void SetKeyValue_Int(const std::string& key, int value, const std::string& sectionName="");
+    void SetKeyValue_Int(const std::string& key, int value, const std::string& sectionName);
+    void SetKeyValue_Int(const std::string& key, int value) { return SetKeyValue_Int(key, value, defaultSectionName); }
 
     /// @brief Sets a key value to the comma delimited string of a series of int's
     /// @param key - the key to search for
@@ -120,7 +131,8 @@ struct IniFile {
     /// @return none
     /// @note if the key doesn't already exist, it's created
     /// @note if the sectionName doesn't already exist, it's created
-    void SetKeyValue_Ints(const std::string& key, std::vector<int> values, const std::string& sectionName="");
+    void SetKeyValue_Ints(const std::string& key, std::vector<int> values, const std::string& sectionName);
+    void SetKeyValue_Ints(const std::string& key, std::vector<int> values) { return SetKeyValue_Ints(key, values, defaultSectionName); }
 
     /// @brief Sets a key value to a float
     /// @param key - the key to search for
@@ -129,7 +141,8 @@ struct IniFile {
     /// @return none
     /// @note if the key doesn't already exist, it's created
     /// @note if the sectionName doesn't already exist, it's created
-    void SetKeyValue_Float(const std::string& key, float value, const std::string& sectionName="");
+    void SetKeyValue_Float(const std::string& key, float value, const std::string& sectionName);
+    void SetKeyValue_Float(const std::string& key, float value) { return SetKeyValue_Float(key, value, defaultSectionName); }
 
     /// @brief Sets a key value to the comma delimited string of a series of floats
     /// @param key - the key to search for
@@ -138,7 +151,8 @@ struct IniFile {
     /// @return none
     /// @note if the key doesn't already exist, it's created
     /// @note if the sectionName doesn't already exist, it's created
-    void SetKeyValue_Floats(const std::string& key, std::vector<float> values, const std::string& sectionName="");
+    void SetKeyValue_Floats(const std::string& key, std::vector<float> values, const std::string& sectionName);
+    void SetKeyValue_Floats(const std::string& key, std::vector<float> values) { return SetKeyValue_Floats(key, values, defaultSectionName); }
 
     /// @brief Sets a key value to a double
     /// @param key - the key to search for
@@ -147,7 +161,8 @@ struct IniFile {
     /// @return none
     /// @note if the key doesn't already exist, it's created
     /// @note if the sectionName doesn't already exist, it's created
-    void SetKeyValue_Double(const std::string& key, double value, const std::string& sectionName="");
+    void SetKeyValue_Double(const std::string& key, double value, const std::string& sectionName);
+    void SetKeyValue_Double(const std::string& key, double value) { return SetKeyValue_Double(key, value, defaultSectionName); }
 
     /// @brief Sets a key value to the comma delimited string of a series of doubles
     /// @param key - the key to search for
@@ -156,13 +171,15 @@ struct IniFile {
     /// @return none
     /// @note if the key doesn't already exist, it's created
     /// @note if the sectionName doesn't already exist, it's created
-    void SetKeyValue_Doubles(const std::string& key, std::vector<double> values, const std::string& sectionName="");
+    void SetKeyValue_Doubles(const std::string& key, std::vector<double> values, const std::string& sectionName);
+    void SetKeyValue_Doubles(const std::string& key, std::vector<double> values) { return SetKeyValue_Doubles(key, values, defaultSectionName); }
 
     /// @brief Deletes a key value for a passed key and section name
     /// @param key - the key to delete
     /// @param sectionName - the section name the key is in, if any
     /// @return Returns true if the key was successfully found and deleted.
-    bool DeleteKey(const std::string& key, const std::string& sectionName="");
+    bool DeleteKey(const std::string& key, const std::string& sectionName);
+    bool DeleteKey(const std::string& key) { return DeleteKey(key,defaultSectionName); }
 
     /// @brief Writes the entire ini data to a ostream.
     /// You could output to cout or to an ofstream file stream
