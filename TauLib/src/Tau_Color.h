@@ -37,7 +37,7 @@ struct Tau_Color : public SDL_Color {
     Tau_Color(const std::vector<int>& values) : Tau_Color()
     {
         if (values.size() == 4) { r = values[0]; g = values[1]; b = values[2]; a = values[3]; }
-        if (values.size() == 3) { r = values[0]; g = values[1]; b = values[2]; a = 255; }
+        if (values.size() == 3) { r = values[0]; g = values[1]; b = values[2]; a = SDL_ALPHA_OPAQUE; }
     }
     Tau_Color(const std::string& str) : Tau_Color(Tau::CommaSepStringToInts(str)) { }
 
@@ -49,19 +49,19 @@ inline const Tau_RGB RGB_black { 0, 0, 0 };
 inline const Tau_Color Tau_black { RGB_black, 0 };
 
 inline const Tau_RGB RGB_white { 255, 255, 255 };
-inline const Tau_Color Tau_white { RGB_white, 255 };
+inline const Tau_Color Tau_white { RGB_white, SDL_ALPHA_OPAQUE };
 
 inline const Tau_RGB RGB_red { 255, 0, 0 };
-inline const Tau_Color Tau_red { RGB_red, 255 };
+inline const Tau_Color Tau_red { RGB_red, SDL_ALPHA_OPAQUE };
 
 inline const Tau_RGB RGB_green { 0, 255, 0 };
-inline const Tau_Color Tau_green { RGB_green, 255 };
+inline const Tau_Color Tau_green { RGB_green, SDL_ALPHA_OPAQUE };
 
 inline const Tau_RGB RGB_blue { 0, 0, 255 };
-inline const Tau_Color Tau_blue { RGB_blue, 255 };
+inline const Tau_Color Tau_blue { RGB_blue, SDL_ALPHA_OPAQUE };
 
 inline Tau_RGB RGB_grey { 128, 128, 128 };
-inline const Tau_Color Tau_grey { RGB_grey, 255 };
+inline const Tau_Color Tau_grey { RGB_grey, SDL_ALPHA_OPAQUE };
 
 inline const Tau_RGB RGB_gray = RGB_grey;
 inline const Tau_Color Tau_gray = Tau_grey;
