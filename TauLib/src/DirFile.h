@@ -305,7 +305,9 @@ inline Strings GetDirFullPathsInDir_Recursive(const std::string& dirPath)
 /// @param The directory path to open.
 /// @return A vector of strings containing file names with that file extension.
 /// @note The passed extension must have a '.' at the front.  The file extension is compared case insensitive.
-inline Strings GetFileNamesWithExtInDir(const std::string& dirPath, const std::string& ext) {
+inline Strings GetFileNamesWithExtInDir(const std::string& dirPath, std::string ext) {
+    if (ext.size() == 0 || ext[0] != '.')
+        ext.insert(ext.begin(), '.');
     auto is_file_with_ext = [&] (fs::directory_entry& entry)->bool { return entry.is_regular_file() && icompareBool(entry.path().extension().string(), ext); };
     return GetDirectoryContents(dirPath, is_file_with_ext, get_name);
 }
@@ -315,7 +317,9 @@ inline Strings GetFileNamesWithExtInDir(const std::string& dirPath, const std::s
 /// @param The directory path to open.
 /// @return A vector of strings containing file name full paths.
 /// 
-inline Strings GetFileFullPathsWithExtInDir_Recursive(const std::string& dirPath, const std::string& ext) {
+inline Strings GetFileFullPathsWithExtInDir_Recursive(const std::string& dirPath, std::string ext) {
+    if (ext.size() == 0 || ext[0] != '.')
+        ext.insert(ext.begin(), '.');
     auto is_file_with_ext = [&] (fs::directory_entry& entry)->bool { return entry.is_regular_file() && icompareBool(entry.path().extension().string(), ext); };
     return GetDirectoryContents(dirPath, is_file_with_ext, get_fullpath, true);
 }
