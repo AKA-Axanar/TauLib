@@ -195,6 +195,10 @@ bool RenameDir(const string& dirPathFrom, const string& dirPathTo) {
 bool CopyFile(const string& filePathSrc, const string& filePathDest) {
     return fs::copy_file(filePathSrc, filePathDest, fs::copy_options::overwrite_existing);
 }
+
+//
+// copy file skip existing files
+//
 bool CopyFile_SkipExisting(const string& filePathSrc, const string& filePathDest) {
     return fs::copy_file(filePathSrc, filePathDest, fs::copy_options::skip_existing);
 }
@@ -209,6 +213,10 @@ bool CopyDir(const string& dirPathSrc, const string& dirPathDest) {
     fs::copy(dirPathSrc, dirPathDest, fs::copy_options::recursive | fs::copy_options::overwrite_existing);
     return true;
 }
+
+//
+// copy directories (recursive) skip existing files
+//
 bool CopyDir_SkipExisting(const string& dirPathSrc, const string& dirPathDest) {
     if (!DirExists(dirPathSrc))
         return false;
@@ -221,7 +229,10 @@ bool CopyDir_SkipExisting(const string& dirPathSrc, const string& dirPathDest) {
                 // Get list of files and directories
                 //*******************************
 
+//
 // return directory contents as strings of file or dir names
+// takes lambdas to control what gets returned
+//
 Strings GetDirectoryContents(const string& dirPath, 
                              function<bool (fs::directory_entry&)> testLambda,
                              function<string (fs::directory_entry&)> getStringLambda,
@@ -244,6 +255,90 @@ Strings GetDirectoryContents(const string& dirPath,
     }
 
     return result;
+}
+
+//
+// 
+//
+Strings GetFileNamesInDir(const std::string& dirPath)
+    { return GetDirectoryContents(dirPath, is_file, get_name); }
+
+//
+// GetFileFullPathsInDir
+//
+Strings GetFileFullPathsInDir(const std::string& dirPath)
+    { return GetDirectoryContents(dirPath, is_file, get_fullpath); }
+
+//
+// GetDirNamesInDir
+//
+Strings GetDirNamesInDir(const std::string& dirPath)
+    { return GetDirectoryContents(dirPath, is_directory, get_name); }
+
+//
+// GetDirFullPathsInDir
+//
+Strings GetDirFullPathsInDir(const std::string& dirPath)
+    { return GetDirectoryContents(dirPath, is_directory, get_fullpath); }
+
+//
+// GetFileFullPathsInDir_Recursive
+//
+Strings GetFileFullPathsInDir_Recursive(const std::string& dirPath)
+    { return GetDirectoryContents(dirPath, is_file, get_fullpath, true); }
+
+//
+// GetDirFullPathsInDir_Recursive
+//
+Strings GetDirFullPathsInDir_Recursive(const std::string& dirPath)
+    { return GetDirectoryContents(dirPath, is_directory, get_fullpath, true); }
+
+//
+// GetFileNamesWithExtInDir
+//
+Strings GetFileNamesWithExtInDir(const std::string& dirPath, std::string ext) {
+    // if no '.' in the front of the extension, add one.
+    if (ext.size() == 0 || ext[0] != '.')
+        ext.insert(ext.begin(), '.');
+    auto is_file_with_ext = [&] (fs::directory_entry& entry)->bool { return entry.is_regular_file() && icompareBool(entry.path().extension().string(), ext); };
+    return GetDirectoryContents(dirPath, is_file_with_ext, get_name);
+}
+
+//
+// GetFileNamesWithTheseExtInDir
+//
+Strings GetFileNamesWithTheseExtInDir(const std::string& dirPath, Strings extensions) {
+    Strings filenames;
+    for (const auto& ext : extensions) {
+        Strings more = GetFileNamesWithExtInDir(dirPath, ext);
+        filenames.insert(filenames.end(), more.begin(), more.end());
+    }
+
+    return filenames;
+}
+
+//
+// GetFileFullPathsWithExtInDir_Recursive
+//
+Strings GetFileFullPathsWithExtInDir_Recursive(const std::string& dirPath, std::string ext) {
+    // if no '.' in the front of the extension, add one.
+    if (ext.size() == 0 || ext[0] != '.')
+        ext.insert(ext.begin(), '.');
+    auto is_file_with_ext = [&] (fs::directory_entry& entry)->bool { return entry.is_regular_file() && icompareBool(entry.path().extension().string(), ext); };
+    return GetDirectoryContents(dirPath, is_file_with_ext, get_fullpath, true);
+}
+
+//
+// GetFileFullPathsWitThesehExtInDir_Recursive
+//
+Strings GetFileFullPathsWithTheseExtInDir_Recursive(const std::string& dirPath, Strings extensions) {
+    Strings filenames;
+    for (const auto& ext : extensions) {
+        Strings more = GetFileFullPathsWithExtInDir_Recursive(dirPath, ext);
+        filenames.insert(filenames.end(), more.begin(), more.end());
+    }
+
+    return filenames;
 }
 
                 //*******************************
