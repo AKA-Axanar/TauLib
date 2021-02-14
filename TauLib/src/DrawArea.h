@@ -21,7 +21,7 @@ namespace Tau { // to avoid conflict with other libraries
 /// @structDrawArea class
 ///
 struct DrawArea {
-    SDL_Shared<SDL_Renderer> renderer = nullptr;
+    SDL_Shared<SDL_Renderer> renderer;
     Tau_Rect winRect;       ///< The rect area of the window to draw in.
                             /// Relative to the window NOT to any parent DrawArea.
 

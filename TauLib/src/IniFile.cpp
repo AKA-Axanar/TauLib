@@ -51,9 +51,14 @@ bool IniFile::Load(const string& _iniFilePath, const std::string& _defaultSectio
         IniLine iniLine(fileLine);      // scan the line for a section name, key, value, and comment
 
         if (!iniLine.section.empty()) {
-            // if the line is a new section add the section name to the section list
-            iniSections.emplace_back(this, fileLine);
+            // the line is a [section]. add the section name to the section list
+            if (!SectionExists(iniLine.section))
+                iniSections.emplace_back(this, fileLine);
         } else {
+            // sectionname "" is not in the list and we are about to add a key to the "" section, add the "" section line
+            if (iniSections.size() == 0)
+                iniSections.emplace_back(this, "");
+
             // if the line has a key definition, add it to the map of key/value pairs
             if (!iniLine.key.empty())
                 iniSections.back().values[AdjustKeyCase(iniLine.key)] = iniLine.value;
