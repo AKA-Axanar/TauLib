@@ -21,6 +21,8 @@ struct Tau_RGB {
     Tau_RGB operator - (const Tau_RGB& rgb) const { return Tau_RGB(r - rgb.r, g - rgb.g, b - rgb.b); }
     void operator += (Tau_RGB& rgb) { r += rgb.r; g += rgb.g; b += rgb.b; }
     void operator -= (Tau_RGB& rgb) { r -= rgb.r; g -= rgb.g; b -= rgb.b; }
+
+    bool operator == (const Tau_RGB& rgb) const { return r == rgb.r && g == rgb.g && b == rgb.b; }
 };
 
 ///
@@ -43,6 +45,8 @@ struct Tau_Color : public SDL_Color {
 
     Tau_RGB GetRGB() const { return Tau_RGB(r, g, b); }
     void SetRGB(const Tau_RGB& rgb) { r = rgb.r; g = rgb.g; b = rgb.b; }
+
+    bool operator == (const Tau_Color& color) const { return GetRGB() == color.GetRGB() && a == color.a; }
 };
 
 inline const Tau_RGB RGB_black { 0, 0, 0 };
