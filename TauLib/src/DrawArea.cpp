@@ -251,6 +251,13 @@ int DrawArea::DrawTextHorizCenteredAt(TTF_Font_Shared font, const std::string& t
 }
 
 //
+// DrawTextHorizCenteredInWindow
+// 
+int DrawArea::DrawTextHorizCenteredInWindow(TTF_Font_Shared font, const std::string& text, SDL_Color color, int y) {
+    return DrawTextCenteredAt(font, text, color, { winRect.Center().x, y });
+}
+
+//
 // DrawTextUpperRightCornerAt Draws the text such that the upper right corner is at the passed point.  
 // 
 int DrawArea::DrawTextUpperRightCornerAt(TTF_Font_Shared font, const std::string& text, SDL_Color color, const Tau_Point& point) {

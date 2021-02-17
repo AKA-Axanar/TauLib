@@ -209,6 +209,16 @@ struct DrawArea {
     int DrawTextHorizCenteredAt(TTF_Font_Shared font, const std::string& text, SDL_Color color, const Tau_Point& point);
 
     ///
+    /// @brief DrawTextHorizCenteredInWindow Draws the text centered in the window
+    /// @param font A shared font ptr
+    /// @param text The text to draw
+    /// @param color The color to draw the text
+    /// @param y the y position to draw (x will be the window center x).
+    /// @return The height of the text
+    /// 
+    int DrawTextHorizCenteredInWindow(TTF_Font_Shared font, const std::string& text, SDL_Color color, int y);
+
+    ///
     /// @brief DrawTextUpperRightCornerAt Draws the text such that the upper right corner is at the passed point.  
     /// @param font A shared font ptr
     /// @param text The text to draw
