@@ -21,6 +21,9 @@
 // See FC_Font_Shared.h for examples of useful FC_Font calls.
 //
 
+// Opening and closin a TTF_Font takes an average of 0.14 ms.  
+// Opening and closing a FC_Font (which pre-caches the texture of all the characters) takes an average of 5 ms.
+
 //
 // FC_OpenedFontSize
 //
@@ -37,6 +40,9 @@ struct FC_OpenedFontSize {
     // create a failed to open font (ok = false)
     FC_OpenedFontSize(int _pointSize, Tau_Color _color) 
         : pointSize(_pointSize), color(_color) { }
+
+    // return the height of the font.  it's usually larger than the point size.
+    int FontHeight() { return FC_GetLineHeight(fc_font); }
 
     operator FC_Font_Shared() { return fc_font; }
     operator FC_Font*() { return fc_font; }

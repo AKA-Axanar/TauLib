@@ -9,6 +9,7 @@
 #include "SDL_Shared.h"
 #include "Tau_Rect.h"
 #include "TTF_Font_Shared.h"
+#include "FC_Font_Shared.h"
 #include "Tau_Color.h"
 #include <vector>
 
@@ -227,6 +228,83 @@ struct DrawArea {
     /// @return The height of the text
     /// 
     int DrawTextUpperRightCornerAt(TTF_Font_Shared font, const std::string& text, SDL_Color color, const Tau_Point& point);
+
+//                  ===========
+//                   Draw FC Text
+//                   Overrides the FC_Font color
+//                  ===========
+
+    ///
+    /// @brief DrawTextAt Draws the text at a point on the window
+    /// @param font A shared font ptr
+    /// @param text The text to draw
+    /// @param color The color to draw the text
+    /// @param point The point to draw the image
+    /// @return The height of the text
+    /// 
+    int DrawTextAt(FC_Font_Shared font, const std::string& text, SDL_Color color, const Tau_Point& point);
+
+    ///
+    /// @brief DrawTextCenteredAt Draws the text centered on a point on the window
+    /// @param font A shared font ptr
+    /// @param text The text to draw
+    /// @param color The color to draw the text
+    /// @param point The point to draw the image
+    /// @return none
+    /// 
+    int DrawTextCenteredAt(FC_Font_Shared font, const std::string& text, SDL_Color color, const Tau_Point& point);
+
+    ///
+    /// @brief DrawTextCenteredInWindow Draws the text centered in the window
+    /// @param font A shared font ptr
+    /// @param text The text to draw
+    /// @param color The color to draw the text
+    /// @return The height of the text
+    /// 
+    int DrawTextCenteredInWindow(FC_Font_Shared font, const std::string& text, SDL_Color color);
+
+    ///
+    /// @brief DrawTextHorizCenteredAt Draws the text horizontally centered on a point on the window.  
+    /// The center top of the text will be at that point.
+    /// @param font A shared font ptr
+    /// @param text The text to draw
+    /// @param color The color to draw the text
+    /// @param point The point to draw the text
+    /// @return The height of the text
+    /// 
+    int DrawTextHorizCenteredAt(FC_Font_Shared font, const std::string& text, SDL_Color color, const Tau_Point& point);
+
+    ///
+    /// @brief DrawTextHorizCenteredInWindow Draws the text centered in the window
+    /// @param font A shared font ptr
+    /// @param text The text to draw
+    /// @param color The color to draw the text
+    /// @param y the y position to draw (x will be the window center x).
+    /// @return The height of the text
+    /// 
+    int DrawTextHorizCenteredInWindow(FC_Font_Shared font, const std::string& text, SDL_Color color, int y);
+
+    ///
+    /// @brief DrawTextUpperRightCornerAt Draws the text such that the upper right corner is at the passed point.  
+    /// @param font A shared font ptr
+    /// @param text The text to draw
+    /// @param color The color to draw the text
+    /// @param point The upper right corner point to draw the text
+    /// @return The height of the text
+    /// 
+    int DrawTextUpperRightCornerAt(FC_Font_Shared font, const std::string& text, SDL_Color color, const Tau_Point& point);
+
+//                  ===========
+//                   Draw FC Text
+//                   Same as the above routines but uses the color the FC_Font was created with
+//                  ===========
+
+    int DrawTextAt(FC_Font_Shared font, const std::string& text, const Tau_Point& point);
+    int DrawTextCenteredAt(FC_Font_Shared font, const std::string& text, const Tau_Point& point);
+    int DrawTextCenteredInWindow(FC_Font_Shared font, const std::string& text);
+    int DrawTextHorizCenteredAt(FC_Font_Shared font, const std::string& text, const Tau_Point& point);
+    int DrawTextHorizCenteredInWindow(FC_Font_Shared font, const std::string& text, int y);
+    int DrawTextUpperRightCornerAt(FC_Font_Shared font, const std::string& text, const Tau_Point& point);
 
 //                  ===========
 //                    Texture

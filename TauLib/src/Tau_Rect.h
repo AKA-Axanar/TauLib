@@ -25,8 +25,8 @@ struct Tau_Point : public SDL_Point {
     /// @brief Tau_Point math operators
     Tau_Point operator + (const Tau_Point& pnt) const { return { x + pnt.x, y + pnt.y }; }
     Tau_Point operator - (const Tau_Point& pnt) const { return { x - pnt.x, y - pnt.y }; }
-    void operator += (Tau_Point& pnt) { x += pnt.x; y += pnt.y; }
-    void operator -= (Tau_Point& pnt) { x -= pnt.x; y -= pnt.y; }
+    void operator += (const Tau_Point& pnt) { x += pnt.x; y += pnt.y; }
+    void operator -= (const Tau_Point& pnt) { x -= pnt.x; y -= pnt.y; }
 
 //    /// @brief Tau_Point conversion operators.  The compiler might do this automatically.
 //    operator SDL_Point& () { return *this; }

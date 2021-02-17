@@ -267,6 +267,122 @@ int DrawArea::DrawTextUpperRightCornerAt(TTF_Font_Shared font, const std::string
 }
 
 //                  ===========
+//                   Draw FC Text
+//                   Overrides the FC_Font color
+//                  ===========
+
+//
+// DrawTextAt Draws the text at a point on the window
+// 
+int DrawArea::DrawTextAt(FC_Font_Shared font, const std::string& text, SDL_Color color, const Tau_Point& point) {
+    FC_Rect rect = FC_DrawColor(font, renderer, point.x, point.y, color, text.c_str());
+    return rect.h;
+}
+
+//
+// DrawTextCenteredAt Draws the text centered on a point on the window
+// 
+int DrawArea::DrawTextCenteredAt(FC_Font_Shared font, const std::string& text, SDL_Color color, const Tau_Point& point) {
+    int h = FC_GetHeight(font, text.c_str());
+    int w = FC_GetWidth(font, text.c_str());
+    Tau_Size size { w, h };
+    DrawTextAt(font, text, color, point - size.GetCenter());    // adjust the corner so that point is the center of the text
+    return h;
+}
+
+//
+// DrawTextCenteredInWindow Draws the text centered in the window
+// 
+int DrawArea::DrawTextCenteredInWindow(FC_Font_Shared font, const std::string& text, SDL_Color color) {
+    return DrawTextCenteredAt(font, text, color, winRect.Center());
+}
+
+//
+// DrawTextHorizCenteredAt Draws the text horizontally centered on a point on the window.  
+// 
+int DrawArea::DrawTextHorizCenteredAt(FC_Font_Shared font, const std::string& text, SDL_Color color, const Tau_Point& point) {
+    int h = FC_GetHeight(font, text.c_str());
+    int w = FC_GetWidth(font, text.c_str());
+    Tau_Size size { w, h };
+    Tau_Point newPoint = { point.x - size.w/2, point.y };
+    return DrawTextAt(font, text, color, newPoint);
+}
+
+//
+// DrawTextHorizCenteredInWindow
+// 
+int DrawArea::DrawTextHorizCenteredInWindow(FC_Font_Shared font, const std::string& text, SDL_Color color, int y) {
+    return DrawTextCenteredAt(font, text, color, { winRect.Center().x, y });
+}
+
+//
+// DrawTextUpperRightCornerAt Draws the text such that the upper right corner is at the passed point.  
+// 
+int DrawArea::DrawTextUpperRightCornerAt(FC_Font_Shared font, const std::string& text, SDL_Color color, const Tau_Point& point) {
+    int w = FC_GetWidth(font, text.c_str());
+    Tau_Point newPoint = { point.x - w, point.y };
+    return DrawTextAt(font, text, color, newPoint);
+}
+
+//                  ===========
+//                   Draw FC Text
+//                   Same as the above routines but uses the color the FC_Font was created with
+//                  ===========
+
+//
+// DrawTextAt Draws the text at a point on the window
+// 
+int DrawArea::DrawTextAt(FC_Font_Shared font, const std::string& text, const Tau_Point& point) {
+    FC_Rect rect = FC_Draw(font, renderer, point.x, point.y, text.c_str());
+    return rect.h;
+}
+
+//
+// DrawTextCenteredAt Draws the text centered on a point on the window
+// 
+int DrawArea::DrawTextCenteredAt(FC_Font_Shared font, const std::string& text, const Tau_Point& point) {
+    int h = FC_GetHeight(font, text.c_str());
+    int w = FC_GetWidth(font, text.c_str());
+    Tau_Size size { w, h };
+    DrawTextAt(font, text, point - size.GetCenter());    // adjust the corner so that point is the center of the text
+    return h;
+}
+
+//
+// DrawTextCenteredInWindow Draws the text centered in the window
+// 
+int DrawArea::DrawTextCenteredInWindow(FC_Font_Shared font, const std::string& text) {
+    return DrawTextCenteredAt(font, text, winRect.Center());
+}
+
+//
+// DrawTextHorizCenteredAt Draws the text horizontally centered on a point on the window.  
+// 
+int DrawArea::DrawTextHorizCenteredAt(FC_Font_Shared font, const std::string& text, const Tau_Point& point) {
+    int h = FC_GetHeight(font, text.c_str());
+    int w = FC_GetWidth(font, text.c_str());
+    Tau_Size size { w, h };
+    Tau_Point newPoint = { point.x - size.w/2, point.y };
+    return DrawTextAt(font, text, newPoint);
+}
+
+//
+// DrawTextHorizCenteredInWindow
+// 
+int DrawArea::DrawTextHorizCenteredInWindow(FC_Font_Shared font, const std::string& text, int y) {
+    return DrawTextCenteredAt(font, text, { winRect.Center().x, y });
+}
+
+//
+// DrawTextUpperRightCornerAt Draws the text such that the upper right corner is at the passed point.  
+// 
+int DrawArea::DrawTextUpperRightCornerAt(FC_Font_Shared font, const std::string& text, const Tau_Point& point) {
+    int w = FC_GetWidth(font, text.c_str());
+    Tau_Point newPoint = { point.x - w, point.y };
+    return DrawTextAt(font, text, newPoint);
+}
+
+//                  ===========
 //                    Texture
 //                  ===========
 
