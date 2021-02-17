@@ -12,7 +12,7 @@
 /// shared ptr is destroyed the usage count goes to zero and the font is closed.
 /// 
 /// A FC_Font_Shared is a FC_Font* which came from third party code that caches the font character textures.
-/// This allows you to draw directly on the screen without going create a texture for better perforamance.  SDL_FontCache source is available
+/// This allows you to draw directly on the screen without recreating the textures for better performance.  SDL_FontCache source is available
 /// on [GitHub] (https://github.com/grimfang4/SDL_FontCache).
 /// 
 /// @code

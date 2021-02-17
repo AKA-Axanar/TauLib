@@ -114,6 +114,12 @@
     <ClInclude Include="src\Tau_Util.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\TTF_OpenedFontSizes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\FC_OpenedFontSizes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -195,6 +201,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Tau_Util.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TTF_OpenedFontSizes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FC_OpenedFontSizes.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
