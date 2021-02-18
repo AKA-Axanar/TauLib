@@ -46,6 +46,11 @@ struct TTF_OpenedFontSizes {
     ~TTF_OpenedFontSizes() 
         { Clear(); }
 
+    // return if the open font size is in the vector
+    bool FoundFontSize(int pointSize);
+
+    // if the size already exists, return the TTF_OpenedFontSize.
+    // if it doesn't already exist, create one and return it.
     TTF_OpenedFontSize GetOpenedFontSize(int pointSize);
 
     // Clear() should be called before exiting the app so fonts can be closed and deleted before TTF_Quit().

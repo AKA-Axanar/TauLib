@@ -60,7 +60,12 @@ struct FC_OpenedFontSizes {
     ~FC_OpenedFontSizes() 
         { Clear(); }
 
-    FC_OpenedFontSize GetOpenedFontSize(int pointSize, const Tau_Color& color);
+    // return if the open font size & color is in the vector
+    bool FoundFontSizeAndColor(int pointSize, const Tau_Color& color);
+
+    // if the size & color already exists, return the FC_OpenedFontSize.
+    // if it doesn't already exist, create one and return it.
+    FC_OpenedFontSize GetOpenedFontSizeAndColor(int pointSize, const Tau_Color& color);
 
     // Clear() should be called before exiting the app so fonts can be closed and deleted before TTF_Quit().
     // Otherwise the dtor might not be called until after the memory had already been freed by TTF_Quit().

@@ -29,9 +29,22 @@ FC_OpenedFontSizes::FC_OpenedFontSizes(const std::string& _fullFilePath, SDL_Sha
 }
 
 //
-// FC_OpenedFontSizes
+// FoundFontSizeAndColor
+// return if the open font size & color is in the vector
 //
-FC_OpenedFontSize FC_OpenedFontSizes::GetOpenedFontSize(int pointSize, const Tau_Color& color) {
+bool FC_OpenedFontSizes::FoundFontSizeAndColor(int pointSize, const Tau_Color& color) {
+    // first see if the requested point size and color is already in the vector.  if so, return it.
+    auto it = find_if(begin(openedFontSizes), end(openedFontSizes), [&] (const FC_OpenedFontSize& ofont) 
+                                                                    { return ofont.pointSize == pointSize && ofont.color == color; });
+    return it != end(openedFontSizes);
+}
+
+//
+// GetOpenedFontSizeAndColor
+// if the size & color already exists, return the FC_OpenedFontSize.
+// if it doesn't already exist, create one and return it.
+//
+FC_OpenedFontSize FC_OpenedFontSizes::GetOpenedFontSizeAndColor(int pointSize, const Tau_Color& color) {
     // first see if the requested point size and color is already in the vector.  if so, return it.
     auto it = find_if(begin(openedFontSizes), end(openedFontSizes), [&] (const FC_OpenedFontSize& ofont) 
                                                                     { return ofont.pointSize == pointSize && ofont.color == color; });

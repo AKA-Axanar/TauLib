@@ -19,7 +19,20 @@ TTF_OpenedFontSizes::TTF_OpenedFontSizes(const std::string& _fullFilePath) : ful
 }
 
 //
-// TTF_OpenedFontSizes
+// FoundFontSize
+// return if the open font size is in the vector
+//
+bool TTF_OpenedFontSizes::FoundFontSize(int pointSize) {
+    // see if the requested point size is already in the vector.
+    auto it = find_if(begin(openedFontSizes), end(openedFontSizes), [&] (const TTF_OpenedFontSize& ofont) { return ofont.pointSize == pointSize; });
+    return it != end(openedFontSizes);
+}
+
+
+//
+// GetOpenedFontSize
+// if the size already exists, return the TTF_OpenedFontSize.
+// if it doesn't already exist, create one and return it.
 //
 TTF_OpenedFontSize TTF_OpenedFontSizes::GetOpenedFontSize(int pointSize) {
     // first see if the requested point size is already in the vector.  if so, return it.

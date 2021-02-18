@@ -69,3 +69,5 @@ inline const Tau_Color Tau_grey { RGB_grey, SDL_ALPHA_OPAQUE };
 
 inline const Tau_RGB RGB_gray = RGB_grey;
 inline const Tau_Color Tau_gray = Tau_grey;
+
+inline const Tau_Color Tau_cornflowerBlue { 100, 147, 237, SDL_ALPHA_OPAQUE };  // "Can I get the icon in Cornflower Blue?"  "Absolutely."
