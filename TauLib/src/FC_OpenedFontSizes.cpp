@@ -22,10 +22,20 @@ using namespace Tau;
 //
 
 //
-// FC_OpenedFontSizes
+// OpenFile
 //
-FC_OpenedFontSizes::FC_OpenedFontSizes(const std::string& _fullFilePath, SDL_Shared<SDL_Renderer> _renderer) : fullFilePath(_fullFilePath), renderer(_renderer) {
-    // create an empty FC_OpenedFontSizes.  call GetOpenedFontSize() to add a font at a point size.
+bool FC_OpenedFontSizes::OpenFile(const std::string& _fullFilePath, SDL_Shared<SDL_Renderer> _renderer)
+{
+    // create an empty FC_OpenedFontSizes.  call GetOpenedFontSize() to add a font at a point size and color.
+    Clear();
+    if (FileExists(_fullFilePath)) {
+        fullFilePath = _fullFilePath;
+        renderer = _renderer;
+        return true;
+    }
+    else {
+        return false;
+    }
 }
 
 //
@@ -36,6 +46,17 @@ bool FC_OpenedFontSizes::FoundFontSizeAndColor(int pointSize, const Tau_Color& c
     // first see if the requested point size and color is already in the vector.  if so, return it.
     auto it = find_if(begin(openedFontSizes), end(openedFontSizes), [&] (const FC_OpenedFontSize& ofont) 
                                                                     { return ofont.pointSize == pointSize && ofont.color == color; });
+    return it != end(openedFontSizes);
+}
+
+//
+// FoundFontSizeAnyColor
+// return if the open font size is in the vector
+//
+bool FC_OpenedFontSizes::FoundFontSizeAnyColor(int pointSize) {
+    // first see if the requested point size and color is already in the vector.  if so, return it.
+    auto it = find_if(begin(openedFontSizes), end(openedFontSizes), [&] (const FC_OpenedFontSize& ofont) 
+                                                                    { return ofont.pointSize == pointSize; });
     return it != end(openedFontSizes);
 }
 
@@ -66,5 +87,37 @@ FC_OpenedFontSize FC_OpenedFontSizes::GetOpenedFontSizeAndColor(int pointSize, c
     else {
         // font failed to open, return a "ok = false" FC_OpenedFontSize
         return FC_OpenedFontSize(pointSize, color);
+    }
+}
+
+//
+// GetOpenedFontSizeAnyColor
+// if the size already exists, return the FC_OpenedFontSize.
+// if it doesn't already exist, create one and return it.
+// this routine is only useful when you are going to use a DrawTextAt() or FC_DrawColor() call with the color of your choice.
+// or you could call FC_GetDefaultColor() and call FC_SetDefaultColor() to restore the color.
+//
+FC_OpenedFontSize FC_OpenedFontSizes::GetOpenedFontSizeAnyColor(int pointSize) {
+    // first see if the requested point size and color is already in the vector.  if so, return it.
+    auto it = find_if(begin(openedFontSizes), end(openedFontSizes), [&] (const FC_OpenedFontSize& ofont) 
+                                                                    { return ofont.pointSize == pointSize; });
+    if (it != end(openedFontSizes))
+        return *it;         // the font size is already in openedFontSizes
+
+    if (!FileExists(fullFilePath))
+        return FC_OpenedFontSize(pointSize, defaultColor);     // failure
+
+    // the file exists and the requested point size is not saved in the vector
+    // make a new shared font with the requested point size.
+    FC_Font_Shared fc_font(fullFilePath, pointSize, renderer, defaultColor);
+    if (fc_font) {
+        FC_OpenedFontSize ret(fc_font, pointSize, defaultColor);
+        openedFontSizes.emplace_back(ret);
+        // return the point size
+        return ret;
+    }
+    else {
+        // font failed to open, return a "ok = false" FC_OpenedFontSize
+        return FC_OpenedFontSize(pointSize, defaultColor);
     }
 }

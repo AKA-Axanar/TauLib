@@ -42,9 +42,8 @@ struct TTF_OpenedFontSizes {
     std::string fullFilePath;       // fullpath to TTF font file
     std::vector<TTF_OpenedFontSize> openedFontSizes;
 
-    TTF_OpenedFontSizes(const std::string& _fullFilePath);
-    ~TTF_OpenedFontSizes() 
-        { Clear(); }
+    TTF_OpenedFontSizes(const std::string& _fullFilePath) { OpenFile(_fullFilePath); }
+    bool OpenFile(const std::string& _fullFilePath);
 
     // return if the open font size is in the vector
     bool FoundFontSize(int pointSize);
@@ -53,8 +52,5 @@ struct TTF_OpenedFontSizes {
     // if it doesn't already exist, create one and return it.
     TTF_OpenedFontSize GetOpenedFontSize(int pointSize);
 
-    // Clear() should be called before exiting the app so fonts can be closed and deleted before TTF_Quit().
-    // Otherwise the dtor might not be called until after the memory had already been freed by TTF_Quit().
-    void Clear() 
-        { fullFilePath = ""; openedFontSizes.clear(); }
+    void Clear() { fullFilePath = ""; openedFontSizes.clear(); }
 };

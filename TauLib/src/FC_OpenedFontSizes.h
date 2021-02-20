@@ -55,20 +55,22 @@ struct FC_OpenedFontSizes {
     std::string fullFilePath;       // fullpath to FC font file
     SDL_Shared<SDL_Renderer> renderer;
     std::vector<FC_OpenedFontSize> openedFontSizes;
+    // default color is for when you search for an FC font of a certain size and you don't care about the
+    // color as you are going to pass an override color to the draw routine.  if no font of the requested
+    // size exists, the defaultColor is the color it will create the new font size with.
+    Tau_Color defaultColor {Tau_white};
 
-    FC_OpenedFontSizes(const std::string& _fullFilePath, SDL_Shared<SDL_Renderer> _renderer);
-    ~FC_OpenedFontSizes() 
-        { Clear(); }
+    FC_OpenedFontSizes(const std::string& _fullFilePath, SDL_Shared<SDL_Renderer> _renderer) { OpenFile(_fullFilePath, _renderer); }
+    bool OpenFile(const std::string& _fullFilePath, SDL_Shared<SDL_Renderer> _renderer);
 
     // return if the open font size & color is in the vector
     bool FoundFontSizeAndColor(int pointSize, const Tau_Color& color);
+    bool FoundFontSizeAnyColor(int pointSize);
 
     // if the size & color already exists, return the FC_OpenedFontSize.
     // if it doesn't already exist, create one and return it.
     FC_OpenedFontSize GetOpenedFontSizeAndColor(int pointSize, const Tau_Color& color);
+    FC_OpenedFontSize GetOpenedFontSizeAnyColor(int pointSize);
 
-    // Clear() should be called before exiting the app so fonts can be closed and deleted before TTF_Quit().
-    // Otherwise the dtor might not be called until after the memory had already been freed by TTF_Quit().
-    void Clear() 
-        { fullFilePath = ""; openedFontSizes.clear(); }
+    void Clear() { fullFilePath = ""; renderer.sdl_shared_ptr.reset(); openedFontSizes.clear(); }
 };

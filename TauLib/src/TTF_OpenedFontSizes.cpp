@@ -12,10 +12,17 @@ using namespace Tau;
 ///
 
 //
-// TTF_OpenedFontSizes
+// OpenFile
 //
-TTF_OpenedFontSizes::TTF_OpenedFontSizes(const std::string& _fullFilePath) : fullFilePath(_fullFilePath) {
+bool TTF_OpenedFontSizes::OpenFile(const std::string& _fullFilePath) {
     // create an empty TTF_OpenedFontSizes.  call GetOpenedFontSize() to add a font at a point size.
+    Clear();
+    if (FileExists(_fullFilePath)) {
+        fullFilePath = _fullFilePath;
+        return true;
+    } else {
+        return false;
+    }
 }
 
 //
