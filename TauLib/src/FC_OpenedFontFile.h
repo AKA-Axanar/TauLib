@@ -30,6 +30,7 @@
 struct FC_OpenedFontSize {
     FC_Font_Shared fc_font;
     int pointSize;
+    int fontDisplayHeight;  // the height of the font.  it's usually larger than the point size.
     Tau_Color color;
     bool ok { false };
 
@@ -41,11 +42,9 @@ struct FC_OpenedFontSize {
     FC_OpenedFontSize(int _pointSize, Tau_Color _color) 
         : pointSize(_pointSize), color(_color) { }
 
-    // return the height of the font.  it's usually larger than the point size.
-    int FontHeight() { return FC_GetLineHeight(fc_font); }
-
     operator FC_Font_Shared() { return fc_font; }
     operator FC_Font*() { return fc_font; }
+    friend std::ostream& operator << (std::ostream& os, const FC_OpenedFontSize& openedFontSize);
 };
 
 //
@@ -60,17 +59,19 @@ struct FC_OpenedFontFile {
     // size exists, the defaultColor is the color it will create the new font size with.
     Tau_Color defaultColor {Tau_white};
 
+    FC_OpenedFontFile() { }
     FC_OpenedFontFile(const std::string& _fullFilePath, SDL_Shared<SDL_Renderer> _renderer) { OpenFile(_fullFilePath, _renderer); }
     bool OpenFile(const std::string& _fullFilePath, SDL_Shared<SDL_Renderer> _renderer);
 
     // return if the open font size & color is in the vector
-    bool FoundFontSizeAndColor(int pointSize, const Tau_Color& color);
-    bool FoundFontSizeAnyColor(int pointSize);
+    bool FoundFontSize(int pointSize, const Tau_Color& color);
+    bool FoundFontSize(int pointSize) { return FoundFontSize(pointSize, defaultColor); }
 
     // if the size & color already exists, return the FC_OpenedFontSize.
     // if it doesn't already exist, create one and return it.
-    FC_OpenedFontSize GetOpenedFontSizeAndColor(int pointSize, const Tau_Color& color);
-    FC_OpenedFontSize GetOpenedFontSizeAnyColor(int pointSize);
+    FC_OpenedFontSize GetOpenedFontSize(int pointSize, const Tau_Color& color);
+    FC_OpenedFontSize GetOpenedFontSize(int pointSize);
 
     void Clear() { fullFilePath = ""; renderer.sdl_shared_ptr.reset(); openedFontSizes.clear(); }
+    friend std::ostream& operator << (std::ostream& os, const FC_OpenedFontFile& openedFontFile);
 };

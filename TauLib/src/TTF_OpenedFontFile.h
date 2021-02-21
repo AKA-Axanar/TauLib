@@ -18,6 +18,7 @@
 struct TTF_OpenedFontSize {
     TTF_Font_Shared ttf_font;
     int pointSize;
+    int fontDisplayHeight;  // the height of the font.  it's usually larger than the point size.
     bool ok { false };
 
     // create a successfully opened font point size
@@ -25,14 +26,11 @@ struct TTF_OpenedFontSize {
         : ttf_font(_ttf_font), pointSize(_pointSize), ok(true) { }
 
     // create a failed to open font (ok = false)
-    TTF_OpenedFontSize(int _pointSize) 
-        : pointSize(_pointSize) { }
-
-    // return the height of the font.  it's usually larger than the point size.
-    int FontHeight() { return TTF_FontHeight(ttf_font); }
+    TTF_OpenedFontSize(int _pointSize) : pointSize(_pointSize) { }
 
     operator TTF_Font_Shared() { return ttf_font; }
     operator TTF_Font*() { return ttf_font; }
+    friend std::ostream& operator << (std::ostream& os, const TTF_OpenedFontSize& openedFontSize);
 };
 
 //
@@ -42,6 +40,7 @@ struct TTF_OpenedFontFile {
     std::string fullFilePath;       // fullpath to TTF font file
     std::vector<TTF_OpenedFontSize> openedFontSizes;
 
+    TTF_OpenedFontFile() { }
     TTF_OpenedFontFile(const std::string& _fullFilePath) { OpenFile(_fullFilePath); }
     bool OpenFile(const std::string& _fullFilePath);
 
@@ -53,4 +52,5 @@ struct TTF_OpenedFontFile {
     TTF_OpenedFontSize GetOpenedFontSize(int pointSize);
 
     void Clear() { fullFilePath = ""; openedFontSizes.clear(); }
+    friend std::ostream& operator << (std::ostream& os, const TTF_OpenedFontFile& openedFontFile);
 };

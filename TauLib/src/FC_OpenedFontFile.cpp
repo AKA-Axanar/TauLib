@@ -39,10 +39,32 @@ bool FC_OpenedFontFile::OpenFile(const std::string& _fullFilePath, SDL_Shared<SD
 }
 
 //
-// FoundFontSizeAndColor
+// FC_OpenedFontSize operator <<
+//
+ostream& operator << (ostream& os, const FC_OpenedFontSize& rhs) {
+    os << "pointSize: " << rhs.pointSize;
+    if (rhs.ok) {
+        os  << ", height: " << rhs.fontDisplayHeight;
+        os << ", pointSize: " << rhs.pointSize << ", height: " << rhs.fontDisplayHeight;
+        if (rhs.color == Tau_white)
+            os << ", color: Tau_white";
+        else if (rhs.color == Tau_black)
+            os << ", color: Tau_black";
+        else
+            os << ", color: {" << rhs.color.r << "," << rhs.color.g << "," << rhs.color.b << "," << rhs.color.a << "}";
+    }
+    else {
+        os << "OK == FALSE";
+    }
+    os << endl;
+    return os;
+}
+
+//
+// FoundFontSize
 // return if the open font size & color is in the vector
 //
-bool FC_OpenedFontFile::FoundFontSizeAndColor(int pointSize, const Tau_Color& color) {
+bool FC_OpenedFontFile::FoundFontSize(int pointSize, const Tau_Color& color) {
     // first see if the requested point size and color is already in the vector.  if so, return it.
     auto it = find_if(begin(openedFontSizes), end(openedFontSizes), [&] (const FC_OpenedFontSize& ofont) 
                                                                     { return ofont.pointSize == pointSize && ofont.color == color; });
@@ -50,22 +72,11 @@ bool FC_OpenedFontFile::FoundFontSizeAndColor(int pointSize, const Tau_Color& co
 }
 
 //
-// FoundFontSizeAnyColor
-// return if the open font size is in the vector
-//
-bool FC_OpenedFontFile::FoundFontSizeAnyColor(int pointSize) {
-    // first see if the requested point size and color is already in the vector.  if so, return it.
-    auto it = find_if(begin(openedFontSizes), end(openedFontSizes), [&] (const FC_OpenedFontSize& ofont) 
-                                                                    { return ofont.pointSize == pointSize; });
-    return it != end(openedFontSizes);
-}
-
-//
-// GetOpenedFontSizeAndColor
+// GetOpenedFontSize
 // if the size & color already exists, return the FC_OpenedFontSize.
 // if it doesn't already exist, create one and return it.
 //
-FC_OpenedFontSize FC_OpenedFontFile::GetOpenedFontSizeAndColor(int pointSize, const Tau_Color& color) {
+FC_OpenedFontSize FC_OpenedFontFile::GetOpenedFontSize(int pointSize, const Tau_Color& color) {
     // first see if the requested point size and color is already in the vector.  if so, return it.
     auto it = find_if(begin(openedFontSizes), end(openedFontSizes), [&] (const FC_OpenedFontSize& ofont) 
                                                                     { return ofont.pointSize == pointSize && ofont.color == color; });
@@ -80,8 +91,9 @@ FC_OpenedFontSize FC_OpenedFontFile::GetOpenedFontSizeAndColor(int pointSize, co
     FC_Font_Shared fc_font(fullFilePath, pointSize, renderer, color);
     if (fc_font) {
         FC_OpenedFontSize ret(fc_font, pointSize, color);
+        ret.fontDisplayHeight = FC_GetLineHeight(fc_font);
         openedFontSizes.emplace_back(ret);
-        // return the point size
+        // return the FC_OpenedFontSize
         return ret;
     }
     else {
@@ -91,13 +103,13 @@ FC_OpenedFontSize FC_OpenedFontFile::GetOpenedFontSizeAndColor(int pointSize, co
 }
 
 //
-// GetOpenedFontSizeAnyColor
+// GetOpenedFontSize
 // if the size already exists, return the FC_OpenedFontSize.
 // if it doesn't already exist, create one and return it.
 // this routine is only useful when you are going to use a DrawTextAt() or FC_DrawColor() call with the color of your choice.
 // or you could call FC_GetDefaultColor() and call FC_SetDefaultColor() to restore the color.
 //
-FC_OpenedFontSize FC_OpenedFontFile::GetOpenedFontSizeAnyColor(int pointSize) {
+FC_OpenedFontSize FC_OpenedFontFile::GetOpenedFontSize(int pointSize) {
     // first see if the requested point size and color is already in the vector.  if so, return it.
     auto it = find_if(begin(openedFontSizes), end(openedFontSizes), [&] (const FC_OpenedFontSize& ofont) 
                                                                     { return ofont.pointSize == pointSize; });
@@ -112,6 +124,7 @@ FC_OpenedFontSize FC_OpenedFontFile::GetOpenedFontSizeAnyColor(int pointSize) {
     FC_Font_Shared fc_font(fullFilePath, pointSize, renderer, defaultColor);
     if (fc_font) {
         FC_OpenedFontSize ret(fc_font, pointSize, defaultColor);
+        ret.fontDisplayHeight = FC_GetLineHeight(fc_font);
         openedFontSizes.emplace_back(ret);
         // return the point size
         return ret;
@@ -121,3 +134,13 @@ FC_OpenedFontSize FC_OpenedFontFile::GetOpenedFontSizeAnyColor(int pointSize) {
         return FC_OpenedFontSize(pointSize, defaultColor);
     }
 }
+
+//
+// FC_OpenedFontFile operator <<
+//
+ostream& operator << (ostream& os, const FC_OpenedFontFile& rhs) {
+    os << "font file: " << rhs.fullFilePath << endl;
+    for_each(begin(rhs.openedFontSizes), end(rhs.openedFontSizes), [&] (const FC_OpenedFontSize& openFontSize) { os << openFontSize; });
+    return os;
+}
+
