@@ -275,7 +275,7 @@ int DrawArea::DrawTextUpperRightCornerAt(TTF_Font_Shared font, const std::string
 // DrawTextAt Draws the text at a point on the window
 // 
 int DrawArea::DrawTextAt(FC_Font_Shared font, const std::string& text, SDL_Color color, const Tau_Point& point) {
-    FC_Rect rect = FC_DrawColor(font, renderer, point.x, point.y, color, text.c_str());
+    FC_Rect rect = FC_DrawColor(font, renderer, (float)point.x, (float)point.y, color, text.c_str());
     return rect.h;
 }
 
@@ -333,7 +333,7 @@ int DrawArea::DrawTextUpperRightCornerAt(FC_Font_Shared font, const std::string&
 // DrawTextAt Draws the text at a point on the window
 // 
 int DrawArea::DrawTextAt(FC_Font_Shared font, const std::string& text, const Tau_Point& point) {
-    FC_Rect rect = FC_Draw(font, renderer, point.x, point.y, text.c_str());
+    FC_Rect rect = FC_Draw(font, renderer, (float)point.x, (float)point.y, text.c_str());
     return rect.h;
 }
 
