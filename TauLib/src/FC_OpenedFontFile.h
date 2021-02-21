@@ -72,6 +72,14 @@ struct FC_OpenedFontFile {
     FC_OpenedFontSize GetOpenedFontSize(int pointSize, const Tau_Color& color);
     FC_OpenedFontSize GetOpenedFontSize(int pointSize);
 
+    // return a FC_Font_Shared
+    FC_Font_Shared GetFC_Shared_Font(int pointSize, const Tau_Color& color) { return GetOpenedFontSize(pointSize, color); }
+    FC_Font_Shared GetFC_Shared_Font(int pointSize) { return GetOpenedFontSize(pointSize); }
+
+    // return a FC_Font*
+    FC_Font* GetFC_Font(int pointSize, const Tau_Color& color) { return GetOpenedFontSize(pointSize, color); }
+    FC_Font* GetFC_Font(int pointSize) { return GetOpenedFontSize(pointSize); }
+
     void Clear() { fullFilePath = ""; renderer.sdl_shared_ptr.reset(); openedFontSizes.clear(); }
     friend std::ostream& operator << (std::ostream& os, const FC_OpenedFontFile& openedFontFile);
 };
