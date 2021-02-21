@@ -7,7 +7,7 @@
 
 ///
 /// @file
-/// @brief Header file for FC_OpenedFontSizes which is a collection of already open FC_Font's..
+/// @brief Header file for FC_OpenedFontFile which is a collection of already open FC_Font's..
 /// @author Steve Simpson, steve@iterator.com, a.k.a. Axanar (AutoBleem project)
 ///
 
@@ -49,9 +49,9 @@ struct FC_OpenedFontSize {
 };
 
 //
-// FC_OpenedFontSizes
+// FC_OpenedFontFile
 //
-struct FC_OpenedFontSizes {
+struct FC_OpenedFontFile {
     std::string fullFilePath;       // fullpath to FC font file
     SDL_Shared<SDL_Renderer> renderer;
     std::vector<FC_OpenedFontSize> openedFontSizes;
@@ -60,7 +60,7 @@ struct FC_OpenedFontSizes {
     // size exists, the defaultColor is the color it will create the new font size with.
     Tau_Color defaultColor {Tau_white};
 
-    FC_OpenedFontSizes(const std::string& _fullFilePath, SDL_Shared<SDL_Renderer> _renderer) { OpenFile(_fullFilePath, _renderer); }
+    FC_OpenedFontFile(const std::string& _fullFilePath, SDL_Shared<SDL_Renderer> _renderer) { OpenFile(_fullFilePath, _renderer); }
     bool OpenFile(const std::string& _fullFilePath, SDL_Shared<SDL_Renderer> _renderer);
 
     // return if the open font size & color is in the vector

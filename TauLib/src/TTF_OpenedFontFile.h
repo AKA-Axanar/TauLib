@@ -36,13 +36,13 @@ struct TTF_OpenedFontSize {
 };
 
 //
-// TTF_OpenedFontSizes
+// TTF_OpenedFontFile
 //
-struct TTF_OpenedFontSizes {
+struct TTF_OpenedFontFile {
     std::string fullFilePath;       // fullpath to TTF font file
     std::vector<TTF_OpenedFontSize> openedFontSizes;
 
-    TTF_OpenedFontSizes(const std::string& _fullFilePath) { OpenFile(_fullFilePath); }
+    TTF_OpenedFontFile(const std::string& _fullFilePath) { OpenFile(_fullFilePath); }
     bool OpenFile(const std::string& _fullFilePath);
 
     // return if the open font size is in the vector

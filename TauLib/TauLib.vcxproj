@@ -206,9 +206,9 @@
     <ClInclude Include="src\DirFile.h" />
     <ClInclude Include="src\Display.h" />
     <ClInclude Include="src\DrawArea.h" />
-    <ClInclude Include="src\FC_OpenedFontSizes.h" />
+    <ClInclude Include="src\FC_OpenedFontFile.h" />
     <ClInclude Include="src\FC_Font_shared.h" />
-    <ClInclude Include="src\TTF_OpenedFontSizes.h" />
+    <ClInclude Include="src\TTF_OpenedFontFile.h" />
     <ClInclude Include="src\GetExecutablePath.h" />
     <ClInclude Include="src\IniFile.h" />
     <ClInclude Include="src\IniFileWithDefault.h" />
@@ -247,9 +247,9 @@
     <ClCompile Include="src\DirFile.cpp" />
     <ClCompile Include="src\Display.cpp" />
     <ClCompile Include="src\DrawArea.cpp" />
-    <ClCompile Include="src\FC_OpenedFontSizes.cpp" />
+    <ClCompile Include="src\FC_OpenedFontFile.cpp" />
     <ClCompile Include="src\FC_Font_shared.cpp" />
-    <ClCompile Include="src\TTF_OpenedFontSizes.cpp" />
+    <ClCompile Include="src\TTF_OpenedFontFile.cpp" />
     <ClCompile Include="src\GetExecutablePath.cpp" />
     <ClCompile Include="src\IniFile.cpp" />
     <ClCompile Include="src\IniFileWithDefault.cpp" />

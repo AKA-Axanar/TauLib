@@ -1,4 +1,4 @@
-#include "TTF_OpenedFontSizes.h"
+#include "TTF_OpenedFontFile.h"
 #include "DirFile.h"
 #include <algorithm>
 
@@ -14,7 +14,7 @@ using namespace Tau;
 //
 // OpenFile
 //
-bool TTF_OpenedFontSizes::OpenFile(const std::string& _fullFilePath) {
+bool TTF_OpenedFontFile::OpenFile(const std::string& _fullFilePath) {
     // create an empty TTF_OpenedFontSizes.  call GetOpenedFontSize() to add a font at a point size.
     Clear();
     if (FileExists(_fullFilePath)) {
@@ -29,7 +29,7 @@ bool TTF_OpenedFontSizes::OpenFile(const std::string& _fullFilePath) {
 // FoundFontSize
 // return if the open font size is in the vector
 //
-bool TTF_OpenedFontSizes::FoundFontSize(int pointSize) {
+bool TTF_OpenedFontFile::FoundFontSize(int pointSize) {
     // see if the requested point size is already in the vector.
     auto it = find_if(begin(openedFontSizes), end(openedFontSizes), [&] (const TTF_OpenedFontSize& ofont) { return ofont.pointSize == pointSize; });
     return it != end(openedFontSizes);
@@ -41,7 +41,7 @@ bool TTF_OpenedFontSizes::FoundFontSize(int pointSize) {
 // if the size already exists, return the TTF_OpenedFontSize.
 // if it doesn't already exist, create one and return it.
 //
-TTF_OpenedFontSize TTF_OpenedFontSizes::GetOpenedFontSize(int pointSize) {
+TTF_OpenedFontSize TTF_OpenedFontFile::GetOpenedFontSize(int pointSize) {
     // first see if the requested point size is already in the vector.  if so, return it.
     auto it = find_if(begin(openedFontSizes), end(openedFontSizes), [&] (const TTF_OpenedFontSize& ofont) { return ofont.pointSize == pointSize; });
     if (it != end(openedFontSizes))
