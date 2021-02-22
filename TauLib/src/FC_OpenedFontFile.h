@@ -70,7 +70,7 @@ struct FC_OpenedFontFile {
     // if the size & color already exists, return the FC_OpenedFontSize.
     // if it doesn't already exist, create one and return it.
     FC_OpenedFontSize GetOpenedFontSize(int pointSize, const Tau_Color& color);
-    FC_OpenedFontSize GetOpenedFontSize(int pointSize);
+    FC_OpenedFontSize GetOpenedFontSize(int pointSize) { return GetOpenedFontSize(pointSize, defaultColor); }
 
     // return a FC_Font_Shared
     FC_Font_Shared GetFC_Shared_Font(int pointSize, const Tau_Color& color) { return GetOpenedFontSize(pointSize, color); }
