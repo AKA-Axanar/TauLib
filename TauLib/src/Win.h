@@ -34,6 +34,8 @@ struct Win : public DrawArea
 
     SDL_Shared<SDL_Window> window = nullptr;
     bool windowIsEntireDisplay = false;
+    Tau_Rect displayRelativeRect;   // the position and size of the window on the display.
+                                    // if this is a full screen window then this is the same as Display::displayBounds
     bool isOpen = false;
 
     Win() {}

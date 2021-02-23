@@ -23,29 +23,37 @@ bool Win::InitWin(unsigned int _displayIndex, const string& _title, const Tau_Re
 
     displayIndex = _displayIndex;
     title = _title;
-    winRect = bounds;
-    flagsWin = _flagsWin;         // https://wiki.libsdl.org/SDL_WindowFlags
+    winRect = bounds;                   // this will get updated later
+    flagsWin = _flagsWin;               // https://wiki.libsdl.org/SDL_WindowFlags
     flagsRenderer = _flagsRenderer;
 
+    //cout << "SDL_CreateWindow" << endl;
     window = SDL_CreateWindow(title.c_str(), bounds.x, bounds.y, bounds.w, bounds.h, flagsWin);
     if (window == nullptr) {
         cerr << "SDL_CreateWindow failed" << endl;
+        assert(false);
         return false;
     }
+
+    //cout << "SDL_CreateRenderer" << endl;
     renderer = SDL_CreateRenderer(window, -1, flagsRenderer);
     if (renderer == nullptr) {
         cerr << "SDL_CreateRenderer failed" << endl;
+        assert(false);
         return false;
     }
 
     if (flagsWin & (SDL_WINDOW_FULLSCREEN_DESKTOP | SDL_WINDOW_FULLSCREEN))
         windowIsEntireDisplay = true;
 
-    // This is the window itself not just an area of a window.  If this is a fullscreen window then the bounds
-    // is already 0,0 and the width and height of the entire display screen.
+    SDL_GetWindowPosition(window, &displayRelativeRect.x, &displayRelativeRect.y);
+    SDL_GetWindowSize(window, &displayRelativeRect.w, &displayRelativeRect.h);
+
+    // winRect is draw rect area on the window using renderer.  If this is a fullscreen window then the bounds
+    // is already 0,0 and the size is the size of the entire display.
     // If it is a window smaller than the display size we need to change the corner position to be 0,0 as everything
-    // drawn in that window is relative to a upper left corner point of 0,0.
-    winRect.SetPoint(0, 0);
+    // drawn in that window is relative to a upper left corner point of 0,0 of the window.
+    winRect = { {0,0}, displayRelativeRect.GetSize() };
 
     isOpen = true;
     return isOpen;

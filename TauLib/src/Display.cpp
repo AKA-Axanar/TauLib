@@ -8,8 +8,7 @@
 /// @author Steve Simpson, steve@iterator.com, a.k.a. Axanar (AutoBleem project)
 ///
 
-using namespace std;
-using namespace Tau;
+using Tau::Display;
 
 // A Display is a Win (Window) that usually takes over the entire display.
 // There is no title bar or border as the window fills the entire display.
