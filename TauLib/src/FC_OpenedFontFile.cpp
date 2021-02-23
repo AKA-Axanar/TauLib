@@ -1,6 +1,7 @@
 #include "FC_OpenedFontFile.h"
 #include "DirFile.h"
 #include <algorithm>
+#include <iostream>
 
 using namespace std;
 using namespace Tau;
@@ -56,6 +57,7 @@ bool FC_OpenedFontFile::OpenFile(const std::string& _fullFilePath, SDL_Shared<SD
         return true;
     }
     else {
+        cerr << "font file not found: " << _fullFilePath << endl;
         return false;
     }
 }

@@ -10,13 +10,13 @@
 
 namespace Tau {
 
-/// @struct Display is a Win (Window) that usually takes over the entire display.
+/// @struct Display is a Win (Window) that takes over the entire display.
 /// There is no title bar or border as the window fills the entire display.
 /// There are two options when creating the full screen window.
-/// 1) SDL_WINDOW_FULLSCREEN and you specify a resolution of the display, the display switches to that resolution.  The window is the full screen at that resolution.
-/// 2) SDL_WINDOW_FULLSCREEN_DESKTOP where you take over the entire display at the current resolution.
+/// 1) SDL_WINDOW_FULLSCREEN_DESKTOP where you take over the entire display at the current resolution.
+/// 2) SDL_WINDOW_FULLSCREEN and you specify a resolution of the display, the display switches to that resolution.  The window is the full screen at that resolution.
 /// 
-/// To make a Window that is not full screen use a Win object instead.
+/// To make a Window that is not full screen call Win::InitWin() instead.
 ///
 struct Display : public Win {
 
@@ -39,7 +39,6 @@ struct Display : public Win {
     /// @brief Return a copy of the Display DrawArea
     DrawArea GetDrawArea() { return DrawArea(renderer, winRect); }
 
-    Tau_Rect displayBounds;
     Tau_Size displayResolution;
 
     static int GetNumberOfDisplays() { return SDL_GetNumVideoDisplays(); }

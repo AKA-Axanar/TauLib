@@ -73,8 +73,6 @@ bool Display::InitDisplay(unsigned int _displayIndex, const std::string& _title,
     
 /// @brief Perform some common calls at the end of the Init routines.
 void Display::InitDisplay_Common() {
-    SDL_GetDisplayBounds(displayIndex, &displayBounds);
-    winRect = displayBounds;  // the window bounds is the display bounds as the window is the entire display screen
-    displayResolution = displayBounds.GetSize();
+    SDL_GetWindowSize(window, &displayResolution.w, &displayResolution.h);
 }
 

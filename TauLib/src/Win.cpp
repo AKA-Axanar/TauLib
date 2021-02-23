@@ -46,7 +46,14 @@ bool Win::InitWin(unsigned int _displayIndex, const string& _title, const Tau_Re
     if (flagsWin & (SDL_WINDOW_FULLSCREEN_DESKTOP | SDL_WINDOW_FULLSCREEN))
         windowIsEntireDisplay = true;
 
-    SDL_GetWindowPosition(window, &displayRelativeRect.x, &displayRelativeRect.y);
+    if (windowIsEntireDisplay) {
+        // if this is not display #0 then SDL_GetWindowPosition will return an x value that is across the entire
+        // multi-display desktop and not at 0.  so set the position relative to the display corner.
+        displayRelativeRect.SetPoint({0,0});
+    }
+    else
+        SDL_GetWindowPosition(window, &displayRelativeRect.x, &displayRelativeRect.y);
+
     SDL_GetWindowSize(window, &displayRelativeRect.w, &displayRelativeRect.h);
 
     // winRect is draw rect area on the window using renderer.  If this is a fullscreen window then the bounds

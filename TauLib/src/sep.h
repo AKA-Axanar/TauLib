@@ -12,8 +12,6 @@
 #include <string>
 #include <filesystem>
 
-using namespace std;
-
 /// @brief namespace Tau - avoid conflict with other libraries
 namespace Tau { // to avoid conflict with other libraries
 
