@@ -18,7 +18,7 @@
 struct TTF_OpenedFontSize {
     TTF_Font_Shared ttf_font;
     int pointSize;
-    int fontDisplayHeight;  // the height of the font.  it's usually larger than the point size.
+    int fontDisplayHeight {0};  // the height of the font.  it's usually larger than the point size.
     bool ok { false };
 
     // create a successfully opened font point size

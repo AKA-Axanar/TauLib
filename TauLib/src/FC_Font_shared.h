@@ -69,7 +69,7 @@ struct FC_Font_Shared {
     /// @param color The default color of the font.  It can be changed with FC_SetDefaultColor() and revrieved with FC_GetDefaultColor.
     /// 
     FC_Font_Shared(FC_Font* font = nullptr);
-    FC_Font_Shared(const std::string& filename, int fontSize, SDL_Renderer* renderer, SDL_Color color);
+    FC_Font_Shared(const std::string& filename, int fontSize, SDL_Renderer* renderer, SDL_Color color, int style = 0);
 
     operator FC_Font* () { return font_shared_ptr.get(); };
     FC_Font & operator * () { return *font_shared_ptr.get(); };

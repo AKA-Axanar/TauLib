@@ -29,9 +29,9 @@ using namespace std;
 FC_Font_Shared::FC_Font_Shared(FC_Font* font) : font_shared_ptr(font, [](FC_Font *font)
     { FC_FreeFont(font); } ) {};    // automatically destroy/free when the last shared_ptr goes away
 
-FC_Font_Shared::FC_Font_Shared(const std::string& filename, int fontSize, SDL_Renderer* renderer, SDL_Color color) {
+FC_Font_Shared::FC_Font_Shared(const std::string& filename, int fontSize, SDL_Renderer* renderer, SDL_Color color, int style) {
     FC_Font* font = FC_CreateFont();
-    Uint8 ret = FC_LoadFont(font, renderer, filename.c_str(), fontSize, color, 0);
+    Uint8 ret = FC_LoadFont(font, renderer, filename.c_str(), fontSize, color, style);
     if (ret != 0)
         font_shared_ptr.reset(font, [](FC_Font *font) { if (font) FC_FreeFont(font); });
     else
