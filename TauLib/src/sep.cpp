@@ -14,7 +14,7 @@ namespace Tau { // to avoid conflict with other libraries
 //*******************************
 // append path separator helper function
 // example:  somepath is a string of a path but you do not know for sure if there is a "/" at the end or not
-// somepath + sep + "font" + sep + "default.ttf" will append the separator to somepath only if it's not there
+// somepath + sep + "font" + sep + "default.ttf" will append the separator to somepath only if it's not on the end of somepath
 //*******************************
 string operator + (const string& leftside, Sep) {
     string ret = leftside;

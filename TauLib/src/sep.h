@@ -32,7 +32,7 @@ const Sep sep;  // use sep in your code
 ///
 /// @brief string + Sep 
 /// @remark somepath is a path string which may or may not have a '/' at the end.  
-/// @remark somepath + sep + "font" + sep + "default.ttf" will create "somepath/font/default.ttf".  sep will only append a '/' 
+/// @remark somepath + sep + "font" + sep + "default.ttf" will create "somepath/font/default.ttf" (in the case of Linux OS).
 /// @remark to somepath if there isn't one there already.
 ///
 std::string operator + (const std::string& leftside, Sep);
