@@ -46,14 +46,16 @@ ostream& operator << (ostream& os, const FC_OpenedFontSize& rhs) {
 
 //
 // OpenFile
+// create an empty FC_OpenedFontFile.
+// call GetOpenedFontSize() to add a font at a point size and color.
 //
-bool FC_OpenedFontFile::OpenFile(const std::string& _fullFilePath, SDL_Shared<SDL_Renderer> _renderer)
+bool FC_OpenedFontFile::OpenFile(const std::string& _fullFilePath, SDL_Shared<SDL_Renderer> _renderer, int _fontStyle)
 {
-    // create an empty FC_OpenedFontFile.  call GetOpenedFontSize() to add a font at a point size and color.
     Clear();
     if (FileExists(_fullFilePath)) {
         fullFilePath = _fullFilePath;
         renderer = _renderer;
+        fontStyle = _fontStyle;
         return true;
     }
     else {
@@ -88,9 +90,9 @@ FC_OpenedFontSize FC_OpenedFontFile::GetOpenedFontSize(int pointSize, const Tau_
     if (!FileExists(fullFilePath))
         return FC_OpenedFontSize(pointSize, color);     // failure
 
-    // the file exists and the requested point size and color combo  is not saved in the vector
+    // the file exists and the requested point size and color combo is not saved in the vector
     // make a new shared font with the requested point size.
-    FC_Font_Shared fc_font(fullFilePath, pointSize, renderer, color);
+    FC_Font_Shared fc_font(fullFilePath, pointSize, renderer, color, fontStyle);
     if (fc_font) {
         FC_OpenedFontSize ret(fc_font, pointSize, color);
         ret.fontDisplayHeight = FC_GetLineHeight(fc_font);
@@ -109,6 +111,10 @@ FC_OpenedFontSize FC_OpenedFontFile::GetOpenedFontSize(int pointSize, const Tau_
 //
 ostream& operator << (ostream& os, const FC_OpenedFontFile& rhs) {
     os << "font file: " << rhs.fullFilePath << endl;
+    if (rhs.fontStyle == TTF_STYLE_BOLD)
+        os << "font style: " << "TTF_STYLE_BOLD" << endl;
+    else
+        os << "font style: " << rhs.fontStyle << endl;
     for_each(begin(rhs.openedFontSizes), end(rhs.openedFontSizes), [&] (const FC_OpenedFontSize& openFontSize) { os << openFontSize; });
     return os;
 }

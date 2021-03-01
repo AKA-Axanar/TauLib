@@ -53,6 +53,8 @@ struct FC_OpenedFontSize {
 struct FC_OpenedFontFile {
     std::string fullFilePath;       // fullpath to FC font file
     SDL_Shared<SDL_Renderer> renderer;
+    int fontStyle;                  // TTF_STYLE_BOLD, etc
+
     std::vector<FC_OpenedFontSize> openedFontSizes;
     // default color is for when you search for an FC font of a certain size and you don't care about the
     // color as you are going to pass an override color to the draw routine.  if no font of the requested
@@ -60,8 +62,8 @@ struct FC_OpenedFontFile {
     Tau_Color defaultColor {Tau_white};
 
     FC_OpenedFontFile() { }
-    FC_OpenedFontFile(const std::string& _fullFilePath, SDL_Shared<SDL_Renderer> _renderer) { OpenFile(_fullFilePath, _renderer); }
-    bool OpenFile(const std::string& _fullFilePath, SDL_Shared<SDL_Renderer> _renderer);
+    FC_OpenedFontFile(const std::string& _fullFilePath, SDL_Shared<SDL_Renderer> _renderer, int _fontStyle=0) { OpenFile(_fullFilePath, _renderer, _fontStyle); }
+    bool OpenFile(const std::string& _fullFilePath, SDL_Shared<SDL_Renderer> _renderer, int _fontStyle=0);
 
     // return if the open font size & color is in the vector
     bool FoundFontSize(int pointSize, const Tau_Color& color);
