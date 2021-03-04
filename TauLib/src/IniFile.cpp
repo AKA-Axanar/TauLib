@@ -67,6 +67,7 @@ bool IniFile::Load(const string& _iniFilePath, const std::string& _defaultSectio
             iniSections.back().iniLines.emplace_back(iniLine);
         }
     }
+    success = true;
 
     return success;
 }
