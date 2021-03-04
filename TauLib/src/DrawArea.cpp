@@ -3,8 +3,10 @@
 #include <string>
 #include "TauLib.h"
 #include "SDL.h"
+#include "DirFile.h"
 
 using namespace std;
+using namespace Tau;
 
 namespace Tau { // to avoid conflict with other libraries
 
@@ -131,6 +133,8 @@ void DrawArea::FillRect(const Tau_Rect& rect, Tau_Color color) {
 // GetTextureOfImage
 // 
 SDL_Shared<SDL_Texture> DrawArea::GetTextureOfImage(const string& imgFilePath) {
+    if (!FileExists(imgFilePath))
+        cerr << "image file does not exist: " << imgFilePath << endl;
     SDL_Shared<SDL_Texture> texture = IMG_LoadTexture(renderer, imgFilePath.c_str());
     return texture;
 }
@@ -391,7 +395,10 @@ int DrawArea::DrawTextUpperRightCornerAt(FC_Font_Shared font, const std::string&
 // 
 Tau_Size DrawArea::GetSizeOfTexture(SDL_Shared<SDL_Texture> texture) {
     Tau_Size size;
-    SDL_QueryTexture(texture, NULL, NULL, &size.w, &size.h); // get the width and height of the texture
+    if (texture)
+        SDL_QueryTexture(texture, NULL, NULL, &size.w, &size.h); // get the width and height of the texture
+    else
+        cerr << "nullptr texture passed to GetSizeOfTexture" << endl;
     return size;
 }
 
@@ -419,7 +426,10 @@ int DrawArea::DrawTextureCenteredAt(SDL_Shared<SDL_Texture> texture, const Tau_P
 // DrawTextureToRect
 // 
 int DrawArea::DrawTextureToRect(SDL_Shared<SDL_Texture> texture, const Tau_Rect& destRect) {
-    SDL_RenderCopy(renderer, texture, nullptr, &destRect);
+    if (texture)
+        SDL_RenderCopy(renderer, texture, nullptr, &destRect);
+    else
+        cerr << "nullptr texture passed to DrawTextureToRect" << endl;
     return destRect.h;
 }
 
@@ -437,7 +447,10 @@ int DrawArea::DrawSectionOfTextureAt(SDL_Shared<SDL_Texture> texture, const Tau_
 // DrawSectionOfTextureToRect
 // 
 int DrawArea::DrawSectionOfTextureToRect(SDL_Shared<SDL_Texture> texture, const Tau_Rect& srcRect, const Tau_Rect& destRect) {
-    SDL_RenderCopy(renderer, texture, &srcRect, &destRect);
+    if (texture)
+        SDL_RenderCopy(renderer, texture, &srcRect, &destRect);
+    else
+        cerr << "nullptr texture passed to DrawSectionOfTextureToRect" << endl;
     return destRect.h;
 }
 
