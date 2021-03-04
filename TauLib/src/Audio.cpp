@@ -18,13 +18,13 @@ namespace Tau {  // to avoid conflict with other libraries
 //
 // LoadMusicFile
 //
-SDL_Shared<Mix_Music> Audio::LoadMusicFile(const string& filePath) {
+Mix_Music* Audio::LoadMusicFile(const string& filePath) {
     return Mix_LoadMUS(filePath.c_str());
 }
 
 // loops = -1 for infinite
 // returns true on success
-bool Audio::PlayMusic(SDL_Shared<Mix_Music> music, int loops) {
+bool Audio::PlayMusic(Mix_Music* music, int loops) {
     int ret = Mix_PlayMusic(music, loops);
 
     return ret == 0;    // 0 is success
@@ -37,7 +37,7 @@ bool Audio::PlayMusic(SDL_Shared<Mix_Music> music, int loops) {
 //
 // LoadSoundFile
 //
-SDL_Shared<Mix_Chunk> Audio::LoadSoundFile(const string& filePath) {
+Mix_Chunk* Audio::LoadSoundFile(const string& filePath) {
     return Mix_LoadWAV(filePath.c_str());
 }
 
@@ -47,7 +47,7 @@ SDL_Shared<Mix_Chunk> Audio::LoadSoundFile(const string& filePath) {
 // loops = 0 is play once (loops is the number of additional loops)
 // return is the channel the sound is on.  or -1 if error.
 //
-int Audio::PlaySound(SDL_Shared<Mix_Chunk> sound, int channel, int loops) {
+int Audio::PlaySound(Mix_Chunk* sound, int channel, int loops) {
     int channelOrError = Mix_PlayChannel(channel, sound, loops);
 
     return channelOrError;
