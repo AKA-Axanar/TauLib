@@ -19,17 +19,49 @@
 namespace Tau { // to avoid conflict with other libraries
 
 ///
-/// @brief Init_SDL(int audioFormats = MIX_INIT_MP3 | MIX_INIT_OGG | MIX_INIT_FLAC)
-/// Initialize SDL, Audio mixer, TTF fonts, etc.
-/// audioFormats available: MIX_INIT_FLAC, MIX_INIT_MOD, MIX_INIT_MP3, MIX_INIT_OGG, MIX_INIT_MID, MIX_INIT_OPUS
-/// audioFormats default: MIX_INIT_MP3 | MIX_INIT_OGG | MIX_INIT_FLAC
+/// @brief Init_SDL
 /// 
-bool Init_SDL(int audioFormats = MIX_INIT_MP3 | MIX_INIT_OGG | MIX_INIT_FLAC);
+bool Init_SDL();
 
 ///
-/// @brief Quit_SDL Quit SDL, Audio mixer, TTF fonts, etc
+/// @brief Init_TTF (Fonts)
+/// 
+bool Init_TTF();
+
+///
+/// @brief Init_Mixer (Audio)
+/// @param audioFormats 
+/// audio formats available: MIX_INIT_FLAC, MIX_INIT_MOD, MIX_INIT_MP3, MIX_INIT_OGG, MIX_INIT_MID, MIX_INIT_OPUS
+/// audioFormats default: MIX_INIT_MP3 | MIX_INIT_OGG | MIX_INIT_FLAC
+/// 
+bool Init_Mixer(int audioFormats = MIX_INIT_MP3 | MIX_INIT_OGG | MIX_INIT_FLAC);
+
+//
+// Init SDL, TTF, Audio
+//
+bool Init_All(int audioFormats = MIX_INIT_MP3 | MIX_INIT_OGG | MIX_INIT_FLAC);
+
+
+
+///
+/// @brief Quit_SDL
 /// 
 void Quit_SDL();
+
+///
+/// @brief Quit_TTF (fonts)
+/// 
+void Quit_TTF();
+
+///
+/// @brief Quit_Mixer (Audio)
+/// 
+void Quit_Mixer();
+
+//
+// Quit Audio, TTF, SDL
+//
+void Quit_All();
 
 } // end namespace Tau
 
