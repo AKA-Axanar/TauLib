@@ -25,7 +25,6 @@ bool Display::InitDisplay_FULLSCREEN_DESKTOP(unsigned int _displayIndex)
     bool ret = Win::InitWin(_displayIndex, "", bounds, SDL_WINDOW_FULLSCREEN_DESKTOP,
                                                        SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
-    InitDisplay_Common();
     return ret;
 }
 
@@ -35,7 +34,6 @@ bool Display::InitDisplay_FULLSCREEN_DESKTOP(unsigned int _displayIndex, const s
 
     bool ret = Win::InitWin(_displayIndex, _title, bounds, SDL_WINDOW_FULLSCREEN_DESKTOP | _flagsWin, _flagsRenderer);
 
-    InitDisplay_Common();
     return ret;
 }
 
@@ -48,7 +46,6 @@ bool Display::InitDisplay_FULLSCREEN(unsigned int _displayIndex, Tau_Size newRes
     bool ret = Win::InitWin(_displayIndex, "", bounds, SDL_WINDOW_FULLSCREEN,
                                                        SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
-    InitDisplay_Common();
     return ret;
 }
 
@@ -60,19 +57,12 @@ bool Display::InitDisplay_FULLSCREEN(unsigned int _displayIndex, Tau_Size newRes
 
     bool ret = Win::InitWin(_displayIndex, _title, bounds, SDL_WINDOW_FULLSCREEN | _flagsWin, _flagsRenderer);
 
-    InitDisplay_Common();
     return ret;
 }
 
 /// @brief InitDisplay - passes all args directly to InitWin.  it might not be full screen.
 bool Display::InitDisplay(unsigned int _displayIndex, const std::string& _title, const Tau_Rect& bounds, Uint32 _flagsWin, Uint32 _flagsRenderer) {
     bool ret = InitWin(_displayIndex, _title, bounds, _flagsWin, _flagsRenderer);
-    InitDisplay_Common();
     return ret;
-}
-    
-/// @brief Perform some common calls at the end of the Init routines.
-void Display::InitDisplay_Common() {
-    SDL_GetWindowSize(window, &displayResolution.w, &displayResolution.h);
 }
 

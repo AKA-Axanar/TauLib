@@ -36,18 +36,10 @@ struct Display : public Win {
     /// @note SDL_WINDOW_FULLSCREEN is OR'd into _flagsWin
     bool InitDisplay_FULLSCREEN(unsigned int _displayIndex, Tau_Size newResolution, const std::string& _title, Uint32 _flagsWin, Uint32 _flagsRenderer);
 
-    /// @brief Return a copy of the Display DrawArea
-    DrawArea GetDrawArea() { return DrawArea(renderer, drawAreaRect); }
-
-    Tau_Size displayResolution;
-
     static int GetNumberOfDisplays() { return SDL_GetNumVideoDisplays(); }
 
     /// @brief InitDisplay - passes all args directly to InitWin.  it might not be full screen.
     bool InitDisplay(unsigned int _displayIndex, const std::string& _title, const Tau_Rect& bounds, Uint32 _flagsWin, Uint32 _flagsRenderer);
-    
-private:
-    void InitDisplay_Common();
 };
 
 }

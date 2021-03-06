@@ -43,21 +43,17 @@ bool Win::InitWin(unsigned int _displayIndex, const string& _title, const Tau_Re
         return false;
     }
 
+    SDL_GetWindowPosition(window, &windowPosit.x, &windowPosit.y);
+    SDL_GetWindowSize(window, &windowSize.w, &windowSize.h);
+    windowRect = { windowPosit, windowSize };
+
     if (flagsWin & (SDL_WINDOW_FULLSCREEN_DESKTOP | SDL_WINDOW_FULLSCREEN))
         windowIsEntireDisplay = true;
 
-    if (windowIsEntireDisplay) {
-        // if this is not display #0 then SDL_GetWindowPosition will return an x value that is across the entire
-        // multi-display desktop and not at 0.  so set the position relative to the display corner.
-        displayRelativeRect.SetPoint({0,0});
-    }
-    else
-        SDL_GetWindowPosition(window, &displayRelativeRect.x, &displayRelativeRect.y);
-
-    SDL_GetWindowSize(window, &displayRelativeRect.w, &displayRelativeRect.h);
-
-    // This is the window.  So the winRect is the entire window.
-    drawAreaRect = { {0,0}, displayRelativeRect.GetSize() };
+    // This is the window drawAreaRect.  This is the entire window but 0,0 is the relative corner of the window.
+    // When you draw at 0,0 in the drawArea you are drawing at the corner of the window regardless of the position
+    // of the window on the display.
+    drawAreaRect = { {0,0}, windowSize };
 
     isOpen = true;
     return isOpen;
