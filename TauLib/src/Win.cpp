@@ -23,7 +23,7 @@ bool Win::InitWin(unsigned int _displayIndex, const string& _title, const Tau_Re
 
     displayIndex = _displayIndex;
     title = _title;
-    winRect = bounds;                   // this will get updated later
+    drawAreaRect = bounds;                   // this will get updated later
     flagsWin = _flagsWin;               // https://wiki.libsdl.org/SDL_WindowFlags
     flagsRenderer = _flagsRenderer;
 
@@ -56,11 +56,8 @@ bool Win::InitWin(unsigned int _displayIndex, const string& _title, const Tau_Re
 
     SDL_GetWindowSize(window, &displayRelativeRect.w, &displayRelativeRect.h);
 
-    // winRect is draw rect area on the window using renderer.  If this is a fullscreen window then the bounds
-    // is already 0,0 and the size is the size of the entire display.
-    // If it is a window smaller than the display size we need to change the corner position to be 0,0 as everything
-    // drawn in that window is relative to a upper left corner point of 0,0 of the window.
-    winRect = { {0,0}, displayRelativeRect.GetSize() };
+    // This is the window.  So the winRect is the entire window.
+    drawAreaRect = { {0,0}, displayRelativeRect.GetSize() };
 
     isOpen = true;
     return isOpen;

@@ -13,7 +13,7 @@ namespace Tau { // to avoid conflict with other libraries
 //
 // DrawArea
 //
-DrawArea::DrawArea(SDL_Shared<SDL_Renderer> _renderer, const Tau_Rect& _rect) : renderer(_renderer), winRect(_rect) { }
+DrawArea::DrawArea(SDL_Shared<SDL_Renderer> _renderer, const Tau_Rect& _rect) : renderer(_renderer), drawAreaRect(_rect) { }
 
 //
 // SetDefaultFill
@@ -41,9 +41,9 @@ void DrawArea::SetDefaultImage(const std::string& filename, bool enable) {
 void DrawArea::DrawDefault() {
     if (enableDraw) {
         if (enableDefaultFill)
-            FillRect(winRect, defaultFillColor);
+            FillRect(drawAreaRect, defaultFillColor);
         if (enableDefaultImage)
-            DrawTextureToRect(defaultImageTexture, winRect);
+            DrawTextureToRect(defaultImageTexture, drawAreaRect);
     }
 }
 
@@ -52,8 +52,8 @@ void DrawArea::DrawDefault() {
 //
 void DrawArea::MoveBy(Tau_Distance distance)
 {
-    winRect.x += distance.x;
-    winRect.y += distance.y;
+    drawAreaRect.x += distance.x;
+    drawAreaRect.y += distance.y;
     for (auto& area : subAreas)
         area.MoveBy(distance);
 }
@@ -63,7 +63,7 @@ void DrawArea::MoveBy(Tau_Distance distance)
 //
 void DrawArea::MoveTo(Tau_Point point)
 {
-    Tau_Distance distance = point - winRect.GetPoint();
+    Tau_Distance distance = point - drawAreaRect.GetPoint();
     MoveBy(distance);
 }
 
@@ -178,7 +178,7 @@ void DrawArea::DrawImageCenteredAt(const std::string& imgFilePath, const Tau_Poi
 // DrawImageCenteredInWindow Draws the entire image centered in the window
 //
 void DrawArea::DrawImageCenteredInWindow(const std::string& imgFilePath) {
-    DrawImageCenteredAt(imgFilePath, winRect.Center());
+    DrawImageCenteredAt(imgFilePath, drawAreaRect.Center());
 }
 
 //
@@ -242,7 +242,7 @@ int DrawArea::DrawTextCenteredAt(TTF_Font_Shared font, const std::string& text, 
 // DrawTextCenteredInWindow Draws the text centered in the window
 // 
 int DrawArea::DrawTextCenteredInWindow(TTF_Font_Shared font, const std::string& text, SDL_Color color) {
-    return DrawTextCenteredAt(font, text, color, winRect.Center());
+    return DrawTextCenteredAt(font, text, color, drawAreaRect.Center());
 }
 
 //
@@ -258,7 +258,7 @@ int DrawArea::DrawTextHorizCenteredAt(TTF_Font_Shared font, const std::string& t
 // DrawTextHorizCenteredInWindow
 // 
 int DrawArea::DrawTextHorizCenteredInWindow(TTF_Font_Shared font, const std::string& text, SDL_Color color, int y) {
-    return DrawTextCenteredAt(font, text, color, { winRect.Center().x, y });
+    return DrawTextCenteredAt(font, text, color, { drawAreaRect.Center().x, y });
 }
 
 //
@@ -298,7 +298,7 @@ int DrawArea::DrawTextCenteredAt(FC_Font_Shared font, const std::string& text, S
 // DrawTextCenteredInWindow Draws the text centered in the window
 // 
 int DrawArea::DrawTextCenteredInWindow(FC_Font_Shared font, const std::string& text, SDL_Color color) {
-    return DrawTextCenteredAt(font, text, color, winRect.Center());
+    return DrawTextCenteredAt(font, text, color, drawAreaRect.Center());
 }
 
 //
@@ -316,7 +316,7 @@ int DrawArea::DrawTextHorizCenteredAt(FC_Font_Shared font, const std::string& te
 // DrawTextHorizCenteredInWindow
 // 
 int DrawArea::DrawTextHorizCenteredInWindow(FC_Font_Shared font, const std::string& text, SDL_Color color, int y) {
-    return DrawTextCenteredAt(font, text, color, { winRect.Center().x, y });
+    return DrawTextCenteredAt(font, text, color, { drawAreaRect.Center().x, y });
 }
 
 //
@@ -356,7 +356,7 @@ int DrawArea::DrawTextCenteredAt(FC_Font_Shared font, const std::string& text, c
 // DrawTextCenteredInWindow Draws the text centered in the window
 // 
 int DrawArea::DrawTextCenteredInWindow(FC_Font_Shared font, const std::string& text) {
-    return DrawTextCenteredAt(font, text, winRect.Center());
+    return DrawTextCenteredAt(font, text, drawAreaRect.Center());
 }
 
 //
@@ -374,7 +374,7 @@ int DrawArea::DrawTextHorizCenteredAt(FC_Font_Shared font, const std::string& te
 // DrawTextHorizCenteredInWindow
 // 
 int DrawArea::DrawTextHorizCenteredInWindow(FC_Font_Shared font, const std::string& text, int y) {
-    return DrawTextCenteredAt(font, text, { winRect.Center().x, y });
+    return DrawTextCenteredAt(font, text, { drawAreaRect.Center().x, y });
 }
 
 //

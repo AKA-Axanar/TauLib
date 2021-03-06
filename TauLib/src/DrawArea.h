@@ -19,12 +19,11 @@
 namespace Tau { // to avoid conflict with other libraries
 
 ///
-/// @structDrawArea class
+/// @struct DrawArea class
 ///
 struct DrawArea {
     SDL_Shared<SDL_Renderer> renderer;
-    Tau_Rect winRect;       ///< The rect area of the window to draw in.
-                            /// Relative to the window NOT to any parent DrawArea.
+    Tau_Rect drawAreaRect;  ///< The rect area of the window to draw in the window.
 
     DrawArea() {}
     DrawArea(SDL_Shared<SDL_Renderer> _renderer, const Tau_Rect& rect);
@@ -57,7 +56,7 @@ struct DrawArea {
 
     // I don't know if the technique of having sub-area rectangles and sub-areas within them will work out or not.
     // But they are easy to implement and try out.  They might be useful for implementing menus.  Will give it a try.
-    std::vector<DrawArea> subAreas;     ///< Children rect draw areas that fall within this winRect.  A button icon for example.
+    std::vector<DrawArea> subAreas;     ///< Children rect draw areas that fall within this drawAreaRect.  A button icon for example.
 
     /// @brief Add a sub rectangle DrawArea to the vector of items to draw within the DrawArea
     /// @param subArea 

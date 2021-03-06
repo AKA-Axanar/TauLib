@@ -37,7 +37,7 @@ struct Display : public Win {
     bool InitDisplay_FULLSCREEN(unsigned int _displayIndex, Tau_Size newResolution, const std::string& _title, Uint32 _flagsWin, Uint32 _flagsRenderer);
 
     /// @brief Return a copy of the Display DrawArea
-    DrawArea GetDrawArea() { return DrawArea(renderer, winRect); }
+    DrawArea GetDrawArea() { return DrawArea(renderer, drawAreaRect); }
 
     Tau_Size displayResolution;
 
