@@ -46,13 +46,16 @@ struct Win : public DrawArea
     ///
     /// @brief InitWin - Initialize the Window
     ///
+    /// @param _displayIndex display index starts at 0.  the displayIndex is saved for info only.  the bounds is what determines
+    /// the position and size of the window and if you are specifying a full screen on a specific display.
     /// @param title
     /// @param posit position of the window
     /// @param width width of the window
     /// @param height height of the window
-    /// @param flags [SDL_WindowFlags](https://wiki.libsdl.org/SDL_WindowFlags)
+    /// @param flagsWin [SDL_WindowFlags](https://wiki.libsdl.org/SDL_WindowFlags)
+    /// @param flagsRenderer [SDL_RendererFlags] (https://wiki.libsdl.org/SDL_RendererFlags)
     ///
-    bool InitWin(unsigned int _displayIndex, const std::string& _title, const Tau_Rect& bounds, Uint32 _flagsWin, Uint32 _flagsRenderer);
+    bool InitWin(unsigned int _displayIndex, const std::string& _title, const Tau_Rect& bounds, Uint32 flagsWin, Uint32 flagsRenderer);
 
     ///
     /// @brief ~Win destructor

@@ -17,6 +17,8 @@ namespace Tau { // to avoid conflict with other libraries
 
 //
 // InitWin
+// displayIndex starts at 0.  the displayIndex is saved for info only.  the bounds is what determines
+// the position and size of the window and if you are specifying a full screen on a specific display.
 //
 bool Win::InitWin(unsigned int _displayIndex, const string& _title, const Tau_Rect& bounds, Uint32 _flagsWin, Uint32 _flagsRenderer) {
     assert(_displayIndex < (unsigned int)Display::GetNumberOfDisplays());
