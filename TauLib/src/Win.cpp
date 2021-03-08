@@ -3,7 +3,6 @@
 #include "SDL_image.h"
 #include "SDL_ttf.h"
 #include <assert.h>
-#include "Display.h"
 
 using namespace std;
 
@@ -20,14 +19,9 @@ namespace Tau { // to avoid conflict with other libraries
 // displayIndex starts at 0.  the displayIndex is saved for info only.  the bounds is what determines
 // the position and size of the window and if you are specifying a full screen on a specific display.
 //
-bool Win::InitWin(unsigned int _displayIndex, const string& _title, const Tau_Rect& bounds, Uint32 _flagsWin, Uint32 _flagsRenderer) {
-    assert(_displayIndex < (unsigned int)Display::GetNumberOfDisplays());
-
-    displayIndex = _displayIndex;
+bool Win::InitWin(const string& _title, const Tau_Rect& bounds, Uint32 flagsWin, Uint32 flagsRenderer) {
     title = _title;
     drawAreaRect = bounds;                   // this will get updated later
-    flagsWin = _flagsWin;               // https://wiki.libsdl.org/SDL_WindowFlags
-    flagsRenderer = _flagsRenderer;
 
     //cout << "SDL_CreateWindow" << endl;
     window = SDL_CreateWindow(title.c_str(), bounds.x, bounds.y, bounds.w, bounds.h, flagsWin);
@@ -75,6 +69,12 @@ void Win::Close() {
     renderer = nullptr;     // SDL_Shared dtor takes care of calling the proper destroy routine
     window = nullptr;       // SDL_Shared dtor takes care of calling the proper destroy routine
     isOpen = false;
+}
+
+// to create the window position for a certain display you need to pass a special flag value for the x and y.
+// the display index starts at 0
+Tau_Posit Win::getDisplayPositFlag(int displayIndex) {
+    return { (int)SDL_WINDOWPOS_UNDEFINED_DISPLAY(displayIndex), (int)SDL_WINDOWPOS_UNDEFINED_DISPLAY(displayIndex) };
 }
 
 } // end namespace Tau
