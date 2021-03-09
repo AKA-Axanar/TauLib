@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <stdio.h>
+#include <assert.h>
 
 using namespace std;
 namespace fs = std::filesystem;
@@ -135,7 +136,9 @@ string GetCurrentDirPath() {
 // CreateDir("aaa/bbb/ccc") will also create the directires aaa and aaa/bbb if they don't already exist.
 //
 bool CreateDir(const string& str) {
-    return fs::create_directories(str);
+    error_code ec;
+    fs::create_directories(str, ec);
+    return !ec;     // return true if successful
 }
 
 //
@@ -143,7 +146,7 @@ bool CreateDir(const string& str) {
 //
 bool FileExists(const string& filePath) {
     return fs::exists(filePath) && fs::is_regular_file(filePath);
-}
+} 
 bool DirExists(const string& dirPath) {
     return fs::exists(dirPath) && fs::is_directory(dirPath);
 }
@@ -153,7 +156,10 @@ bool DirExists(const string& dirPath) {
 // get file size
 //
 uintmax_t GetFileSize(const string& filePath) {
-    return fs::file_size(filePath);
+    if (FileExists(filePath))
+        return fs::file_size(filePath);
+    else
+        return 0;
 }
 
 //
@@ -175,8 +181,9 @@ bool RenameFile(const string& filePathFrom, const string& filePathTo) {
     if (FileExists(filePathTo))
         return false;           // to file name exists.  delete it first.
 
-    fs::rename(filePathFrom, filePathTo);
-    return true;
+    error_code ec;
+    fs::rename(filePathFrom, filePathTo, ec);
+    return !ec;     // return true if successful
 }
 // this is recursive
 bool RenameDir(const string& dirPathFrom, const string& dirPathTo) {
@@ -185,22 +192,27 @@ bool RenameDir(const string& dirPathFrom, const string& dirPathTo) {
     if (DirExists(dirPathTo))
         return false;           // to dir name exists.  delete it first.
 
-    fs::rename(dirPathFrom, dirPathTo);
-    return true;
+    error_code ec;
+    fs::rename(dirPathFrom, dirPathTo, ec);
+    return !ec;     // return true if successful
 }
 
 //
 // copy file
 //
 bool CopyFile(const string& filePathSrc, const string& filePathDest) {
-    return fs::copy_file(filePathSrc, filePathDest, fs::copy_options::overwrite_existing);
+    error_code ec;
+    fs::copy_file(filePathSrc, filePathDest, fs::copy_options::overwrite_existing, ec);
+    return !ec;     // return true if successful
 }
 
 //
 // copy file skip existing files
 //
 bool CopyFile_SkipExisting(const string& filePathSrc, const string& filePathDest) {
-    return fs::copy_file(filePathSrc, filePathDest, fs::copy_options::skip_existing);
+    error_code ec;
+    fs::copy_file(filePathSrc, filePathDest, fs::copy_options::skip_existing, ec);
+    return !ec;     // return true if successful
 }
 
 //
@@ -210,8 +222,9 @@ bool CopyDir(const string& dirPathSrc, const string& dirPathDest) {
     if (!DirExists(dirPathSrc))
         return false;
 
-    fs::copy(dirPathSrc, dirPathDest, fs::copy_options::recursive | fs::copy_options::overwrite_existing);
-    return true;
+    error_code ec;
+    fs::copy(dirPathSrc, dirPathDest, fs::copy_options::recursive | fs::copy_options::overwrite_existing, ec);
+    return !ec;     // return true if successful
 }
 
 //
@@ -221,8 +234,9 @@ bool CopyDir_SkipExisting(const string& dirPathSrc, const string& dirPathDest) {
     if (!DirExists(dirPathSrc))
         return false;
 
-    fs::copy(dirPathSrc, dirPathDest, fs::copy_options::recursive | fs::copy_options::skip_existing);
-    return true;
+    error_code ec;
+    fs::copy(dirPathSrc, dirPathDest, fs::copy_options::recursive | fs::copy_options::skip_existing, ec);
+    return !ec;     // return true if successful
 }
 
                 //*******************************
@@ -240,6 +254,9 @@ Strings GetDirectoryContents(const string& dirPath,
                              )
 {
     Strings result;
+    if (!DirExists(dirPath))
+        return result;
+
     if (recursive) {
         for (auto dir_entry : fs::recursive_directory_iterator(dirPath)) {
             if (testLambda(dir_entry)) {
