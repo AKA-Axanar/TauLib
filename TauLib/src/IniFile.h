@@ -29,7 +29,6 @@
 /// 
 struct IniFile {
     std::string iniFilePath;            ///< The file path of the opened ini file.  Used by Save().
-    bool open {false};                  ///< true if an ini file has been opened and parsed.
     bool caseInsensitiveKeys {true};    ///< if true, keys (and section names) are case insensitive.
     std::string defaultSectionName;
 
