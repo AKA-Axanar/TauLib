@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "IniFile.h"
+#include "IniFileWithDefault.h"
 #include "DirFile.h"
 #include "GetExecutablePath.h"
 
@@ -44,4 +45,13 @@ TEST(TestIniFile, TestIniFile) {
     newIni.SetKeyValue("line2.1", "value2.1");
     newIni.SaveAs("ini_TestResult2.ini");
     EXPECT_TRUE(CompareFiles("testResult2.ini", "testOut2.ini"));
+
+    // test an ini file with a default ini file that is searched if the key is not found in the first ini file.
+    IniFileWithDefault masterIni("ini_master.ini", "ini_default.ini");
+    string alpha = masterIni.GetKeyValue("alpha");  
+    string beta = masterIni.GetKeyValue("beta");    
+    string gamma = masterIni.GetKeyValue("gamma");  
+    EXPECT_EQ(alpha, "alpha_master");               // this key is in both master and the default.ini.  it should return the master.
+    EXPECT_EQ(beta, "beta_default");                // this key is not in master but is in the default.  it should return the default.
+    EXPECT_EQ(gamma , "");                          // this key is in neither ini file.  it should return "".
 }
