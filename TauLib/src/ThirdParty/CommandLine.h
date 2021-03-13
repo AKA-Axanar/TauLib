@@ -31,12 +31,12 @@ class CommandLine
 	public:
 
 	//construct with full path to or name of program to execute
-	CommandLine(std::string program);
-	CommandLine(std::string program, const std::vector<std::string>& arguments);
+	CommandLine(const std::string& program);
+	CommandLine(const std::string& program, const std::vector<std::string>& arguments);
 
 	// adds an argument.  This is NOT a simple string concatenation; the argument should be one element of the target program's argv array.
 	// Spaces will be quoted automatically if necessary.
-	CommandLine& arg(std::string arg);
+	CommandLine& arg(const std::string& arg);
 
 	// Get a command line with the program and its arguments, like you'd type into a shell or pass to CreateProcess()
 	// Arguments with spaces will be double quoted.

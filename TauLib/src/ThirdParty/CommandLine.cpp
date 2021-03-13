@@ -39,12 +39,12 @@ string CommandLine::quoteIfNecessary(string toQuote)
 }
 
 //construct with full path to or name of program to execute
-CommandLine::CommandLine(string program) : _program(program), _arguments() { }
-CommandLine::CommandLine(string program, const vector<string>& arguments)  : _program(program), _arguments(arguments) { }
+CommandLine::CommandLine(const string& program) : _program(program), _arguments() { }
+CommandLine::CommandLine(const string& program, const vector<string>& arguments)  : _program(program), _arguments(arguments) { }
 
 // adds an argument.  This is NOT a simple string concatenation; the argument should be one element of the target program's argv array.
 // Spaces will be quoted automatically if necessary.
-CommandLine& CommandLine::arg(string arg)
+CommandLine& CommandLine::arg(const string& arg)
 {
 	_arguments.push_back(arg);
 	return *this;
