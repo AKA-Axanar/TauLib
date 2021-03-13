@@ -23,10 +23,6 @@ struct IniFileWithDefault : public IniFile {
     /// @brief Creates the base IniFile().
     IniFileWithDefault() : IniFile() {}
 
-    /// @brief Creates the base IniFile().
-    /// @param _iniFilePath The path of the ini file to load.
-    IniFileWithDefault(const std::string& _iniFilePath, const std::string& _defaultSectionName = "") : IniFile(_iniFilePath, _defaultSectionName) {}
-
     /// @brief Creates the base IniFile and the default IniFile.
     /// @param _iniFilePath The path of the ini file to load.
     /// @param _defaltIniFilePath The path of the ini file to load.
