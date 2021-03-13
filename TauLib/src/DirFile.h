@@ -130,6 +130,11 @@ std::string GetParentPath(const std::string& str);
 std::string GetCurrentDirPath();
 
 ///
+/// @brief SetCurrentDirPath
+///
+void SetCurrentDirPath(const std::string& dirpath);
+
+///
 /// @brief CreateDir Create a Directory path.
 /// @param dirPath the directory path to create
 /// @remark CreateDirectory("aaa/bbb/ccc") will also create the directories aaa and aaa/bbb if they don't already exist.

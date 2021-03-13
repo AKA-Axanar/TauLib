@@ -131,6 +131,13 @@ string GetCurrentDirPath() {
     return fs::current_path().string();
 }
 
+///
+/// set the current disrectory
+///
+void SetCurrentDirPath(const std::string& dirpath) {
+    fs::current_path(dirpath);
+}
+
 //
 // Create a Directory path.  
 // CreateDir("aaa/bbb/ccc") will also create the directires aaa and aaa/bbb if they don't already exist.
