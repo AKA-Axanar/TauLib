@@ -208,6 +208,7 @@
     <ClInclude Include="src\DrawArea.h" />
     <ClInclude Include="src\FC_OpenedFontFile.h" />
     <ClInclude Include="src\FC_Font_shared.h" />
+    <ClInclude Include="src\Tau_Exec.h" />
     <ClInclude Include="src\TTF_OpenedFontFile.h" />
     <ClInclude Include="src\GetExecutablePath.h" />
     <ClInclude Include="src\IniFile.h" />
@@ -249,6 +250,7 @@
     <ClCompile Include="src\DrawArea.cpp" />
     <ClCompile Include="src\FC_OpenedFontFile.cpp" />
     <ClCompile Include="src\FC_Font_shared.cpp" />
+    <ClCompile Include="src\Tau_Exec.cpp" />
     <ClCompile Include="src\TTF_OpenedFontFile.cpp" />
     <ClCompile Include="src\GetExecutablePath.cpp" />
     <ClCompile Include="src\IniFile.cpp" />
