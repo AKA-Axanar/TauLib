@@ -117,7 +117,7 @@
     <ClInclude Include="src\TTF_OpenedFontFile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\ThirdParty\CommandLine.h">
+    <ClInclude Include="src\DirStack.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -206,7 +206,7 @@
     <ClCompile Include="src\TTF_OpenedFontFile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\ThirdParty\CommandLine.cpp">
+    <ClCompile Include="src\DirStack.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
