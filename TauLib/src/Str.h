@@ -325,4 +325,14 @@ std::string RemoveCRLFCharsFromEndOfString(const std::string& str);
 ///
 inline std::string Spaces(size_t count) { return std::string(count, ' '); }
 
+///
+/// @brief DoubleQuoteStringIfSpace - if there is a space in the string, add a double quote to the front and back
+/// 
+std::string DoubleQuoteStringIfSpace(const std::string& s);
+
+///
+/// @brief DoubleQuoteStringIfSpace - if there is a space in the string, add a double quote to the front and back
+/// 
+void DoubleQuoteStringIfSpace(std::string* s);
+
 } // end namespace Tau

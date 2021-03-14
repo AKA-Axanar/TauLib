@@ -472,4 +472,26 @@ std::string RemoveCRLFCharsFromEndOfString(const std::string& str) {
     return temp;
 }
 
+//
+// DoubleQuoteStringIfSpace - if there is a space in the string, add a double quote to the front and back
+// 
+std::string DoubleQuoteStringIfSpace(const string& s) {
+    string temp = s;
+    if (!temp.empty() && temp.find(" ") != string::npos) {
+        if (temp.front() != '"')
+            temp.insert(begin(temp), '"');
+        if (temp.back() != '"')
+            temp.insert(end(temp), '"');
+    };
+
+    return temp;
+}
+
+///
+/// @brief DoubleQuoteStringIfSpace - if there is a space in the string, add a double quote to the front and back
+/// 
+void DoubleQuoteStringIfSpace(std::string* s) {
+    *s = DoubleQuoteStringIfSpace(*s);
+}
+
 } // end namespace Tau

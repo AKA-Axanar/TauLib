@@ -132,7 +132,7 @@ string GetCurrentDirPath() {
 }
 
 ///
-/// set the current disrectory
+/// set the current directory
 ///
 void SetCurrentDirPath(const std::string& dirpath) {
     fs::current_path(dirpath);
