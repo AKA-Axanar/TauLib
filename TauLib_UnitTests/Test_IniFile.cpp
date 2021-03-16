@@ -44,7 +44,7 @@ TEST(TestIniFile, TestIniFile) {
     newIni.SetKeyValue("line_5", "value_5", "config");
     newIni.SetKeyValue("line2.1", "value2.1");
     newIni.SaveAs("ini_TestResult2.ini");
-    EXPECT_TRUE(CompareFiles("testResult2.ini", "testOut2.ini"));
+    EXPECT_TRUE(CompareFiles("ini_testResult2.ini", "ini_Output2.ini"));
 
     // test an ini file with a default ini file that is searched if the key is not found in the first ini file.
     IniFileWithDefault masterIni("ini_master.ini", "ini_default.ini");
