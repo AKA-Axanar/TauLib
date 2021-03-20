@@ -472,6 +472,10 @@ std::string RemoveCRLFCharsFromEndOfString(const std::string& str) {
     return temp;
 }
 
+                //*******************************
+                // string misc
+                //*******************************
+
 //
 // DoubleQuoteStringIfSpace - if there is a space in the string, add a double quote to the front and back
 // 
@@ -492,6 +496,25 @@ std::string DoubleQuoteStringIfSpace(const string& s) {
 /// 
 void DoubleQuoteStringIfSpace(std::string* s) {
     *s = DoubleQuoteStringIfSpace(*s);
+}
+
+///
+/// @brief isBlank - true if empty string or only whitespace
+/// 
+bool isBlank(const std::string s) {
+    return ltrim(s).size() == 0;
+}
+
+///
+/// @brief isComment - true if first non-whitespace char is comment char ch
+/// 
+bool isComment(const std::string s, char ch) {
+    string temp = ltrim(s); // remove leading whitespace
+    if (temp.size() == 0)
+        return true;    // blank line
+
+    // true if now begins with ch
+    return (temp[0] == ch);
 }
 
 } // end namespace Tau

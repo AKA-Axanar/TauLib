@@ -335,4 +335,15 @@ std::string DoubleQuoteStringIfSpace(const std::string& s);
 /// 
 void DoubleQuoteStringIfSpace(std::string* s);
 
+///
+/// @brief isBlank - true if empty string or only whitespace
+/// 
+bool isBlank(const std::string s);
+
+///
+/// @brief isComment - true if first non-whitespace char is comment char ch
+/// 
+bool isComment(const std::string s, char ch =';');
+
 } // end namespace Tau
+
