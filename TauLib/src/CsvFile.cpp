@@ -1,6 +1,7 @@
 #include "CsvFile.h"
 #include "DirFile.h"
 #include <assert.h>
+#include <algorithm>
 
 using namespace std;
 using namespace Tau;
@@ -61,4 +62,15 @@ string CsvFile::GetRowCol(size_t rowIndex, size_t colIndex) {
         else
             return "";
     }
+}
+
+// finds the row a particular column string is on.  the compare is case insensitive
+std::vector<CsvLine>::iterator CsvFile::FindRowWithColumnValue(const std::string& str, size_t column) {
+    auto it = find_if(begin(data), end(data), [&] (const Strings& line) { 
+        if (column >= line.size())
+            return false;
+        return icompareBool(line[column], str);
+    });
+
+    return it;
 }
