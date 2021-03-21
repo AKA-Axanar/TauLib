@@ -1,7 +1,6 @@
 #include "IniFileWithDefault.h"
 
 using namespace std;
-using namespace Tau;
 
 ///
 /// @file

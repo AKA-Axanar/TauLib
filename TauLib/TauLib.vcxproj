@@ -203,6 +203,7 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="src\Audio.h" />
+    <ClInclude Include="src\CsvFile.h" />
     <ClInclude Include="src\DirFile.h" />
     <ClInclude Include="src\DirStack.h" />
     <ClInclude Include="src\DrawArea.h" />
@@ -245,6 +246,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="src\Audio.cpp" />
+    <ClCompile Include="src\CsvFile.cpp" />
     <ClCompile Include="src\DirFile.cpp" />
     <ClCompile Include="src\DirStack.cpp" />
     <ClCompile Include="src\DrawArea.cpp" />

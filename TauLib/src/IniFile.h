@@ -2,8 +2,6 @@
 #include <string>
 #include <map>
 #include <vector>
-#include <ostream>
-#include "TauLib.h"
 
 ///
 /// @file
