@@ -91,7 +91,9 @@ int ExecuteInCurrentDir(string command, vector<string> arguments) {
     procInfo.dwProcessId = 0;
     procInfo.dwThreadId = 0;
 
-    DWORD procFlags = CREATE_DEFAULT_ERROR_MODE | CREATE_NEW_CONSOLE | CREATE_NEW_PROCESS_GROUP;
+    DWORD procFlags = CREATE_DEFAULT_ERROR_MODE | 
+                      CREATE_NO_WINDOW |
+                      CREATE_NEW_PROCESS_GROUP;
 
     int ret = CreateProcess(
         (moduleName.empty() ? NULL : moduleName.c_str()),                   // module name
