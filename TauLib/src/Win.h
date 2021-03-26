@@ -66,11 +66,19 @@ struct Win : public DrawArea
     }
 
     ///
-    /// @brief InitFullscreenWin.  For when you want a borderless window taking the entire display.
+    /// @brief InitFullscreenWin.  For when you want a borderless window taking the entire display at the current resolution.
     ///
     bool InitFullscreenWin(int displayIndex) {
         Tau_Posit posit = getDisplayPositFlag(displayIndex);
         return  InitWin("", { posit, { 0,0 } }, SDL_WINDOW_FULLSCREEN_DESKTOP);
+    }
+
+    ///
+    /// @brief InitFullscreenWinNewResolution.  For when you want a borderless window taking the entire display at a new resolution.
+    ///
+    bool InitFullscreenWinNewResolution(int displayIndex, Tau_Size resolution) {
+        Tau_Posit posit = getDisplayPositFlag(displayIndex);
+        return  InitWin("", { posit, resolution }, SDL_WINDOW_FULLSCREEN);
     }
 
     ///
