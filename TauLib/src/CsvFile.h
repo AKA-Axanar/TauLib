@@ -21,9 +21,10 @@ struct CsvFile {
     bool Load(const std::string& filepath);
     void Clear();
 
-    Tau::Strings GetRow(size_t rowIndex);
-    std::string GetRowCol(size_t rowIndex, size_t colIndex);
+    Tau::Strings& GetRow(size_t rowIndex);
+    std::string& GetRowCol(size_t rowIndex, size_t colIndex);
 
     // finds the row a particular column string is on.  the compare is case insensitive
-    std::vector<CsvLine>::iterator FindRowWithColumnValue(const std::string& str, size_t column);
+    // returns -1 if not found
+    int FindRowWithColumnValue(const std::string& str, size_t column);
 };

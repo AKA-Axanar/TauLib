@@ -22,8 +22,14 @@ bool CsvFile::Load(const string& filepath) {
             numCols = pieces.size();
         data.emplace_back(pieces);
     }
-
     numRows = data.size();
+
+    // expand the column data so all rows have the same number of columns
+    for (auto& row : data) {
+        while (row.size() < numCols)
+            row.emplace_back("");
+    }
+
     return true;
 }
 
@@ -40,37 +46,36 @@ void CsvFile::Clear() {
 //
 // GetRow - return the csv values on one row
 //
-Strings CsvFile::GetRow(size_t rowIndex) {
+Strings& CsvFile::GetRow(size_t rowIndex) {
     assert(rowIndex < numRows);
+    static Strings dummy;
+
     if (rowIndex < numRows)
         return data[rowIndex];
     else
-        return Strings();
+        return dummy;
 }
 
 //
 // GetRowCol - return a single row/col value
 //
-string CsvFile::GetRowCol(size_t rowIndex, size_t colIndex) {
+string& CsvFile::GetRowCol(size_t rowIndex, size_t colIndex) {
     assert(rowIndex < numRows);
-    if (rowIndex < numRows)
-        return "";
-    else {
-        const Strings& row = data.at(rowIndex);
-        if (colIndex < row.size())
-            return row[colIndex];
-        else
-            return "";
-    }
+    assert(colIndex < numCols);
+    static string dummy;
+    if (rowIndex >= numRows || colIndex >= numCols)
+        return dummy;
+
+    return data[rowIndex][colIndex];
 }
 
 // finds the row a particular column string is on.  the compare is case insensitive
-std::vector<CsvLine>::iterator CsvFile::FindRowWithColumnValue(const std::string& str, size_t column) {
-    auto it = find_if(begin(data), end(data), [&] (const Strings& line) { 
-        if (column >= line.size())
-            return false;
-        return icompareBool(line[column], str);
-    });
+// returns -1 if not found
+int CsvFile::FindRowWithColumnValue(const std::string& str, size_t column) {
+    for (int i = 0; i < data.size(); ++i) {
+        if (data[i][column] == str)
+            return i;
+    }
 
-    return it;
+    return -1;
 }
