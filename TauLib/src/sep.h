@@ -18,8 +18,8 @@ namespace Tau { // to avoid conflict with other libraries
 //*******************************
 // separator
 //*******************************
-static const char separator = std::filesystem::path::preferred_separator;
-static const wchar_t wseparator = std::filesystem::path::preferred_separator;
+inline static const char separator = std::filesystem::path::preferred_separator;
+inline static const wchar_t wseparator = std::filesystem::path::preferred_separator;
 
 
 ///
