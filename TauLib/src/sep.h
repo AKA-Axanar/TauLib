@@ -21,6 +21,14 @@ namespace Tau { // to avoid conflict with other libraries
 inline static const char separator = std::filesystem::path::preferred_separator;
 inline static const wchar_t wseparator = std::filesystem::path::preferred_separator;
 
+//*******************************
+// line ending
+//*******************************
+#if defined(_WIN32)
+    inline static const char* lineEnding = "\r\n";
+#else
+    inline static const char* lineEnding = "\n";
+#endif
 
 ///
 /// @struct Sep - append path separator helper function

@@ -4,6 +4,7 @@
 #include <fstream>
 #include <stdio.h>
 #include <assert.h>
+#include "sep.h"
 
 using namespace std;
 namespace fs = std::filesystem;
@@ -419,6 +420,31 @@ Strings ReadTextFileAsAStringArray(const string& filePath, bool removeCRLF) {
     file.close();
 
     return contents;
+}
+
+                //*******************************
+                // WriteStringsToTextFile
+                //*******************************
+
+///
+/// @brief Writes a vector of strings to a file.
+/// @param filePath The File to write.
+/// @param appendLineEnding Wether to append \r\n for Windows or \n for Linux at the end of each line.
+/// @return true for success
+/// 
+bool WriteStringsToTextFile(const Strings& strings, const std::string& filePath, bool appendLineEnding) {
+    ofstream os(filePath);
+    if (!os.is_open())
+        return false;
+
+    for (const string& s : strings) {
+        if (appendLineEnding)
+            os << s << lineEnding;
+        else
+            os << s;
+    }
+    os << flush;
+    return true;
 }
 
                 //*******************************
