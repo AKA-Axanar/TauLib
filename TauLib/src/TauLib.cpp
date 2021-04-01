@@ -24,6 +24,8 @@ bool Init_SDL() {
         cerr << "SDL_Init failed" << endl;
         return false;
     }
+
+    return true;
 }
 
 //
@@ -35,6 +37,8 @@ bool Init_TTF() {
         cerr << "TTF_Init failed" << endl;
         return false;
     }
+
+    return true;
 }
 
 //
