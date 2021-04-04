@@ -1,4 +1,5 @@
 #include "Tau_Xml.h"
+#include <sstream>
 
 using namespace pugi;
 using namespace std;
@@ -42,4 +43,15 @@ xml_node Tau_Xml::Find(const Tau::Strings& nodeNames) {
     }
 
     return node;
+}
+
+//
+// GameXmlInfo::NodeToXmlString
+//
+string Tau_Xml::NodeToXmlString(const xml_node& node)
+{
+    stringstream str;
+    node.print(str);
+
+    return str.str();
 }

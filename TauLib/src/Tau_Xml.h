@@ -13,4 +13,6 @@ struct Tau_Xml : public pugi::xml_document {
 
     // finds a node in the hierarchy starting from the root of the document.  returns an empty node if not found.
     pugi::xml_node Find(const Tau::Strings& nodeNames);
+
+    static std::string NodeToXmlString(const pugi::xml_node& node);
 };
