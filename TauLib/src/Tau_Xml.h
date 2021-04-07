@@ -6,6 +6,9 @@
 struct Tau_Xml : public pugi::xml_document {
     std::string xmlFilePath;                    // the saved filePath from the Load() call
 
+    Tau_Xml() {}
+    Tau_Xml(const std::string& filePath) { Load(filePath); }
+
     pugi::xml_parse_result Load(const std::string& filePath);     // loads the xml from a file and saves the filename in xmlFilePath
     bool Save();                                // saves the xml to xmlFilePath
     bool SaveAs(const std::string& filePath);   // saves the xml to passed filePath

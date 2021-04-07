@@ -16,12 +16,12 @@ xml_parse_result Tau_Xml::Load(const string& filePath) {
 
 // saves the xml to xmlFilePath
 bool Tau_Xml::Save() {
-return true;
+return SaveAs(xmlFilePath);
 }
 
 // saves the xml to passed filePath
 bool Tau_Xml::SaveAs(const string& filePath) {
-return true;
+    return save_file(filePath.c_str());
 }
 
 // Clear all data
