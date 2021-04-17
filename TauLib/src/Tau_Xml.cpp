@@ -30,6 +30,39 @@ void Tau_Xml::Clear() {
     xmlFilePath = "";
 }
 
+// add a tag/value pair in one call
+xml_node Tau_Xml::AppendChild(xml_node& parent, const string& tagName, const string& value)
+{
+    if (parent) {
+        xml_node node = parent.append_child(tagName.c_str());
+        node.append_child(pugi::node_pcdata).set_value(value.c_str());
+        return node;
+    } else
+        return xml_node();
+}
+
+// insert a tag/value pair before a child node in one call
+xml_node Tau_Xml::InsertChildBefore(xml_node& parent, const string& tagName, const string& value, xml_node& beforeNode)
+{
+    if (parent && beforeNode) {
+        xml_node node = parent.insert_child_before(tagName.c_str(), beforeNode);
+        node.append_child(pugi::node_pcdata).set_value(value.c_str());
+    } else
+        return xml_node();
+
+}
+
+// insert a tag/value pair after a child node in one call
+xml_node Tau_Xml::InsertChildAfter(xml_node& parent, const string& tagName, const string& value, xml_node& afterNode)
+{
+    if (parent && afterNode) {
+        xml_node node = parent.insert_child_after(tagName.c_str(), afterNode);
+        node.append_child(pugi::node_pcdata).set_value(value.c_str());
+    } else
+        return xml_node();
+
+}
+
 xml_node Tau_Xml::Find(xml_node& startNode, const Tau::Strings& nodeNames)
 {
     if (startNode.empty())
