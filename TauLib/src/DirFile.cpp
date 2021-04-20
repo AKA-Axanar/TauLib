@@ -171,6 +171,14 @@ uintmax_t GetFileSize(const string& filePath) {
 }
 
 //
+// CreateEmptyFile
+//
+void CreateEmptyFile(const string& filePath) {
+    ofstream of(filePath);
+    of.close();
+}
+
+//
 // delete file or directory
 //
 bool DeleteFile(const string& filePath) {

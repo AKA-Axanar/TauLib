@@ -164,6 +164,12 @@ bool DirExists(const std::string& dirPath);
 uintmax_t GetFileSize(const std::string& filePath);
 
 ///
+/// @brief CreateEmptyFile
+/// @param filePath the file path
+/// 
+void CreateEmptyFile(const std::string& filePath);
+
+///
 /// @brief DeleteFile
 /// @param filePath the file path
 /// @return true if the file was deleted
