@@ -26,6 +26,7 @@ struct CsvFile {
     void AddString(const std::string& line);    // add a string of comma separated values
     bool AddRow(const Strings& row);            // add a row of strings
     void RemoveRow(unsigned int rowIndex);
+    bool RemoveRow(const Tau::Strings& searchItems);    // remove the row where the first items in the row match the passed searchItems
     void Sort(unsigned int column = 0);
 
     // finds the first row where the passed rowItems match the first items in the row.

@@ -114,6 +114,22 @@ void CsvFile::RemoveRow(unsigned int rowIndex)
         rows.erase(rows.begin() + rowIndex);
 }
 
+//
+// RemoveRow
+// remove the row where the first items in the row match the passed searchItems
+//
+bool CsvFile::RemoveRow(const Tau::Strings& searchItems)
+{
+    int index = FindRow(searchItems);
+    if (index >= 0) {
+        RemoveRow(index);
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
 void CsvFile::Sort(unsigned int column)
 {
     sort(rows.begin(), rows.end(), [&] (const Strings& row1, const Strings& row2) { return row1[column] < row2[column]; } );
@@ -148,7 +164,7 @@ int CsvFile::FindRow(const Tau::Strings& searchItems)
 
         ++rowIndex;
     }
-    return 0;
+    return -1;
 }
 
 //
