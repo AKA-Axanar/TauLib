@@ -382,6 +382,14 @@ Strings ReadTextFileAsAStringArray(const std::string& filePath, bool removeCRLF)
 /// 
 bool WriteStringsToTextFile(const Strings& strings, const std::string& filePath, bool appendLineEnding);
 
+///
+/// @brief Appends a vector of strings to a file.
+/// @param filePath The File to write.
+/// @param appendLineEnding Wether to append \r\n for Windows or \n for Linux at the end of each line.
+/// @return true for success
+/// 
+bool AppendStringsToTextFile(const Strings& strings, const std::string& filePath, bool appendLineEnding);
+
                 //*******************************
                 // Compare Text Files
                 //*******************************
