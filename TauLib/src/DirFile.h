@@ -164,10 +164,16 @@ bool DirExists(const std::string& dirPath);
 uintmax_t GetFileSize(const std::string& filePath);
 
 ///
-/// @brief CreateEmptyFile
+/// @brief CreateEmptyFile.  if the file already exists, it truncates the file.
 /// @param filePath the file path
 /// 
 void CreateEmptyFile(const std::string& filePath);
+
+///
+/// @brief CreateEmptyFileIfFileDoesntExist.  if the file already exists, it truncates the file.
+/// @param filePath the file path
+/// 
+void CreateEmptyFileIfFileDoesntExist(const std::string& filePath);
 
 ///
 /// @brief DeleteFile
@@ -358,7 +364,7 @@ std::string GetATempFilename();
 ///
 /// @brief Return the contents of a text file in a vector of string.
 /// @param filePath The File to read.
-/// @param removeCRLF Wether to remove any CR or LF's fromt he strings.
+/// @param removeCRLF Wether to remove any CR or LF's from the strings.
 /// @return A vector<string> containing the contents of the file (optionally minus any CR or LF's).
 /// @note CR's and LF's are removed.
 /// 

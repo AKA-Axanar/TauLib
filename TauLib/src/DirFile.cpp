@@ -174,8 +174,16 @@ uintmax_t GetFileSize(const string& filePath) {
 // CreateEmptyFile
 //
 void CreateEmptyFile(const string& filePath) {
-    ofstream of(filePath);
+    ofstream of(filePath, ios_base::trunc);
     of.close();
+}
+
+//
+// CreateEmptyFileIfFileDoesntExist
+//
+void CreateEmptyFileIfFileDoesntExist(const string& filePath) {
+    if (!FileExists(filePath))
+        CreateEmptyFile(filePath);
 }
 
 //
@@ -404,7 +412,7 @@ string GetATempFilename() {
 ///
 /// @brief Return the contents of a text file in a vector of string.
 /// @param filePath The File to read.
-/// @param removeCRLF Wether to remove any CR or LF's fromt he strings.
+/// @param removeCRLF Wether to remove any CR or LF's from the strings.
 /// @return A vector<string> containing the contents of the file (optionally minus any CR or LF's).
 /// @note CR's and LF's are removed.
 /// 
@@ -441,7 +449,7 @@ Strings ReadTextFileAsAStringArray(const string& filePath, bool removeCRLF) {
 /// @return true for success
 /// 
 bool WriteStringsToTextFile(const Strings& strings, const std::string& filePath, bool appendLineEnding) {
-    ofstream os(filePath);
+    ofstream os(filePath, ios_base::trunc);
     if (!os.is_open())
         return false;
 
