@@ -22,6 +22,7 @@ bool CsvFile::Load(const string& filepath) {
         AddString(line);
     }
 
+    opened = true;
     return true;
 }
 
