@@ -37,6 +37,8 @@ TEST(TestIniFile, TestIniFile) {
 
     // create a new ini file, add keys and sections, save, and compare to expectd output
     IniFile newIni;
+    newIni.GetKeyValue_Int("doesntExist");      // shouldn't crash
+    newIni.GetKeyValue_Ints("doesntExist");     // shouldn't crash
     newIni.SetKeyValue("line1", "value1");
     newIni.SetKeyValue("line2", "value2");
     newIni.SetKeyValue("line3", "value3", "config");

@@ -348,7 +348,7 @@ vector<int> CommaSepStringToInts(const string& str) {
     auto strings = SplitStringAtCommas(str);
     vector<int> ret;
     for (const auto& s : strings) {
-        if (IsLexExpr(Int_LexExpr, s))
+        if (IsInt(s))
             ret.emplace_back(stoi(s));
         else {
             assert(false);
@@ -368,7 +368,7 @@ vector<float> CommaSepStringToFloats(const string& str) {
     auto strings = SplitStringAtCommas(str);
     vector<float> ret;
     for (const auto& s : strings) {
-        if (IsLexExpr(Int_LexExpr, s))
+        if (IsFloat(s))
             ret.emplace_back(stof(s));
         else {
             assert(false);
@@ -388,7 +388,7 @@ vector<double> CommaSepStringToDoubles(const string& str) {
     auto strings = SplitStringAtCommas(str);
     vector<double> ret;
     for (const auto& s : strings) {
-        if (IsLexExpr(Int_LexExpr, s))
+        if (IsFloat(s))
             ret.emplace_back(stod(s));
         else {
             assert(false);

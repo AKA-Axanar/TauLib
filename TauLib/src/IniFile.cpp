@@ -135,7 +135,13 @@ string IniFile::GetKeyValue(const string& key, const string& sectionName) const 
 // IniFile::GetKeyValue_Int
 //
 int IniFile::GetKeyValue_Int(const std::string& key, const std::string& sectionName) const {
-    return stoi(GetKeyValue(key, sectionName));
+    string value = GetKeyValue(key, sectionName);
+    if (IsInt(value))
+        return stoi(value);
+    else {
+        cerr << "value of ini key '" << key << "' is not an integer" << endl;
+        return 0;
+    }
 }
 
 //
@@ -149,7 +155,13 @@ vector<int> IniFile::GetKeyValue_Ints(const std::string& key, const std::string&
 // IniFile::GetKeyValue_Float
 //
 float IniFile::GetKeyValue_Float(const std::string& key, const std::string& sectionName) const {
-    return stof(GetKeyValue(key, sectionName));
+    string value = GetKeyValue(key, sectionName);
+    if (IsFloat(value))
+        return stof(value);
+    else {
+        cerr << "value of ini key '" << key << "' is not a float" << endl;
+        return 0.0;
+    }
 }
 
 //
@@ -163,7 +175,13 @@ vector<float> IniFile::GetKeyValue_Floats(const std::string& key, const std::str
 // IniFile::GetKeyValue_Double
 //
 double IniFile::GetKeyValue_Double(const std::string& key, const std::string& sectionName) const {
-    return stod(GetKeyValue(key, sectionName));
+    string value = GetKeyValue(key, sectionName);
+    if (IsFloat(value))
+        return stod(value);
+    else {
+        cerr << "value of ini key '" << key << "' is not a double" << endl;
+        return 0.0;
+    }
 }
 
 //
