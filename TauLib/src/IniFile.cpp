@@ -126,7 +126,7 @@ bool IniFile::KeyExists(const string& key, const string& sectionName) const {
 //
 string IniFile::GetKeyValue(const string& key, const string& sectionName) const {
     if (SectionExists(sectionName))
-        return FindSectionName(sectionName)->GetKey(key);
+        return FindSectionName(sectionName)->GetKeyValue(key);
     else
         return "";
 }
@@ -307,7 +307,7 @@ bool IniFile::IniSection::KeyExists(const std::string& key) const {
 //
 // IniFile::IniSection::GetKey
 //
-std::string IniFile::IniSection::GetKey(const std::string& key) const {
+std::string IniFile::IniSection::GetKeyValue(const std::string& key) const {
     if (KeyExists(key))
         return values.at(iniFile->AdjustKeyCase(key));  // note: use at() instead of operator [] because of const
     else

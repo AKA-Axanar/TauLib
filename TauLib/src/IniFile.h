@@ -294,7 +294,7 @@ private:
         /// @brief Get the value of a key.
         /// @param key The key to get the value of.
         /// @return the key's value string.  Returns "" if the key does not exist.
-        std::string GetKey(const std::string& key) const;
+        std::string GetKeyValue(const std::string& key) const;
 
         /// @brief Set a key's value string.
         /// @param key The key to set.

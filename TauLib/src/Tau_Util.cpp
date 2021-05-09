@@ -5,7 +5,7 @@ using namespace std;
 namespace Tau {
 
                 //*******************************
-                //           Sleep
+                //           Current Time
                 //*******************************
 //
 // CurrentTimeAsTime_t
@@ -63,6 +63,9 @@ string CurrentTime_TosString(const string& format)
     return Time_t_ToString(CurrentTimeAsTime_t(), format);
 }
 
+                //*******************************
+                //           Sleep
+                //*******************************
 //
 // Sleep_Minutes
 //
