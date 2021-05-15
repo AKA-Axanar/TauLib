@@ -35,7 +35,7 @@ struct CsvFile {
     int FindRow(const Tau::Strings& searchItems);
 
     // returns true if the passed items exist at the front of a row
-    bool RowExists(const Tau::Strings& searchItems);
+    bool Found(const Tau::Strings& searchItems);
 
     // find the max number of columns used and expand all rows to that size.
     // returns the number of columns

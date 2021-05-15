@@ -169,10 +169,10 @@ int CsvFile::FindRow(const Tau::Strings& searchItems)
 }
 
 //
-// RowExists
+// Found
 // returns true if the passed items exist at the front of a row
 //
-bool CsvFile::RowExists(const Tau::Strings& searchItems)
+bool CsvFile::Found(const Tau::Strings& searchItems)
 {
     return FindRow(searchItems) != -1;
 }
