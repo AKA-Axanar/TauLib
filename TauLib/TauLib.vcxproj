@@ -225,7 +225,7 @@
     <ClInclude Include="src\TauLib.h" />
     <ClInclude Include="src\Tau_Color.h" />
     <ClInclude Include="src\Tau_Rect.h" />
-    <ClInclude Include="src\Tau_Util.h" />
+    <ClInclude Include="src\Tau_Time.h" />
     <ClInclude Include="src\ThirdParty\fifo_map.hpp" />
     <ClInclude Include="src\ThirdParty\imgui\imconfig.h" />
     <ClInclude Include="src\ThirdParty\imgui\imgui.h" />
@@ -268,7 +268,7 @@
     <ClCompile Include="src\SplitRect.cpp" />
     <ClCompile Include="src\Str.cpp" />
     <ClCompile Include="src\TauLib.cpp" />
-    <ClCompile Include="src\Tau_Util.cpp" />
+    <ClCompile Include="src\Tau_Time.cpp" />
     <ClCompile Include="src\ThirdParty\imgui\imgui.cpp" />
     <ClCompile Include="src\ThirdParty\imgui\imgui_demo.cpp" />
     <ClCompile Include="src\ThirdParty\imgui\imgui_draw.cpp" />
