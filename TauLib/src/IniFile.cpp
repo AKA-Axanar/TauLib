@@ -6,6 +6,7 @@
 #include <assert.h>
 #include <iostream>
 #include <fstream>
+#include <sstream>
 
 using namespace std;
 using namespace Tau;
@@ -149,6 +150,23 @@ int IniFile::GetKeyValue_Int(const std::string& key, const std::string& sectionN
 //
 vector<int> IniFile::GetKeyValue_Ints(const std::string& key, const std::string& sectionName) const {
     return CommaSepStringToInts(GetKeyValue(key, sectionName));
+}
+
+//
+// IniFile::GetKeyValue_Int64
+//
+int64_t IniFile::GetKeyValue_Int64(const std::string& key, const std::string& sectionName) const {
+    string value = GetKeyValue(key, sectionName);
+    if (IsInt(value)) {
+        istringstream iss(value);
+        int64_t i64value;
+        iss >> i64value;
+        return i64value;
+    }
+    else {
+        cerr << "value of ini key '" << key << "' is not an integer" << endl;
+        return 0;
+    }
 }
 
 //

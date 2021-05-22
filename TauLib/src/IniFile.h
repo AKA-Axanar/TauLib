@@ -82,6 +82,8 @@ struct IniFile {
     std::vector<int> GetKeyValue_Ints(const std::string& key, const std::string& sectionName) const;
     int GetKeyValue_Int(const std::string& key) const { return GetKeyValue_Int(key, defaultSectionName); }
     std::vector<int> GetKeyValue_Ints(const std::string& key) const { return GetKeyValue_Ints(key, defaultSectionName); }
+    int64_t GetKeyValue_Int64(const std::string& key, const std::string& sectionName) const;
+    int64_t GetKeyValue_Int64(const std::string& key) const { return GetKeyValue_Int(key, defaultSectionName); }
 
     /// @brief Returns a key value for a passed key and section name
     /// @param key - the key to search for

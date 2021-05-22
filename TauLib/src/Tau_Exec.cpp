@@ -47,7 +47,7 @@ int ExecuteInCurrentDir(string command, vector<string> arguments) {
 
     if (icompareBool(GetFileExtensionWithoutDot(command), "bat")) {
         //
-        // if batch file, change the command to "c:\\Windows\\System32\\cmd.exe /c command.bat args"
+        // if batch file, change the command to "c:\\Windows\\System32\\cmd.exe /c command.bat arguments"
         //
         arguments.insert(begin(arguments), command);
         arguments.insert(begin(arguments), "/c");
@@ -146,7 +146,7 @@ int ExecuteInCurrentDir(string command, vector<string> arguments) {
 
     string link = command;
     argvNew.push_back(link.c_str());
-    for (const string& arg : args)
+    for (const string& arg : arguments)
         argvNew.push_back(arg.c_str());
     argvNew.push_back(nullptr);
 

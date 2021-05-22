@@ -58,7 +58,7 @@ string Time_t_ToString(time_t t, const string& format)
 //
 // CurrentTime_TosString
 //
-string CurrentTime_TosString(const string& format)
+string CurrentTime_ToString(const string& format)
 {
     return Time_t_ToString(CurrentTimeAsTime_t(), format);
 }
