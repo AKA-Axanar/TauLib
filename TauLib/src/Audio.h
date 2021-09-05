@@ -3,8 +3,7 @@
 #include <string>
 
 ///
-/// @file
-/// @brief Audio - music, sounds.
+/// Audio - music, sounds.
 /// @author Steve Simpson, steve@iterator.com, a.k.a. Axanar (AutoBleem project)
 ///
 
@@ -13,7 +12,7 @@
 ///
 namespace Tau {
 
-/// @struct Audio
+/// @brief Audio load and play music, sounds
 struct Audio {
             //////////
             // Music
@@ -35,7 +34,7 @@ struct Audio {
    static  bool PlayMusic(Mix_Music* music, int loops = -1);
 
     /// @brief Pause music.
-    /// @param channel.  -1 pasues all channels.
+    /// @param channel -1 pasues all channels.
     static inline void PauseMusic(int channel) { Mix_Pause(channel); }
 
     ///
@@ -72,8 +71,8 @@ struct Audio {
     ///
     /// @brief Play a previously loaded sound file
     /// @param sound previous loaded sound file
-    /// @param channel. -1 is next available channel
-    /// @param loops.  0 is play once (loops is the number of additional loops.  1 is 2 loops etc.)
+    /// @param channel -1 is next available channel
+    /// @param loops 0 is play once (loops is the number of additional loops.  1 is 2 loops etc.)
     /// @return the channel the sound is on.  or returns -1 if error.
     /// @note call LoadSoundFile(filePath) to load the sound parameter
     /// 

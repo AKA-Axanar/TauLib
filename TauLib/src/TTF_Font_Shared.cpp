@@ -12,14 +12,15 @@
 
 #include "TTF_Font_Shared.h"
 
-/// 
-/// @brief TTF_Font_Shared The last shared_ptr destroyed closes the font.
-/// @param filename full path
-/// @param fontSize in points (72 per inch)
-/// 
+// 
+// TTF_Font_Shared The last shared_ptr destroyed closes the font.
+//
 TTF_Font_Shared::TTF_Font_Shared(TTF_Font* font) : font_shared_ptr(font, [](TTF_Font *font)
     { TTF_CloseFont(font); } ) {};    // automatically destroy/free when the last shared_ptr goes away
 
+// 
+// TTF_Font_Shared The last shared_ptr destroyed closes the font.
+// 
 TTF_Font_Shared::TTF_Font_Shared(const std::string& filename, int fontSize) {
     TTF_Font* font = TTF_OpenFont(filename.c_str(), fontSize);
     if (font)

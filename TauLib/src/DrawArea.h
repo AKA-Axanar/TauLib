@@ -1,8 +1,7 @@
 #pragma once
 
 ///
-/// @file
-/// @brief Header file for DrawArea class.
+/// Header file for DrawArea class.
 /// @author Steve Simpson, steve@iterator.com, a.k.a. Axanar (AutoBleem project)
 /// 
 
@@ -19,7 +18,7 @@
 namespace Tau { // to avoid conflict with other libraries
 
 ///
-/// @struct DrawArea class
+/// @brief DrawArea class with routines to draw text, images, lines, rectangles, fill, move within window
 ///
 struct DrawArea {
     SDL_Shared<SDL_Renderer> renderer;
@@ -46,7 +45,7 @@ struct DrawArea {
     void MoveBy(Tau_Distance distance);
 
     /// @brief Move the DrawArea rectangle within the window
-    /// @param distance 
+    /// @param point 
     void MoveTo(Tau_Point point);
 
     bool enableDraw = true;
@@ -72,10 +71,7 @@ struct DrawArea {
     void FillWin(Tau_Color color = Tau_black);
 
     /// @brief ClearWin - clear the window. defaults to black.
-    /// @param Uint8 r
-    /// @param Uint8 g
-    /// @param Uint8 b
-    /// @param Uint8 alpha
+    /// @param color
     /// @note calls SDL_RenderPresent
     void ClearWin(Tau_Color color = Tau_black);
 
@@ -152,14 +148,18 @@ struct DrawArea {
 
     ///
     /// @brief GetTextureOfText
-    /// @param 
+    /// @param font
+    /// @param text
+    /// @param color
     /// @return SDL_Shared<SDL_Texture> texture
     /// 
     SDL_Shared<SDL_Texture> GetTextureOfText(TTF_Font_Shared font, const std::string& text, SDL_Color color);
 
     ///
     /// @brief GetTextureAndSizeOfText
-    /// @param 
+    /// @param font
+    /// @param text
+    /// @param color
     /// @return SDL_Shared<SDL_Texture> texture and Tau_Size size
     /// 
     std::tuple<SDL_Shared<SDL_Texture>, Tau_Size> GetTextureAndSizeOfText(TTF_Font_Shared font, const std::string& text, SDL_Color color);
@@ -380,7 +380,7 @@ struct DrawArea {
     Tau_Color GetColor();
 
     /// @brief SetColor Set the rendering color
-    /// @param color 
+    /// @param mode 
     void SetDrawBlendMode(SDL_BlendMode mode) { SDL_SetRenderDrawBlendMode(renderer, mode); }
 
 //                  ===========

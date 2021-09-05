@@ -132,9 +132,9 @@ string GetCurrentDirPath() {
     return fs::current_path().string();
 }
 
-///
-/// set the current directory
-///
+//
+// set the current directory
+//
 void SetCurrentDirPath(const std::string& dirpath) {
     fs::current_path(dirpath);
 }
@@ -346,9 +346,9 @@ Strings GetFileNamesWithExtInDir(const std::string& dirPath, std::string ext) {
 }
 
 //
-// GetFileNamesWithTheseExtInDir
+// GetFileNamesWithTheseExtsInDir
 //
-Strings GetFileNamesWithTheseExtInDir(const std::string& dirPath, Strings extensions) {
+Strings GetFileNamesWithTheseExtsInDir(const std::string& dirPath, Strings extensions) {
     Strings filenames;
     for (const auto& ext : extensions) {
         Strings more = GetFileNamesWithExtInDir(dirPath, ext);
@@ -370,9 +370,9 @@ Strings GetFileFullPathsWithExtInDir_Recursive(const std::string& dirPath, std::
 }
 
 //
-// GetFileFullPathsWitThesehExtInDir_Recursive
+// GetFileFullPathsWitThesehExtsInDir_Recursive
 //
-Strings GetFileFullPathsWithTheseExtInDir_Recursive(const std::string& dirPath, Strings extensions) {
+Strings GetFileFullPathsWithTheseExtsInDir_Recursive(const std::string& dirPath, Strings extensions) {
     Strings filenames;
     for (const auto& ext : extensions) {
         Strings more = GetFileFullPathsWithExtInDir_Recursive(dirPath, ext);
@@ -409,13 +409,10 @@ string GetATempFilename() {
                 //*******************************
                 // Read File
                 //*******************************
-///
-/// @brief Return the contents of a text file in a vector of string.
-/// @param filePath The File to read.
-/// @param removeCRLF Wether to remove any CR or LF's from the strings.
-/// @return A vector<string> containing the contents of the file (optionally minus any CR or LF's).
-/// @note CR's and LF's are removed.
-/// 
+//
+// Return the contents of a text file in a vector of string.
+// note: CR's and LF's are removed.
+// 
 Strings ReadTextFileAsAStringArray(const string& filePath, bool removeCRLF) {
     ifstream file;
     string line;
@@ -442,12 +439,10 @@ Strings ReadTextFileAsAStringArray(const string& filePath, bool removeCRLF) {
                 // WriteStringsToTextFile
                 //*******************************
 
-///
-/// @brief Writes a vector of strings to a file.
-/// @param filePath The File to write.
-/// @param appendLineEnding Wether to append \r\n for Windows or \n for Linux at the end of each line.
-/// @return true for success
-/// 
+//
+// Writes a vector of strings to a file.
+// true for success
+// 
 bool WriteStringsToTextFile(const Strings& strings, const std::string& filePath, bool appendLineEnding) {
     ofstream os(filePath, ios_base::trunc);
     if (!os.is_open())
@@ -463,12 +458,10 @@ bool WriteStringsToTextFile(const Strings& strings, const std::string& filePath,
     return true;
 }
 
-///
-/// @brief Appends a vector of strings to a file.
-/// @param filePath The File to write.
-/// @param appendLineEnding Wether to append \r\n for Windows or \n for Linux at the end of each line.
-/// @return true for success
-/// 
+//
+// Appends a vector of strings to a file.
+// returns true for success
+// 
 bool AppendStringsToTextFile(const Strings& strings, const std::string& filePath, bool appendLineEnding) {
     ofstream os(filePath, ios_base::ate);   // position at end of file
     if (!os.is_open())
@@ -488,11 +481,8 @@ bool AppendStringsToTextFile(const Strings& strings, const std::string& filePath
                 // Compare Text Files
                 //*******************************
 
-/// @brief CompareFiles
-/// @param filePath1 fullpath to file1
-/// @param filePath2 fullpath to file2
-/// @param ignoreCRLF true to ignore CR/LF's when comparing
-/// @return true if the file strings are the same (considering ignoreCRLF flag)
+// CompareFiles
+// returns true if the file strings are the same (considering ignoreCRLF flag)
 bool CompareFiles(const string& filePath1, const string& filePath2, bool ignoreCRLF) {
     Strings file1 = ReadTextFileAsAStringArray(filePath1, ignoreCRLF);
     Strings file2 = ReadTextFileAsAStringArray(filePath2, ignoreCRLF);
@@ -517,9 +507,8 @@ bool CompareFiles(const string& filePath1, const string& filePath2, bool ignoreC
                 // Space Available
                 //*******************************
 
-/// @brief SpaceAvailable
-/// @param A path on the drive you want the free space available
-/// @return Disk space available on the drive the passed path is on
+// SpaceAvailable
+// returns the disk space available on the drive the passed path is on
 uintmax_t SpaceAvailable(const string& fileOrDirPath) {
     return fs::space(fileOrDirPath).available;
 }

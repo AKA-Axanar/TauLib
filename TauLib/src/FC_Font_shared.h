@@ -55,7 +55,7 @@
 #include <string>
 
 ///
-/// @struct FC_Font_Shared
+/// @brief FC_Font_Shared
 /// FC_Font is a font cache for fonts.  it allows you to not have to create a texture every time you draw text.
 ///
 struct FC_Font_Shared {
@@ -63,12 +63,18 @@ struct FC_Font_Shared {
 
     ///
     /// @brief FC_Font_Shared The last shared_ptr destroyed closes the font.
-    /// @param filename full path
+    /// @param font the font to make into a shared_ptr
+    /// 
+    FC_Font_Shared(FC_Font* font = nullptr);
+
+    ///
+    /// @brief FC_Font_Shared The last shared_ptr destroyed closes the font.
+    /// @param filename full path to font file
     /// @param fontSize in points (72 per inch)
     /// @param renderer The screen renderer.  Needed by the font cache to create the font textures
     /// @param color The default color of the font.  It can be changed with FC_SetDefaultColor() and revrieved with FC_GetDefaultColor.
+    /// @param style the font style
     /// 
-    FC_Font_Shared(FC_Font* font = nullptr);
     FC_Font_Shared(const std::string& filename, int fontSize, SDL_Renderer* renderer, SDL_Color color, int style = 0);
 
     operator FC_Font* () { return font_shared_ptr.get(); };

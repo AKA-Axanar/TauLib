@@ -22,7 +22,7 @@
 namespace Tau { // to avoid conflict with other libraries
 
 ///
-/// @struct Win SDL_Window class
+/// @brief Win SDL_Window class
 ///
 struct Win : public DrawArea
 {
@@ -46,9 +46,10 @@ struct Win : public DrawArea
     ///
     /// @param title
     /// @param posit position of the window
-    /// @param size of the window
+    /// @param size size of the window
     /// @param flagsWin [SDL_WindowFlags](https://wiki.libsdl.org/SDL_WindowFlags)
     /// @param flagsRenderer [SDL_RendererFlags] (https://wiki.libsdl.org/SDL_RendererFlags)
+    /// @return bool success/fail
     ///
     bool InitWin(const std::string& title,  //if either FULLSCREEN flags are set the window is borderless and there is no title bar.
 
@@ -83,13 +84,13 @@ struct Win : public DrawArea
 
     ///
     /// @brief InitWin
-    ///
-    /// @param title
-    /// @param bounding rectangle of the window
+    /// @param _title
+    /// @param bounds bounding rectangle of the window
     /// @param flagsWin [SDL_WindowFlags](https://wiki.libsdl.org/SDL_WindowFlags)
     /// @param flagsRenderer [SDL_RendererFlags] (https://wiki.libsdl.org/SDL_RendererFlags)
+    /// @return bool success/fail
     ///
-    bool InitWin(const std::string& title, 
+    bool InitWin(const std::string& _title, 
                 const Tau_Rect& bounds, 
                 Uint32 flagsWin, 
                 Uint32 flagsRenderer = SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
@@ -104,14 +105,17 @@ struct Win : public DrawArea
     ///
     void Close();
 
-    ///  @brief GetNumberOfDisplays - returns the number of displays.  the first display is isndex 0.
+    /// @brief GetNumberOfDisplays - returns the number of displays.  the first display is isndex 0.
     static int GetNumberOfDisplays() { return SDL_GetNumVideoDisplays(); }
 
-    ///  @brief isValidDisplay - returns if the passed displayIndex is valid.
+    /// @brief isValidDisplay - returns if the passed displayIndex is valid.
+    /// @param displayIndex the display index to test if it's a valid index
     static bool isValidDisplay(int displayIndex) { return displayIndex < GetNumberOfDisplays(); }
 
-    // to create the window position for a certain display you need to pass a special flag value for the x and y.
-    // the display index starts at 0
+    /// @brief getDisplayPositFlag
+    /// @param displayIndex the display index
+    /// @note to create the window position for a certain display you need to pass a special flag value for the x and y.
+    /// the display index starts at 0
     static Tau_Posit getDisplayPositFlag(int displayIndex);
 };
 

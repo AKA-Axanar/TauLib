@@ -270,28 +270,28 @@ Strings GetDirectoryContents(const std::string& dirPath,
                              );
 
 /// @brief GetFileNamesInDir Return the list of file names in a directory.
-/// @param The directory path to open.
+/// @param dirPath The directory path to open.
 /// Ex: "aaa/bbb/foo.dat". if passed "aaa/bbb", "foo.dat" would be one of the file names returned.
 /// @return A vector of strings containing file names.
 /// 
 Strings GetFileNamesInDir(const std::string& dirPath);
 
 /// @brief GetFileFullPathsInDir Return the list of file name full paths in a directory.
-/// @param The directory path to open.
+/// @param dirPath The directory path to open.
 /// Ex: "aaa/bbb/foo.dat". if passed "aaa/bbb", "aaa/bbb/foo.dat" would be one of the file name full paths returned.
 /// @return A vector of strings containing file name full paths.
 /// 
 Strings GetFileFullPathsInDir(const std::string& dirPath);
 
 /// @brief GetDirNamesInDir Return the list of directory names in a directory.
-/// @param The directory path to open.
+/// @param dirPath The directory path to open.
 /// Ex: "aaa/bbb/ccc/foo.dat". if passed "aaa/bbb", "ccc" would be one of the directory names returned.
 /// @return A vector of strings containing directory names.
 /// 
 Strings GetDirNamesInDir(const std::string& dirPath);
 
 /// @brief GetDirFullPathsInDir Return the list of directory names in a directory.
-/// @param The directory path to open.
+/// @param dirPath The directory path to open.
 /// Ex: "aaa/bbb/ccc/foo.dat". if passed "aaa/bbb", "aaa/bbb/ccc" would be one of the directory paths returned.
 /// @return A vector of strings containing directory names.
 /// 
@@ -299,44 +299,48 @@ Strings GetDirFullPathsInDir(const std::string& dirPath);
 
 /// @brief GetFileFullPathsInDir_Recursive Return the list of file name full paths in a directory.
 /// Same as GetFileFullPathsInDir but it continues through the entire sub-directory hierarchy.
-/// @param The directory path to open.
+/// @param dirPath The directory path to open.
 /// @return A vector of strings containing file name full paths.
 /// 
 Strings GetFileFullPathsInDir_Recursive(const std::string& dirPath);
 
 /// @brief GetDirFullPathsInDir_Recursive Return the list of directory names in a dir.
 /// Same as GetDirFullPathsInDir but it continues through the entire sub-directory hierarchy.
-/// @param The directory path to open.
+/// @param dirPath The directory path to open.
 /// Ex: "aaa/bbb/ccc/foo.dat". if passed "aaa/bbb", "aaa/bbb/ccc" would be one of the directory paths returned.
 /// @return A vector of strings containing directory paths.
 /// 
 Strings GetDirFullPathsInDir_Recursive(const std::string& dirPath);
 
 /// @brief GetFileNamesWithExtInDir Return the list of file names in a directory that have a particular extension.
-/// @param The directory path to open.
+/// @param dirPath The directory path to open.
+/// @param ext the extension to search for
 /// @return A vector of strings containing file names with that file extension.
 /// @note The file extension is compared case insensitive.
 Strings GetFileNamesWithExtInDir(const std::string& dirPath, std::string ext);
 
-/// @brief GetFileNamesWithTheseExtInDir Return the list of file names in a directory that have any of a list of extensions.
-/// @param The directory path to open.
+/// @brief GetFileNamesWithTheseExtsInDir Return the list of file names in a directory that have any of a list of extensions.
+/// @param dirPath The directory path to open.
+/// @param extensions a vector fo the extensions to search for
 /// @return A vector of strings containing file names with that file extension.
 /// @note The file extensions are compared case insensitive.
-Strings GetFileNamesWithTheseExtInDir(const std::string& dirPath, Strings extensions);
+Strings GetFileNamesWithTheseExtsInDir(const std::string& dirPath, Strings extensions);
 
 /// @brief GetFileFullPathsWithExtInDir_Recursive Return the list of file name full paths with a particular extension in a directory.
 /// Same as GetFileNamesWithExtInDir but it continues through the entire sub-directory hierarchy and returns the full path.
-/// @param The directory path to open.
+/// @param dirPath The directory path to open.
+/// @param ext the extension to search for
 /// @return A vector of strings containing file name full paths.
 /// 
 Strings GetFileFullPathsWithExtInDir_Recursive(const std::string& dirPath, std::string ext);
 
-/// @brief GetFileFullPathsWithTheseExtInDir_Recursive Return the list of file name full paths that have any of a list of extensions.
+/// @brief GetFileFullPathsWithTheseExtsInDir_Recursive Return the list of file name full paths that have any of a list of extensions.
 /// Same as GetFileNamesWithExtInDir but it continues through the entire sub-directory hierarchy and returns the full path.
-/// @param The directory path to open.
+/// @param dirPath The directory path to open.
+/// @param extensions vector of externsion to search for
 /// @return A vector of strings containing file name full paths.
 /// 
-Strings GetFileFullPathsWithTheseExtInDir_Recursive(const std::string& dirPath, Strings extensions);
+Strings GetFileFullPathsWithTheseExtsInDir_Recursive(const std::string& dirPath, Strings extensions);
 
                 //*******************************
                 // Temp Directory and Temp File
@@ -376,16 +380,18 @@ Strings ReadTextFileAsAStringArray(const std::string& filePath, bool removeCRLF)
 
 ///
 /// @brief Writes a vector of strings to a file.
-/// @param filePath The File to write.
-/// @param appendLineEnding Wether to append \r\n for Windows or \n for Linux at the end of each line.
+/// @param strings The strings to write
+/// @param filePath The File to write to
+/// @param appendLineEnding Wether to append crlf for Windows or lf for Linux at the end of each line.
 /// @return true for success
 /// 
 bool WriteStringsToTextFile(const Strings& strings, const std::string& filePath, bool appendLineEnding);
 
 ///
 /// @brief Appends a vector of strings to a file.
+/// @param strings the strings to append to the file
 /// @param filePath The File to write.
-/// @param appendLineEnding Wether to append \r\n for Windows or \n for Linux at the end of each line.
+/// @param appendLineEnding Wether to append \\r\\n for Windows or \\n for Linux at the end of each line.
 /// @return true for success
 /// 
 bool AppendStringsToTextFile(const Strings& strings, const std::string& filePath, bool appendLineEnding);
@@ -406,7 +412,7 @@ bool CompareFiles(const std::string& filePath1, const std::string& filePath2, bo
                 //*******************************
 
 /// @brief SpaceAvailable
-/// @param A path on the drive you want the free space available
+/// @param fileOrDirPath path on the drive you want the free space available
 /// @return Disk space available on the drive the passed path is on
 std::uintmax_t SpaceAvailable(const std::string& fileOrDirPath);
 

@@ -14,7 +14,7 @@
                 //*******************************
 
 ///
-/// @struct IniFile reads an ini file into a map of key/value pairs with section names [config], [info], [settings], etc.
+/// @brief IniFile reads an ini file into a map of key/value pairs with section names [config], [info], [settings], etc.
 /// Keys can be modified, added, or deleted and saved in the original ini file or written to a new file.
 /// A semicolon is a comment to the end of the line.
 /// When you save a modified ini file the comments are restored.
@@ -36,10 +36,12 @@ struct IniFile {
 
     /// @brief Calls IniFile().  Then loads the passed ini file.
     /// @param _iniFilePath The path of the ini file to load.
+    /// @param _defaultSectionName the default section name
     IniFile(const std::string& _iniFilePath, const std::string& _defaultSectionName = "");
 
     /// @brief Loads the passed ini file, scans the lines in the ini file saving the parsed pieces, and builds a map of the key/value pairs.
     /// @param _iniFilePath The path of the ini file to load.
+    /// @param _defaultSectionName the default section name
     bool Load(const std::string& _iniFilePath, const std::string& _defaultSectionName = "");
 
     /// @brief Save the ini key/value pairs, section names, and comments back to original opened ini file.
@@ -125,12 +127,19 @@ struct IniFile {
 
     /// @brief Sets a key value to the comma delimited string of a series of int's
     /// @param key - the key to search for
-    /// @param value - a vector of int's to set the comma delimited string to
+    /// @param values - a vector of int's to set the comma delimited string to
     /// @param sectionName - the section name the key is in, if any
     /// @return none
     /// @note if the key doesn't already exist, it's created
     /// @note if the sectionName doesn't already exist, it's created
     void SetKeyValue_Ints(const std::string& key, std::vector<int> values, const std::string& sectionName);
+
+    /// @brief Sets a key value to the comma delimited string of a series of int's
+    /// @param key - the key to search for
+    /// @param values - a vector of int's to set the comma delimited string to
+    /// @return none
+    /// @note if the key doesn't already exist, it's created
+    /// @note if the sectionName doesn't already exist, it's created
     void SetKeyValue_Ints(const std::string& key, std::vector<int> values) { return SetKeyValue_Ints(key, values, defaultSectionName); }
 
     /// @brief Sets a key value to a float
@@ -145,12 +154,19 @@ struct IniFile {
 
     /// @brief Sets a key value to the comma delimited string of a series of floats
     /// @param key - the key to search for
-    /// @param value - a vector of floats to set the comma delimited string to
+    /// @param values - a vector of floats to set the comma delimited string to
     /// @param sectionName - the section name the key is in, if any
     /// @return none
     /// @note if the key doesn't already exist, it's created
     /// @note if the sectionName doesn't already exist, it's created
     void SetKeyValue_Floats(const std::string& key, std::vector<float> values, const std::string& sectionName);
+
+    /// @brief Sets a key value to the comma delimited string of a series of floats
+    /// @param key - the key to search for
+    /// @param values - a vector of floats to set the comma delimited string to
+    /// @return none
+    /// @note if the key doesn't already exist, it's created
+    /// @note if the sectionName doesn't already exist, it's created
     void SetKeyValue_Floats(const std::string& key, std::vector<float> values) { return SetKeyValue_Floats(key, values, defaultSectionName); }
 
     /// @brief Sets a key value to a double
@@ -161,16 +177,30 @@ struct IniFile {
     /// @note if the key doesn't already exist, it's created
     /// @note if the sectionName doesn't already exist, it's created
     void SetKeyValue_Double(const std::string& key, double value, const std::string& sectionName);
+
+    /// @brief Sets a key value to a double
+    /// @param key - the key to search for
+    /// @param value - the double value to set
+    /// @return none
+    /// @note if the key doesn't already exist, it's created
+    /// @note if the sectionName doesn't already exist, it's created
     void SetKeyValue_Double(const std::string& key, double value) { return SetKeyValue_Double(key, value, defaultSectionName); }
 
     /// @brief Sets a key value to the comma delimited string of a series of doubles
     /// @param key - the key to search for
-    /// @param value - a vector of doubles to set the comma delimited string to
+    /// @param values - a vector of doubles to set the comma delimited string to
     /// @param sectionName - the section name the key is in, if any
     /// @return none
     /// @note if the key doesn't already exist, it's created
     /// @note if the sectionName doesn't already exist, it's created
     void SetKeyValue_Doubles(const std::string& key, std::vector<double> values, const std::string& sectionName);
+
+    /// @brief Sets a key value to the comma delimited string of a series of doubles
+    /// @param key - the key to search for
+    /// @param values - a vector of doubles to set the comma delimited string to
+    /// @return none
+    /// @note if the key doesn't already exist, it's created
+    /// @note if the sectionName doesn't already exist, it's created
     void SetKeyValue_Doubles(const std::string& key, std::vector<double> values) { return SetKeyValue_Doubles(key, values, defaultSectionName); }
 
     /// @brief Deletes a key value for a passed key and section name
@@ -227,7 +257,7 @@ private:
                 // IniFile::IniLine
                 //*******************************
 
-    /// @struct IniLine The parsed info from an ini file line.
+    /// @brief IniLine The parsed info from an ini file line.
     struct IniLine {
 
         /// @brief creates an empty IniLine with all default values
@@ -245,8 +275,8 @@ private:
         std::string RebuildLine() const;
 
         /// @brief Removes any leading whitespace from the passed string
-        /// @parem the string to modify
-        /// @return the whirespace that was removed fromt he string
+        /// @param line the string to modify
+        /// @return the whitespace that was removed fromt he string
         std::string GetAndRemoveLeadingWhitespace(std::string* line) const;
 
         //
@@ -274,7 +304,7 @@ private:
                 // IniFile::IniSection
                 //*******************************
 
-    /// @struct IniSection An ini file section
+    /// @brief IniSection An ini file section
     struct IniSection {
         IniSection(IniFile* _iniFile, const std::string& line);
 

@@ -4,8 +4,7 @@
 #include <vector>
 
 ///
-/// @file
-/// @brief Header file for string routines.
+/// string routines
 /// @author Steve Simpson, steve@iterator.com, a.k.a. Axanar (AutoBleem project)
 /// 
 
@@ -43,42 +42,42 @@ void sortStringsInsensitive(Strings& strings);
 
 ///
 /// @brief ltrim - trim the left leading whitespace from a string.
-/// @param s string to trim (const& not modified).
+/// @param str string to trim (const& not modified).
 /// @return The trimmed string.
 ///
 std::string ltrim(const std::string& str);
 
 ///
 /// @brief ltrim - trim the left leading whitespace from a string.
-/// @param &string to trim (string is modified).
+/// @param str string to trim (string is modified).
 /// @return none
 ///
 void ltrim(std::string* str);
 
 ///
 /// @brief rtrim - trim the right leading whitespace from a string.
-/// @param string to trim (const& not modified).
+/// @param s string to trim (const& not modified).
 /// @return The trimmed string.
 ///
 std::string rtrim(const std::string& s);
 
 ///
-/// @brief rtrim - trim the right leading whitespace from a string.
-/// @param &string to trim (string is modified).
+/// @brief rtrim - trim the right leading whitespace from the passed string.
+/// @param s string to trim (string is modified).
 /// @return none
 ///
 void rtrim(std::string* s);
 
 ///
 /// @brief trim - trim both the leading and trailing whitespace from a string.
-/// @param string to trim (const& not modified).
+/// @param s string to trim (const& not modified).
 /// @return The trimmed string.
 ///
 std::string trim(const std::string& s);
 
 ///
 /// @brief trim - trim both the leading and trailing whitespace from a string.
-/// @param &string to trim (string is modified).
+/// @param s ptr to the string to trim (string is modified).
 /// @return none
 ///
 void trim(std::string* s);
@@ -89,28 +88,28 @@ void trim(std::string* s);
 
 ///
 /// @brief lowerCase - Return the passed string as lower case.
-/// @param string to convert to lower case.
+/// @param s string to convert to lower case.
 /// @return The lower case string.
 ///
-std::string lowerCase(const std::string& _s);
+std::string lowerCase(const std::string& s);
 
 ///
 /// @brief lowerCase - Convert the passed satring to lower case.
-/// @param &string to convert to lower case.
+/// @param s string to convert to lower case.
 /// @return none
 ///
 void lowerCase(std::string* s);
 
 ///
 /// @brief upperCase - Return the passed string as upper case.
-/// @param string to convert to upper case.
+/// @param s string to convert to upper case.
 /// @return The upper case string.
 ///
-std::string upperCase(const std::string& _s);
+std::string upperCase(const std::string& s);
 
 ///
-/// @brief upperCase - Convert the passed satring to upper case.
-/// @param &string to convert to upper case.
+/// @brief upperCase - Convert the passed string to upper case.
+/// @param s to convert to upper case.
 /// @return none
 ///
 void upperCase(std::string* s);
@@ -133,7 +132,7 @@ bool icompareBool(const std::string& str_a, const std::string& str_b);
 /// @param str_b Right hand string to compare.
 /// @return -1 if str_a < str_b, 0 if str_a == str_b, +1 if str_a > str_b
 ///
-int icompareInt(const std::string& str_a, const std::string& bstr_b);
+int icompareInt(const std::string& str_a, const std::string& str_b);
 
 ///
 /// @brief sortStringCompare - Compare two strings (for lambdas).
@@ -232,6 +231,7 @@ std::string FindLexExprMatch(const std::string& lexicalExpression, const std::st
 /// @brief SplitStringAtChars - returns the string pieces after splitting the string at the passed char or chars.
 /// @param str The string to split.
 /// @param splitAt The char or chars to split the string at.
+/// @param trimTheWhitespaceFromThePieces
 /// @return vector<string> of results
 ///
 Strings SplitStringAtChars(const std::string& str, const std::string& splitAt, bool trimTheWhitespaceFromThePieces);
@@ -239,6 +239,7 @@ Strings SplitStringAtChars(const std::string& str, const std::string& splitAt, b
 ///
 /// @brief SplitStringAtCommas - returns the string pieces after splitting the string at the commas.
 /// @param str The string to split.
+/// @param trimTheWhitespaceFromThePieces
 /// @return vector<string> of results
 ///
 Strings SplitStringAtCommas(const std::string& str, bool trimTheWhitespaceFromThePieces = true);

@@ -18,16 +18,36 @@
 #include "SDL.h"
 #include "SDL_mixer.h"
 
-extern void SDL_DelResource(SDL_Window   *r);   ///< @brief a custom shared_ptr dtor for SDL_Window
-extern void SDL_DelResource(SDL_Renderer *r);   ///< @fn a custom shared_ptr dtor for SDL_Renderer
-extern void SDL_DelResource(SDL_Texture  *r);   ///< @fn a custom shared_ptr dtor for SDL_Texture
-extern void SDL_DelResource(SDL_Surface  *r);   ///< @fn a custom shared_ptr dtor for SDL_Surface
+// Graphics
 
-extern void SDL_DelResource(Mix_Music  *r);     ///< @fn a custom shared_ptr dtor for Mix_Music
-extern void SDL_DelResource(Mix_Chunk  *r);     ///< @fn a custom shared_ptr dtor for Mix_Chunk
+/// @brief a custom shared_ptr dtor for SDL_Window
+/// @param r SDL_Window
+extern void SDL_DelResource(SDL_Window   *r);   
+
+/// @brief a custom shared_ptr dtor for SDL_Renderer
+/// @param r SDL_Renderer
+extern void SDL_DelResource(SDL_Renderer *r);   
+
+/// @brief a custom shared_ptr dtor for SDL_Texture
+/// @param r SDL_Texture
+extern void SDL_DelResource(SDL_Texture  *r);   
+
+/// @brief a custom shared_ptr dtor for SDL_Surface
+/// @param r SDL_Surface
+extern void SDL_DelResource(SDL_Surface  *r);   
+
+// Audio
+
+/// @brief a custom shared_ptr dtor for Mix_Music
+/// @param r Mix_Music
+extern void SDL_DelResource(Mix_Music  *r);     
+
+/// @brief a custom shared_ptr dtor for Mix_Chunk
+/// @param r Mix_Chunk
+extern void SDL_DelResource(Mix_Chunk  *r);     
 
 ///
-/// @struct SDL_Shared - a templated shared_ptr with a custom dtor per type
+/// @brief SDL_Shared - a templated shared_ptr with a custom dtor per type
 /// @note Don't call SDL_Quit(), Mix_Quit(), etc while there are outstanding shared_ptr's.
 /// Destroy all instances of the shared+ptr so the destrutor will be called prior to calling SDL_Quit(). 
 /// If needed the last remaining copy of a shared_ptr can be destroyed by setting it equal to nullptr.  
