@@ -1,7 +1,7 @@
 #pragma once
-
 ///
-/// Header file for DirStack class.
+/// @file
+/// @brief Header file for DirStack class.
 /// @author Steve Simpson, steve@iterator.com, a.k.a. Axanar (AutoBleem project)
 /// 
 

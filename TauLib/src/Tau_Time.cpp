@@ -1,4 +1,9 @@
 #include "Tau_Time.h"
+///
+/// @file
+/// @brief CPP file for time routines.
+/// @author Steve Simpson, steve@iterator.com, a.k.a. Axanar (AutoBleem project)
+/// 
 
 using namespace std;
 

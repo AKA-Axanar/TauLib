@@ -1,4 +1,9 @@
 #pragma once
+///
+/// @file
+/// @brief Header file for string routines.
+/// @author Steve Simpson, steve@iterator.com, a.k.a. Axanar (AutoBleem project)
+/// 
 
 #include <string>
 #include <vector>

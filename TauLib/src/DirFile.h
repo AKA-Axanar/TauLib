@@ -33,7 +33,7 @@ namespace Tau {
 ///
 /// @brief GetFileExtensionWithoutDot
 /// @param str the file path
-/// @return the file extension of the path wiithout the leading period.  ex: returns "dat" from "foo.dat"
+/// @return the file extension of the path without the leading period.  ex: returns "dat" from "foo.dat"
 ///
 std::string GetFileExtensionWithoutDot(const std::string& str);
 

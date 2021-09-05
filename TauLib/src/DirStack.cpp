@@ -1,3 +1,9 @@
+///
+/// @file
+/// @brief CPP file for DirStack class.
+/// @author Steve Simpson, steve@iterator.com, a.k.a. Axanar (AutoBleem project)
+/// 
+
 #include "DirStack.h"
 
 using namespace std;

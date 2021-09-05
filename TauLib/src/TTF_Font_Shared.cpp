@@ -1,6 +1,6 @@
 ///
 /// @file
-/// @brief CPP file for a shared TTF_Font*.  
+/// @brief CPP file for TTF_Font_Shared.  
 /// @author Steve Simpson, steve@iterator.com, a.k.a. Axanar (AutoBleem project)
 ///
 /// @note See SDL_Shared.h for a more advanced example.  In this case we don't need a templated destructor based on the type.

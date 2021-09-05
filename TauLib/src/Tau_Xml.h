@@ -1,4 +1,9 @@
 #pragma once
+///
+/// @file
+/// @brief Header file for Tau_Xml.
+/// @author Steve Simpson, steve@iterator.com, a.k.a. Axanar (AutoBleem project)
+/// 
 
 #include "pugixml.hpp"
 #include "Str.h"

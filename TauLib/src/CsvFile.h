@@ -1,4 +1,10 @@
 #pragma once
+///
+/// @file
+/// @brief Header file for CsvFile class.
+/// @author Steve Simpson, steve@iterator.com, a.k.a. Axanar (AutoBleem project)
+/// 
+
 #include <string>
 #include <map>
 #include <vector>

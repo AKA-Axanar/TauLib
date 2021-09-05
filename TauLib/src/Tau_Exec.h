@@ -2,7 +2,7 @@
 
 ///
 /// @file
-/// @brief Header file for Win class.
+/// @brief Header file for Execute routines.
 /// @author Steve Simpson, steve@iterator.com, a.k.a. Axanar (AutoBleem project)
 /// 
 

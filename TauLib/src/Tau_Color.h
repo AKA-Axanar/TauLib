@@ -1,4 +1,9 @@
 #pragma once
+///
+/// @file
+/// @brief Header file for Tau_Color and Tau_RGB classes.
+/// @author Steve Simpson, steve@iterator.com, a.k.a. Axanar (AutoBleem project)
+/// 
 
 #include "SDL_Pixels.h"
 #include "Str.h"

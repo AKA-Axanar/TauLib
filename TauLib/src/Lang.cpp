@@ -1,7 +1,8 @@
-//
-// Created by screemer on 2/4/19.
-// modified by Steve Simpson, steve@iterator.com, a.k.a. Axanar (AutoBleem project)
-//
+///
+/// @file
+/// @brief CPP file for Lang class.
+/// @author screemer.  modified by Steve Simpson, steve@iterator.com, a.k.a. Axanar (AutoBleem project)
+/// 
 
 #include "Lang.h"
 #include <fstream>

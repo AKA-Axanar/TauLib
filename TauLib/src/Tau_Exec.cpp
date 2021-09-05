@@ -1,3 +1,9 @@
+///
+/// @file
+/// @brief CPP file for Win class.
+/// @author Steve Simpson, steve@iterator.com, a.k.a. Axanar (AutoBleem project)
+/// 
+
 #include "Tau_Exec.h"
 #include "DirFile.h"
 #include "Str.h"
@@ -5,12 +11,6 @@
 #include "windows.h"
 #include <iostream>
 #include "DirStack.h"
-
-///
-/// @file
-/// @brief Header file for Win class.
-/// @author Steve Simpson, steve@iterator.com, a.k.a. Axanar (AutoBleem project)
-/// 
 
 using namespace std;
 using namespace Tau;

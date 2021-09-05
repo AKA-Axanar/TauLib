@@ -1,3 +1,9 @@
+///
+/// @file
+/// @brief CPP file for Tau_Xml.
+/// @author Steve Simpson, steve@iterator.com, a.k.a. Axanar (AutoBleem project)
+/// 
+
 #include "Tau_Xml.h"
 #include <sstream>
 

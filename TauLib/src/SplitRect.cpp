@@ -1,3 +1,9 @@
+///
+/// @file
+/// @brief CPP file for SplitRect routines.
+/// @author Steve Simpson, steve@iterator.com, a.k.a. Axanar (AutoBleem project)
+/// 
+
 #include "SplitRect.h"
 #include <assert.h>
 

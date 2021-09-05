@@ -1,7 +1,8 @@
-//
-// string routines
-// @author Steve Simpson, steve@iterator.com, a.k.a. Axanar (AutoBleem project)
-// 
+///
+/// @file
+/// @brief CPP file for string routines.
+/// @author Steve Simpson, steve@iterator.com, a.k.a. Axanar (AutoBleem project)
+/// 
 
 //#include "pch.h"
 #include "Str.h"

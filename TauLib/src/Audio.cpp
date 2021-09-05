@@ -1,3 +1,9 @@
+///
+/// @file
+/// @brief CPP file for Audio routines.
+/// @author Steve Simpson, steve@iterator.com, a.k.a. Axanar (AutoBleem project)
+/// 
+
 #include "Audio.h"
 #include "SDL_mixer.h"
 

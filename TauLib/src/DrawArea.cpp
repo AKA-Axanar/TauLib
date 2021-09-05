@@ -1,3 +1,9 @@
+///
+/// @file
+/// @brief CPP file for DrawArea class.
+/// @author Steve Simpson, steve@iterator.com, a.k.a. Axanar (AutoBleem project)
+/// 
+
 #include "DrawArea.h"
 #include <SDL_image.h>
 #include <string>

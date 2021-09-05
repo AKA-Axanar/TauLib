@@ -1,4 +1,9 @@
 #pragma once
+///
+/// @file
+/// @brief Header file for Tau_Point, Tau_Size, Tau_Rect, Tau_Posit, Tau_Distance.
+/// @author Steve Simpson, steve@iterator.com, a.k.a. Axanar (AutoBleem project)
+/// 
 
 #include "SDL_Rect.h"
 #include "Str.h"

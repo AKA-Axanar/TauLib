@@ -1,7 +1,9 @@
-//
-// Created by screemer on 2/4/19.
-// modified by Steve Simpson, steve@iterator.com, a.k.a. Axanar (AutoBleem project)
-//
+///
+/// @file
+/// @brief Header file for Lang class.
+/// @author screemer.  modified by Steve Simpson, steve@iterator.com, a.k.a. Axanar (AutoBleem project)
+/// 
+
 #pragma once
 
 #include <map>

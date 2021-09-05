@@ -1,4 +1,10 @@
 #pragma once
+///
+/// @file
+/// @brief Header file for Audio routines.
+/// @author Steve Simpson, steve@iterator.com, a.k.a. Axanar (AutoBleem project)
+/// 
+
 #include "TauLib.h"
 #include <string>
 

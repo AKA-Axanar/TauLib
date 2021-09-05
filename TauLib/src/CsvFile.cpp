@@ -1,3 +1,9 @@
+///
+/// @file
+/// @brief CPP file for CsvFile class.
+/// @author Steve Simpson, steve@iterator.com, a.k.a. Axanar (AutoBleem project)
+/// 
+
 #include "CsvFile.h"
 #include "DirFile.h"
 #include <assert.h>
