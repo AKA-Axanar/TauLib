@@ -53,6 +53,7 @@ xml_node Tau_Xml::InsertChildBefore(xml_node& parent, const string& tagName, con
     if (parent && beforeNode) {
         xml_node node = parent.insert_child_before(tagName.c_str(), beforeNode);
         node.append_child(pugi::node_pcdata).set_value(value.c_str());
+        return node;
     } else
         return xml_node();
 
@@ -64,6 +65,7 @@ xml_node Tau_Xml::InsertChildAfter(xml_node& parent, const string& tagName, cons
     if (parent && afterNode) {
         xml_node node = parent.insert_child_after(tagName.c_str(), afterNode);
         node.append_child(pugi::node_pcdata).set_value(value.c_str());
+        return node;
     } else
         return xml_node();
 
