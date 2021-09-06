@@ -69,7 +69,7 @@ xml_node Tau_Xml::InsertChildAfter(xml_node& parent, const string& tagName, cons
 
 }
 
-xml_node Tau_Xml::Find(xml_node& startNode, const Tau::Strings& nodeNames)
+xml_node Tau_Xml::Find(pugi::xml_node& startNode, const Tau::Strings& nodeNames)
 {
     if (startNode.empty())
         return xml_node();      // xml doc is empty, return empty node
