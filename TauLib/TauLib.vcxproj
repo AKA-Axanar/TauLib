@@ -211,6 +211,8 @@
     <ClInclude Include="src\FC_Font_shared.h" />
     <ClInclude Include="src\Tau_Exec.h" />
     <ClInclude Include="src\Tau_Xml.h" />
+    <ClInclude Include="src\ThirdParty\imgui\imgui_impl_sdl.h" />
+    <ClInclude Include="src\ThirdParty\imgui\imgui_impl_sdlrenderer.h" />
     <ClInclude Include="src\ThirdParty\pugiconfig.hpp" />
     <ClInclude Include="src\ThirdParty\pugixml.hpp" />
     <ClInclude Include="src\TTF_OpenedFontFile.h" />
@@ -230,7 +232,6 @@
     <ClInclude Include="src\ThirdParty\imgui\imconfig.h" />
     <ClInclude Include="src\ThirdParty\imgui\imgui.h" />
     <ClInclude Include="src\ThirdParty\imgui\imgui_internal.h" />
-    <ClInclude Include="src\ThirdParty\imgui\imgui_sdl.h" />
     <ClInclude Include="src\ThirdParty\imgui\imstb_rectpack.h" />
     <ClInclude Include="src\ThirdParty\imgui\imstb_textedit.h" />
     <ClInclude Include="src\ThirdParty\imgui\imstb_truetype.h" />
@@ -257,6 +258,8 @@
     <ClCompile Include="src\FC_Font_shared.cpp" />
     <ClCompile Include="src\Tau_Exec.cpp" />
     <ClCompile Include="src\Tau_Xml.cpp" />
+    <ClCompile Include="src\ThirdParty\imgui\imgui_impl_sdl.cpp" />
+    <ClCompile Include="src\ThirdParty\imgui\imgui_impl_sdlrenderer.cpp" />
     <ClCompile Include="src\ThirdParty\pugixml.cpp" />
     <ClCompile Include="src\TTF_OpenedFontFile.cpp" />
     <ClCompile Include="src\GetExecutablePath.cpp" />
@@ -272,7 +275,6 @@
     <ClCompile Include="src\ThirdParty\imgui\imgui.cpp" />
     <ClCompile Include="src\ThirdParty\imgui\imgui_demo.cpp" />
     <ClCompile Include="src\ThirdParty\imgui\imgui_draw.cpp" />
-    <ClCompile Include="src\ThirdParty\imgui\imgui_sdl.cpp" />
     <ClCompile Include="src\ThirdParty\imgui\imgui_tables.cpp" />
     <ClCompile Include="src\ThirdParty\imgui\imgui_widgets.cpp" />
     <ClCompile Include="src\ThirdParty\SDL_FontCache.c">

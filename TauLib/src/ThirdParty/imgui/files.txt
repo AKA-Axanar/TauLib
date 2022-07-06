@@ -1,5 +1,0 @@
-imgui_sdl.h and imgui_sdl.cpp are from:
-https://github.com/Tyyppi77/imgui_sdl
-
-the rest of the files are from:
-https://github.com/ocornut/imgui

@@ -53,7 +53,7 @@ struct FC_OpenedFontSize {
 struct FC_OpenedFontFile {
     std::string fullFilePath;       // fullpath to FC font file
     SDL_Shared<SDL_Renderer> renderer;
-    int fontStyle;                  // TTF_STYLE_BOLD, etc
+    int fontStyle { TTF_STYLE_NORMAL };     // TTF_STYLE_NORMAL, TTF_STYLE_BOLD, etc
 
     std::vector<FC_OpenedFontSize> openedFontSizes;
     // default color is for when you search for an FC font of a certain size and you don't care about the

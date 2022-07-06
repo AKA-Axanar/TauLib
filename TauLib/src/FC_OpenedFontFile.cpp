@@ -2,6 +2,7 @@
 #include "DirFile.h"
 #include <algorithm>
 #include <iostream>
+#include <ranges>
 
 using namespace std;
 using namespace Tau;
@@ -70,7 +71,7 @@ bool FC_OpenedFontFile::OpenFile(const std::string& _fullFilePath, SDL_Shared<SD
 //
 bool FC_OpenedFontFile::FoundFontSize(int pointSize, const Tau_Color& color) {
     // first see if the requested point size and color is already in the vector.  if so, return it.
-    auto it = find_if(begin(openedFontSizes), end(openedFontSizes), [&] (const FC_OpenedFontSize& ofont) 
+    auto it = ranges::find_if(openedFontSizes, [&] (const FC_OpenedFontSize& ofont) 
                                                                     { return ofont.pointSize == pointSize && ofont.color == color; });
     return it != end(openedFontSizes);
 }
@@ -82,10 +83,13 @@ bool FC_OpenedFontFile::FoundFontSize(int pointSize, const Tau_Color& color) {
 //
 FC_OpenedFontSize FC_OpenedFontFile::GetOpenedFontSize(int pointSize, const Tau_Color& color) {
     // first see if the requested point size and color is already in the vector.  if so, return it.
-    auto it = find_if(begin(openedFontSizes), end(openedFontSizes), [&] (const FC_OpenedFontSize& ofont) 
+    auto it = ranges::find_if(openedFontSizes, [&] (const FC_OpenedFontSize& ofont)
                                                                     { return ofont.pointSize == pointSize && ofont.color == color; });
-    if (it != end(openedFontSizes))
+    if (it != end(openedFontSizes)) {
+        cout << "found existing font size " << it->pointSize << ", ";
+        cout << *it;
         return *it;         // the font size is already in openedFontSizes
+    }
 
     if (!FileExists(fullFilePath))
         return FC_OpenedFontSize(pointSize, color);     // failure
@@ -97,6 +101,8 @@ FC_OpenedFontSize FC_OpenedFontFile::GetOpenedFontSize(int pointSize, const Tau_
         FC_OpenedFontSize ret(fc_font, pointSize, color);
         ret.fontDisplayHeight = FC_GetLineHeight(fc_font);
         openedFontSizes.emplace_back(ret);
+        cout << "created new font size " << ret.pointSize << ", ";
+        cout << ret;
         // return the FC_OpenedFontSize
         return ret;
     }
