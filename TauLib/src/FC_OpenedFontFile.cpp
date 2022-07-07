@@ -86,8 +86,6 @@ FC_OpenedFontSize FC_OpenedFontFile::GetOpenedFontSize(int pointSize, const Tau_
     auto it = ranges::find_if(openedFontSizes, [&] (const FC_OpenedFontSize& ofont)
                                                                     { return ofont.pointSize == pointSize && ofont.color == color; });
     if (it != end(openedFontSizes)) {
-        cout << "found existing font size " << it->pointSize << ", ";
-        cout << *it;
         return *it;         // the font size is already in openedFontSizes
     }
 
@@ -101,8 +99,6 @@ FC_OpenedFontSize FC_OpenedFontFile::GetOpenedFontSize(int pointSize, const Tau_
         FC_OpenedFontSize ret(fc_font, pointSize, color);
         ret.fontDisplayHeight = FC_GetLineHeight(fc_font);
         openedFontSizes.emplace_back(ret);
-        cout << "created new font size " << ret.pointSize << ", ";
-        cout << ret;
         // return the FC_OpenedFontSize
         return ret;
     }
