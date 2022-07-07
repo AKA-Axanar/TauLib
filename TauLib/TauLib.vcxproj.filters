@@ -138,6 +138,9 @@
     <ClInclude Include="src\ThirdParty\imgui\imgui_impl_sdlrenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Tau_ImGui.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -240,6 +243,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\ThirdParty\imgui\imgui_impl_sdlrenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tau_ImGui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

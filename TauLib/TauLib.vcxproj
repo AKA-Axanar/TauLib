@@ -99,7 +99,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SDL2)\include;src\ThirdParty</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SDL2)\include;src\ThirdParty;src\ThirdParty\ImGui</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
@@ -126,7 +126,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SDL2)\include;src\ThirdParty</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SDL2)\include;src\ThirdParty;src\ThirdParty\ImGui</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
@@ -153,7 +153,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SDL2)\include;src\ThirdParty</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SDL2)\include;src\ThirdParty;src\ThirdParty\ImGui</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
@@ -180,7 +180,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SDL2)\include;src\ThirdParty</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SDL2)\include;src\ThirdParty;src\ThirdParty\ImGui</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
@@ -210,6 +210,7 @@
     <ClInclude Include="src\FC_OpenedFontFile.h" />
     <ClInclude Include="src\FC_Font_shared.h" />
     <ClInclude Include="src\Tau_Exec.h" />
+    <ClInclude Include="src\Tau_ImGui.h" />
     <ClInclude Include="src\Tau_Xml.h" />
     <ClInclude Include="src\ThirdParty\imgui\imgui_impl_sdl.h" />
     <ClInclude Include="src\ThirdParty\imgui\imgui_impl_sdlrenderer.h" />
@@ -257,6 +258,7 @@
     <ClCompile Include="src\FC_OpenedFontFile.cpp" />
     <ClCompile Include="src\FC_Font_shared.cpp" />
     <ClCompile Include="src\Tau_Exec.cpp" />
+    <ClCompile Include="src\Tau_ImGui.cpp" />
     <ClCompile Include="src\Tau_Xml.cpp" />
     <ClCompile Include="src\ThirdParty\imgui\imgui_impl_sdl.cpp" />
     <ClCompile Include="src\ThirdParty\imgui\imgui_impl_sdlrenderer.cpp" />
