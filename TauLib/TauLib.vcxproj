@@ -206,6 +206,7 @@
     <ClInclude Include="src\CsvFile.h" />
     <ClInclude Include="src\DirFile.h" />
     <ClInclude Include="src\DirStack.h" />
+    <ClInclude Include="src\Display.h" />
     <ClInclude Include="src\DrawArea.h" />
     <ClInclude Include="src\FC_OpenedFontFile.h" />
     <ClInclude Include="src\FC_Font_shared.h" />
@@ -254,6 +255,7 @@
     <ClCompile Include="src\CsvFile.cpp" />
     <ClCompile Include="src\DirFile.cpp" />
     <ClCompile Include="src\DirStack.cpp" />
+    <ClCompile Include="src\Display.cpp" />
     <ClCompile Include="src\DrawArea.cpp" />
     <ClCompile Include="src\FC_OpenedFontFile.cpp" />
     <ClCompile Include="src\FC_Font_shared.cpp" />

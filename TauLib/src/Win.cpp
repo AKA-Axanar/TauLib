@@ -71,10 +71,4 @@ void Win::Close() {
     isOpen = false;
 }
 
-// to create the window position for a certain display you need to pass a special flag value for the x and y.
-// the display index starts at 0
-Tau_Posit Win::getDisplayPositFlag(int displayIndex) {
-    return { (int)SDL_WINDOWPOS_UNDEFINED_DISPLAY(displayIndex), (int)SDL_WINDOWPOS_UNDEFINED_DISPLAY(displayIndex) };
-}
-
 } // end namespace Tau

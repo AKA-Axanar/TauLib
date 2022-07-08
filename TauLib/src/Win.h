@@ -15,6 +15,7 @@
 #include "Tau_Color.h"
 #include <vector>
 #include "DrawArea.h"
+#include "Display.h"
 
 ///
 /// @brief namespace Tau - avoid conflict with other libraries
@@ -70,7 +71,7 @@ struct Win : public DrawArea
     /// @brief InitFullscreenWin.  For when you want a borderless window taking the entire display at the current resolution.
     ///
     bool InitFullscreenWin(int displayIndex) {
-        Tau_Posit posit = getDisplayPositFlag(displayIndex);
+        Tau_Posit posit = Display::GetDisplayPositFlag(displayIndex);
         return  InitWin("", { posit, { 0,0 } }, SDL_WINDOW_FULLSCREEN_DESKTOP);
     }
 
@@ -78,7 +79,7 @@ struct Win : public DrawArea
     /// @brief InitFullscreenWinNewResolution.  For when you want a borderless window taking the entire display at a new resolution.
     ///
     bool InitFullscreenWinNewResolution(int displayIndex, Tau_Size resolution) {
-        Tau_Posit posit = getDisplayPositFlag(displayIndex);
+        Tau_Posit posit = Display::GetDisplayPositFlag(displayIndex);
         return  InitWin("", { posit, resolution }, SDL_WINDOW_FULLSCREEN);
     }
 
@@ -105,18 +106,6 @@ struct Win : public DrawArea
     ///
     void Close();
 
-    /// @brief GetNumberOfDisplays - returns the number of displays.  the first display is isndex 0.
-    static int GetNumberOfDisplays() { return SDL_GetNumVideoDisplays(); }
-
-    /// @brief isValidDisplay - returns if the passed displayIndex is valid.
-    /// @param displayIndex the display index to test if it's a valid index
-    static bool isValidDisplay(int displayIndex) { return displayIndex < GetNumberOfDisplays(); }
-
-    /// @brief getDisplayPositFlag
-    /// @param displayIndex the display index
-    /// @note to create the window position for a certain display you need to pass a special flag value for the x and y.
-    /// the display index starts at 0
-    static Tau_Posit getDisplayPositFlag(int displayIndex);
 };
 
  } // end namespace Tau
