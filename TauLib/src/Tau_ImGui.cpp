@@ -63,11 +63,34 @@ namespace Tau { // to avoid conflict with other libraries
         //IM_ASSERT(font != NULL);
     }
 
+    //
+    // ImGui_Cleanup
+    //
     void ImGui_Cleanup() {
         // Cleanup
         ImGui_ImplSDLRenderer_Shutdown();
         ImGui_ImplSDL2_Shutdown();
         ImGui::DestroyContext();
+    }
+
+    //
+    // ImGui_NewFrame - Start the Dear ImGui frame
+    // 
+    void ImGui_NewFrame() {
+        ImGui_ImplSDLRenderer_NewFrame();
+        ImGui_ImplSDL2_NewFrame();
+        ImGui::NewFrame();
+    }
+
+    //
+    // ImGui_Render
+    // 
+    void ImGui_Render(SDL_Shared<SDL_Renderer> renderer, const ImVec4& clearColor) {
+            ImGui::Render();
+            SDL_SetRenderDrawColor(renderer, (Uint8)(clearColor.x * 255), (Uint8)(clearColor.y * 255), (Uint8)(clearColor.z * 255), (Uint8)(clearColor.w * 255));
+            SDL_RenderClear(renderer);
+            ImGui_ImplSDLRenderer_RenderDrawData(ImGui::GetDrawData());
+            SDL_RenderPresent(renderer);
     }
 
     //
@@ -103,9 +126,7 @@ namespace Tau { // to avoid conflict with other libraries
             }
 
             // Start the Dear ImGui frame
-            ImGui_ImplSDLRenderer_NewFrame();
-            ImGui_ImplSDL2_NewFrame();
-            ImGui::NewFrame();
+            ImGui_NewFrame();
 
             // 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
             if (show_demo_window)
@@ -145,11 +166,7 @@ namespace Tau { // to avoid conflict with other libraries
             }
 
             // Rendering
-            ImGui::Render();
-            SDL_SetRenderDrawColor(renderer, (Uint8)(clear_color.x * 255), (Uint8)(clear_color.y * 255), (Uint8)(clear_color.z * 255), (Uint8)(clear_color.w * 255));
-            SDL_RenderClear(renderer);
-            ImGui_ImplSDLRenderer_RenderDrawData(ImGui::GetDrawData());
-            SDL_RenderPresent(renderer);
+            ImGui_Render(renderer, clear_color);
         }
 
         ImGui_Cleanup();
