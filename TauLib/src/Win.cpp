@@ -15,23 +15,23 @@ using namespace std;
 namespace Tau { // to avoid conflict with other libraries
 
 //
-// InitWin
+// CreateWin
 // displayIndex starts at 0.  the displayIndex is saved for info only.  the bounds is what determines
 // the position and size of the window and if you are specifying a full screen on a specific display.
 //
-bool Win::InitWin(const string& _title, const Tau_Rect& bounds, Uint32 flagsWin, Uint32 flagsRenderer) {
+bool Win::CreateWin(const string& _title, const Tau_Posit& posit, const Tau_Size& size, Uint32 flagsWin, Uint32 flagsRenderer) {
     title = _title;
-    drawAreaRect = bounds;                   // this will get updated later
+    drawAreaRect = { posit, size };     // this will get updated later
 
-    //cout << "SDL_CreateWindow" << endl;
-    window = SDL_CreateWindow(title.c_str(), bounds.x, bounds.y, bounds.w, bounds.h, flagsWin);
+    window = SDL_CreateWindow(title.c_str(), posit.x, posit.y, size.w, size.h, flagsWin);
     if (window == nullptr) {
         cerr << "SDL_CreateWindow failed" << endl;
         assert(false);
         return false;
     }
 
-    //cout << "SDL_CreateRenderer" << endl;
+    // the window is inherited from DrawArea.
+    // renderer is in DrawArea as the draw routines need to know the renderer to draw in the window.
     renderer = SDL_CreateRenderer(window, -1, flagsRenderer);
     if (renderer == nullptr) {
         cerr << "SDL_CreateRenderer failed" << endl;
@@ -55,20 +55,62 @@ bool Win::InitWin(const string& _title, const Tau_Rect& bounds, Uint32 flagsWin,
     return isOpen;
 }
 
+    ///
+    /// @brief CreateCenteredWin - Creates a centered Window.
+    ///
+    /// @param title
+    /// @param size size of the window
+    /// @param flagsWin [SDL_WindowFlags](https://wiki.libsdl.org/SDL_WindowFlags)
+    /// @param flagsRenderer [SDL_RendererFlags] (https://wiki.libsdl.org/SDL_RendererFlags)
+    /// @return bool success/fail
+    ///
+bool Win::CreateCenteredWin(int displayIndex,
+    const std::string& title,               //if either FULLSCREEN flags are set the window is borderless and there is no title bar.
+
+    const Tau_Size& size,                   // the size of the window.  or if SDL_WINDOW_FULLSCREEN is set the new resolution of the display
+
+    Uint32 flagsWin,                        // set SDL_WINDOW_FULLSCREEN_DESKTOP to get an entire (borderless) display window at the current resolution.
+                                            // set SDL_WINDOW_FULLSCREEN to get an entire display window at a NEW resolution (see size).
+
+    Uint32 flagsRenderer) {
+        Tau_Posit posit = { (int)SDL_WINDOWPOS_CENTERED_DISPLAY(displayIndex), (int)SDL_WINDOWPOS_CENTERED_DISPLAY(displayIndex) };
+        return CreateWin(title, posit, size, flagsWin, flagsRenderer);        
+    }
+
+    //
+    // CreateFullscreenWin.  For when you want a borderless window taking the entire display at the current resolution.
+    //
+    bool Win::CreateFullscreenWin(int displayIndex, Uint32 flagsWin, Uint32 flagsRenderer) {
+        Tau_Posit posit = Display::GetDisplayPosit(displayIndex);
+        return  CreateWin("", posit, { 0,0 }, flagsWin | SDL_WINDOW_FULLSCREEN_DESKTOP, flagsRenderer);
+    }
+
+    //
+    // CreateFullscreenWinNewResolution.  For when you want a borderless window taking the entire display at a new resolution.
+    //
+    bool Win::CreateFullscreenWinNewResolution(int displayIndex, Tau_Size resolution, Uint32 flagsWin, Uint32 flagsRenderer) {
+        Tau_Posit posit = Display::GetDisplayPosit(displayIndex);
+        return  CreateWin("", posit, resolution, flagsWin | SDL_WINDOW_FULLSCREEN, flagsRenderer);
+    }
 //
 // ~Win destructor
 //
 Win::~Win() {
-    Close();
+    if (isOpen)
+        DestroyWin();
 }
 
 ///
-/// @brief Win::Close - close the window
+/// @brief Win::DestroyWin - close the window
 ///
-void Win::Close() {
-    renderer = nullptr;     // SDL_Shared dtor takes care of calling the proper destroy routine
-    window = nullptr;       // SDL_Shared dtor takes care of calling the proper destroy routine
-    isOpen = false;
+void Win::DestroyWin() {
+    if (isOpen) {
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        renderer = nullptr;     // SDL_Shared dtor takes care of calling the proper destroy routine
+        window = nullptr;       // SDL_Shared dtor takes care of calling the proper destroy routine
+        isOpen = false;
+    }
 }
 
 } // end namespace Tau

@@ -31,7 +31,8 @@ struct IniFile {
     std::string defaultSectionName;
 
     /// @brief IniFile ctor.  
-    /// Creates an empty IniFile.  Also adds the dummy [] section name where key that aren't inside a section name are added.
+    /// Creates an empty IniFile.  Also adds the "" dummy [] section name where key that aren't inside a section name are added.
+    /// an empty [] is not actually written to the ini file.  it is just for the internal structures.
     IniFile();
 
     /// @brief Calls IniFile().  Then loads the passed ini file.

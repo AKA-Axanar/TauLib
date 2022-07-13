@@ -27,8 +27,8 @@ namespace Tau { // to avoid conflict with other libraries
 ///
 struct Win : public DrawArea
 {
+    bool isOpen = false;
     unsigned int displayIndex = 0;                  ///< physical display index starting at 0
-
     std::string title;                              ///< title of window if not full screen
 
     SDL_Shared<SDL_Window> window = nullptr;
@@ -38,12 +38,10 @@ struct Win : public DrawArea
     Tau_Size windowSize;
     Tau_Rect windowRect;        // combined as a rect
 
-    bool isOpen = false;
-
     Win() {}
 
     ///
-    /// @brief InitWin - Initialize the Window.  posit and size are in separate args.
+    /// @brief CreateWin - Creates the Window.  posit and size are in separate args.
     ///
     /// @param title
     /// @param posit position of the window
@@ -52,49 +50,46 @@ struct Win : public DrawArea
     /// @param flagsRenderer [SDL_RendererFlags] (https://wiki.libsdl.org/SDL_RendererFlags)
     /// @return bool success/fail
     ///
-    bool InitWin(const std::string& title,  //if either FULLSCREEN flags are set the window is borderless and there is no title bar.
+    bool CreateWin(const std::string& title,    //if either FULLSCREEN flags are set the window is borderless and there is no title bar.
 
-        const Tau_Posit& posit, // to get a window in a particular display pass SDL_WINDOWPOS_CENTERED_DISPLAY(displayIndex) or
-                                // SDL_WINDOWPOS_UNDEFINED_DISPLAY(displayIndex) for BOTH x and y.  Note: the display index begins at 0.
+        const Tau_Posit& posit,                 // to get a window in a particular display pass SDL_WINDOWPOS_CENTERED_DISPLAY(displayIndex) or
+                                                // SDL_WINDOWPOS_UNDEFINED_DISPLAY(displayIndex) for BOTH x and y.  Note: the display index begins at 0.
 
-        const Tau_Size& size,   // the size of the window.  or if SDL_WINDOW_FULLSCREEN is set the new resolution of the display
+        const Tau_Size& size,                   // the size of the window.  or if SDL_WINDOW_FULLSCREEN is set the new resolution of the display
 
-        Uint32 flagsWin = 0,    // set SDL_WINDOW_FULLSCREEN_DESKTOP to get an entire (borderless) display window at the current resolution.
-                                // set SDL_WINDOW_FULLSCREEN to get an entire display window at a NEW resolution (see size).
+        Uint32 flagsWin,                        // set SDL_WINDOW_FULLSCREEN_DESKTOP to get an entire (borderless) display window at the current resolution.
+                                                // set SDL_WINDOW_FULLSCREEN to get an entire display window at a NEW resolution (see size).
 
-        Uint32 flagsRenderer = SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC)
-    {
-        return InitWin(title, { posit, size }, flagsWin, flagsRenderer);
-    }
+        Uint32 flagsRenderer);
 
     ///
-    /// @brief InitFullscreenWin.  For when you want a borderless window taking the entire display at the current resolution.
+    /// @brief CreateCenteredWin - Creates a centered Window.
     ///
-    bool InitFullscreenWin(int displayIndex) {
-        Tau_Posit posit = Display::GetDisplayPositFlag(displayIndex);
-        return  InitWin("", { posit, { 0,0 } }, SDL_WINDOW_FULLSCREEN_DESKTOP);
-    }
-
-    ///
-    /// @brief InitFullscreenWinNewResolution.  For when you want a borderless window taking the entire display at a new resolution.
-    ///
-    bool InitFullscreenWinNewResolution(int displayIndex, Tau_Size resolution) {
-        Tau_Posit posit = Display::GetDisplayPositFlag(displayIndex);
-        return  InitWin("", { posit, resolution }, SDL_WINDOW_FULLSCREEN);
-    }
-
-    ///
-    /// @brief InitWin
-    /// @param _title
-    /// @param bounds bounding rectangle of the window
+    /// @param title
+    /// @param size size of the window
     /// @param flagsWin [SDL_WindowFlags](https://wiki.libsdl.org/SDL_WindowFlags)
     /// @param flagsRenderer [SDL_RendererFlags] (https://wiki.libsdl.org/SDL_RendererFlags)
     /// @return bool success/fail
     ///
-    bool InitWin(const std::string& _title, 
-                const Tau_Rect& bounds, 
-                Uint32 flagsWin, 
-                Uint32 flagsRenderer = SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+    bool CreateCenteredWin(int displayIndex, 
+        const std::string& title,    //if either FULLSCREEN flags are set the window is borderless and there is no title bar.
+
+        const Tau_Size& size,                   // the size of the window.  or if SDL_WINDOW_FULLSCREEN is set the new resolution of the display
+
+        Uint32 flagsWin,                        // set SDL_WINDOW_FULLSCREEN_DESKTOP to get an entire (borderless) display window at the current resolution.
+                                                // set SDL_WINDOW_FULLSCREEN to get an entire display window at a NEW resolution (see size).
+
+        Uint32 flagsRenderer);
+
+    ///
+    /// @brief CreateFullscreenWin.  For when you want a borderless window taking the entire display at the current resolution.
+    ///
+    bool CreateFullscreenWin(int displayIndex, Uint32 flagsWin, Uint32 flagsRenderer);
+
+    ///
+    /// @brief CreateFullscreenWinNewResolution.  For when you want a borderless window taking the entire display at a new resolution.
+    ///
+    bool CreateFullscreenWinNewResolution(int displayIndex, Tau_Size resolution, Uint32 flagsWin, Uint32 flagsRenderer);
 
     ///
     /// @brief ~Win destructor
@@ -102,9 +97,9 @@ struct Win : public DrawArea
     ~Win();
 
     ///
-    /// @brief Close - close the window
+    /// @brief DestroyWin - destroys the window
     ///
-    void Close();
+    void DestroyWin();
 
 };
 
