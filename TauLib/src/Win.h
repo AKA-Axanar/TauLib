@@ -72,12 +72,13 @@ struct Win : public DrawArea
     /// @return bool success/fail
     ///
     bool CreateCenteredWin(int displayIndex, 
-        const std::string& title,    //if either FULLSCREEN flags are set the window is borderless and there is no title bar.
+        const std::string& title,       // if either FULLSCREEN flags are set the window is borderless and there is no title bar.
 
-        const Tau_Size& size,                   // the size of the window.  or if SDL_WINDOW_FULLSCREEN is set the new resolution of the display
+        const Tau_Size& size,           // the size of the window.  or if SDL_WINDOW_FULLSCREEN is set the new resolution of the display
 
-        Uint32 flagsWin,                        // set SDL_WINDOW_FULLSCREEN_DESKTOP to get an entire (borderless) display window at the current resolution.
-                                                // set SDL_WINDOW_FULLSCREEN to get an entire display window at a NEW resolution (see size).
+        Uint32 flagsWin,                // set SDL_WINDOW_FULLSCREEN_DESKTOP to get an entire (borderless) display window at the current resolution.
+                                        // set SDL_WINDOW_FULLSCREEN to get an entire display window at a NEW resolution (see size).
+                                        // if you don't set either of those flags you get a centered window of size in the displayIndex display.
 
         Uint32 flagsRenderer);
 

@@ -65,12 +65,13 @@ bool Win::CreateWin(const string& _title, const Tau_Posit& posit, const Tau_Size
     /// @return bool success/fail
     ///
 bool Win::CreateCenteredWin(int displayIndex,
-    const std::string& title,               //if either FULLSCREEN flags are set the window is borderless and there is no title bar.
+    const std::string& title,           // if either FULLSCREEN flags are set the window is borderless and there is no title bar.
 
-    const Tau_Size& size,                   // the size of the window.  or if SDL_WINDOW_FULLSCREEN is set the new resolution of the display
+    const Tau_Size& size,               // the size of the window.  or if SDL_WINDOW_FULLSCREEN is set the new resolution of the display
 
-    Uint32 flagsWin,                        // set SDL_WINDOW_FULLSCREEN_DESKTOP to get an entire (borderless) display window at the current resolution.
-                                            // set SDL_WINDOW_FULLSCREEN to get an entire display window at a NEW resolution (see size).
+    Uint32 flagsWin,                    // set SDL_WINDOW_FULLSCREEN_DESKTOP to get an entire (borderless) display window at the current resolution.
+                                        // set SDL_WINDOW_FULLSCREEN to get an entire display window at a NEW resolution (see size).
+                                        // if you don't set either of those flags you get a centered window of size in the displayIndex display.
 
     Uint32 flagsRenderer) {
         Tau_Posit posit = { (int)SDL_WINDOWPOS_CENTERED_DISPLAY(displayIndex), (int)SDL_WINDOWPOS_CENTERED_DISPLAY(displayIndex) };
@@ -81,7 +82,7 @@ bool Win::CreateCenteredWin(int displayIndex,
     // CreateFullscreenWin.  For when you want a borderless window taking the entire display at the current resolution.
     //
     bool Win::CreateFullscreenWin(int displayIndex, Uint32 flagsWin, Uint32 flagsRenderer) {
-        Tau_Posit posit = Display::GetDisplayPosit(displayIndex);
+        Tau_Posit posit = Display::GetCenteredDisplayPosit(displayIndex);
         return  CreateWin("", posit, { 0,0 }, flagsWin | SDL_WINDOW_FULLSCREEN_DESKTOP, flagsRenderer);
     }
 
@@ -89,7 +90,7 @@ bool Win::CreateCenteredWin(int displayIndex,
     // CreateFullscreenWinNewResolution.  For when you want a borderless window taking the entire display at a new resolution.
     //
     bool Win::CreateFullscreenWinNewResolution(int displayIndex, Tau_Size resolution, Uint32 flagsWin, Uint32 flagsRenderer) {
-        Tau_Posit posit = Display::GetDisplayPosit(displayIndex);
+        Tau_Posit posit = Display::GetCenteredDisplayPosit(displayIndex);
         return  CreateWin("", posit, resolution, flagsWin | SDL_WINDOW_FULLSCREEN, flagsRenderer);
     }
 //
