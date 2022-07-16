@@ -62,6 +62,8 @@ struct Display {
     /// display.  the position is the position across an entire desktop of multiple displays.  you can then create
     /// a window offset from that position to create a window any where in that display.
     //
+    // an example multi display desktop
+    // 
     //                  x on desktop                x on desktop                        x on desktop
     //                  x = -2560                   x = 0                               x = 3480
     //                  +-----------------------+   +-------------------------------+   +-----------------------+

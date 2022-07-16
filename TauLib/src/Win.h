@@ -76,6 +76,8 @@ struct Win : public DrawArea
     // a window offset from that position to create a window any where in that display.
     // Displays::GetInstance().DisplayInfos gives you info about the displays on your system.
     //
+    // an example multi display desktop
+    //
     //                  x on desktop                x on desktop                        x on desktop
     //                  x = -2560                   x = 0                               x = 3480
     //                  +-----------------------+   +-------------------------------+   +-----------------------+
@@ -94,12 +96,20 @@ struct Win : public DrawArea
         return CreateWin(title, posit, size, flagsWin, flagsRenderer);
     }
 
+    ///  @brief CreateWinOnDisplay - creates a window on a particular display.  the position is relative to the upper left corner of the display.
     bool CreateWinOnDisplay(int displayIndex, const std::string& title, const Tau_Posit& posit, const Tau_Size& size, Uint32 flagsWin, Uint32 flagsRenderer);
+
+    ///  @brief CreateWinCenteredOnDisplay - creates a window centered in a particular display.
     bool CreateWinCenteredOnDisplay(int displayIndex, const std::string& title, const Tau_Size& size, Uint32 flagsWin, Uint32 flagsRenderer);
 
+    /// @brief ChangeWinPosit
     void ChangeWinPosit(const Tau_Posit& posit);
+
+    /// @brief ChangeWinSize
     void ChangeWinSize(const Tau_Size& size);
 
+    /// @brief FindDisplayIndexOfX - finds the display that an x position on the desktop is in.
+    /// @return display index.  -1 on error.
     int FindDisplayIndexOfX(int x);
 
     ///

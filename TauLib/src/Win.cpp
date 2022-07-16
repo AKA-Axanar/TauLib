@@ -9,6 +9,7 @@
 #include "SDL_image.h"
 #include "SDL_ttf.h"
 #include <assert.h>
+#include <ranges>
 
 using namespace std;
 
@@ -55,7 +56,31 @@ bool Win::CreateWin(const string& _title, const Tau_Posit& posit, const Tau_Size
     return isOpen;
 }
 
-    ///
+void Win::ChangeWinPosit(const Tau_Posit& posit)
+{
+    SDL_SetWindowPosition(window, posit.x, posit.y);
+    windowPosit = posit;
+    windowRect = { posit, windowSize };
+}
+
+void Win::ChangeWinSize(const Tau_Size& size)
+{
+    SDL_SetWindowSize(window, size.w, size.h);
+    windowSize = size;
+    windowRect = { windowPosit, size };
+}
+
+// returns -1 on error
+int Win::FindDisplayIndexOfX(int x)
+{
+    for (const auto& info : Displays::GetInstance().DisplayInfos) {
+        if (x >= info.desktopXPosit && x < info.desktopXPosit + info.size.w)
+            return info.displayIndex;
+    }
+    return -1;
+}
+
+///
     /// @brief CreateCenteredWin - Creates a centered Window.
     ///
     /// @param title
