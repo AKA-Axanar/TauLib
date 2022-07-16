@@ -63,6 +63,46 @@ struct Win : public DrawArea
         Uint32 flagsRenderer);
 
     ///
+    /// @brief CreateWinOnDesktop - Creates a window on the desktop.  
+    ///
+    /// @param title
+    /// @param posit position of the window on the desktop (across multiple displays)
+    /// @param size size of the window
+    /// @param flagsWin [SDL_WindowFlags](https://wiki.libsdl.org/SDL_WindowFlags)
+    /// @param flagsRenderer [SDL_RendererFlags] (https://wiki.libsdl.org/SDL_RendererFlags)
+    /// @return bool success/fail
+    ///
+    // the position is the position across an entire desktop of multiple displays.  you can then create
+    // a window offset from that position to create a window any where in that display.
+    // Displays::GetInstance().DisplayInfos gives you info about the displays on your system.
+    //
+    //                  x on desktop                x on desktop                        x on desktop
+    //                  x = -2560                   x = 0                               x = 3480
+    //                  +-----------------------+   +-------------------------------+   +-----------------------+
+    //                  |                       |   |                               |   |                       |
+    //                  |      display 1        |   |          display 0            |   |      display 2        |
+    //                  |                       |   |                               |   |                       |
+    //                  |     2560 x 1440       |   |         3840 x 2160           |   |     2560 x 1440       |
+    //                  |                       |   |                               |   |                       |
+    //                  |                       |   |                               |   |                       |
+    //                  +-----------------------+   |                               |   +-----------------------+
+    //                                              |                               |                                    
+    //                                              |                               |                                    
+    //                                              +-------------------------------+
+    //
+    bool CreateWinOnDesktop(const std::string& title, const Tau_Posit& posit, const Tau_Size& size, Uint32 flagsWin, Uint32 flagsRenderer) {
+        return CreateWin(title, posit, size, flagsWin, flagsRenderer);
+    }
+
+    bool CreateWinOnDisplay(int displayIndex, const std::string& title, const Tau_Posit& posit, const Tau_Size& size, Uint32 flagsWin, Uint32 flagsRenderer);
+    bool CreateWinCenteredOnDisplay(int displayIndex, const std::string& title, const Tau_Size& size, Uint32 flagsWin, Uint32 flagsRenderer);
+
+    void ChangeWinPosit(const Tau_Posit& posit);
+    void ChangeWinSize(const Tau_Size& size);
+
+    int FindDisplayIndexOfX(int x);
+
+    ///
     /// @brief CreateCenteredWin - Creates a centered Window.
     ///
     /// @param title

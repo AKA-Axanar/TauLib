@@ -15,6 +15,8 @@ struct DisplayInfo {
                                 // the desktop spans the entire multiple displays.
     int desktopXPosit;          // the x position of the upper left corner of the desktop.
     Tau_Rect desktopBounds;     // the bounds of the display on the desktop
+
+    friend std::ostream& operator << (std::ostream& os, const DisplayInfo& rhs);
 };
 
 ///
@@ -42,6 +44,8 @@ class Displays {
         }
         return displays;
     }
+
+    friend std::ostream& operator << (std::ostream& os, const Displays& rhs);
 };
 
 ///
