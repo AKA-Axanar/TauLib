@@ -8,6 +8,7 @@
 ///
 namespace Tau {
 
+/// @brief DisplayInfo - the size and desktop position and bounds on the desktop of a display
 struct DisplayInfo {
     unsigned int displayIndex { 0 };
     Tau_Size size;              // display resolution
@@ -16,10 +17,37 @@ struct DisplayInfo {
     Tau_Rect desktopBounds;     // the bounds of the display on the desktop
 };
 
-struct Display {
-    /// @brief GetDisplayInfos -  return info about the displays attached to the system
-    static std::vector<DisplayInfo> GetDisplayInfos();
+///
+/// @brief GetDisplayInfos -  return info about the displays attached to the system
+///
+class Displays {
+    Displays() {};     // private
 
+    void GetDisplayInfos();
+
+    public:
+    ~Displays() {}
+    Displays(Displays const &) = delete;
+    Displays &operator=(Displays const &) = delete;
+
+    std::vector<DisplayInfo> DisplayInfos;
+
+    // GetInstance
+    static Displays& GetInstance() {
+        static bool inited { false };
+        static Displays displays;
+        if (!inited) {
+            displays.GetDisplayInfos();
+            inited = true;
+        }
+        return displays;
+    }
+};
+
+///
+///
+///
+struct Display {
     /// @brief GetNumberOfDisplays - returns the number of displays.  the first display is index 0.
     static unsigned int GetNumberOfDisplays();
 

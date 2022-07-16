@@ -7,37 +7,32 @@ using namespace std;
 using std::format;
 
 namespace Tau {
+    ///////////
+    // Displays
+    ///////////
 
     // GetDisplayInfos -  return info about the displays attached to the system
-    vector<DisplayInfo> Display::GetDisplayInfos() {
-        unsigned int count = GetNumberOfDisplays();
-        vector<DisplayInfo> ret;
+    //
+    void Displays::GetDisplayInfos() {
+        unsigned int count = Display::GetNumberOfDisplays();
 
         for (unsigned int i = 0; i < count; ++i) {
             DisplayInfo info;
             info.displayIndex = i;
-            //info.undefinedDisplayPosit = GetUndefinedDisplayPosit(i);
-            //info.centeredDisplayPosit = GetCenteredDisplayPosit(i);
-            info.desktopXPosit = GetDesktopDisplayPosit(i).x;
-            info.size = GetDisplaySize(i);
+            info.desktopXPosit = Display::GetDesktopDisplayPosit(i).x;
+            info.size = Display::GetDisplaySize(i);
             info.desktopBounds = { { info.desktopXPosit, 0 }, info.size };
-
-            //cout << format("display {:d}, undefined posit x {:d} y {:d}\n", i, info.undefinedDisplayPosit.x, info.undefinedDisplayPosit.y);
-            //cout << format("display {:d}, undefined posit x {:x} y {:x}\n", i, info.undefinedDisplayPosit.x, info.undefinedDisplayPosit.y);
-
-            //cout << format("display {:d}, centered posit x {:d} y {:d}\n", i, info.centeredDisplayPosit.x, info.centeredDisplayPosit.y);
-            //cout << format("display {:d}, centered posit x {:x} y {:x}\n", i, info.centeredDisplayPosit.x, info.centeredDisplayPosit.y);
-
             cout << format("display {:d}, desktop X posit {:d}\n", i, info.desktopXPosit);
-            //cout << format("display {:d}, desktop X  posit {:x}\n", i, info.desktopXPosit.x);
-
             cout << format("display {:d}, size w {:d} h {:d}\n", i, info.size.w, info.size.h);
             cout << endl;
 
-            ret.emplace_back(info);
+            DisplayInfos.emplace_back(info);
         }
-        return ret;
     }
+
+    ///////////
+    // Display
+    ///////////
 
     // GetNumberOfDisplays - returns the number of displays.  the first display is index 0.
     unsigned int Display::GetNumberOfDisplays() { return SDL_GetNumVideoDisplays(); }
