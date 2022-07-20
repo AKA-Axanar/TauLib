@@ -77,18 +77,18 @@ struct Win : public DrawArea
     // Displays::GetInstance().DisplayInfos gives you info about the displays on your system.
     //
     // an example multi display desktop
-    //
-    //                  x on desktop                x on desktop                        x on desktop
-    //                  x = -2560                   x = 0                               x = 3480
-    //                  +-----------------------+   +-------------------------------+   +-----------------------+
-    //                  |                       |   |                               |   |                       |
+    // 
+    //                                              x=0, y=0                            
+    //                                              +-------------------------------+   
+    //                  x=-2560, y=477              |                               |   x=3480, y=477                                 
+    //                  +-----------------------+   |                               |   +-----------------------+
     //                  |      display 1        |   |          display 0            |   |      display 2        |
     //                  |                       |   |                               |   |                       |
     //                  |     2560 x 1440       |   |         3840 x 2160           |   |     2560 x 1440       |
     //                  |                       |   |                               |   |                       |
     //                  |                       |   |                               |   |                       |
-    //                  +-----------------------+   |                               |   +-----------------------+
-    //                                              |                               |                                    
+    //                  |                       |   |                               |   |                       |
+    //                  +-----------------------+   |                               |   +-----------------------+                                 
     //                                              |                               |                                    
     //                                              +-------------------------------+
     //
@@ -112,6 +112,7 @@ struct Win : public DrawArea
     /// @return display index.  -1 on error.
     int FindDisplayIndexOfX(int x);
 
+#if 0
     ///
     /// @brief CreateCenteredWin - Creates a centered Window.
     ///
@@ -131,6 +132,7 @@ struct Win : public DrawArea
                                         // if you don't set either of those flags you get a centered window of size in the displayIndex display.
 
         Uint32 flagsRenderer);
+#endif
 
     ///
     /// @brief CreateFullscreenWin.  For when you want a borderless window taking the entire display at the current resolution.
@@ -140,7 +142,7 @@ struct Win : public DrawArea
     ///
     /// @brief CreateFullscreenWinNewResolution.  For when you want a borderless window taking the entire display at a new resolution.
     ///
-    bool CreateFullscreenWinNewResolution(int displayIndex, Tau_Size resolution, Uint32 flagsWin, Uint32 flagsRenderer);
+    bool CreateFullscreenWinNewResolution(int displayIndex, const Tau_Size& resolution, Uint32 flagsWin, Uint32 flagsRenderer);
 
     ///
     /// @brief ~Win destructor
@@ -152,6 +154,10 @@ struct Win : public DrawArea
     ///
     void DestroyWin();
 
+    ///
+    /// @brief CenterSizeInRect - compute the position needed to center the size of a rectangle inside another rectangle
+    ///
+    Tau_Posit CenterSizeInRect(const Tau_Size& size, const Tau_Rect& rect);
 };
 
  } // end namespace Tau

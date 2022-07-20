@@ -12,7 +12,7 @@ namespace Tau {
     // DisplayInfo
     //////////////
     ostream& operator << (ostream& os, const DisplayInfo& rhs) {
-        cout << std::format("display {:d}, desktop X posit {:d}\n", rhs.displayIndex, rhs.desktopXPosit);
+        cout << std::format("display {:d}, posit x {:d} y {:d}\n", rhs.displayIndex, rhs.posit.x, rhs.posit.y);
         cout << std::format("display {:d}, size w {:d} h {:d}\n", rhs.displayIndex, rhs.size.w, rhs.size.h);
         cout << endl;
         return os;
@@ -30,9 +30,9 @@ namespace Tau {
         for (unsigned int i = 0; i < count; ++i) {
             DisplayInfo info;
             info.displayIndex = i;
-            info.desktopXPosit = Display::GetDesktopDisplayPosit(i).x;
+            info.posit = Display::GetDesktopDisplayPosit(i);
             info.size = Display::GetDisplaySize(i);
-            info.desktopBounds = { { info.desktopXPosit, 0 }, info.size };
+            info.desktopBounds = { info.posit, info.size };
             DisplayInfos.emplace_back(info);
         }
     }

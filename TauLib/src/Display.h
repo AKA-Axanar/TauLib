@@ -11,10 +11,10 @@ namespace Tau {
 /// @brief DisplayInfo - the size and desktop position and bounds on the desktop of a display
 struct DisplayInfo {
     unsigned int displayIndex { 0 };
+    Tau_Posit posit;            // the position of the upper left corner of the desktop.
     Tau_Size size;              // display resolution
                                 // the desktop spans the entire multiple displays.
-    int desktopXPosit;          // the x position of the upper left corner of the desktop.
-    Tau_Rect desktopBounds;     // the bounds of the display on the desktop
+    Tau_Rect desktopBounds;     // the bounds of the display on the desktop { posit, size }
 
     friend std::ostream& operator << (std::ostream& os, const DisplayInfo& rhs);
 };
@@ -64,17 +64,17 @@ struct Display {
     //
     // an example multi display desktop
     // 
-    //                  x on desktop                x on desktop                        x on desktop
-    //                  x = -2560                   x = 0                               x = 3480
-    //                  +-----------------------+   +-------------------------------+   +-----------------------+
-    //                  |                       |   |                               |   |                       |
+    //                                              x=0, y=0                            
+    //                                              +-------------------------------+   
+    //                  x=-2560, y=477              |                               |   x=3480, y=477                                 
+    //                  +-----------------------+   |                               |   +-----------------------+
     //                  |      display 1        |   |          display 0            |   |      display 2        |
     //                  |                       |   |                               |   |                       |
     //                  |     2560 x 1440       |   |         3840 x 2160           |   |     2560 x 1440       |
     //                  |                       |   |                               |   |                       |
     //                  |                       |   |                               |   |                       |
-    //                  +-----------------------+   |                               |   +-----------------------+
-    //                                              |                               |                                    
+    //                  |                       |   |                               |   |                       |
+    //                  +-----------------------+   |                               |   +-----------------------+                                 
     //                                              |                               |                                    
     //                                              +-------------------------------+
     //
