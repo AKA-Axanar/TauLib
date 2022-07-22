@@ -2,6 +2,8 @@
 
 #include "SDL_Shared.h"
 #include "imgui.h"
+#include <vector>
+#include <string>
 
 ///
 /// @brief namespace Tau - avoid conflict with other libraries
@@ -22,6 +24,11 @@ void ImGui_Cleanup();
 /// @brief ImGui_NewFrame - Start the Dear ImGui frame
 /// 
 void ImGui_NewFrame();
+
+///
+/// ImGui_Combo
+/// 
+int ImGui_Combo(const std::string& label, int current_index, const std::vector<std::string>& items, ImGuiComboFlags flags);
 
 ///
 /// @brief ImGui_Render

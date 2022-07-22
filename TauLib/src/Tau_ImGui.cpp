@@ -83,6 +83,26 @@ namespace Tau { // to avoid conflict with other libraries
     }
 
     //
+    // ImGui_Combo
+    // 
+    int ImGui_Combo(const string& label, int current_index, const vector<string>& items, ImGuiComboFlags flags) {
+        if (ImGui::BeginCombo(label.c_str(), items[current_index].c_str(), flags)) {
+            for (int n = 0; n < items.size(); n++)
+            {
+                const bool is_selected = (current_index == n);
+                if (ImGui::Selectable(items[n].c_str(), is_selected))
+                    current_index = n;
+
+                // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+                if (is_selected)
+                    ImGui::SetItemDefaultFocus();
+            }
+            ImGui::EndCombo();
+        }
+        return current_index;
+    }
+
+    //
     // ImGui_Render
     // 
     void ImGui_Render(SDL_Shared<SDL_Renderer> renderer, const ImVec4& clearColor) {
