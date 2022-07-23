@@ -2,6 +2,8 @@
 #include "imgui.h"
 #include "imgui_impl_sdl.h"
 #include "imgui_impl_sdlrenderer.h"
+#include <ranges>
+#include <algorithm>
 
 using namespace std;
 
@@ -83,7 +85,7 @@ namespace Tau { // to avoid conflict with other libraries
     }
 
     //
-    // ImGui_Combo
+    // ImGui_Combo strings
     // 
     int ImGui_Combo(const string& label, int current_index, const vector<string>& items, ImGuiComboFlags flags) {
         if (ImGui::BeginCombo(label.c_str(), items[current_index].c_str(), flags)) {
@@ -100,6 +102,25 @@ namespace Tau { // to avoid conflict with other libraries
             ImGui::EndCombo();
         }
         return current_index;
+    }
+
+    //
+    // ImGui_Combo int's
+    // 
+    int ImGui_Combo_Ints(const string& label, int current_index, const vector<int>& int_items, ImGuiComboFlags flags) {
+        vector<string> items;
+        ranges::for_each(int_items, [&] (int n) { items.push_back(to_string(n)); });
+        return ImGui_Combo(label, current_index, items, flags);
+    }
+
+    //
+    // ImGui_Combo int range
+    // 
+    int ImGui_Combo_IntRange(const std::string& label, int current_index, int start, int count, ImGuiComboFlags flags) {
+        vector<string> items;
+        for (int n=start; n < start+count; ++n)
+            items.push_back(to_string(n));
+        return ImGui_Combo(label, current_index, items, flags);
     }
 
     //
