@@ -17,8 +17,8 @@ namespace Tau {
 //
     void ImGui_DemoTest() {
     Init_SDL();
-    Init_TTF();
-    Init_Mixer();
+    //Init_TTF();
+    //Init_Mixer();
 
     Win win;
 
@@ -36,8 +36,8 @@ namespace Tau {
 
     Tau::ImGui_DemoTest(win.window, win.renderer);
 
-    Quit_Mixer();
-    Quit_TTF();
+    //Quit_Mixer();
+    //Quit_TTF();
     SDL_DestroyRenderer(win.renderer);
     SDL_DestroyWindow(win.window);
     Quit_SDL();

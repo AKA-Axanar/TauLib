@@ -1,5 +1,8 @@
 #pragma once
 
+#include <SDL.h>
+#undef main
+
 #include "SDL_Shared.h"
 #include "imgui.h"
 #include <vector>
