@@ -60,8 +60,4 @@ int ImGui_Combo_IntRange(const std::string& label, int current_index, int start,
 /// 
 void ImGui_Render(SDL_Shared<SDL_Renderer> renderer, const ImVec4& clearColor);
 
-///
-/// @brief ImGui_ShowDemoWindow - calls ImGui::ShowDemoWindow() from Tau
-///
-void ImGui_ShowDemoWindow(SDL_Shared<SDL_Window> window, SDL_Shared<SDL_Renderer> renderer);
 }
