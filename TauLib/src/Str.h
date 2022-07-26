@@ -320,6 +320,14 @@ void RemoveCRLFCharsFromEndOfString(std::string* str);
 ///
 std::string RemoveCRLFCharsFromEndOfString(const std::string& str);
 
+///
+/// @brief RemoveString1FromFrontOfString2 - if string1 is the same as the front portion of string2
+/// removes that front portion from string2.  
+/// @param str1 The string that must be the front of str2 for it to be removed from str2.
+/// @return The string2 with the front section removed if it matches.  if str1 is not the front of str2, str2 unchanged is returned.
+///
+std::string RemoveString1FromFrontOfString2(const std::string& str1, const std::string& str2);
+
                 //*******************************
                 // string misc
                 //*******************************

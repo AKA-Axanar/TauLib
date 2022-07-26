@@ -440,6 +440,25 @@ std::string RemoveCRLFCharsFromEndOfString(const std::string& str) {
     return temp;
 }
 
+//
+// @RemoveString1FromFrontOfString2 - if string1 is the same as the front portion of string2
+// removes that front portion from string2 and returned.
+//
+string RemoveString1FromFrontOfString2(const string& str1, const string& str2)
+{
+    if (str2.size() < str1.size())
+        return str2;    // str2 is too small to contain str1
+
+    string front(str2, 0, str1.size());  // the portion of str2 that is the same size as str1
+    if (front == str1) {
+        string temp = str2;
+        temp.erase(0, front.size());    // strip off the front
+        return temp;
+    }
+
+    return str2;    // the front of str2 is not equal to str1
+}
+
                 //*******************************
                 // string misc
                 //*******************************
