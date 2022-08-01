@@ -66,10 +66,9 @@ namespace Tau { // to avoid conflict with other libraries
     }
 
     //
-    // ImGui_Cleanup
+    // ImGui_Quit
     //
-    void ImGui_Cleanup() {
-        // Cleanup
+    void ImGui_Quit() {
         ImGui_ImplSDLRenderer_Shutdown();
         ImGui_ImplSDL2_Shutdown();
         ImGui::DestroyContext();

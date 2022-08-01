@@ -12,14 +12,14 @@ namespace Tau { // to avoid conflict with other libraries
 
 ///
 /// @brief ImGui_Init
-/// @note call ImGui_Cleanup to clean up the init
+/// @note call ImGui_Quit to clean up the init
 ///
 void ImGui_Init(SDL_Shared<SDL_Window> window, SDL_Shared<SDL_Renderer> renderer);
 
 ///
-/// @brief ImGui_Cleanup
+/// @brief ImGui_Quit
 ///
-void ImGui_Cleanup();
+void ImGui_Quit();
 
 ///
 /// @brief ImGui_NewFrame - Start the Dear ImGui frame

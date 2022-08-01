@@ -119,7 +119,7 @@ namespace Tau {
             ImGui_Render(renderer, clear_color);
         }
 
-        ImGui_Cleanup();
+        ImGui_Quit();
 
         SDL_DestroyRenderer(renderer);
         SDL_DestroyWindow(window);
