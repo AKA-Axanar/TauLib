@@ -557,7 +557,7 @@ bool IniFile::IniLine::ParseLine(const string& _line) {
     }
 
     // save the key.  save the value, if any.
-    bool hasKey = FoundLexExpr("^[\\w\\-\\.][\\w\\-\\.\\s]*=", line);  // "key ="
+    bool hasKey = (line.find('=') != string::npos) && FoundLexExpr("^[\\s]*[^=;]+", line);  // "key ="
     if (hasKey) {
         key = rtrim(line.substr(0, line.find('=')));    // "key"
         if (key.size() > 0) {
