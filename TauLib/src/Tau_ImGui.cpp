@@ -133,4 +133,11 @@ namespace Tau { // to avoid conflict with other libraries
             SDL_RenderPresent(renderer);
     }
 
+    //
+    // ImGui_AddFont
+    // 
+    ImFont* ImGui_AddFont(const string& TTF_fontfile, float size_pixels, const ImFontConfig* font_cfg, const ImWchar* glyph_ranges) {
+        ImGuiIO& io = ImGui::GetIO();
+        return io.Fonts->AddFontFromFileTTF(TTF_fontfile.c_str(), size_pixels, font_cfg, glyph_ranges);
+    }
 }

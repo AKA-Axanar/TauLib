@@ -60,4 +60,9 @@ int ImGui_Combo_IntRange(const std::string& label, int current_index, int start,
 /// 
 void ImGui_Render(SDL_Shared<SDL_Renderer> renderer, const ImVec4& clearColor);
 
+///
+/// @brief ImGui_AddFont
+/// 
+ImFont*  ImGui_AddFont(const std::string& TTF_fontfile, float size_pixels, const ImFontConfig* font_cfg = NULL, const ImWchar* glyph_ranges = NULL);
+
 }
