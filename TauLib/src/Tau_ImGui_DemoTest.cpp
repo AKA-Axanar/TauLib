@@ -49,7 +49,7 @@ namespace Tau {
     void ImGui_DemoTest(SDL_Shared<SDL_Window> window, SDL_Shared<SDL_Renderer> renderer) {
         // from the example code in imgui/examples/example_sdl_sdlrenderer/main.cpp
 
-        ImGui_Init(window, renderer);
+        Tau_ImGui_Init(window, renderer);
 
         // Our state
         bool show_demo_window = true;
@@ -76,7 +76,7 @@ namespace Tau {
             }
 
             // Start the Dear ImGui frame
-            ImGui_NewFrame();
+            Tau_ImGui_NewFrame();
 
             // 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
             if (show_demo_window)
@@ -116,10 +116,10 @@ namespace Tau {
             }
 
             // Rendering
-            ImGui_Render(renderer, clear_color);
+            Tau_ImGui_Render(renderer, clear_color);
         }
 
-        ImGui_Quit();
+        Tau_ImGui_Quit();
 
         SDL_DestroyRenderer(renderer);
         SDL_DestroyWindow(window);

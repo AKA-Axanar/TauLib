@@ -11,58 +11,58 @@
 namespace Tau { // to avoid conflict with other libraries
 
 ///
-/// @brief ImGui_Init
+/// @brief Tau_ImGui_Init
 /// @note call ImGui_Quit to clean up the init
 ///
-void ImGui_Init(SDL_Shared<SDL_Window> window, SDL_Shared<SDL_Renderer> renderer);
+void Tau_ImGui_Init(SDL_Shared<SDL_Window> window, SDL_Shared<SDL_Renderer> renderer);
 
 ///
-/// @brief ImGui_Quit
+/// @brief Tau_ImGui_Quit
 ///
-void ImGui_Quit();
+void Tau_ImGui_Quit();
 
 ///
-/// @brief ImGui_NewFrame - Start the Dear ImGui frame
+/// @brief Tau_ImGui_NewFrame - Start the Dear ImGui frame
 /// @note call ImGui::EndFrame at the end of the frame
 /// 
-void ImGui_NewFrame();
+void Tau_ImGui_NewFrame();
 
 ///
-/// @brief ImGui_Combo
+/// @brief Tau_ImGui_Combo
 /// @param label - the label string on the right of the combo
 /// @param current_int - the index of the item that is the current selection
 /// @param items - the item strings in the combo list
 /// @param flags - any combo flags
 /// 
-int ImGui_Combo(const std::string& label, int current_index, const std::vector<std::string>& items, ImGuiComboFlags flags = 0);
+int Tau_ImGui_Combo(const std::string& label, int current_index, const std::vector<std::string>& items, ImGuiComboFlags flags = 0);
 
 ///
-/// @brief ImGui_Combo_Ints
+/// @brief Tau_ImGui_Combo_Ints
 /// @param label - the label string on the right of the combo
 /// @param current_int - the index of the item that is the current selection
 /// @param items - the item integers in the combo list
 /// @param flags - any combo flags
 /// 
-int ImGui_Combo_Ints(const std::string& label, int current_index, const std::vector<int>& int_items, ImGuiComboFlags flags = 0);
+int Tau_ImGui_Combo_Ints(const std::string& label, int current_index, const std::vector<int>& int_items, ImGuiComboFlags flags = 0);
 
 ///
-/// @brief ImGui_Combo_IntRange
+/// @brief Tau_ImGui_Combo_IntRange
 /// @param label - the label string on the right of the combo
 /// @param current_int - the index of the item that is the current selection
 /// @param start - the first integer in the combo list
 /// @param count - the count of integers in the combo list
 /// @param flags - any combo flags
 /// 
-int ImGui_Combo_IntRange(const std::string& label, int current_index, int start, int count, ImGuiComboFlags flags = 0);
+int Tau_ImGui_Combo_IntRange(const std::string& label, int current_index, int start, int count, ImGuiComboFlags flags = 0);
 
 ///
-/// @brief ImGui_Render
+/// @brief Tau_ImGui_Render
 /// 
-void ImGui_Render(SDL_Shared<SDL_Renderer> renderer, const ImVec4& clearColor);
+void Tau_ImGui_Render(SDL_Shared<SDL_Renderer> renderer, const ImVec4& clearColor);
 
 ///
-/// @brief ImGui_AddFont
+/// @brief Tau_ImGui_AddFont
 /// 
-ImFont*  ImGui_AddFont(const std::string& TTF_fontfile, float size_pixels, const ImFontConfig* font_cfg = NULL, const ImWchar* glyph_ranges = NULL);
+ImFont*  Tau_ImGui_AddFont(const std::string& TTF_fontfile, float size_pixels, const ImFontConfig* font_cfg = NULL, const ImWchar* glyph_ranges = NULL);
 
 }

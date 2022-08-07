@@ -10,9 +10,9 @@ using namespace std;
 namespace Tau { // to avoid conflict with other libraries
 
     //
-    // ImGui_Init
+    // Tau_ImGui_Init
     //
-    void ImGui_Init(SDL_Shared<SDL_Window> window, SDL_Shared<SDL_Renderer> renderer) {
+    void Tau_ImGui_Init(SDL_Shared<SDL_Window> window, SDL_Shared<SDL_Renderer> renderer) {
         // from the example code in imgui/examples/example_sdl_sdlrenderer/main.cpp
 
         // Setup window
@@ -68,27 +68,27 @@ namespace Tau { // to avoid conflict with other libraries
     }
 
     //
-    // ImGui_Quit
+    // Tau_ImGui_Quit
     //
-    void ImGui_Quit() {
+    void Tau_ImGui_Quit() {
         ImGui_ImplSDLRenderer_Shutdown();
         ImGui_ImplSDL2_Shutdown();
         ImGui::DestroyContext();
     }
 
     //
-    // ImGui_NewFrame - Start the Dear ImGui frame
+    // Tau_ImGui_NewFrame - Start the Dear ImGui frame
     // 
-    void ImGui_NewFrame() {
+    void Tau_ImGui_NewFrame() {
         ImGui_ImplSDLRenderer_NewFrame();
         ImGui_ImplSDL2_NewFrame();
         ImGui::NewFrame();
     }
 
     //
-    // ImGui_Combo strings
+    // Tau_ImGui_Combo strings
     // 
-    int ImGui_Combo(const string& label, int current_index, const vector<string>& items, ImGuiComboFlags flags) {
+    int Tau_ImGui_Combo(const string& label, int current_index, const vector<string>& items, ImGuiComboFlags flags) {
         if (ImGui::BeginCombo(label.c_str(), items[current_index].c_str(), flags)) {
             for (int n = 0; n < items.size(); n++)
             {
@@ -106,28 +106,28 @@ namespace Tau { // to avoid conflict with other libraries
     }
 
     //
-    // ImGui_Combo int's
+    // Tau_ImGui_Combo int's
     // 
-    int ImGui_Combo_Ints(const string& label, int current_index, const vector<int>& int_items, ImGuiComboFlags flags) {
+    int Tau_ImGui_Combo_Ints(const string& label, int current_index, const vector<int>& int_items, ImGuiComboFlags flags) {
         vector<string> items;
         ranges::for_each(int_items, [&] (int n) { items.push_back(to_string(n)); });
-        return ImGui_Combo(label, current_index, items, flags);
+        return Tau_ImGui_Combo(label, current_index, items, flags);
     }
 
     //
-    // ImGui_Combo int range
+    // Tau_ImGui_Combo int range
     // 
-    int ImGui_Combo_IntRange(const std::string& label, int current_index, int start, int count, ImGuiComboFlags flags) {
+    int Tau_ImGui_Combo_IntRange(const std::string& label, int current_index, int start, int count, ImGuiComboFlags flags) {
         vector<string> items;
         for (int n=start; n < start+count; ++n)
             items.push_back(to_string(n));
-        return ImGui_Combo(label, current_index, items, flags);
+        return Tau_ImGui_Combo(label, current_index, items, flags);
     }
 
     //
-    // ImGui_Render
+    // Tau_ImGui_Render
     // 
-    void ImGui_Render(SDL_Shared<SDL_Renderer> renderer, const ImVec4& clearColor) {
+    void Tau_ImGui_Render(SDL_Shared<SDL_Renderer> renderer, const ImVec4& clearColor) {
             ImGui::Render();
             SDL_SetRenderDrawColor(renderer, (Uint8)(clearColor.x * 255), (Uint8)(clearColor.y * 255), (Uint8)(clearColor.z * 255), (Uint8)(clearColor.w * 255));
             SDL_RenderClear(renderer);
@@ -136,9 +136,9 @@ namespace Tau { // to avoid conflict with other libraries
     }
 
     //
-    // ImGui_AddFont
+    // Tau_ImGui_AddFont
     // 
-    ImFont* ImGui_AddFont(const string& TTF_fontfile, float size_pixels, const ImFontConfig* font_cfg, const ImWchar* glyph_ranges) {
+    ImFont* Tau_ImGui_AddFont(const string& TTF_fontfile, float size_pixels, const ImFontConfig* font_cfg, const ImWchar* glyph_ranges) {
         ImGuiIO& io = ImGui::GetIO();
         return io.Fonts->AddFontFromFileTTF(TTF_fontfile.c_str(), size_pixels, font_cfg, glyph_ranges);
     }
