@@ -459,6 +459,27 @@ string RemoveString1FromFrontOfString2(const string& str1, const string& str2)
     return str2;    // the front of str2 is not equal to str1
 }
 
+//
+// RemoveDotSlashFromFrontOfPath - remove ., ./, .\, /, or \ from the beginning of a path
+//
+void RemoveDotSlashFromFrontOfPath(std::string* str)
+{
+    if (str->size() > 0 &&  (*str)[0] == '.')
+        str->erase(0, 1);     // erase any '.' at the front
+    if (str->size() > 0 && ((*str)[0] == '\\' || (*str)[0] == '/'))
+        str->erase(0, 1);     // erase any / or \ at the front
+}
+
+//
+// RemoveDotSlashFromFrontOfPath - remove ., ./, .\, /, or \ from the beginning of a path
+//
+std::string RemoveDotSlashFromFrontOfPath(const std::string& str)
+{
+    string temp = str;
+    RemoveDotSlashFromFrontOfPath(&temp);
+    return temp;
+}
+
                 //*******************************
                 // string misc
                 //*******************************

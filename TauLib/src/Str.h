@@ -328,6 +328,16 @@ std::string RemoveCRLFCharsFromEndOfString(const std::string& str);
 ///
 std::string RemoveString1FromFrontOfString2(const std::string& str1, const std::string& str2);
 
+///
+/// @brief RemoveDotSlashFromFrontOfPath - remove ., ./, .\, /, or \ from the beginning of a path
+///
+void RemoveDotSlashFromFrontOfPath(std::string* str);
+
+///
+/// @brief RemoveDotSlashFromFrontOfPath - remove ., ./, .\, /, or \ from the beginning of a path
+///
+std::string RemoveDotSlashFromFrontOfPath(const std::string& str);
+
                 //*******************************
                 // string misc
                 //*******************************
