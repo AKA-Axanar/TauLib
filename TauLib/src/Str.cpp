@@ -480,6 +480,26 @@ std::string RemoveDotSlashFromFrontOfPath(const std::string& str)
     return temp;
 }
 
+                 //*******************************
+                // string replace
+                //*******************************
+
+///
+/// @brief ReplaceCharInString - replaces all instances of a char with another
+///
+void ReplaceCharInString(std::string* str, char from, char to) {
+    ranges::for_each(*str, [&] (char& ch) { if (ch == from) ch = to; });
+}
+
+///
+/// @brief ReplaceCharInString - replaces all instances of a char with another
+///
+std::string ReplaceCharInString(const std::string& str, char from, char to) {
+    string temp = str;
+    ReplaceCharInString(&temp, from, to);
+    return temp;
+}
+
                 //*******************************
                 // string misc
                 //*******************************

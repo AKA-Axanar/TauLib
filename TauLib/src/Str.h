@@ -338,7 +338,21 @@ void RemoveDotSlashFromFrontOfPath(std::string* str);
 ///
 std::string RemoveDotSlashFromFrontOfPath(const std::string& str);
 
+                 //*******************************
+                // string replace
                 //*******************************
+
+///
+/// @brief ReplaceCharInString - replaces all instances of a char with another
+///
+void ReplaceCharInString(std::string* str, char from, char to);
+
+///
+/// @brief ReplaceCharInString - replaces all instances of a char with another
+///
+std::string ReplaceCharInString(const std::string& str, char from, char to);
+
+               //*******************************
                 // string misc
                 //*******************************
 
