@@ -10,6 +10,7 @@
 #include <algorithm>
 #include <iostream>
 #include <assert.h>
+#include <ranges>
 
 using namespace std;
 
@@ -23,14 +24,14 @@ namespace Tau { // to avoid conflict with other libraries
 // sortStrings - Sorts the passed vector of strings.
 //
 void sortStrings(Strings& strings) {
-    sort(strings.begin(), strings.end());
+    ranges::sort(strings);
 }
 
 //
 // sortStringsInsensitive - Does a case insensitive sort of the passed vector of strings.
 //
 void sortStringsInsensitive(Strings& strings) {
-    sort(strings.begin(), strings.end(), [] (string& str1, string& str2) { return lowerCase(str1) < lowerCase(str2); });
+    ranges::sort(strings, [] (string& str1, string& str2) { return lowerCase(str1) < lowerCase(str2); });
 }
 
                 //*******************************
@@ -98,7 +99,7 @@ void trim(string* s) {
 //
 std::string lowerCase(const std::string& _s) {
     string s = _s;
-    transform(s.begin(), s.end(), s.begin(),
+    ranges::transform(s, s.begin(),
         [](unsigned char c) { return std::tolower(c); });
     return s;
 }
@@ -108,7 +109,7 @@ std::string lowerCase(const std::string& _s) {
 // return none
 //
 void lowerCase(std::string* s) {
-    transform(s->begin(), s->end(), s->begin(),
+    ranges::transform(*s, s->begin(),
         [](unsigned char c) { return tolower(c); });
 }
 
@@ -118,7 +119,7 @@ void lowerCase(std::string* s) {
 //
 std::string upperCase(const std::string& _s) {
     string s = _s;
-    transform(s.begin(), s.end(), s.begin(),
+    ranges::transform(s, s.begin(),
         [](unsigned char c) { return std::toupper(c); });
     return s;
 }
@@ -127,7 +128,7 @@ std::string upperCase(const std::string& _s) {
 // upperCase - Convert the passed string to upper case.
 //
 void upperCase(std::string* s) {
-    transform(s->begin(), s->end(), s->begin(),
+    ranges::transform(*s, s->begin(),
         [](unsigned char c) { return toupper(c); });
 }
 
@@ -293,7 +294,7 @@ Strings SplitStringAtChars(const string& str, const string& splitAt, bool trimTh
     string expr = "[^" + splitAt + "\n\r]+";
     Strings temp = FindLexExprMatches(expr, str);
     if (trimTheWhitespaceFromThePieces)
-        for_each(begin(temp), end(temp), [&](string& s) { trim(&s); });
+        ranges::for_each(temp, [&](string& s) { trim(&s); });
 
     return temp;
 }
