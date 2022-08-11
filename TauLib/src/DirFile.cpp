@@ -450,7 +450,7 @@ bool WriteStringsToTextFile(const Strings& strings, const std::string& filePath,
 
     for (const string& s : strings) {
         if (appendLineEnding)
-            os << s << lineEnding;
+            os << s << endl;
         else
             os << s;
     }
@@ -469,7 +469,7 @@ bool AppendStringsToTextFile(const Strings& strings, const std::string& filePath
 
     for (const string& s : strings) {
         if (appendLineEnding)
-            os << s << lineEnding;
+            os << s << endl;
         else
             os << s;
     }

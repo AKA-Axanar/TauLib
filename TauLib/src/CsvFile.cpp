@@ -69,7 +69,7 @@ bool CsvFile::SaveAs(const std::string& filepath)
             ofile << item;
             firstItem = false;
         }
-        ofile << lineEnding;
+        ofile << endl;;
     }
     ofile.close();
 
