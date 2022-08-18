@@ -155,6 +155,27 @@ tuple<SDL_Shared<SDL_Texture>, Tau_Size> DrawArea::GetTextureAndSizeOfImage(cons
     return make_tuple(texture, size);
 }
 
+//
+// SetTextureAlpha
+// 
+void DrawArea::SetTextureAlpha(SDL_Shared<SDL_Texture> texture, Uint8 alpha)
+{
+    SDL_SetTextureAlphaMod(texture, alpha);
+}
+
+//
+// GetTextureAlpha - get the alpha factor in the texture.  0-255.  255 is full overwrite what's underneath.  128 is 50% draw and 50% transparent.
+// 
+Uint8 DrawArea::GetTextureAlpha(SDL_Shared<SDL_Texture> texture)
+{
+    Uint8 alpha {0};
+    if (texture) {
+        SDL_GetTextureAlphaMod(texture, &alpha);
+    }
+
+    return alpha;
+}
+
 //                  ===========
 //                   Draw Image
 //                  ===========

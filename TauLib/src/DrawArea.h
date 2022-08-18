@@ -110,6 +110,20 @@ struct DrawArea {
     /// 
     std::tuple<SDL_Shared<SDL_Texture>, Tau_Size> GetTextureAndSizeOfImage(const std::string& imgFilePath);
 
+    ///
+    /// @brief SetTextureAlpha
+    /// @param texture - texture to have it's alpha factor set
+    /// @param alpha - alpha factor.  0-255.  255 is full overwrite what's underneath.  128 is 50% draw and 50% transparent.
+    /// 
+    void SetTextureAlpha(SDL_Shared<SDL_Texture> texture, Uint8 alpha);
+
+    ///
+    /// @brief GetTextureAlpha
+    /// @param texture - texture to get the alpha value
+    /// @return the alpha factor in the texture.  0-255.  255 is full overwrite what's underneath.  128 is 50% draw and 50% transparent.
+    /// 
+    Uint8 GetTextureAlpha(SDL_Shared<SDL_Texture> texture);
+
 //                  ===========
 //                   Draw Image
 //                  ===========
