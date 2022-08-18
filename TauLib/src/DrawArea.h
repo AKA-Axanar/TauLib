@@ -306,7 +306,7 @@ struct DrawArea {
     int DrawTextUpperRightCornerAt(FC_Font_Shared font, const std::string& text, const Tau_Point& point);
 
 //                  ===========
-//                    Texture
+//                  Get Texture Size
 //                  ===========
 
     ///
@@ -323,6 +323,10 @@ struct DrawArea {
     /// 
     int GetHeightOfTexture(SDL_Shared<SDL_Texture> texture) { return GetSizeOfTexture(texture).h; }
 
+//                  ===========
+//                  Draw Texture
+//                  ===========
+
     ///
     /// @brief DrawTextureAt
     /// @param texture perhaps from calling GetTextureAndSizeOfImage or GetTextureOfText
@@ -338,6 +342,12 @@ struct DrawArea {
     /// @return The height of the texture
     /// 
     int DrawTextureCenteredAt(SDL_Shared<SDL_Texture> texture, const Tau_Posit& posit);
+
+    ///
+    /// @brief DrawTextureCenteredInWindow
+    /// @param texture perhaps from calling GetTextureAndSizeOfImage or GetTextureOfText
+    /// 
+    void DrawTextureCenteredInWindow(SDL_Shared<SDL_Texture> texture);
 
     ///
     /// @brief DrawTextureToRect

@@ -393,7 +393,7 @@ int DrawArea::DrawTextUpperRightCornerAt(FC_Font_Shared font, const std::string&
 }
 
 //                  ===========
-//                    Texture
+//                  Get Texture Size
 //                  ===========
 
 //
@@ -407,6 +407,10 @@ Tau_Size DrawArea::GetSizeOfTexture(SDL_Shared<SDL_Texture> texture) {
         cerr << "nullptr texture passed to GetSizeOfTexture" << endl;
     return size;
 }
+
+//                  ===========
+//                  Draw Texture
+//                  ===========
 
 //
 // DrawTextureAt
@@ -426,6 +430,14 @@ int DrawArea::DrawTextureCenteredAt(SDL_Shared<SDL_Texture> texture, const Tau_P
     Tau_Rect rect { posit - size.GetCenter(), size };   // compute upper left corner point
     SDL_RenderCopy(renderer, texture, nullptr, &rect);
     return size.h;
+}
+
+//
+// DrawTextureCenteredInWindow Draws the entire image centered in the window
+//
+
+void DrawArea::DrawTextureCenteredInWindow(SDL_Shared<SDL_Texture> texture) {
+    DrawTextureCenteredAt(texture, drawAreaRect.Center());
 }
 
 //
