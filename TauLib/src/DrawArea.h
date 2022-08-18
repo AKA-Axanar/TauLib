@@ -93,6 +93,38 @@ struct DrawArea {
     void FillRect(const Tau_Rect& rect, Tau_Color color);
 
 //                  ===========
+//                   Draw Image
+//                  ===========
+
+    ///
+    /// @brief DrawImageAt Draws the entire image at a point on the window
+    /// @param imgFilePath The image file path
+    /// @param point The point to draw the image
+    ///
+    void DrawImageAt(const std::string& imgFilePath, const Tau_Point& point);
+
+    ///
+    /// @brief DrawImageCenteredAt Draws the entire image centered at a point on the window
+    /// @param imgFilePath The image file path
+    /// @param point The center point to draw the image
+    ///
+    void DrawImageCenteredAt(const std::string& imgFilePath, const Tau_Point& point);
+
+    ///
+    /// @brief DrawImageCenteredInWindow Draws the entire image centered in the window
+    /// @param imgFilePath The image file path
+    ///
+    void DrawImageCenteredInWindow(const std::string& imgFilePath);
+
+    ///
+    /// @brief DrawImageToRect
+    /// @param imgFilePath The image file path
+    /// @param rect The rectangle area in the window to draw the scaled image
+    /// @note the image will be scaled to fit in the rect
+    /// 
+    void DrawImageToRect(const std::string& imgFilePath, const Tau_Rect& rect);
+
+//                  ===========
 //                  Image Texture
 //                  ===========
 
@@ -125,36 +157,76 @@ struct DrawArea {
     Uint8 GetTextureAlpha(SDL_Shared<SDL_Texture> texture);
 
 //                  ===========
-//                   Draw Image
+//                  Get Texture Size
 //                  ===========
 
     ///
-    /// @brief DrawImageAt Draws the entire image at a point on the window
-    /// @param imgFilePath The image file path
-    /// @param point The point to draw the image
-    ///
-    void DrawImageAt(const std::string& imgFilePath, const Tau_Point& point);
-
-    ///
-    /// @brief DrawImageCenteredAt Draws the entire image centered at a point on the window
-    /// @param imgFilePath The image file path
-    /// @param point The center point to draw the image
-    ///
-    void DrawImageCenteredAt(const std::string& imgFilePath, const Tau_Point& point);
-
-    ///
-    /// @brief DrawImageCenteredInWindow Draws the entire image centered in the window
-    /// @param imgFilePath The image file path
-    ///
-    void DrawImageCenteredInWindow(const std::string& imgFilePath);
-
-    ///
-    /// @brief DrawImageToRect
-    /// @param imgFilePath The image file path
-    /// @param rect The rectangle area in the window to draw the scaled image
-    /// @note the image will be scaled to fit in the rect
+    /// @brief GetSizeOfTexture
+    /// @param texture The texture to get the size of
+    /// @return SDL_Shared<SDL_Texture> texture
     /// 
-    void DrawImageToRect(const std::string& imgFilePath, const Tau_Rect& rect);
+    Tau_Size GetSizeOfTexture(SDL_Shared<SDL_Texture> texture);
+
+    ///
+    /// @brief GetHeightOfTexture
+    /// @param texture The texture to get the height of.  This is useful for text to find how many pixels to move down to the next line.
+    /// @return SDL_Shared<SDL_Texture> texture
+    /// 
+    int GetHeightOfTexture(SDL_Shared<SDL_Texture> texture) { return GetSizeOfTexture(texture).h; }
+
+//                  ===========
+//                  Draw Texture
+//                  ===========
+
+    ///
+    /// @brief DrawTextureAt
+    /// @param texture perhaps from calling GetTextureAndSizeOfImage or GetTextureOfText
+    /// @param posit The posit in the window to draw the texture
+    /// @return The height of the texture
+
+    int DrawTextureAt(SDL_Shared<SDL_Texture> texture, const Tau_Posit& posit);
+
+    ///
+    /// @brief DrawTextureCenteredAt
+    /// @param texture perhaps from calling GetTextureAndSizeOfImage or GetTextureOfText
+    /// @param posit The posit in the window to draw the centere of the texture
+    /// @return The height of the texture
+    /// 
+    int DrawTextureCenteredAt(SDL_Shared<SDL_Texture> texture, const Tau_Posit& posit);
+
+    ///
+    /// @brief DrawTextureCenteredInWindow
+    /// @param texture perhaps from calling GetTextureAndSizeOfImage or GetTextureOfText
+    /// 
+    void DrawTextureCenteredInWindow(SDL_Shared<SDL_Texture> texture);
+
+    ///
+    /// @brief DrawTextureToRect
+    /// @param texture perhaps from calling GetTextureAndSizeOfImage or GetTextureOfText
+    /// @param destRect The rectangle area in the window to draw the srcRect
+    /// @remark the srcRect will be scaled to fit in the destRect
+    /// @return The height of the texture
+    /// 
+    int DrawTextureToRect(SDL_Shared<SDL_Texture> texture, const Tau_Rect& destRect);
+
+    ///
+    /// @brief DrawSectionOfTextureAt
+    /// @param texture probably from calling GetTextureAndSizeOfImage
+    /// @param srcRect The rectangle area in the texture to draw
+    /// @param posit The posit in the window to draw the texture
+    /// @return The height of the drawn dest area
+    /// 
+    int DrawSectionOfTextureAt(SDL_Shared<SDL_Texture> texture, const Tau_Rect& srcRect, const Tau_Posit& posit);
+
+    ///
+    /// @brief DrawSectionOfTextureToRect
+    /// @param texture probably from calling GetTextureAndSizeOfImage
+    /// @param srcRect The rectangle area in the texture to draw
+    /// @param destRect The rectangle area in the window to draw the srcRect
+    /// @remark the srcRect will be scaled to fit in the destRect
+    /// @return The height of the drawn dest area
+    /// 
+    int DrawSectionOfTextureToRect(SDL_Shared<SDL_Texture> texture, const Tau_Rect& srcRect, const Tau_Rect& destRect);
 
 //                  ===========
 //                  Text Texture
@@ -318,78 +390,6 @@ struct DrawArea {
     int DrawTextHorizCenteredAt(FC_Font_Shared font, const std::string& text, const Tau_Point& point);
     int DrawTextHorizCenteredInWindow(FC_Font_Shared font, const std::string& text, int y);
     int DrawTextUpperRightCornerAt(FC_Font_Shared font, const std::string& text, const Tau_Point& point);
-
-//                  ===========
-//                  Get Texture Size
-//                  ===========
-
-    ///
-    /// @brief GetSizeOfTexture
-    /// @param texture The texture to get the size of
-    /// @return SDL_Shared<SDL_Texture> texture
-    /// 
-    Tau_Size GetSizeOfTexture(SDL_Shared<SDL_Texture> texture);
-
-    ///
-    /// @brief GetHeightOfTexture
-    /// @param texture The texture to get the height of.  This is useful for text to find how many pixels to move down to the next line.
-    /// @return SDL_Shared<SDL_Texture> texture
-    /// 
-    int GetHeightOfTexture(SDL_Shared<SDL_Texture> texture) { return GetSizeOfTexture(texture).h; }
-
-//                  ===========
-//                  Draw Texture
-//                  ===========
-
-    ///
-    /// @brief DrawTextureAt
-    /// @param texture perhaps from calling GetTextureAndSizeOfImage or GetTextureOfText
-    /// @param posit The posit in the window to draw the texture
-    /// @return The height of the texture
-
-    int DrawTextureAt(SDL_Shared<SDL_Texture> texture, const Tau_Posit& posit);
-
-    ///
-    /// @brief DrawTextureCenteredAt
-    /// @param texture perhaps from calling GetTextureAndSizeOfImage or GetTextureOfText
-    /// @param posit The posit in the window to draw the centere of the texture
-    /// @return The height of the texture
-    /// 
-    int DrawTextureCenteredAt(SDL_Shared<SDL_Texture> texture, const Tau_Posit& posit);
-
-    ///
-    /// @brief DrawTextureCenteredInWindow
-    /// @param texture perhaps from calling GetTextureAndSizeOfImage or GetTextureOfText
-    /// 
-    void DrawTextureCenteredInWindow(SDL_Shared<SDL_Texture> texture);
-
-    ///
-    /// @brief DrawTextureToRect
-    /// @param texture perhaps from calling GetTextureAndSizeOfImage or GetTextureOfText
-    /// @param destRect The rectangle area in the window to draw the srcRect
-    /// @remark the srcRect will be scaled to fit in the destRect
-    /// @return The height of the texture
-    /// 
-    int DrawTextureToRect(SDL_Shared<SDL_Texture> texture, const Tau_Rect& destRect);
-
-    ///
-    /// @brief DrawSectionOfTextureAt
-    /// @param texture probably from calling GetTextureAndSizeOfImage
-    /// @param srcRect The rectangle area in the texture to draw
-    /// @param posit The posit in the window to draw the texture
-    /// @return The height of the drawn dest area
-    /// 
-    int DrawSectionOfTextureAt(SDL_Shared<SDL_Texture> texture, const Tau_Rect& srcRect, const Tau_Posit& posit);
-
-    ///
-    /// @brief DrawSectionOfTextureToRect
-    /// @param texture probably from calling GetTextureAndSizeOfImage
-    /// @param srcRect The rectangle area in the texture to draw
-    /// @param destRect The rectangle area in the window to draw the srcRect
-    /// @remark the srcRect will be scaled to fit in the destRect
-    /// @return The height of the drawn dest area
-    /// 
-    int DrawSectionOfTextureToRect(SDL_Shared<SDL_Texture> texture, const Tau_Rect& srcRect, const Tau_Rect& destRect);
 
 //                  ===========
 //                     Color

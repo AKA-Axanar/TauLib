@@ -132,6 +132,46 @@ void DrawArea::FillRect(const Tau_Rect& rect, Tau_Color color) {
 }
 
 //                  ===========
+//                   Draw Image
+//                  ===========
+
+//
+// DrawImageAt Draws the entire image at a point on the window
+//
+void DrawArea::DrawImageAt(const string& imgFilePath, const Tau_Point& point) {
+    auto [ texture, size ] = GetTextureAndSizeOfImage(imgFilePath);
+    Tau_Rect rect(point, size);
+
+    SDL_RenderCopy(renderer, texture, nullptr, &rect);
+}
+
+//
+// DrawImageCenteredAt Draws the entire image centered at a point on the window
+//
+void DrawArea::DrawImageCenteredAt(const std::string& imgFilePath, const Tau_Point& point) {
+    auto [ texture, size ] = GetTextureAndSizeOfImage(imgFilePath);
+    // adjust the corner x,y so that the center of the image is at the point
+    Tau_Rect rect ({ point.x - (size.w / 2), point.y - (size.h / 2) }, size );
+
+    SDL_RenderCopy(renderer, texture, nullptr, &rect);
+}
+
+//
+// DrawImageCenteredInWindow Draws the entire image centered in the window
+//
+void DrawArea::DrawImageCenteredInWindow(const std::string& imgFilePath) {
+    DrawImageCenteredAt(imgFilePath, drawAreaRect.Center());
+}
+
+//
+// DrawImageToRect
+//
+void DrawArea::DrawImageToRect(const string& imgFilePath, const Tau_Rect& rect) {
+    SDL_Shared<SDL_Texture> texture = IMG_LoadTexture(renderer, imgFilePath.c_str());
+    SDL_RenderCopy(renderer, texture, nullptr, &rect);
+}
+
+//                  ===========
 //                  Image Texture
 //                  ===========
 
@@ -177,43 +217,83 @@ Uint8 DrawArea::GetTextureAlpha(SDL_Shared<SDL_Texture> texture)
 }
 
 //                  ===========
-//                   Draw Image
+//                  Get Texture Size
 //                  ===========
 
 //
-// DrawImageAt Draws the entire image at a point on the window
-//
-void DrawArea::DrawImageAt(const string& imgFilePath, const Tau_Point& point) {
-    auto [ texture, size ] = GetTextureAndSizeOfImage(imgFilePath);
-    Tau_Rect rect(point, size);
+// GetSizeOfTexture
+// 
+Tau_Size DrawArea::GetSizeOfTexture(SDL_Shared<SDL_Texture> texture) {
+    Tau_Size size;
+    if (texture)
+        SDL_QueryTexture(texture, NULL, NULL, &size.w, &size.h); // get the width and height of the texture
+    else
+        cerr << "nullptr texture passed to GetSizeOfTexture" << endl;
+    return size;
+}
 
+//                  ===========
+//                  Draw Texture
+//                  ===========
+
+//
+// DrawTextureAt
+// 
+int DrawArea::DrawTextureAt(SDL_Shared<SDL_Texture> texture, const Tau_Posit& posit) {
+    Tau_Size size = GetSizeOfTexture(texture);
+    Tau_Rect rect { posit, size };
     SDL_RenderCopy(renderer, texture, nullptr, &rect);
+    return size.h;
 }
 
 //
-// DrawImageCenteredAt Draws the entire image centered at a point on the window
-//
-void DrawArea::DrawImageCenteredAt(const std::string& imgFilePath, const Tau_Point& point) {
-    auto [ texture, size ] = GetTextureAndSizeOfImage(imgFilePath);
-    // adjust the corner x,y so that the center of the image is at the point
-    Tau_Rect rect ({ point.x - (size.w / 2), point.y - (size.h / 2) }, size );
-
+// DrawTextureCenteredAt
+// 
+int DrawArea::DrawTextureCenteredAt(SDL_Shared<SDL_Texture> texture, const Tau_Posit& posit) {
+    Tau_Size size = GetSizeOfTexture(texture);
+    Tau_Rect rect { posit - size.GetCenter(), size };   // compute upper left corner point
     SDL_RenderCopy(renderer, texture, nullptr, &rect);
+    return size.h;
 }
 
 //
-// DrawImageCenteredInWindow Draws the entire image centered in the window
+// DrawTextureCenteredInWindow Draws the entire image centered in the window
 //
-void DrawArea::DrawImageCenteredInWindow(const std::string& imgFilePath) {
-    DrawImageCenteredAt(imgFilePath, drawAreaRect.Center());
+
+void DrawArea::DrawTextureCenteredInWindow(SDL_Shared<SDL_Texture> texture) {
+    DrawTextureCenteredAt(texture, drawAreaRect.Center());
 }
 
 //
-// DrawImageToRect
+// DrawTextureToRect
+// 
+int DrawArea::DrawTextureToRect(SDL_Shared<SDL_Texture> texture, const Tau_Rect& destRect) {
+    if (texture)
+        SDL_RenderCopy(renderer, texture, nullptr, &destRect);
+    else
+        cerr << "nullptr texture passed to DrawTextureToRect" << endl;
+    return destRect.h;
+}
+
 //
-void DrawArea::DrawImageToRect(const string& imgFilePath, const Tau_Rect& rect) {
-    SDL_Shared<SDL_Texture> texture = IMG_LoadTexture(renderer, imgFilePath.c_str());
-    SDL_RenderCopy(renderer, texture, nullptr, &rect);
+// DrawSectionOfTextureAt
+// 
+int DrawArea::DrawSectionOfTextureAt(SDL_Shared<SDL_Texture> texture, const Tau_Rect& srcRect, const Tau_Posit& posit) {
+    Tau_Size size = GetSizeOfTexture(texture);
+    Tau_Rect destRect { posit, srcRect.GetSize() };
+    SDL_RenderCopy(renderer, texture, &srcRect, &destRect);
+    return destRect.h;
+}
+
+//
+// DrawSectionOfTextureToRect
+// 
+int DrawArea::DrawSectionOfTextureToRect(SDL_Shared<SDL_Texture> texture, const Tau_Rect& srcRect, const Tau_Rect& destRect) {
+    if (texture)
+        SDL_RenderCopy(renderer, texture, &srcRect, &destRect);
+    else
+        cerr << "nullptr texture passed to DrawSectionOfTextureToRect" << endl;
+    return destRect.h;
 }
 
 //                  ===========
@@ -411,86 +491,6 @@ int DrawArea::DrawTextUpperRightCornerAt(FC_Font_Shared font, const std::string&
     int w = FC_GetWidth(font, text.c_str());
     Tau_Point newPoint = { point.x - w, point.y };
     return DrawTextAt(font, text, newPoint);
-}
-
-//                  ===========
-//                  Get Texture Size
-//                  ===========
-
-//
-// GetSizeOfTexture
-// 
-Tau_Size DrawArea::GetSizeOfTexture(SDL_Shared<SDL_Texture> texture) {
-    Tau_Size size;
-    if (texture)
-        SDL_QueryTexture(texture, NULL, NULL, &size.w, &size.h); // get the width and height of the texture
-    else
-        cerr << "nullptr texture passed to GetSizeOfTexture" << endl;
-    return size;
-}
-
-//                  ===========
-//                  Draw Texture
-//                  ===========
-
-//
-// DrawTextureAt
-// 
-int DrawArea::DrawTextureAt(SDL_Shared<SDL_Texture> texture, const Tau_Posit& posit) {
-    Tau_Size size = GetSizeOfTexture(texture);
-    Tau_Rect rect { posit, size };
-    SDL_RenderCopy(renderer, texture, nullptr, &rect);
-    return size.h;
-}
-
-//
-// DrawTextureCenteredAt
-// 
-int DrawArea::DrawTextureCenteredAt(SDL_Shared<SDL_Texture> texture, const Tau_Posit& posit) {
-    Tau_Size size = GetSizeOfTexture(texture);
-    Tau_Rect rect { posit - size.GetCenter(), size };   // compute upper left corner point
-    SDL_RenderCopy(renderer, texture, nullptr, &rect);
-    return size.h;
-}
-
-//
-// DrawTextureCenteredInWindow Draws the entire image centered in the window
-//
-
-void DrawArea::DrawTextureCenteredInWindow(SDL_Shared<SDL_Texture> texture) {
-    DrawTextureCenteredAt(texture, drawAreaRect.Center());
-}
-
-//
-// DrawTextureToRect
-// 
-int DrawArea::DrawTextureToRect(SDL_Shared<SDL_Texture> texture, const Tau_Rect& destRect) {
-    if (texture)
-        SDL_RenderCopy(renderer, texture, nullptr, &destRect);
-    else
-        cerr << "nullptr texture passed to DrawTextureToRect" << endl;
-    return destRect.h;
-}
-
-//
-// DrawSectionOfTextureAt
-// 
-int DrawArea::DrawSectionOfTextureAt(SDL_Shared<SDL_Texture> texture, const Tau_Rect& srcRect, const Tau_Posit& posit) {
-    Tau_Size size = GetSizeOfTexture(texture);
-    Tau_Rect destRect { posit, srcRect.GetSize() };
-    SDL_RenderCopy(renderer, texture, &srcRect, &destRect);
-    return destRect.h;
-}
-
-//
-// DrawSectionOfTextureToRect
-// 
-int DrawArea::DrawSectionOfTextureToRect(SDL_Shared<SDL_Texture> texture, const Tau_Rect& srcRect, const Tau_Rect& destRect) {
-    if (texture)
-        SDL_RenderCopy(renderer, texture, &srcRect, &destRect);
-    else
-        cerr << "nullptr texture passed to DrawSectionOfTextureToRect" << endl;
-    return destRect.h;
 }
 
 //                  ===========
