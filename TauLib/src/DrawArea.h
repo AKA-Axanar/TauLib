@@ -97,50 +97,58 @@ struct DrawArea {
 //                  ===========
 
     ///
-    /// @brief DrawImageAt Draws the entire image at a point on the window
+    /// @brief DrawImageFileAt Draws the entire image at a point on the window
     /// @param imgFilePath The image file path
     /// @param point The point to draw the image
+    /// @param alpha - alpha factor.  0-255.  255 is full overwrite what's underneath.  128 is 50% draw and 50% transparent.
     ///
-    void DrawImageAt(const std::string& imgFilePath, const Tau_Point& point);
+    void DrawImageFileAt(const std::string& imgFilePath, const Tau_Point& point);
+    void DrawImageFileAt(const std::string& imgFilePath, const Tau_Point& point, Uint8 alpha);
 
     ///
-    /// @brief DrawImageCenteredAt Draws the entire image centered at a point on the window
+    /// @brief DrawImageFileCenteredAt Draws the entire image centered at a point on the window
     /// @param imgFilePath The image file path
     /// @param point The center point to draw the image
+    /// @param alpha - alpha factor.  0-255.  255 is full overwrite what's underneath.  128 is 50% draw and 50% transparent.
     ///
-    void DrawImageCenteredAt(const std::string& imgFilePath, const Tau_Point& point);
+    void DrawImageFileCenteredAt(const std::string& imgFilePath, const Tau_Point& point);
+    void DrawImageFileCenteredAt(const std::string& imgFilePath, const Tau_Point& point, Uint8 alpha);
 
     ///
-    /// @brief DrawImageCenteredInWindow Draws the entire image centered in the window
+    /// @brief DrawImageFileCenteredInWindow Draws the entire image centered in the window
     /// @param imgFilePath The image file path
+    /// @param alpha - alpha factor.  0-255.  255 is full overwrite what's underneath.  128 is 50% draw and 50% transparent.
     ///
-    void DrawImageCenteredInWindow(const std::string& imgFilePath);
+    void DrawImageFileCenteredInWindow(const std::string& imgFilePath);
+    void DrawImageFileCenteredInWindow(const std::string& imgFilePath, Uint8 alpha);
 
     ///
-    /// @brief DrawImageToRect
+    /// @brief DrawImageFileToRect
     /// @param imgFilePath The image file path
     /// @param rect The rectangle area in the window to draw the scaled image
+    /// @param alpha - alpha factor.  0-255.  255 is full overwrite what's underneath.  128 is 50% draw and 50% transparent.
     /// @note the image will be scaled to fit in the rect
     /// 
-    void DrawImageToRect(const std::string& imgFilePath, const Tau_Rect& rect);
+    void DrawImageFileToRect(const std::string& imgFilePath, const Tau_Rect& rect);
+    void DrawImageFileToRect(const std::string& imgFilePath, const Tau_Rect& rect, Uint8 alpha);
 
 //                  ===========
 //                  Image Texture
 //                  ===========
 
     ///
-    /// @brief GetTextureOfImage
+    /// @brief GetTextureOfImageFile
     /// @param imgFilePath The image file path
     /// @return SDL_Shared<SDL_Texture> texture
     /// 
-    SDL_Shared<SDL_Texture> GetTextureOfImage(const std::string& imgFilePath);
+    SDL_Shared<SDL_Texture> GetTextureOfImageFile(const std::string& imgFilePath);
 
     ///
-    /// @brief GetTextureAndSizeOfImage
+    /// @brief GetTextureAndSizeOfImageFile
     /// @param imgFilePath The image file path
     /// @return SDL_Shared<SDL_Texture> texture and Tau_Size size
     /// 
-    std::tuple<SDL_Shared<SDL_Texture>, Tau_Size> GetTextureAndSizeOfImage(const std::string& imgFilePath);
+    std::tuple<SDL_Shared<SDL_Texture>, Tau_Size> GetTextureAndSizeOfImageFile(const std::string& imgFilePath);
 
     ///
     /// @brief SetTextureAlpha
@@ -180,7 +188,7 @@ struct DrawArea {
 
     ///
     /// @brief DrawTextureAt
-    /// @param texture perhaps from calling GetTextureAndSizeOfImage or GetTextureOfText
+    /// @param texture perhaps from calling GetTextureAndSizeOfImageFile or GetTextureOfText
     /// @param posit The posit in the window to draw the texture
     /// @return The height of the texture
 
@@ -188,7 +196,7 @@ struct DrawArea {
 
     ///
     /// @brief DrawTextureCenteredAt
-    /// @param texture perhaps from calling GetTextureAndSizeOfImage or GetTextureOfText
+    /// @param texture perhaps from calling GetTextureAndSizeOfImageFile or GetTextureOfText
     /// @param posit The posit in the window to draw the centere of the texture
     /// @return The height of the texture
     /// 
@@ -196,13 +204,13 @@ struct DrawArea {
 
     ///
     /// @brief DrawTextureCenteredInWindow
-    /// @param texture perhaps from calling GetTextureAndSizeOfImage or GetTextureOfText
+    /// @param texture perhaps from calling GetTextureAndSizeOfImageFile or GetTextureOfText
     /// 
     void DrawTextureCenteredInWindow(SDL_Shared<SDL_Texture> texture);
 
     ///
     /// @brief DrawTextureToRect
-    /// @param texture perhaps from calling GetTextureAndSizeOfImage or GetTextureOfText
+    /// @param texture perhaps from calling GetTextureAndSizeOfImageFile or GetTextureOfText
     /// @param destRect The rectangle area in the window to draw the srcRect
     /// @remark the srcRect will be scaled to fit in the destRect
     /// @return The height of the texture
@@ -211,7 +219,7 @@ struct DrawArea {
 
     ///
     /// @brief DrawSectionOfTextureAt
-    /// @param texture probably from calling GetTextureAndSizeOfImage
+    /// @param texture probably from calling GetTextureAndSizeOfImageFile
     /// @param srcRect The rectangle area in the texture to draw
     /// @param posit The posit in the window to draw the texture
     /// @return The height of the drawn dest area
@@ -220,7 +228,7 @@ struct DrawArea {
 
     ///
     /// @brief DrawSectionOfTextureToRect
-    /// @param texture probably from calling GetTextureAndSizeOfImage
+    /// @param texture probably from calling GetTextureAndSizeOfImageFile
     /// @param srcRect The rectangle area in the texture to draw
     /// @param destRect The rectangle area in the window to draw the srcRect
     /// @remark the srcRect will be scaled to fit in the destRect

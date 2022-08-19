@@ -36,7 +36,7 @@ void DrawArea::SetDefaultImage(const std::string& filename, bool enable) {
     defaultImageFile = filename;
     enableDefaultImage = enable;
     if (defaultImageFile != "") 
-        defaultImageTexture = GetTextureOfImage(defaultImageFile);  // make texture once for better performance
+        defaultImageTexture = GetTextureOfImageFile(defaultImageFile);  // make texture once for better performance
     else
         defaultImageTexture = nullptr;
 }
@@ -136,20 +136,45 @@ void DrawArea::FillRect(const Tau_Rect& rect, Tau_Color color) {
 //                  ===========
 
 //
-// DrawImageAt Draws the entire image at a point on the window
+// DrawImageFileAt Draws the entire image at a point on the window
 //
-void DrawArea::DrawImageAt(const string& imgFilePath, const Tau_Point& point) {
-    auto [ texture, size ] = GetTextureAndSizeOfImage(imgFilePath);
+void DrawArea::DrawImageFileAt(const string& imgFilePath, const Tau_Point& point) {
+    auto [ texture, size ] = GetTextureAndSizeOfImageFile(imgFilePath);
     Tau_Rect rect(point, size);
 
     SDL_RenderCopy(renderer, texture, nullptr, &rect);
 }
 
 //
-// DrawImageCenteredAt Draws the entire image centered at a point on the window
+// DrawImageFileAt Draws the entire image at a point on the window with alpha.
 //
-void DrawArea::DrawImageCenteredAt(const std::string& imgFilePath, const Tau_Point& point) {
-    auto [ texture, size ] = GetTextureAndSizeOfImage(imgFilePath);
+void DrawArea::DrawImageFileAt(const std::string& imgFilePath, const Tau_Point& point, Uint8 alpha)
+{
+    auto [ texture, size ] = GetTextureAndSizeOfImageFile(imgFilePath);
+    SetTextureAlpha(texture, alpha);
+    Tau_Rect rect(point, size);
+
+    SDL_RenderCopy(renderer, texture, nullptr, &rect);
+}
+
+//
+// DrawImageFileCenteredAt Draws the entire image centered at a point on the window
+//
+void DrawArea::DrawImageFileCenteredAt(const std::string& imgFilePath, const Tau_Point& point) {
+    auto [ texture, size ] = GetTextureAndSizeOfImageFile(imgFilePath);
+    // adjust the corner x,y so that the center of the image is at the point
+    Tau_Rect rect ({ point.x - (size.w / 2), point.y - (size.h / 2) }, size );
+
+    SDL_RenderCopy(renderer, texture, nullptr, &rect);
+}
+
+//
+// DrawImageFileCenteredAt Draws the entire image centered at a point on the window with alpha.
+//
+void DrawArea::DrawImageFileCenteredAt(const std::string& imgFilePath, const Tau_Point& point, Uint8 alpha)
+{
+    auto [ texture, size ] = GetTextureAndSizeOfImageFile(imgFilePath);
+    SetTextureAlpha(texture, alpha);
     // adjust the corner x,y so that the center of the image is at the point
     Tau_Rect rect ({ point.x - (size.w / 2), point.y - (size.h / 2) }, size );
 
@@ -159,15 +184,33 @@ void DrawArea::DrawImageCenteredAt(const std::string& imgFilePath, const Tau_Poi
 //
 // DrawImageCenteredInWindow Draws the entire image centered in the window
 //
-void DrawArea::DrawImageCenteredInWindow(const std::string& imgFilePath) {
-    DrawImageCenteredAt(imgFilePath, drawAreaRect.Center());
+void DrawArea::DrawImageFileCenteredInWindow(const std::string& imgFilePath) {
+    DrawImageFileCenteredAt(imgFilePath, drawAreaRect.Center());
 }
 
 //
-// DrawImageToRect
+// DrawImageCenteredInWindow Draws the entire image centered in the window with alpha.
 //
-void DrawArea::DrawImageToRect(const string& imgFilePath, const Tau_Rect& rect) {
+void DrawArea::DrawImageFileCenteredInWindow(const std::string& imgFilePath, Uint8 alpha)
+{
+    DrawImageFileCenteredAt(imgFilePath, drawAreaRect.Center(), alpha);
+}
+
+//
+// DrawImageFileToRect
+//
+void DrawArea::DrawImageFileToRect(const string& imgFilePath, const Tau_Rect& rect) {
     SDL_Shared<SDL_Texture> texture = IMG_LoadTexture(renderer, imgFilePath.c_str());
+    SDL_RenderCopy(renderer, texture, nullptr, &rect);
+}
+
+//
+// DrawImageFileToRect with alpha
+//
+void DrawArea::DrawImageFileToRect(const std::string& imgFilePath, const Tau_Rect& rect, Uint8 alpha)
+{
+    SDL_Shared<SDL_Texture> texture = IMG_LoadTexture(renderer, imgFilePath.c_str());
+    SetTextureAlpha(texture, alpha);
     SDL_RenderCopy(renderer, texture, nullptr, &rect);
 }
 
@@ -176,9 +219,9 @@ void DrawArea::DrawImageToRect(const string& imgFilePath, const Tau_Rect& rect) 
 //                  ===========
 
 //
-// GetTextureOfImage
+// GetTextureOfImageFile
 // 
-SDL_Shared<SDL_Texture> DrawArea::GetTextureOfImage(const string& imgFilePath) {
+SDL_Shared<SDL_Texture> DrawArea::GetTextureOfImageFile(const string& imgFilePath) {
     if (!FileExists(imgFilePath))
         cerr << "image file does not exist: " << imgFilePath << endl;
     SDL_Shared<SDL_Texture> texture = IMG_LoadTexture(renderer, imgFilePath.c_str());
@@ -186,10 +229,10 @@ SDL_Shared<SDL_Texture> DrawArea::GetTextureOfImage(const string& imgFilePath) {
 }
 
 //
-// GetTextureAndSizeOfImage
+// GetTextureAndSizeOfImageFile
 // 
-tuple<SDL_Shared<SDL_Texture>, Tau_Size> DrawArea::GetTextureAndSizeOfImage(const string& imgFilePath) {
-    SDL_Shared<SDL_Texture> texture = GetTextureOfImage(imgFilePath);
+tuple<SDL_Shared<SDL_Texture>, Tau_Size> DrawArea::GetTextureAndSizeOfImageFile(const string& imgFilePath) {
+    SDL_Shared<SDL_Texture> texture = GetTextureOfImageFile(imgFilePath);
     Tau_Size size = GetSizeOfTexture(texture);
 
     return make_tuple(texture, size);
