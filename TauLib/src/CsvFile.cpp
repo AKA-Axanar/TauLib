@@ -139,7 +139,7 @@ bool CsvFile::RemoveRow(const Tau::Strings& searchItems)
 
 void CsvFile::Sort(unsigned int column)
 {
-    sort(rows.begin(), rows.end(), [&] (const Strings& row1, const Strings& row2) { return row1[column] < row2[column]; } );
+    ranges::sort(rows, [&] (const Strings& row1, const Strings& row2) { return row1[column] < row2[column]; } );
 }
 
 //

@@ -7,6 +7,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <ranges>
 
 using namespace std;
 using namespace Tau;
@@ -309,7 +310,7 @@ bool IniFile::DeleteKey(const string& key, const string& sectionName) {
 //
 // returns an iterator to the section in the vector or end(iniSections) if the section was not found.
 std::vector<IniFile::IniSection>::iterator IniFile::FindSectionName(const std::string& sectionName) {
-    return find_if(begin(iniSections), end(iniSections), [&] (const IniSection& iniSection) { return CompareKeys(iniSection.sectionName, sectionName); } );
+    return ranges::find_if(iniSections, [&] (const IniSection& iniSection) { return CompareKeys(iniSection.sectionName, sectionName); } );
 }
 
 //
@@ -317,7 +318,7 @@ std::vector<IniFile::IniSection>::iterator IniFile::FindSectionName(const std::s
 //
 // returns an iterator to the section in the vector or end(iniSections) if the section was not found.
 std::vector<IniFile::IniSection>::const_iterator IniFile::FindSectionName(const std::string& sectionName) const {
-    return find_if(begin(iniSections), end(iniSections), [&] (const IniSection& iniSection) { return CompareKeys(iniSection.sectionName, sectionName); } );
+    return ranges::find_if(iniSections, [&] (const IniSection& iniSection) { return CompareKeys(iniSection.sectionName, sectionName); } );
 }
 
                 //*******************************
@@ -427,7 +428,7 @@ std::vector<std::string> IniFile::GetKeyNamesInSection(const std::string& sectio
     const auto it = FindSectionName(sectionName);
     if (it != iniSections.end()) {
         const auto& values = it->values;
-        for_each (begin(values), end(values), [&] (const pair<string, string>& keypair) 
+        ranges::for_each (values, [&] (const pair<string, string>& keypair) 
             { ret.emplace_back(keypair.first); });
     }
 
@@ -507,7 +508,7 @@ bool IniFile::IniSection::DeleteKey(const std::string& key) {
 //
 // returns end(iniLines) if not found
 vector<IniFile::IniLine>::iterator IniFile::IniSection::FindKeyLine(const std::string& key) {
-    return find_if(begin(iniLines), end(iniLines), [&] (const IniLine& iniLine) { return iniFile->CompareKeys(iniLine.key, key); } );
+    return ranges::find_if(iniLines, [&] (const IniLine& iniLine) { return iniFile->CompareKeys(iniLine.key, key); } );
 }
 
 //
@@ -515,7 +516,7 @@ vector<IniFile::IniLine>::iterator IniFile::IniSection::FindKeyLine(const std::s
 //
 // returns end(iniLines) if not found
 vector<IniFile::IniLine>::const_iterator IniFile::IniSection::FindKeyLine(const std::string& key) const {
-    return find_if(begin(iniLines), end(iniLines), [&] (const IniLine& iniLine) { return iniFile->CompareKeys(iniLine.key, key); } );
+    return ranges::find_if(iniLines, [&] (const IniLine& iniLine) { return iniFile->CompareKeys(iniLine.key, key); } );
 }
 
                 //*******************************

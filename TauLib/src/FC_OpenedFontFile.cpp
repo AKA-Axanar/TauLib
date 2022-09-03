@@ -117,7 +117,7 @@ ostream& operator << (ostream& os, const FC_OpenedFontFile& rhs) {
         os << "font style: " << "TTF_STYLE_BOLD" << endl;
     else
         os << "font style: " << rhs.fontStyle << endl;
-    for_each(begin(rhs.openedFontSizes), end(rhs.openedFontSizes), [&] (const FC_OpenedFontSize& openFontSize) { os << openFontSize; });
+    ranges::for_each(rhs.openedFontSizes, [&] (const FC_OpenedFontSize& openFontSize) { os << openFontSize; });
     return os;
 }
 

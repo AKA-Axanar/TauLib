@@ -65,8 +65,7 @@ int ExecuteInCurrentDir(string command, vector<string> arguments) {
     // add double quotes around any strings that have a space
     DoubleQuoteStringIfSpace(&moduleName);
     DoubleQuoteStringIfSpace(&command);
-    for_each(begin(arguments), end(arguments), 
-        [&] (string& s) { DoubleQuoteStringIfSpace(&s); } );
+    ranges::for_each(arguments, [&] (string& s) { DoubleQuoteStringIfSpace(&s); } );
 
     // concat the command and the arguments
     string cmdline = command;

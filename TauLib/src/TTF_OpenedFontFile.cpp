@@ -1,6 +1,7 @@
 #include "TTF_OpenedFontFile.h"
 #include "DirFile.h"
 #include <algorithm>
+#include <ranges>
 
 using namespace std;
 using namespace Tau;
@@ -52,7 +53,7 @@ bool TTF_OpenedFontFile::OpenFile(const std::string& _fullFilePath) {
 //
 bool TTF_OpenedFontFile::FoundFontSize(int pointSize) {
     // see if the requested point size is already in the vector.
-    auto it = find_if(begin(openedFontSizes), end(openedFontSizes), [&] (const TTF_OpenedFontSize& ofont) { return ofont.pointSize == pointSize; });
+    auto it = ranges::find_if(openedFontSizes, [&] (const TTF_OpenedFontSize& ofont) { return ofont.pointSize == pointSize; });
     return it != end(openedFontSizes);
 }
 
@@ -64,7 +65,7 @@ bool TTF_OpenedFontFile::FoundFontSize(int pointSize) {
 //
 TTF_OpenedFontSize TTF_OpenedFontFile::GetOpenedFontSize(int pointSize) {
     // first see if the requested point size is already in the vector.  if so, return it.
-    auto it = find_if(begin(openedFontSizes), end(openedFontSizes), [&] (const TTF_OpenedFontSize& ofont) { return ofont.pointSize == pointSize; });
+    auto it = ranges::find_if(openedFontSizes, [&] (const TTF_OpenedFontSize& ofont) { return ofont.pointSize == pointSize; });
     if (it != end(openedFontSizes))
         return *it;         // the font size is already in openedFontSizes
 
