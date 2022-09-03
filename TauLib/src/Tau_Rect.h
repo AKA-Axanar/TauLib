@@ -43,8 +43,8 @@ struct Tau_Point : public SDL_Point {
 /// @note Do not add additional member variables to this struct!
 ///
 struct Tau_Size {
-    int w;
-    int h;
+    int w{0};
+    int h{0};
 
     Tau_Size(int _w=0, int _h=0) { w = _w; h = _h; }
     Tau_Size(const SDL_Rect& rect) : w(rect.w), h(rect.h) { }
