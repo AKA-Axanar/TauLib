@@ -121,6 +121,15 @@ namespace Tau { // to avoid conflict with other libraries
     //
     // Tau_ImGui_Render
     // 
+    void Tau_ImGui_Render(SDL_Shared<SDL_Renderer> renderer) {
+            ImGui::Render();
+            ImGui_ImplSDLRenderer_RenderDrawData(ImGui::GetDrawData());
+            SDL_RenderPresent(renderer);
+    }
+
+    //
+    // Tau_ImGui_Render
+    // 
     void Tau_ImGui_Render(SDL_Shared<SDL_Renderer> renderer, const ImVec4& clearColor) {
             ImGui::Render();
             SDL_SetRenderDrawColor(renderer, (Uint8)(clearColor.x * 255), (Uint8)(clearColor.y * 255), (Uint8)(clearColor.z * 255), (Uint8)(clearColor.w * 255));
