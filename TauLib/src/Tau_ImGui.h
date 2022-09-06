@@ -33,8 +33,22 @@ void Tau_ImGui_NewFrame();
 /// @param current_int - the index of the item that is the current selection
 /// @param items - the item strings in the combo list
 /// @param flags - any combo flags
+/// @return the selected index
 /// 
 int Tau_ImGui_Combo(const std::string& label, int current_index, const std::vector<std::string>& items, ImGuiComboFlags flags = 0);
+
+///
+/// @brief Tau_ImGui_TreeNodeMulti_Select
+/// @param label - the label string on the right of the combo
+/// @param items - the item strings in the combo list
+/// @param selected - true for each item that is selected
+/// @param flags - any combo flags
+/// @return void
+/// selected is a vector<int> to bypass issues with vector<bool> being bits.
+/// selected must be the same length as items.
+/// selected int's will be true if that string is selected
+/// 
+void Tau_ImGui_TreeNodeMulti_Select(const std::string& label, const std::vector<std::string>& items, std::vector<int> *selected, ImGuiComboFlags flags = 0);
 
 ///
 /// @brief Tau_ImGui_Combo_Ints
@@ -42,6 +56,7 @@ int Tau_ImGui_Combo(const std::string& label, int current_index, const std::vect
 /// @param current_int - the index of the item that is the current selection
 /// @param items - the item integers in the combo list
 /// @param flags - any combo flags
+/// @return the selected index
 /// 
 int Tau_ImGui_Combo_Ints(const std::string& label, int current_index, const std::vector<int>& int_items, ImGuiComboFlags flags = 0);
 
@@ -52,6 +67,7 @@ int Tau_ImGui_Combo_Ints(const std::string& label, int current_index, const std:
 /// @param start - the first integer in the combo list
 /// @param count - the count of integers in the combo list
 /// @param flags - any combo flags
+/// @return the selected index
 /// 
 int Tau_ImGui_Combo_IntRange(const std::string& label, int current_index, int start, int count, ImGuiComboFlags flags = 0);
 
@@ -66,4 +82,9 @@ void Tau_ImGui_Render(SDL_Shared<SDL_Renderer> renderer, const ImVec4& clearColo
 /// 
 ImFont*  Tau_ImGui_AddFont(const std::string& TTF_fontfile, float size_pixels, const ImFontConfig* font_cfg = NULL, const ImWchar* glyph_ranges = NULL);
 
+///
+/// @brief HelpMarker
+/// Helper to display a little (?) mark which shows a tooltip when hovered.
+/// 
+void HelpMarker(const char* desc);
 }

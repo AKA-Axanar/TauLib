@@ -4,6 +4,7 @@
 #include "imgui_impl_sdlrenderer.h"
 #include <ranges>
 #include <algorithm>
+#include "Lang.h"
 
 using namespace std;
 
@@ -100,6 +101,31 @@ namespace Tau { // to avoid conflict with other libraries
     }
 
     //
+    // Tau_ImGui_Multi_Select strings
+    //
+    void Tau_ImGui_TreeNodeMulti_Select(const string& label, const vector<string>& items, vector<int> *selected, ImGuiComboFlags flags) {
+        if (ImGui::TreeNode(label.c_str())) {
+            HelpMarker(_("Hold CTRL and click to select multiple items.").c_str());
+            for (int n = 0; n < items.size(); n++)
+            {
+                bool is_selected = (*selected)[n];
+                if (ImGui::Selectable(items[n].c_str(), is_selected)) {
+                    (*selected)[n] = is_selected;
+
+                    if (!ImGui::GetIO().KeyCtrl)    // Clear selection when CTRL is not held
+                        ranges::fill(*selected, 0);
+                    (*selected)[n] ^= 1;
+                }
+
+                // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+                if (is_selected)
+                    ImGui::SetItemDefaultFocus();
+            }
+            ImGui::TreePop();
+        }
+    }
+
+    //
     // Tau_ImGui_Combo int's
     // 
     int Tau_ImGui_Combo_Ints(const string& label, int current_index, const vector<int>& int_items, ImGuiComboFlags flags) {
@@ -144,5 +170,20 @@ namespace Tau { // to avoid conflict with other libraries
     ImFont* Tau_ImGui_AddFont(const string& TTF_fontfile, float size_pixels, const ImFontConfig* font_cfg, const ImWchar* glyph_ranges) {
         ImGuiIO& io = ImGui::GetIO();
         return io.Fonts->AddFontFromFileTTF(TTF_fontfile.c_str(), size_pixels, font_cfg, glyph_ranges);
+    }
+
+    // Helper to display a little (?) mark which shows a tooltip when hovered.
+    // In your own code you may want to display an actual icon if you are using a merged icon fonts (see docs/FONTS.md)
+    void HelpMarker(const char* desc)
+    {
+        ImGui::TextDisabled("(?)");
+        if (ImGui::IsItemHovered())
+        {
+            ImGui::BeginTooltip();
+            ImGui::PushTextWrapPos(ImGui::GetFontSize() * 35.0f);
+            ImGui::TextUnformatted(desc);
+            ImGui::PopTextWrapPos();
+            ImGui::EndTooltip();
+        }
     }
 }
