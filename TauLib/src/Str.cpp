@@ -34,6 +34,24 @@ void sortStringsInsensitive(Strings& strings) {
     ranges::sort(strings, [] (string& str1, string& str2) { return lowerCase(str1) < lowerCase(str2); });
 }
 
+//
+// @brief foundInStrings - looks for a string in a vector of strings
+//
+bool foundInStrings(const string& str, const Strings& strings)
+{
+    auto it = ranges::find_if(strings, [&] (const string& s) { return icompareBool(str, s); });
+        return (it != strings.end());
+}
+
+//
+// @brief foundInStringsInsensitive - looks for a string in a vector of strings
+//
+bool foundInStringsInsensitive(const string& str, const Strings& strings)
+{
+    auto it = ranges::find_if(strings, [&] (const string& s) { return (str == s); });
+        return (it != strings.end());
+}
+
                 //*******************************
                 // string trim
                 //*******************************

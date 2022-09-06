@@ -41,6 +41,22 @@ void sortStrings(Strings& strings);
 ///
 void sortStringsInsensitive(Strings& strings);
 
+///
+/// @brief foundInStrings - looks for a string in a vector of strings
+/// @param str string to look for.
+/// @param strings vector<string> to be searched.
+/// @return none.
+///
+bool foundInStrings(const std::string& str, const Strings& strings);
+
+///
+/// @brief foundInStringsInsensitive - looks for a string in a vector of strings
+/// @param str string to look for.
+/// @param strings vector<string> to be searched.
+/// @return none.
+///
+bool foundInStringsInsensitive(const std::string& str, const Strings& strings);
+
                 //*******************************
                 // string trim
                 //*******************************
