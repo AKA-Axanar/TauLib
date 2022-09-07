@@ -48,7 +48,7 @@ int Tau_ImGui_Combo(const std::string& label, int current_index, const std::vect
 /// selected must be the same length as items.
 /// selected int's will be true if that string is selected
 /// 
-void Tau_ImGui_TreeNodeMulti_Select(const std::string& label, const std::vector<std::string>& items, std::vector<int> *selected, ImGuiComboFlags flags = 0);
+void Tau_ImGui_TreeNodeMulti_Select(const std::string& label, const std::vector<std::string>& items, std::vector<int> *selected);
 
 ///
 /// @brief Tau_ImGui_Combo_Ints

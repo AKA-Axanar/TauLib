@@ -103,7 +103,7 @@ namespace Tau { // to avoid conflict with other libraries
     //
     // Tau_ImGui_Multi_Select strings
     //
-    void Tau_ImGui_TreeNodeMulti_Select(const string& label, const vector<string>& items, vector<int> *selected, ImGuiComboFlags flags) {
+    void Tau_ImGui_TreeNodeMulti_Select(const string& label, const vector<string>& items, vector<int> *selected) {
         if (ImGui::TreeNode(label.c_str())) {
             HelpMarker(_("Hold CTRL and click to select multiple items.").c_str());
             for (int n = 0; n < items.size(); n++)
