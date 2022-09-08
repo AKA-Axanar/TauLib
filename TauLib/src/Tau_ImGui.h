@@ -42,13 +42,24 @@ int Tau_ImGui_Combo(const std::string& label, int current_index, const std::vect
 /// @param label - the label string on the right of the combo
 /// @param items - the item strings in the combo list
 /// @param selected - true for each item that is selected
-/// @param flags - any combo flags
 /// @return void
 /// selected is a vector<int> to bypass issues with vector<bool> being bits.
 /// selected must be the same length as items.
 /// selected int's will be true if that string is selected
 /// 
 void Tau_ImGui_TreeNodeMulti_Select(const std::string& label, const std::vector<std::string>& items, std::vector<int> *selected);
+
+///
+/// @brief Tau_ImGui_TreeNodeCheckboxes
+/// @param label - the label string on the right of the combo
+/// @param items - the item strings in the combo list
+/// @param selected - true for each item that is selected
+/// @return void
+/// selected is a vector<int> to bypass issues with vector<bool> being bits.
+/// selected must be the same length as items.
+/// selected int's will be true if that string is selected
+/// 
+void Tau_ImGui_TreeNodeCheckboxes(const std::string& label, const std::vector<std::string>& items, std::vector<int> *selected);
 
 ///
 /// @brief Tau_ImGui_Combo_Ints

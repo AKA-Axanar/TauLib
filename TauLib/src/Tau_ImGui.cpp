@@ -126,6 +126,21 @@ namespace Tau { // to avoid conflict with other libraries
     }
 
     //
+    // Tau_ImGui_TreeNodeCheckboxes strings
+    //
+    void Tau_ImGui_TreeNodeCheckboxes(const string& label, const vector<string>& items, vector<int> *selected) {
+        assert(items.size() == (*selected).size());
+        if (ImGui::TreeNode(label.c_str())) {
+            //HelpMarker(_("Hold CTRL and click to select multiple items.").c_str());
+            for (int n = 0; n < items.size(); n++)
+            {
+                ImGui::Checkbox(items[n].c_str(), (bool*) &(*selected)[n]);
+            }
+            ImGui::TreePop();
+        }
+    }
+
+    //
     // Tau_ImGui_Combo int's
     // 
     int Tau_ImGui_Combo_Ints(const string& label, int current_index, const vector<int>& int_items, ImGuiComboFlags flags) {
