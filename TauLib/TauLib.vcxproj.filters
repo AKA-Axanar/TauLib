@@ -132,10 +132,10 @@
     <ClInclude Include="src\Tau_Time.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\ThirdParty\imgui\imgui_impl_sdl.h">
+    <ClInclude Include="src\ThirdParty\imgui\backends\imgui_impl_sdl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\ThirdParty\imgui\imgui_impl_sdlrenderer.h">
+    <ClInclude Include="src\ThirdParty\imgui\backends\imgui_impl_sdlrenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Tau_ImGui.h">
@@ -245,10 +245,10 @@
     <ClCompile Include="src\Tau_Time.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\ThirdParty\imgui\imgui_impl_sdl.cpp">
+    <ClCompile Include="src\ThirdParty\imgui\backends\imgui_impl_sdl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\ThirdParty\imgui\imgui_impl_sdlrenderer.cpp">
+    <ClCompile Include="src\ThirdParty\imgui\backends\imgui_impl_sdlrenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Tau_ImGui.cpp">
