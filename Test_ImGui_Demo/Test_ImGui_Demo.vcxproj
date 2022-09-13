@@ -122,12 +122,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\TauLib\src;..\\TauLib\src\ThirdParty;..\\TauLib\src\ThirdParty\imgui;$(SDL2)\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\TauLib\src;..\\TauLib\src\ThirdParty;..\\TauLib\src\ThirdParty\imgui;..\\TauLib\src\ThirdParty\imgui\backends;$(SDL2)\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>..\TauLib\bin\$(Platform)\$(Configuration)\TauLib.lib;SDL2.lib;SDL2main.lib;SDL2_mixer.lib;SDL2_ttf.lib;SDL2_image.lib;SDL2test.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>..\TauLib\bin\$(Platform)\$(Configuration)\TauLib.lib;opengl32.lib;SDL2.lib;SDL2main.lib;SDL2_mixer.lib;SDL2_ttf.lib;SDL2_image.lib;SDL2test.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SDL2)\lib\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -139,14 +139,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\TauLib\src;..\\TauLib\src\ThirdParty;..\\TauLib\src\ThirdParty\imgui;$(SDL2)\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\TauLib\src;..\\TauLib\src\ThirdParty;..\\TauLib\src\ThirdParty\imgui;..\\TauLib\src\ThirdParty\imgui\backends;$(SDL2)\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>..\TauLib\bin\$(Platform)\$(Configuration)\TauLib.lib;SDL2.lib;SDL2main.lib;SDL2_mixer.lib;SDL2_ttf.lib;SDL2_image.lib;SDL2test.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>..\TauLib\bin\$(Platform)\$(Configuration)\TauLib.lib;opengl32.lib;SDL2.lib;SDL2main.lib;SDL2_mixer.lib;SDL2_ttf.lib;SDL2_image.lib;SDL2test.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SDL2)\lib\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>

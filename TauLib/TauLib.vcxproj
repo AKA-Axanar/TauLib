@@ -180,7 +180,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SDL2)\include;src\ThirdParty;src\ThirdParty\ImGui</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SDL2)\include;src\ThirdParty;src\ThirdParty\ImGui;src\ThirdParty\ImGui\backends</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
@@ -214,6 +214,8 @@
     <ClInclude Include="src\Tau_ImGui.h" />
     <ClInclude Include="src\Tau_ImGui_DemoTest.h" />
     <ClInclude Include="src\Tau_Xml.h" />
+    <ClInclude Include="src\ThirdParty\imgui\backends\imgui_impl_opengl3.h" />
+    <ClInclude Include="src\ThirdParty\imgui\backends\imgui_impl_opengl3_loader.h" />
     <ClInclude Include="src\ThirdParty\imgui\backends\imgui_impl_sdl.h" />
     <ClInclude Include="src\ThirdParty\imgui\backends\imgui_impl_sdlrenderer.h" />
     <ClInclude Include="src\ThirdParty\pugiconfig.hpp" />
@@ -264,6 +266,7 @@
     <ClCompile Include="src\Tau_ImGui.cpp" />
     <ClCompile Include="src\Tau_ImGui_DemoTest.cpp" />
     <ClCompile Include="src\Tau_Xml.cpp" />
+    <ClCompile Include="src\ThirdParty\imgui\backends\imgui_impl_opengl3.cpp" />
     <ClCompile Include="src\ThirdParty\imgui\backends\imgui_impl_sdl.cpp" />
     <ClCompile Include="src\ThirdParty\imgui\backends\imgui_impl_sdlrenderer.cpp" />
     <ClCompile Include="src\ThirdParty\pugixml.cpp" />

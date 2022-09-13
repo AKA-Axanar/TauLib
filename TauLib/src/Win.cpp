@@ -24,7 +24,7 @@ bool Win::CreateWin(const string& _title, const Tau_Posit& posit, const Tau_Size
     title = _title;
     drawAreaRect = { posit, size };     // this will get updated later
 
-    window = SDL_CreateWindow(title.c_str(), posit.x, posit.y, size.w, size.h, flagsWin);
+    window = SDL_CreateWindow(title.c_str(), posit.x, posit.y, size.w, size.h, flagsWin | SDL_WINDOW_OPENGL);
     if (window == nullptr) {
         cerr << "SDL_CreateWindow failed" << endl;
         assert(false);

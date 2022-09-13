@@ -85,8 +85,8 @@ int Tau_ImGui_Combo_IntRange(const std::string& label, int current_index, int st
 ///
 /// @brief Tau_ImGui_Render
 /// 
-void Tau_ImGui_Render(SDL_Shared<SDL_Renderer> renderer);
-void Tau_ImGui_Render(SDL_Shared<SDL_Renderer> renderer, const ImVec4& clearColor);
+void Tau_ImGui_Render(SDL_Shared<SDL_Window> window);
+void Tau_ImGui_Render(SDL_Shared<SDL_Window> window, const ImVec4& clearColor);
 
 ///
 /// @brief Tau_ImGui_AddFont
