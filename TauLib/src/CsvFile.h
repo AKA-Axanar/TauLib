@@ -10,14 +10,12 @@
 #include <vector>
 #include "Str.h"
 
-using Tau::Strings;
-
 /// 
 /// @brief CsvFile - reads a CSV (Comma Separated Values) file
 /// 
 struct CsvFile {
     std::string csvFilePath;
-    std::vector<Strings> rows;
+    std::vector<Tau::Strings> rows;
     bool opened {false};
 
     CsvFile() {};
@@ -30,7 +28,7 @@ struct CsvFile {
     bool Save();
 
     void AddString(const std::string& line);    // add a string of comma separated values
-    bool AddRow(const Strings& row);            // add a row of strings
+    bool AddRow(const Tau::Strings& row);            // add a row of strings
     void RemoveRow(unsigned int rowIndex);
     bool RemoveRow(const Tau::Strings& searchItems);    // remove the row where the first items in the row match the passed searchItems
     void Sort(unsigned int column = 0);
