@@ -121,7 +121,12 @@ string GetParentPath(const string& str) {
     return p.parent_path().string();   
 }
 
-                //*******************************
+//
+// return the parent path of the current directory.
+//
+std::string GetParentPath() { return GetParentPath(GetCurrentDirPath()); }
+
+//*******************************
                 // Directories and Files
                 //*******************************
 

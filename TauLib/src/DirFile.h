@@ -119,6 +119,12 @@ void RemoveFilenameFromPath(std::string* filePath);
 ///
 std::string GetParentPath(const std::string& str);
 
+///
+/// @brief GetParentPath
+/// @return the parent path of the current directory.
+///
+std::string GetParentPath();
+
                 //*******************************
                 // Directories and Files
                 //*******************************
