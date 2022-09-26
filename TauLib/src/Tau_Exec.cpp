@@ -22,25 +22,25 @@ namespace Tau {
                 //*******************************
 
 // default Execute - execute the command in the command's directory
-int ExecuteCmd(std::string command, std::vector<std::string> arguments)
-    { return ExecuteInCmdDir(command, arguments); }
+int ExecuteCmd(std::string command, bool waitToFinish, std::vector<std::string> arguments)
+    { return ExecuteInCmdDir(command, waitToFinish, arguments); }
 
 // this will save the current dir, change to the command's path, execute the command and restore the working dir.
-int ExecuteInCmdDir(std::string command, std::vector<std::string> arguments) {
-    return ExecuteInPassedDir(GetParentPath(command), command, arguments);
+int ExecuteInCmdDir(std::string command, bool waitToFinish, std::vector<std::string> arguments) {
+    return ExecuteInPassedDir(GetParentPath(command), command, waitToFinish, arguments);
 }
 
 // this will save the current dir, change to the passed workingdir, execute the command and restore the working dir.
-int ExecuteInPassedDir(string workingDir, string command, vector<string> arguments) {
+int ExecuteInPassedDir(string workingDir, string command, bool waitToFinish, vector<string> arguments) {
     DirStack dirStack(workingDir);              // save and restore the current dir
-    int ret = ExecuteInCurrentDir(command, arguments);
+    int ret = ExecuteInCurrentDir(command, waitToFinish, arguments);
 
     return ret;
 }
 
 // Execute a program in new process
 // Returns the exit code of the process, or -1 if the process could not be started.
-int ExecuteInCurrentDir(string command, vector<string> arguments) {
+int ExecuteInCurrentDir(string command, bool waitToFinish, vector<string> arguments) {
 
 #if defined(_WIN32)
     string moduleName;
@@ -128,17 +128,20 @@ int ExecuteInCurrentDir(string command, vector<string> arguments) {
 		return -1;
 	}
 
-	// Wait until child process exits.
-	WaitForSingleObject(procInfo.hProcess, INFINITE);
+    if (waitToFinish) {
+        // Wait until child process exits.
+	    WaitForSingleObject(procInfo.hProcess, INFINITE);
 
-	DWORD exitCode;
-	GetExitCodeProcess(procInfo.hProcess, &exitCode);
+	    DWORD exitCode;
+	    GetExitCodeProcess(procInfo.hProcess, &exitCode);
 
-	// Close process and thread handles.
-	CloseHandle(procInfo.hProcess);
-	CloseHandle(procInfo.hThread);
-
-	return exitCode;
+	    // Close process and thread handles.
+	    CloseHandle(procInfo.hProcess);
+	    CloseHandle(procInfo.hThread);
+    	return exitCode;
+    }
+    else
+        return 0;
 }
 #else
     vector<const char *> argvNew;
