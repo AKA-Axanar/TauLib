@@ -171,6 +171,19 @@ int64_t IniFile::GetKeyValue_Int64(const std::string& key, const std::string& se
 }
 
 //
+// IniFile::GetKeyValue_Bool
+//
+bool IniFile::GetKeyValue_Bool(const std::string& key, bool defaultValue, const std::string& sectionName) const {
+    string value = GetKeyValue(key, sectionName);
+    if (icompareBool(value, "true"))
+        return true;
+    else if (icompareBool(value, "false"))
+        return false;
+    else
+        return defaultValue;
+}
+
+//
 // IniFile::GetKeyValue_Float
 //
 float IniFile::GetKeyValue_Float(const std::string& key, const std::string& sectionName) const {
