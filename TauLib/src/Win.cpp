@@ -40,9 +40,9 @@ bool Win::CreateWin(const string& _title, const Tau_Posit& posit, const Tau_Size
         return false;
     }
 
-    SDL_GetWindowPosition(window, &windowPosit.x, &windowPosit.y);
-    SDL_GetWindowSize(window, &windowSize.w, &windowSize.h);
-    windowRect = { windowPosit, windowSize };
+    SDL_GetWindowPosition(window, &displayWindowPosit.x, &displayWindowPosit.y);
+    SDL_GetWindowSize(window, &displayWindowSize.w, &displayWindowSize.h);
+    displayWindowRect = { displayWindowPosit, displayWindowSize };
 
     if (flagsWin & (SDL_WINDOW_FULLSCREEN_DESKTOP | SDL_WINDOW_FULLSCREEN))
         windowIsEntireDisplay = true;
@@ -50,7 +50,7 @@ bool Win::CreateWin(const string& _title, const Tau_Posit& posit, const Tau_Size
     // This is the window drawAreaRect.  This is the entire window but 0,0 is the relative corner of the window.
     // When you draw at 0,0 in the drawArea you are drawing at the corner of the window regardless of the position
     // of the window on the display.
-    drawAreaRect = { {0,0}, windowSize };
+    drawAreaRect = { {0,0}, displayWindowSize };
 
     isOpen = true;
     return isOpen;
@@ -70,14 +70,14 @@ bool Win::CreateWinCenteredOnDisplay(int displayIndex, const std::string& title,
 
 void Win::ChangeWinPosit(const Tau_Posit& posit) {
     SDL_SetWindowPosition(window, posit.x, posit.y);
-    windowPosit = posit;
-    windowRect = { posit, windowSize };
+    displayWindowPosit = posit;
+    displayWindowRect = { posit, displayWindowSize };
 }
 
 void Win::ChangeWinSize(const Tau_Size& size) {
     SDL_SetWindowSize(window, size.w, size.h);
-    windowSize = size;
-    windowRect = { windowPosit, size };
+    displayWindowSize = size;
+    displayWindowRect = { displayWindowPosit, size };
 }
 
 // returns -1 on error
@@ -148,15 +148,6 @@ void Win::DestroyWin() {
         window = nullptr;       // SDL_Shared dtor takes care of calling the proper destroy routine
         isOpen = false;
     }
-}
-
-// CenterSizeInRect - compute the position needed to center the size of a rectangle inside another rectangle
-Tau_Posit Win::CenterSizeInRect(const Tau_Size& size, const Tau_Rect& rect) {
-    Tau_Posit posit;
-    posit.x = rect.x + (rect.w - size.w)/2;
-    posit.y = rect.y + (rect.h - size.h)/2;
-
-    return posit;
 }
 
 } // end namespace Tau

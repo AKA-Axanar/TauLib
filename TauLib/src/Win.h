@@ -34,9 +34,9 @@ struct Win : public DrawArea
     SDL_Shared<SDL_Window> window = nullptr;
     bool windowIsEntireDisplay = false;
 
-    Tau_Posit windowPosit;      // the window position and size on the display or multi-display desktop
-    Tau_Size windowSize;
-    Tau_Rect windowRect;        // combined as a rect
+    Tau_Posit displayWindowPosit;      // the window position and size on the display or multi-display desktop
+    Tau_Size displayWindowSize;
+    Tau_Rect displayWindowRect;        // combined as a rect
 
     Win() {}
 
@@ -153,11 +153,6 @@ struct Win : public DrawArea
     /// @brief DestroyWin - destroys the window
     ///
     void DestroyWin();
-
-    ///
-    /// @brief CenterSizeInRect - compute the position needed to center the size of a rectangle inside another rectangle
-    ///
-    Tau_Posit CenterSizeInRect(const Tau_Size& size, const Tau_Rect& rect);
 };
 
  } // end namespace Tau
