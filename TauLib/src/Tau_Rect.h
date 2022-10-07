@@ -7,6 +7,7 @@
 
 #include "SDL_Rect.h"
 #include "Str.h"
+#include <algorithm>
 
 ///
 /// @brief Tau_Point An SDL_Point with additional functions
@@ -112,3 +113,44 @@ struct Tau_Rect : public SDL_Rect {
 
 using Tau_Posit = Tau_Point;    ///< An x,y position.
 using Tau_Distance = Tau_Point;    ///< An x,y distance.
+
+///
+/// @brief CenterSizeInRect - compute the upper left corner position needed to center the size in another rectangle
+/// @return the upper left corner position needed to center the size in another rectangle
+///
+inline Tau_Posit CenterSizeInRect(const Tau_Size& size, const Tau_Rect& rect) {
+    Tau_Posit posit;
+    posit.x = rect.x + (rect.w - size.w)/2;
+    posit.y = rect.y + (rect.h - size.h)/2;
+
+    return posit;
+}
+
+
+///
+/// @brief CenterRectInRect - move centerThisRect so it is in the center of insideThisRect
+///
+inline void CenterRectInRect(Tau_Rect* centerThisRect, const Tau_Rect& insideThisRect) {
+    centerThisRect->x = insideThisRect.x + (insideThisRect.w - centerThisRect->w)/2;
+    centerThisRect->y = insideThisRect.y + (insideThisRect.h - centerThisRect->h)/2;
+}
+
+///
+/// @brief CenterRectInRect - return a copy of centerThisRect that is in the center of insideThisRect
+/// @return a copy of centerThisRect that is centered in insideThisRect
+///
+inline Tau_Rect CenterRectInRect(const Tau_Rect& centerThisRect, const Tau_Rect& insideThisRect) {
+    Tau_Rect ret = centerThisRect;
+    CenterRectInRect(&ret, insideThisRect);
+
+    return ret;
+}
+
+///
+/// @brief ScaleSizeKeepingAspectRatio - scale the current size to fit in the destSize while keeping the aspect ration.
+///
+inline void ScaleSizeKeepingAspectRatio(Tau_Size* currentSize, const Tau_Size& destSize) {
+    float ratio = std::min(float(destSize.w) / float(currentSize->w), float(destSize.h) / float(currentSize->h));
+    currentSize->w = (int) (float(currentSize->w) * ratio);
+    currentSize->h = (int) (float(currentSize->h) * ratio);
+}

@@ -425,6 +425,16 @@ struct DrawArea {
 
     void DrawRect(const Tau_Rect& rect);
 
+//                  ===========
+//                   Center Rect
+//                  ===========
+
+    ///
+    /// @brief CenterRectInWin - center a rect inside the drawArea rectangle
+    ///
+    void CenterRectInWin(Tau_Rect* rect) { return CenterRectInRect(rect, drawAreaRect); }
+    Tau_Rect CenterRectInWin(const Tau_Rect& rect) { return CenterRectInRect(rect, drawAreaRect); }
+
 };
 
 }
