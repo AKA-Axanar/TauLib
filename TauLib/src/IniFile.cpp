@@ -92,7 +92,23 @@ bool IniFile::SaveAs(const string& filePath) const {
     if (!ofile.is_open())
         return false;
 
-    ofile << *this;
+    // output any empty theme keys at the top
+    auto it = FindSectionName("");  // find any "" theme
+    if (it != iniSections.end()) {
+        for(const auto& iniLine : it->iniLines) {
+            ofile << iniLine.RebuildLine() << endl;
+        }
+    }
+
+    for (const auto& section : iniSections) {
+        if (section.sectionName != "") {
+            ofile << section.sectionLine.RebuildLine() << endl;
+
+            for(const auto& iniLine : section.iniLines) {
+                ofile << iniLine.RebuildLine() << endl;
+            }
+        }
+    }
     ofile.close();
 
     return true;
@@ -642,23 +658,10 @@ string IniFile::IniLine::GetAndRemoveLeadingWhitespace(string* line) const {
 // operator <<
 //
 ostream& operator << (ostream& os, const IniFile& iniFile) {
-    // output any empty theme keys at the top
-    auto it = iniFile.FindSectionName("");  // find any "" theme
-    if (it != iniFile.iniSections.end()) {
-        for(const auto& iniLine : it->iniLines) {
-            os << iniLine.RebuildLine() << endl;
-        }
-    }
-
-    for (const auto& section : iniFile.iniSections) {
-        if (section.sectionName != "") {
-            os << section.sectionLine.RebuildLine() << endl;
-
-            for(const auto& iniLine : section.iniLines) {
-                os << iniLine.RebuildLine() << endl;
-            }
-        }
-    }
+    cout << "IniFile: " << iniFile.iniFilePath << endl;
+    auto keyInfo = iniFile.GetAllKeyPairs();
+    ranges::for_each(keyInfo, [&] (tuple<string, string, string> info) { const auto [section, key, value] = info; cout << "section: '" << section << "', " << key << ", " << value << endl; });
+    cout << endl;
 
     return os;
 }
