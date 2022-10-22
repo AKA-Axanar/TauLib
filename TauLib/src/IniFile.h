@@ -27,7 +27,6 @@
 /// 
 struct IniFile {
     std::string iniFilePath;            ///< The file path of the opened ini file.  Used by Save().
-    bool caseInsensitiveKeys {true};    ///< if true, keys (and section names) are case insensitive.
     std::string defaultSectionName;
 
     /// @brief IniFile ctor.  
@@ -243,9 +242,6 @@ private:
     /// @brief Compares two key strings depending on the caseInsensitiveKeys flag.
     /// @return true if the two key strings are "equal" depending on the caseInsensitiveKeys flag.<returns></returns>
     bool CompareKeys(const std::string& key1, const std::string& key2) const;
-
-    /// @brief Returns the passed key as lowercase if caseInsensitiveKeys is true
-    std::string AdjustKeyCase(const std::string& key) const;
 
     struct IniSection;
     std::vector<IniSection> iniSections;    ///< vector of IniSection's.  Each section conatins the map of key/value's and the parsed line info from the file

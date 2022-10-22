@@ -63,7 +63,7 @@ bool IniFile::Load(const string& _iniFilePath, const std::string& _defaultSectio
 
             // if the line has a key definition, add it to the map of key/value pairs
             if (!iniLine.key.empty())
-                iniSections.back().values[AdjustKeyCase(iniLine.key)] = iniLine.value;
+                iniSections.back().values[iniLine.key] = iniLine.value;
 
             // add the line info to the list of lines and map of keys in the current/last section
             iniSections.back().iniLines.emplace_back(iniLine);
@@ -367,7 +367,7 @@ IniFile::IniSection::IniSection(IniFile* _iniFile, const std::string& line) : in
 // IniFile::IniSection::KeyExists
 //
 bool IniFile::IniSection::KeyExists(const std::string& key) const {
-    return values.count(iniFile->AdjustKeyCase(key)) > 0;
+    return values.count(key) > 0;
 }
 
 //
@@ -375,7 +375,7 @@ bool IniFile::IniSection::KeyExists(const std::string& key) const {
 //
 std::string IniFile::IniSection::GetKeyValue(const std::string& key) const {
     if (KeyExists(key))
-        return values.at(iniFile->AdjustKeyCase(key));  // note: use at() instead of operator [] because of const
+        return values.at(key);  // note: use at() instead of operator [] because of const
     else
         return "";  // key doesn't exist
 }
@@ -387,7 +387,7 @@ std::string IniFile::IniSection::GetKeyValue(const std::string& key) const {
 void IniFile::IniSection::SetKeyValue(const std::string& key, const std::string& value) {
     if (!KeyExists(key)) {
         iniLines.emplace_back(key + " = " + value);
-        values[iniFile->AdjustKeyCase(key)] = value;
+        values[key] = value;
     }
     else {
         auto it = FindKeyLine(key);
@@ -501,21 +501,7 @@ vector<tuple<string, string, string>> IniFile::GetAllKeyPairs() const {
 //
 bool IniFile::CompareKeys(const string& key1, const string& key2) const
 {
-    if (caseInsensitiveKeys)
-        return lowerCase(key1) == lowerCase(key2);
-    else
-        return key1 == key2;
-}
-
-//
-// IniFile::AdjustKeyCase
-//
-string IniFile::AdjustKeyCase(const string& key) const
-{
-    if (caseInsensitiveKeys)
-        return lowerCase(key);
-    else
-        return key;
+    return key1 == key2;
 }
 
 //
@@ -523,7 +509,7 @@ string IniFile::AdjustKeyCase(const string& key) const
 //
 bool IniFile::IniSection::DeleteKey(const std::string& key) {
     if (KeyExists(key)) {
-        values.erase(iniFile->AdjustKeyCase(key));
+        values.erase(key);
         auto it = FindKeyLine(key);
         if (it != end(iniLines))
             iniLines.erase(it);
