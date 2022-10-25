@@ -9,7 +9,7 @@
 /// @todo should detect either / or \ at end of path
 
 #include "TauLib.h"
-#include <string>
+#include "Str.h"
 #include <filesystem>
 
 /// @brief namespace Tau - avoid conflict with other libraries
@@ -58,6 +58,7 @@ void operator += (std::string& leftside, Sep);
 /// @return the fixed path
 ///
 std::string fixPathSeparators(const std::string& pathStr);
+Strings fixPathSeparators(const Strings& pathStrings);
 
 ///
 /// @brief fixPathSeparators
@@ -67,5 +68,6 @@ std::string fixPathSeparators(const std::string& pathStr);
 /// @return none
 ///
 void fixPathSeparators(std::string* pathStr);
+void fixPathSeparators(Strings* pathStrings);
 
 } // end namespace Tau

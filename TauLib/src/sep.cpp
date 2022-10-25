@@ -1,5 +1,5 @@
 #include "Sep.h"
-#include <string>
+#include <ranges>
 
 using namespace std;
 
@@ -48,6 +48,13 @@ string fixPathSeparators(const string& str) {
     return p.string();
 }
 
+Strings fixPathSeparators(const Strings& pathStrings)
+{
+    Strings temp;
+    ranges::for_each(pathStrings, [&] (const string& str) { temp.emplace_back(fixPathSeparators(str)); });
+    return temp;
+}
+
 //
 // fixPathSeparators
 // changes any / or \ in the string to be the preferred path separator for the OS
@@ -55,5 +62,10 @@ string fixPathSeparators(const string& str) {
 //
 void fixPathSeparators(string* str)
     { *str = fixPathSeparators(*str); }
+
+void fixPathSeparators(Strings* pathStrings)
+{
+    ranges::for_each(*pathStrings, [] (string& str) { fixPathSeparators(&str); });
+}
 
 } // end namespace Tau

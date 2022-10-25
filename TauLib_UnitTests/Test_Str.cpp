@@ -118,3 +118,32 @@ TEST(TestStr, TestStr_sep) {
     #error unknown OS
 #endif
 }
+
+//
+// test sep
+//
+TEST(TestStr, TestStr_fixPathSeparators) {
+#ifdef __linux__ 
+    string str1 { "abc\\def" };
+    string str2 { "abc/def" };
+    Strings strings1 { "abc\\def", "ghi\\jkl" };
+    Strings strings2 { "abc/def", "ghi/jkl" };
+#elif _WIN32
+    string str1 { "abc/def" };
+    string str2 { "abc\\def" };
+    Strings strings1 { "abc/def", "ghi/jkl" };
+    Strings strings2 { "abc\\def", "ghi\\jkl" };
+#else
+    #error unknown OS
+#endif
+
+    // test fixing the path separator of a string
+    EXPECT_EQ(fixPathSeparators(str1), str2);
+    fixPathSeparators(&str1);   // modify the string
+    EXPECT_EQ(str1, str2);
+
+    // test fixing the path separator of a vector of strings
+    EXPECT_EQ(fixPathSeparators(strings1), strings2);
+    fixPathSeparators(&strings1);   // modify the strings
+    EXPECT_EQ(strings1, strings2);
+}
