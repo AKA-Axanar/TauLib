@@ -21,8 +21,12 @@ namespace Tau { // to avoid conflict with other libraries
     // Tau_ImGui_Init
     //
     void Tau_ImGui_Init(SDL_Shared<SDL_Window> window, SDL_Shared<SDL_Renderer> renderer) {
-        // from the example code in imgui/examples/example_sdl_sdlrenderer/main.cpp
+        // from the example code in imgui/examples/example_sdl_opengl3/main.cpp
 
+        assert(window);
+        assert(renderer);
+
+#if 0
         // Setup window
         //SDL_WindowFlags window_flags = (SDL_WindowFlags)(SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
         //SDL_Window* window = SDL_CreateWindow("Dear ImGui SDL2+SDL_Renderer example", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1280, 720, window_flags);
@@ -37,6 +41,7 @@ namespace Tau { // to avoid conflict with other libraries
             SDL_Log("Error creating SDL_Renderer!");
             return;
         }
+#endif
 
         // Decide GL+GLSL versions
 #if defined(IMGUI_IMPL_OPENGL_ES2)
@@ -115,6 +120,8 @@ namespace Tau { // to avoid conflict with other libraries
         //io.Fonts->AddFontFromFileTTF("../../misc/fonts/ProggyTiny.ttf", 10.0f);
         //ImFont* font = io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\ArialUni.ttf", 18.0f, NULL, io.Fonts->GetGlyphRangesJapanese());
         //IM_ASSERT(font != NULL);
+
+        io.Fonts->AddFontDefault();
     }
 
     //
@@ -273,11 +280,13 @@ namespace Tau { // to avoid conflict with other libraries
     // 
     ImFont* Tau_ImGui_AddFont(const string& TTF_fontfile, float size_pixels, const ImFontConfig* font_cfg, const ImWchar* glyph_ranges) {
         ImGuiIO& io = ImGui::GetIO();
-        return io.Fonts->AddFontFromFileTTF(TTF_fontfile.c_str(), size_pixels, font_cfg, glyph_ranges);
+        ImFont* font = io.Fonts->AddFontFromFileTTF(TTF_fontfile.c_str(), size_pixels, font_cfg, glyph_ranges);
+        assert(font);
+        return font;
     }
 
     // Helper to display a little (?) mark which shows a tooltip when hovered.
-    // In your own code you may want to display an actual icon if you are using a merged icon fonts (see docs/FONTS.md)
+    // In your own code you may want to display an actual icon if you are using a merged icons font (see docs/FONTS.md)
     void HelpMarker(const char* desc)
     {
         ImGui::TextDisabled("(?)");
