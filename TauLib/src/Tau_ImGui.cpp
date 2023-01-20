@@ -13,6 +13,8 @@
 #include <algorithm>
 #include "Lang.h"
 
+ImFont* font1 {nullptr};
+
 using namespace std;
 
 namespace Tau { // to avoid conflict with other libraries
@@ -81,6 +83,7 @@ namespace Tau { // to avoid conflict with other libraries
         IMGUI_CHECKVERSION();
         ImGui::CreateContext();
 
+        // enable keyboard and controller control over menu
         ImGuiIO& io = ImGui::GetIO(); (void)io;
         io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
         io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
@@ -131,6 +134,15 @@ namespace Tau { // to avoid conflict with other libraries
         ImGui_ImplOpenGL3_Shutdown();
         ImGui_ImplSDL2_Shutdown();
         ImGui::DestroyContext();
+    }
+
+    //
+    // Tau_DisableImGuiIniFile
+    //
+    void Tau_DisableImGuiIniFile()
+    {
+        ImGuiIO& io = ImGui::GetIO(); (void)io;
+        io.IniFilename = nullptr;   // disable saving and restoring window sizes and positions in imgui.ini
     }
 
     //
@@ -221,6 +233,84 @@ namespace Tau { // to avoid conflict with other libraries
         return Tau_ImGui_Combo(label, current_index, items, flags);
     }
 
+    // display a confirmation message with multiple buttons.  the index of the button that was pressed is returned, if any.
+    // possible uses: OK/Cancel, Save/Discard, 
+    optional<int> Tau_ImGui_Confirm(bool* show, const string& title, const string& message,
+                                    const vector<string>& buttons, const vector<ImVec4>& buttonColors,
+                                    ImGuiWindowFlags windowFlags)
+    {
+        ImGui::Begin(title.c_str(), show, windowFlags);
+        ImGui::Text("");
+        ImGui::Text(message.c_str());
+        ImGui::Text("");
+
+        optional<int> buttonPressed;
+        int i=0;
+        for (const string& button : buttons) {
+            ImGui::PushStyleColor(ImGuiCol_Button, buttonColors[i]);
+            if (ImGui::Button(buttons[i].c_str()))
+                buttonPressed = i;  // return the index of the pressed button
+            ImGui::SameLine();
+            ImGui::PopStyleColor(1);
+            ++i;
+        }
+        ImGui::End();
+    
+        return buttonPressed;
+    }
+
+    // popup a message with a single OK button
+    void Tau_ImGui_Popup(bool* show, const string& title, const string& message, ImGuiWindowFlags windowFlags) {
+        ImGui::Begin(title.c_str(), show, windowFlags);
+    ImGui::Text("");
+    ImGui::Text(message.c_str());
+    ImGui::Text("");
+    if (ImGui::Button(_("Close").c_str()))
+        *show = true;
+    ImGui::End();
+    }
+
+    /// 
+    /// @brief Tau_SetPosition - SetNextWindowPos
+    /// 
+    void Tau_SetPosition()
+    {
+        ImGuiIO& io = ImGui::GetIO(); (void)io;
+        ImVec2 newpos(io.DisplaySize.x * 0.5f, io.DisplaySize.y * 0.5f);
+        ImGui::SetNextWindowPos(newpos, ImGuiCond_Always, ImVec2(0.5f, 0.5f));
+    }
+
+    void Tau_PollEvent(SDL_Event* event, bool* done, bool* abort, bool AlsoUseXandO)
+    {
+        *done = false;
+        *abort = false;
+
+        // Poll and handle events (inputs, window resize, etc.)
+        // You can read the io.WantCaptureMouse, io.WantCaptureKeyboard flags to tell if dear imgui wants to use your inputs.
+        // - When io.WantCaptureMouse is true, do not dispatch mouse input data to your main application, or clear/overwrite your copy of the mouse data.
+        // - When io.WantCaptureKeyboard is true, do not dispatch keyboard input data to your main application, or clear/overwrite your copy of the keyboard data.
+        // Generally you may always pass all inputs to dear imgui, and hide them from your application based on those two flags.
+        while (SDL_PollEvent(event))
+        {
+            ImGui_ImplSDL2_ProcessEvent(event);
+            if (event->type == SDL_QUIT) {
+                if (abort)
+                    *abort = true;
+            }
+    //        if (event->type == SDL_WINDOWEVENT && event->window.event == SDL_WINDOWEVENT_CLOSE && event->window.windowID == SDL_GetWindowID(gui->window))
+    //            *abort = true;
+            if (event->type == SDL_KEYDOWN && event->key.keysym.scancode == SDL_SCANCODE_ESCAPE) {
+                if (abort)
+                    *abort = true;
+            }
+
+            if (done && *done)
+                return;
+            if (abort && *abort)
+                return;
+        }
+    }
+
     //
     // Tau_ImGui_Render
     // 
@@ -299,4 +389,23 @@ namespace Tau { // to avoid conflict with other libraries
             ImGui::EndTooltip();
         }
     }
+
+#if 0
+    // Update and Render additional Platform Windows
+    void ImGui_MenuDefaults::UpdateViewports()
+    {
+        // Update and Render additional Platform Windows
+        ImGuiIO& io = ImGui::GetIO(); (void)io;
+        if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+        {
+            SDL_Window* backup_current_window = SDL_GL_GetCurrentWindow();
+            SDL_GLContext backup_current_context = SDL_GL_GetCurrentContext();
+            ImGui::UpdatePlatformWindows();
+            ImGui::RenderPlatformWindowsDefault();
+            SDL_GL_MakeCurrent(backup_current_window, backup_current_context);
+        }
+        SDL_GL_SwapWindow(window);
+    }
+#endif
+
 }
