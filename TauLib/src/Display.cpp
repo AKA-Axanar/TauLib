@@ -71,7 +71,7 @@ namespace Tau {
         Tau_Size size = GetDisplaySize(displayIndex);
 
         // create a window the entire size of that display
-        SDL_Window* window = SDL_CreateWindow("", posit.x, posit.y, size.w, size.h, SDL_WINDOW_OPENGL );
+        SDL_Window* window = SDL_CreateWindow("", posit.x, posit.y, size.w, size.h, 0);
         // now get the position on the desktop of that window
         Tau_Posit desktopPosit;
         SDL_GetWindowPosition(window, &desktopPosit.x, &desktopPosit.y);

@@ -118,8 +118,8 @@ void Tau_PollEvent(SDL_Event *event, bool* done, bool* abort, bool AlsoUseXandO 
 ///
 /// @brief Tau_ImGui_Render
 /// 
-void Tau_ImGui_Render(SDL_Shared<SDL_Window> window);
-//void Tau_ImGui_Render(SDL_Shared<SDL_Window> window, const ImVec4& clearColor);
+void Tau_ImGui_Render(SDL_Shared<SDL_Window> window, SDL_Shared<SDL_Renderer> renderer);
+void Tau_ImGui_Render_Clear(SDL_Shared<SDL_Window> window, SDL_Shared<SDL_Renderer> renderer, const ImVec4& clearColor);
 
 ///
 /// @brief Tau_ImGui_AddFont

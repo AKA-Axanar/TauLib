@@ -24,7 +24,6 @@ namespace Tau {
 
     int displayIndex = 0;
     win.CreateWin("TauBleem", Display::GetCenteredDisplayPosit(displayIndex), { 1280, 720 },
-        SDL_WINDOW_OPENGL | 
         SDL_WINDOW_ALLOW_HIGHDPI,                                   // https://wiki.libsdl.org/SDL_WindowFlags
         SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_ACCELERATED);      // https://wiki.libsdl.org/SDL_RendererFlags
 
@@ -122,7 +121,7 @@ namespace Tau {
             }
 
             // Rendering
-            Tau_ImGui_Render(window);
+            Tau_ImGui_Render(window, renderer);
         }
 
         Tau_ImGui_Quit();
