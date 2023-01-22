@@ -122,7 +122,7 @@ namespace Tau {
             }
 
             // Rendering
-            Tau_ImGui_Render(window, clear_color);
+            Tau_ImGui_Render(window);
         }
 
         Tau_ImGui_Quit();
