@@ -111,11 +111,6 @@ void Tau_ImGui_Popup(bool* show, const std::string& title, const std::string& me
 void Tau_SetPosition();
 
 ///
-/// @brief PollEvent
-/// 
-void Tau_PollEvent(SDL_Event *event, bool* done, bool* abort, bool AlsoUseXandO = false);
-
-///
 /// @brief Tau_ImGui_Render
 /// 
 void Tau_ImGui_Render(SDL_Shared<SDL_Window> window, SDL_Shared<SDL_Renderer> renderer);
