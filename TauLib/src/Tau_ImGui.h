@@ -6,8 +6,6 @@
 #include <string>
 #include <optional>
 
-extern ImFont* font1;
-
 ///
 /// @brief namespace Tau - avoid conflict with other libraries
 ///

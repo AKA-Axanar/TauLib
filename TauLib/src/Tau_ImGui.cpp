@@ -7,8 +7,6 @@
 #include <algorithm>
 #include "Lang.h"
 
-ImFont* font1 {nullptr};
-
 using namespace std;
 
 namespace Tau { // to avoid conflict with other libraries
