@@ -92,60 +92,6 @@ struct IniFile {
     bool GetKeyValue_Bool(const std::string& key, bool defaultValue, const std::string& sectionName) const;
     bool GetKeyValue_Bool(const std::string& key, bool defaultValue) const { return GetKeyValue_Bool(key, defaultValue, defaultSectionName); }
 
-    // get objects from Tau_Rect.h
-    Tau_Point GetKeyValue_Tau_Point(const std::string& key, const std::string& sectionName) const;
-    Tau_Point GetKeyValue_Tau_Point(const std::string& key) const { return GetKeyValue_Tau_Point(key, defaultSectionName); }
-
-    Tau_Size GetKeyValue_Tau_Size(const std::string& key, const std::string& sectionName) const;
-    Tau_Size GetKeyValue_Tau_Size(const std::string& key) const { return GetKeyValue_Tau_Size(key, defaultSectionName); }
-
-    Tau_Rect GetKeyValue_Tau_Rect(const std::string& key, const std::string& sectionName) const;
-    Tau_Rect GetKeyValue_Tau_Rect(const std::string& key) const { return GetKeyValue_Tau_Rect(key, defaultSectionName); }
-
-    Tau_Posit GetKeyValue_Tau_Posit(const std::string& key, const std::string& sectionName) const;
-    Tau_Posit GetKeyValue_Tau_Posit(const std::string& key) const { return GetKeyValue_Tau_Posit(key, defaultSectionName); }
-
-    // get objects from Tau_Color.h
-    Tau_RGB GetKeyValue_Tau_RGB(const std::string& key, const std::string& sectionName) const;
-    Tau_RGB GetKeyValue_Tau_RGB(const std::string& key) const { return GetKeyValue_Tau_RGB(key, defaultSectionName); }
-
-    Tau_Color GetKeyValue_Tau_Color(const std::string& key, const std::string& sectionName) const;
-    Tau_Color GetKeyValue_Tau_Color(const std::string& key) const { return GetKeyValue_Tau_Color(key, defaultSectionName); }
-
-    // get objects from imgui.h
-    ImVec2 GetKeyValue_ImVec2(const std::string& key, const std::string& sectionName) const;
-    ImVec2 GetKeyValue_ImVec2(const std::string& key) const { return GetKeyValue_ImVec2(key, defaultSectionName); }
-
-    ImVec4 GetKeyValue_ImVec4(const std::string& key, const std::string& sectionName) const;
-    ImVec4 GetKeyValue_ImVec4(const std::string& key) const { return GetKeyValue_ImVec4(key, defaultSectionName); }
-
-    // set objects from Tau_Rect.h
-    void SetKeyValue_Tau_Point(const std::string& key, const Tau_Point& point, const std::string& sectionName);
-    void SetKeyValue_Tau_Point(const std::string& key, const Tau_Point& point) { return SetKeyValue_Tau_Point(key, point, defaultSectionName); }
-
-    void SetKeyValue_Tau_Size(const std::string& key, const Tau_Size& size, const std::string& sectionName);
-    void SetKeyValue_Tau_Size(const std::string& key, const Tau_Size& size) { return SetKeyValue_Tau_Size(key, size, defaultSectionName); }
-
-    void SetKeyValue_Tau_Rect(const std::string& key, const Tau_Rect& rect, const std::string& sectionName);
-    void SetKeyValue_Tau_Rect(const std::string& key, const Tau_Rect& rect) { return SetKeyValue_Tau_Rect(key, rect, defaultSectionName); }
-
-    void SetKeyValue_Tau_Posit(const std::string& key, const Tau_Posit& posit, const std::string& sectionName);
-    void SetKeyValue_Tau_Posit(const std::string& key, const Tau_Posit& posit) { return SetKeyValue_Tau_Posit(key, posit, defaultSectionName); }
-
-    // set objects from Tau_Color.h
-    void SetKeyValue_Tau_RGB(const std::string& key, const Tau_RGB& rgb, const std::string& sectionName);
-    void SetKeyValue_Tau_RGB(const std::string& key, const Tau_RGB& rgb) { return SetKeyValue_Tau_RGB(key, rgb, defaultSectionName); }
-
-    void SetKeyValue_Tau_Color(const std::string& key, const Tau_Color& color, const std::string& sectionName);
-    void SetKeyValue_Tau_Color(const std::string& key, const Tau_Color& color) { return SetKeyValue_Tau_Color(key, color, defaultSectionName); }
-
-    // set objects from imgui.h
-    void SetKeyValue_ImVec2(const std::string& key, const ImVec2& imvec2, const std::string& sectionName);
-    void SetKeyValue_ImVec2(const std::string& key, const ImVec2& imvec2) { return SetKeyValue_ImVec2(key, imvec2, defaultSectionName); }
-
-    void SetKeyValue_ImVec4(const std::string& key, const ImVec4& imvec4, const std::string& sectionName);
-    void SetKeyValue_ImVec4(const std::string& key, const ImVec4& imvec4) { return SetKeyValue_ImVec4(key, imvec4, defaultSectionName); }
-
     /// @brief Returns a key value for a passed key and section name
     /// @param key - the key to search for
     /// @param sectionName - the section name the key is in, if any
@@ -261,6 +207,78 @@ struct IniFile {
     /// @note if the key doesn't already exist, it's created
     /// @note if the sectionName doesn't already exist, it's created
     void SetKeyValue_Doubles(const std::string& key, const std::vector<double>& values) { return SetKeyValue_Doubles(key, values, defaultSectionName); }
+
+
+    // get objects from Tau_Rect.h
+    Tau_Point GetKeyValue_Tau_Point(const std::string& key, const std::string& sectionName) const;
+    Tau_Point GetKeyValue_Tau_Point(const std::string& key) const { return GetKeyValue_Tau_Point(key, defaultSectionName); }
+
+    Tau_Size GetKeyValue_Tau_Size(const std::string& key, const std::string& sectionName) const;
+    Tau_Size GetKeyValue_Tau_Size(const std::string& key) const { return GetKeyValue_Tau_Size(key, defaultSectionName); }
+
+    Tau_Rect GetKeyValue_Tau_Rect(const std::string& key, const std::string& sectionName) const;
+    Tau_Rect GetKeyValue_Tau_Rect(const std::string& key) const { return GetKeyValue_Tau_Rect(key, defaultSectionName); }
+
+    Tau_Posit GetKeyValue_Tau_Posit(const std::string& key, const std::string& sectionName) const;
+    Tau_Posit GetKeyValue_Tau_Posit(const std::string& key) const { return GetKeyValue_Tau_Posit(key, defaultSectionName); }
+
+    // get objects from Tau_Color.h
+    Tau_RGB GetKeyValue_Tau_RGB(const std::string& key, const std::string& sectionName) const;
+    Tau_RGB GetKeyValue_Tau_RGB(const std::string& key) const { return GetKeyValue_Tau_RGB(key, defaultSectionName); }
+
+    Tau_Color GetKeyValue_Tau_Color(const std::string& key, const std::string& sectionName) const;
+    Tau_Color GetKeyValue_Tau_Color(const std::string& key) const { return GetKeyValue_Tau_Color(key, defaultSectionName); }
+
+    // get objects from imgui.h
+    ImVec2 GetKeyValue_ImVec2(const std::string& key, const std::string& sectionName) const;
+    ImVec2 GetKeyValue_ImVec2(const std::string& key) const { return GetKeyValue_ImVec2(key, defaultSectionName); }
+
+    ImVec4 GetKeyValue_ImVec4(const std::string& key, const std::string& sectionName) const;
+    ImVec4 GetKeyValue_ImVec4(const std::string& key) const { return GetKeyValue_ImVec4(key, defaultSectionName); }
+
+    // in ImGui ImVec4 (4 floats between 0.0-1.0 are used for color values instead of integer 0-255)
+    ImVec4 GetKeyValue_Tau_Color_as_ImVec4(const std::string& key, const std::string& sectionName) const;
+    ImVec4 GetKeyValue_Tau_Color_as_ImVec4(const std::string& key) const { return GetKeyValue_Tau_Color_as_ImVec4(key, defaultSectionName); }
+
+    // in ImGui ImVec4 (4 floats between 0.0-1.0 are used for color values instead of integer 0-255)
+    ImVec4 GetKeyValue_Tau_RGB_as_ImVec4(const std::string& key, const std::string& sectionName) const;
+    ImVec4 GetKeyValue_Tau_RGB_as_ImVec4(const std::string& key) const { return GetKeyValue_Tau_RGB_as_ImVec4(key, defaultSectionName); }
+
+    // set objects from Tau_Rect.h
+    void SetKeyValue_Tau_Point(const std::string& key, const Tau_Point& point, const std::string& sectionName);
+    void SetKeyValue_Tau_Point(const std::string& key, const Tau_Point& point) { return SetKeyValue_Tau_Point(key, point, defaultSectionName); }
+
+    void SetKeyValue_Tau_Size(const std::string& key, const Tau_Size& size, const std::string& sectionName);
+    void SetKeyValue_Tau_Size(const std::string& key, const Tau_Size& size) { return SetKeyValue_Tau_Size(key, size, defaultSectionName); }
+
+    void SetKeyValue_Tau_Rect(const std::string& key, const Tau_Rect& rect, const std::string& sectionName);
+    void SetKeyValue_Tau_Rect(const std::string& key, const Tau_Rect& rect) { return SetKeyValue_Tau_Rect(key, rect, defaultSectionName); }
+
+    void SetKeyValue_Tau_Posit(const std::string& key, const Tau_Posit& posit, const std::string& sectionName);
+    void SetKeyValue_Tau_Posit(const std::string& key, const Tau_Posit& posit) { return SetKeyValue_Tau_Posit(key, posit, defaultSectionName); }
+
+    // set objects from Tau_Color.h
+    void SetKeyValue_Tau_RGB(const std::string& key, const Tau_RGB& rgb, const std::string& sectionName);
+    void SetKeyValue_Tau_RGB(const std::string& key, const Tau_RGB& rgb) { return SetKeyValue_Tau_RGB(key, rgb, defaultSectionName); }
+
+    void SetKeyValue_Tau_Color(const std::string& key, const Tau_Color& color, const std::string& sectionName);
+    void SetKeyValue_Tau_Color(const std::string& key, const Tau_Color& color) { return SetKeyValue_Tau_Color(key, color, defaultSectionName); }
+
+    // set objects from imgui.h
+    void SetKeyValue_ImVec2(const std::string& key, const ImVec2& imvec2, const std::string& sectionName);
+    void SetKeyValue_ImVec2(const std::string& key, const ImVec2& imvec2) { return SetKeyValue_ImVec2(key, imvec2, defaultSectionName); }
+
+    void SetKeyValue_ImVec4(const std::string& key, const ImVec4& imvec4, const std::string& sectionName);
+    void SetKeyValue_ImVec4(const std::string& key, const ImVec4& imvec4) { return SetKeyValue_ImVec4(key, imvec4, defaultSectionName); }
+
+    // in ImGui ImVec4 (4 floats between 0.0-1.0 are used for color values instead of integer 0-255)
+    void SetKeyValue_ImVec4_as_Tau_Color(const std::string& key, const ImVec4& imvec4, const std::string& sectionName);
+    void SetKeyValue_ImVec4_as_Tau_Color(const std::string& key, const ImVec4& imvec4) { return SetKeyValue_ImVec4_as_Tau_Color(key, imvec4, defaultSectionName); }
+
+    // in ImGui ImVec4 (4 floats between 0.0-1.0 are used for color values instead of integer 0-255)
+    void SetKeyValue_ImVec4_as_Tau_RGB(const std::string& key, const ImVec4& imvec4, const std::string& sectionName);
+    void SetKeyValue_ImVec4_as_Tau_RGB(const std::string& key, const ImVec4& imvec4) { return SetKeyValue_ImVec4_as_Tau_RGB(key, imvec4, defaultSectionName); }
+
 
     /// @brief Deletes a key value for a passed key and section name
     /// @param key - the key to delete

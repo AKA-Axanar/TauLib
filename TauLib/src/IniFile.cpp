@@ -199,172 +199,6 @@ bool IniFile::GetKeyValue_Bool(const std::string& key, bool defaultValue, const 
         return defaultValue;
 }
 
-// get objects from Tau_Rect.h
-Tau_Point IniFile::GetKeyValue_Tau_Point(const std::string& key, const std::string& sectionName) const
-{
-    vector<int> ints = GetKeyValue_Ints(key, sectionName);
-    Tau_Point point;
-    assert(ints.size() == 2);
-    if (ints.size() == 2) {
-        point.x = ints[0];
-        point.y = ints[1];
-    }
-
-    return point;
-}
-
-Tau_Size IniFile::GetKeyValue_Tau_Size(const std::string& key, const std::string& sectionName) const
-{
-    vector<int> ints = GetKeyValue_Ints(key, sectionName);
-    Tau_Size size;
-    assert(ints.size() == 2);
-    if (ints.size() == 2) {
-        size.w = ints[0];
-        size.h = ints[1];
-    }
-
-    return size;
-}
-
-Tau_Rect IniFile::GetKeyValue_Tau_Rect(const std::string& key, const std::string& sectionName) const
-{
-    vector<int> ints = GetKeyValue_Ints(key, sectionName);
-    Tau_Rect rect;
-    assert(ints.size() == 4);
-    if (ints.size() == 4) {
-        rect.x = ints[0];
-        rect.y = ints[1];
-        rect.w = ints[2];
-        rect.h = ints[3];
-    }
-
-    return rect;
-}
-
-Tau_Posit IniFile::GetKeyValue_Tau_Posit(const std::string& key, const std::string& sectionName) const
-{
-    vector<int> ints = GetKeyValue_Ints(key, sectionName);
-    Tau_Posit posit;
-    assert(ints.size() == 2);
-    if (ints.size() == 2) {
-        posit.x = ints[0];
-        posit.y = ints[1];
-    }
-
-    return posit;
-}
-
-// get objects from Tau_Color.h
-Tau_RGB IniFile::GetKeyValue_Tau_RGB(const std::string& key, const std::string& sectionName) const
-{
-    vector<int> ints = GetKeyValue_Ints(key, sectionName);
-    Tau_RGB color;
-    assert(ints.size() == 3);
-    if (ints.size() == 3) {
-        color.r = ints[0];
-        color.g = ints[1];
-        color.b = ints[2];
-    }
-
-    return color;
-}
-
-Tau_Color IniFile::GetKeyValue_Tau_Color(const std::string& key, const std::string& sectionName) const
-{
-    vector<int> ints = GetKeyValue_Ints(key, sectionName);
-    Tau_Color color;
-    assert(ints.size() == 4);
-    if (ints.size() == 4) {
-        color.r = ints[0];
-        color.g = ints[1];
-        color.b = ints[2];
-        color.a = ints[3];
-    }
-
-    return color;
-}
-
-// get objects from imgui.h
-ImVec2 IniFile::GetKeyValue_ImVec2(const std::string& key, const std::string& sectionName) const
-{
-    vector<float> floats = GetKeyValue_Floats(key, sectionName);
-    ImVec2 invec2;
-    assert(floats.size() == 2);
-    if (floats.size() == 2) {
-        invec2.x = floats[0];
-        invec2.y = floats[1];
-
-    }
-
-    return invec2;
-}
-
-ImVec4 IniFile::GetKeyValue_ImVec4(const std::string& key, const std::string& sectionName) const
-{
-    vector<float> floats = GetKeyValue_Floats(key, sectionName);
-    ImVec4 invec4;
-    assert(floats.size() == 4);
-    if (floats.size() == 4) {
-        invec4.x = floats[0];
-        invec4.y = floats[1];
-        invec4.z = floats[2];
-        invec4.w = floats[3];
-    }
-
-    return invec4;
-}
-
-// set objects from Tau_Rect.h
-void IniFile::SetKeyValue_Tau_Point(const std::string& key, const Tau_Point& point, const std::string& sectionName)
-{
-    vector<int> ints {point.x, point.y};
-    SetKeyValue_Ints(key, ints, sectionName);
-}
-
-void IniFile::SetKeyValue_Tau_Size(const std::string& key, const Tau_Size& size, const std::string& sectionName)
-{
-    vector<int> ints {size.w, size.h};
-    SetKeyValue_Ints(key, ints, sectionName);
-}
-
-void IniFile::SetKeyValue_Tau_Rect(const std::string& key, const Tau_Rect& rect, const std::string& sectionName)
-{
-    vector<int> ints {rect.x, rect.y, rect.w, rect.h};
-    SetKeyValue_Ints(key, ints, sectionName);
-}
-
-void IniFile::SetKeyValue_Tau_Posit(const std::string& key, const Tau_Posit& posit, const std::string& sectionName)
-{
-    vector<int> ints {posit.x, posit.y};
-    SetKeyValue_Ints(key, ints, sectionName);
-}
-
-// set objects from Tau_Color.h
-void IniFile::SetKeyValue_Tau_RGB(const std::string& key, const Tau_RGB& rgb, const std::string& sectionName)
-{
-    vector<int> ints {rgb.r, rgb.g, rgb.b};
-    SetKeyValue_Ints(key, ints, sectionName);
-}
-
-void IniFile::SetKeyValue_Tau_Color(const std::string& key, const Tau_Color& color, const std::string& sectionName)
-{
-    vector<int> ints {color.r, color.g, color.b, color.a};
-    SetKeyValue_Ints(key, ints, sectionName);
-}
-
-// set objects from imgui.h
-void IniFile::SetKeyValue_ImVec2(const std::string& key, const ImVec2& imvec2, const std::string& sectionName)
-{
-    vector<float> floats {imvec2.x, imvec2.y};
-    SetKeyValue_Floats(key, floats, sectionName);
-}
-
-void IniFile::SetKeyValue_ImVec4(const std::string& key, const ImVec4& imvec4, const std::string& sectionName)
-{
-    vector<float> floats {imvec4.x, imvec4.y, imvec4.z, imvec4.w};
-    SetKeyValue_Floats(key, floats, sectionName);
-}
-
 //
 // IniFile::GetKeyValue_Float
 //
@@ -485,6 +319,225 @@ void IniFile::SetKeyValue_Doubles(const std::string& key, const std::vector<doub
         SetKeyValue(key, s, sectionName);
     }
 }
+
+
+// get objects from Tau_Rect.h
+Tau_Point IniFile::GetKeyValue_Tau_Point(const std::string& key, const std::string& sectionName) const
+{
+    vector<int> ints = GetKeyValue_Ints(key, sectionName);
+    Tau_Point point;
+    assert(ints.size() == 2);
+    if (ints.size() == 2) {
+        point.x = ints[0];
+        point.y = ints[1];
+    }
+
+    return point;
+}
+
+Tau_Size IniFile::GetKeyValue_Tau_Size(const std::string& key, const std::string& sectionName) const
+{
+    vector<int> ints = GetKeyValue_Ints(key, sectionName);
+    Tau_Size size;
+    assert(ints.size() == 2);
+    if (ints.size() == 2) {
+        size.w = ints[0];
+        size.h = ints[1];
+    }
+
+    return size;
+}
+
+Tau_Rect IniFile::GetKeyValue_Tau_Rect(const std::string& key, const std::string& sectionName) const
+{
+    vector<int> ints = GetKeyValue_Ints(key, sectionName);
+    Tau_Rect rect;
+    assert(ints.size() == 4);
+    if (ints.size() == 4) {
+        rect.x = ints[0];
+        rect.y = ints[1];
+        rect.w = ints[2];
+        rect.h = ints[3];
+    }
+
+    return rect;
+}
+
+Tau_Posit IniFile::GetKeyValue_Tau_Posit(const std::string& key, const std::string& sectionName) const
+{
+    vector<int> ints = GetKeyValue_Ints(key, sectionName);
+    Tau_Posit posit;
+    assert(ints.size() == 2);
+    if (ints.size() == 2) {
+        posit.x = ints[0];
+        posit.y = ints[1];
+    }
+
+    return posit;
+}
+
+// get objects from Tau_Color.h
+Tau_RGB IniFile::GetKeyValue_Tau_RGB(const std::string& key, const std::string& sectionName) const
+{
+    vector<int> ints = GetKeyValue_Ints(key, sectionName);
+    Tau_RGB color;
+    assert(ints.size() == 3);
+    if (ints.size() == 3) {
+        color.r = ints[0];
+        color.g = ints[1];
+        color.b = ints[2];
+    }
+
+    return color;
+}
+
+Tau_Color IniFile::GetKeyValue_Tau_Color(const std::string& key, const std::string& sectionName) const
+{
+    vector<int> ints = GetKeyValue_Ints(key, sectionName);
+    Tau_Color color;
+    assert(ints.size() == 4);
+    if (ints.size() == 4) {
+        color.r = ints[0];
+        color.g = ints[1];
+        color.b = ints[2];
+        color.a = ints[3];
+    }
+
+    return color;
+}
+
+// get objects from imgui.h
+ImVec2 IniFile::GetKeyValue_ImVec2(const std::string& key, const std::string& sectionName) const
+{
+    vector<float> floats = GetKeyValue_Floats(key, sectionName);
+    ImVec2 invec2;
+    assert(floats.size() == 2);
+    if (floats.size() == 2) {
+        invec2.x = floats[0];
+        invec2.y = floats[1];
+
+    }
+
+    return invec2;
+}
+
+ImVec4 IniFile::GetKeyValue_ImVec4(const std::string& key, const std::string& sectionName) const
+{
+    vector<float> floats = GetKeyValue_Floats(key, sectionName);
+    ImVec4 invec4;
+    assert(floats.size() == 4);
+    if (floats.size() == 4) {
+        invec4.x = floats[0];
+        invec4.y = floats[1];
+        invec4.z = floats[2];
+        invec4.w = floats[3];
+    }
+
+    return invec4;
+}
+
+// in ImGui ImVec4 (4 floats between 0.0-1.0 are used for color values instead of integer 0-255)
+ImVec4 IniFile::GetKeyValue_Tau_Color_as_ImVec4(const std::string& key, const std::string& sectionName) const
+{
+    Tau_Color color = GetKeyValue_Tau_Color(key, sectionName);
+    ImVec4 imvec4;
+    imvec4.x = ((float) color.r) / 255.0f;
+    imvec4.y = ((float) color.g) / 255.0f;
+    imvec4.z = ((float) color.b) / 255.0f;
+    imvec4.w = ((float) color.a) / 255.0f;
+
+    return imvec4;
+}
+
+// in ImGui ImVec4 (4 floats between 0.0-1.0 are used for color values instead of integer 0-255)
+ImVec4 IniFile::GetKeyValue_Tau_RGB_as_ImVec4(const std::string& key, const std::string& sectionName) const
+{
+    Tau_RGB rgb = GetKeyValue_Tau_RGB(key, sectionName);
+    ImVec4 imvec4;
+    imvec4.x = ((float) rgb.r) / 255.0f;
+    imvec4.y = ((float) rgb.g) / 255.0f;
+    imvec4.z = ((float) rgb.b) / 255.0f;
+    imvec4.w = 1.0f;
+
+    return imvec4;
+
+}
+
+// set objects from Tau_Rect.h
+void IniFile::SetKeyValue_Tau_Point(const std::string& key, const Tau_Point& point, const std::string& sectionName)
+{
+    vector<int> ints {point.x, point.y};
+    SetKeyValue_Ints(key, ints, sectionName);
+}
+
+void IniFile::SetKeyValue_Tau_Size(const std::string& key, const Tau_Size& size, const std::string& sectionName)
+{
+    vector<int> ints {size.w, size.h};
+    SetKeyValue_Ints(key, ints, sectionName);
+}
+
+void IniFile::SetKeyValue_Tau_Rect(const std::string& key, const Tau_Rect& rect, const std::string& sectionName)
+{
+    vector<int> ints {rect.x, rect.y, rect.w, rect.h};
+    SetKeyValue_Ints(key, ints, sectionName);
+}
+
+void IniFile::SetKeyValue_Tau_Posit(const std::string& key, const Tau_Posit& posit, const std::string& sectionName)
+{
+    vector<int> ints {posit.x, posit.y};
+    SetKeyValue_Ints(key, ints, sectionName);
+}
+
+// set objects from Tau_Color.h
+void IniFile::SetKeyValue_Tau_RGB(const std::string& key, const Tau_RGB& rgb, const std::string& sectionName)
+{
+    vector<int> ints {rgb.r, rgb.g, rgb.b};
+    SetKeyValue_Ints(key, ints, sectionName);
+}
+
+void IniFile::SetKeyValue_Tau_Color(const std::string& key, const Tau_Color& color, const std::string& sectionName)
+{
+    vector<int> ints {color.r, color.g, color.b, color.a};
+    SetKeyValue_Ints(key, ints, sectionName);
+}
+
+// set objects from imgui.h
+void IniFile::SetKeyValue_ImVec2(const std::string& key, const ImVec2& imvec2, const std::string& sectionName)
+{
+    vector<float> floats {imvec2.x, imvec2.y};
+    SetKeyValue_Floats(key, floats, sectionName);
+}
+
+void IniFile::SetKeyValue_ImVec4(const std::string& key, const ImVec4& imvec4, const std::string& sectionName)
+{
+    vector<float> floats {imvec4.x, imvec4.y, imvec4.z, imvec4.w};
+    SetKeyValue_Floats(key, floats, sectionName);
+}
+
+// in ImGui ImVec4 (4 floats between 0.0-1.0 are used for color values instead of integer 0-255)
+void IniFile::SetKeyValue_ImVec4_as_Tau_Color(const std::string& key, const ImVec4& imvec4, const std::string& sectionName)
+{
+    Tau_Color color;
+    color.r = (int) round(imvec4.x * 255.0);
+    color.g = (int) round(imvec4.y * 255.0);
+    color.b = (int) round(imvec4.z * 255.0);
+    color.a = (int) round(imvec4.w * 255.0);
+
+    SetKeyValue_Tau_Color(key, color, sectionName);
+}
+
+// in ImGui ImVec4 (4 floats between 0.0-1.0 are used for color values instead of integer 0-255)
+void IniFile::SetKeyValue_ImVec4_as_Tau_RGB(const std::string& key, const ImVec4& imvec4, const std::string& sectionName)
+{
+    Tau_RGB rgb;
+    rgb.r = (int) round(imvec4.x * 255.0);
+    rgb.g = (int) round(imvec4.y * 255.0);
+    rgb.b = (int) round(imvec4.z * 255.0);
+    // imvec4.w is not used
+
+    SetKeyValue_Tau_RGB(key, rgb, sectionName);
+}
+
 
 //
 // IniFile::DeleteKey
