@@ -2,6 +2,9 @@
 #include <string>
 #include <map>
 #include <vector>
+#include "Tau_Rect.h"
+#include "Tau_Color.h"
+#include "ThirdParty/imgui/imgui.h"
 
 ///
 /// @file
@@ -81,13 +84,67 @@ struct IniFile {
     /// @param sectionName - the section name the key is in, if any
     /// @return Returns the value of the key/value pair converted to an integer.
     int GetKeyValue_Int(const std::string& key, const std::string& sectionName) const;
-    std::vector<int> GetKeyValue_Ints(const std::string& key, const std::string& sectionName) const;
     int GetKeyValue_Int(const std::string& key) const { return GetKeyValue_Int(key, defaultSectionName); }
+    std::vector<int> GetKeyValue_Ints(const std::string& key, const std::string& sectionName) const;
     std::vector<int> GetKeyValue_Ints(const std::string& key) const { return GetKeyValue_Ints(key, defaultSectionName); }
     int64_t GetKeyValue_Int64(const std::string& key, const std::string& sectionName) const;
     int64_t GetKeyValue_Int64(const std::string& key) const { return GetKeyValue_Int(key, defaultSectionName); }
     bool GetKeyValue_Bool(const std::string& key, bool defaultValue, const std::string& sectionName) const;
     bool GetKeyValue_Bool(const std::string& key, bool defaultValue) const { return GetKeyValue_Bool(key, defaultValue, defaultSectionName); }
+
+    // get objects from Tau_Rect.h
+    Tau_Point GetKeyValue_Tau_Point(const std::string& key, const std::string& sectionName) const;
+    Tau_Point GetKeyValue_Tau_Point(const std::string& key) const { return GetKeyValue_Tau_Point(key, defaultSectionName); }
+
+    Tau_Size GetKeyValue_Tau_Size(const std::string& key, const std::string& sectionName) const;
+    Tau_Size GetKeyValue_Tau_Size(const std::string& key) const { return GetKeyValue_Tau_Size(key, defaultSectionName); }
+
+    Tau_Rect GetKeyValue_Tau_Rect(const std::string& key, const std::string& sectionName) const;
+    Tau_Rect GetKeyValue_Tau_Rect(const std::string& key) const { return GetKeyValue_Tau_Rect(key, defaultSectionName); }
+
+    Tau_Posit GetKeyValue_Tau_Posit(const std::string& key, const std::string& sectionName) const;
+    Tau_Posit GetKeyValue_Tau_Posit(const std::string& key) const { return GetKeyValue_Tau_Posit(key, defaultSectionName); }
+
+    // get objects from Tau_Color.h
+    Tau_RGB GetKeyValue_Tau_RGB(const std::string& key, const std::string& sectionName) const;
+    Tau_RGB GetKeyValue_Tau_RGB(const std::string& key) const { return GetKeyValue_Tau_RGB(key, defaultSectionName); }
+
+    Tau_Color GetKeyValue_Tau_Color(const std::string& key, const std::string& sectionName) const;
+    Tau_Color GetKeyValue_Tau_Color(const std::string& key) const { return GetKeyValue_Tau_Color(key, defaultSectionName); }
+
+    // get objects from imgui.h
+    ImVec2 GetKeyValue_ImVec2(const std::string& key, const std::string& sectionName) const;
+    ImVec2 GetKeyValue_ImVec2(const std::string& key) const { return GetKeyValue_ImVec2(key, defaultSectionName); }
+
+    ImVec4 GetKeyValue_ImVec4(const std::string& key, const std::string& sectionName) const;
+    ImVec4 GetKeyValue_ImVec4(const std::string& key) const { return GetKeyValue_ImVec4(key, defaultSectionName); }
+
+    // set objects from Tau_Rect.h
+    void SetKeyValue_Tau_Point(const std::string& key, const Tau_Point& point, const std::string& sectionName);
+    void SetKeyValue_Tau_Point(const std::string& key, const Tau_Point& point) { return SetKeyValue_Tau_Point(key, point, defaultSectionName); }
+
+    void SetKeyValue_Tau_Size(const std::string& key, const Tau_Size& size, const std::string& sectionName);
+    void SetKeyValue_Tau_Size(const std::string& key, const Tau_Size& size) { return SetKeyValue_Tau_Size(key, size, defaultSectionName); }
+
+    void SetKeyValue_Tau_Rect(const std::string& key, const Tau_Rect& rect, const std::string& sectionName);
+    void SetKeyValue_Tau_Rect(const std::string& key, const Tau_Rect& rect) { return SetKeyValue_Tau_Rect(key, rect, defaultSectionName); }
+
+    void SetKeyValue_Tau_Posit(const std::string& key, const Tau_Posit& posit, const std::string& sectionName);
+    void SetKeyValue_Tau_Posit(const std::string& key, const Tau_Posit& posit) { return SetKeyValue_Tau_Posit(key, posit, defaultSectionName); }
+
+    // set objects from Tau_Color.h
+    void SetKeyValue_Tau_RGB(const std::string& key, const Tau_RGB& rgb, const std::string& sectionName);
+    void SetKeyValue_Tau_RGB(const std::string& key, const Tau_RGB& rgb) { return SetKeyValue_Tau_RGB(key, rgb, defaultSectionName); }
+
+    void SetKeyValue_Tau_Color(const std::string& key, const Tau_Color& color, const std::string& sectionName);
+    void SetKeyValue_Tau_Color(const std::string& key, const Tau_Color& color) { return SetKeyValue_Tau_Color(key, color, defaultSectionName); }
+
+    // set objects from imgui.h
+    void SetKeyValue_ImVec2(const std::string& key, const ImVec2& imvec2, const std::string& sectionName);
+    void SetKeyValue_ImVec2(const std::string& key, const ImVec2& imvec2) { return SetKeyValue_ImVec2(key, imvec2, defaultSectionName); }
+
+    void SetKeyValue_ImVec4(const std::string& key, const ImVec4& imvec4, const std::string& sectionName);
+    void SetKeyValue_ImVec4(const std::string& key, const ImVec4& imvec4) { return SetKeyValue_ImVec4(key, imvec4, defaultSectionName); }
 
     /// @brief Returns a key value for a passed key and section name
     /// @param key - the key to search for
@@ -134,7 +191,7 @@ struct IniFile {
     /// @return none
     /// @note if the key doesn't already exist, it's created
     /// @note if the sectionName doesn't already exist, it's created
-    void SetKeyValue_Ints(const std::string& key, std::vector<int> values, const std::string& sectionName);
+    void SetKeyValue_Ints(const std::string& key, const std::vector<int>& values, const std::string& sectionName);
 
     /// @brief Sets a key value to the comma delimited string of a series of int's
     /// @param key - the key to search for
@@ -142,7 +199,7 @@ struct IniFile {
     /// @return none
     /// @note if the key doesn't already exist, it's created
     /// @note if the sectionName doesn't already exist, it's created
-    void SetKeyValue_Ints(const std::string& key, std::vector<int> values) { return SetKeyValue_Ints(key, values, defaultSectionName); }
+    void SetKeyValue_Ints(const std::string& key, const std::vector<int>& values) { return SetKeyValue_Ints(key, values, defaultSectionName); }
 
     /// @brief Sets a key value to a float
     /// @param key - the key to search for
@@ -161,7 +218,7 @@ struct IniFile {
     /// @return none
     /// @note if the key doesn't already exist, it's created
     /// @note if the sectionName doesn't already exist, it's created
-    void SetKeyValue_Floats(const std::string& key, std::vector<float> values, const std::string& sectionName);
+    void SetKeyValue_Floats(const std::string& key, const std::vector<float>& values, const std::string& sectionName);
 
     /// @brief Sets a key value to the comma delimited string of a series of floats
     /// @param key - the key to search for
@@ -169,7 +226,7 @@ struct IniFile {
     /// @return none
     /// @note if the key doesn't already exist, it's created
     /// @note if the sectionName doesn't already exist, it's created
-    void SetKeyValue_Floats(const std::string& key, std::vector<float> values) { return SetKeyValue_Floats(key, values, defaultSectionName); }
+    void SetKeyValue_Floats(const std::string& key, const std::vector<float>& values) { return SetKeyValue_Floats(key, values, defaultSectionName); }
 
     /// @brief Sets a key value to a double
     /// @param key - the key to search for
@@ -195,7 +252,7 @@ struct IniFile {
     /// @return none
     /// @note if the key doesn't already exist, it's created
     /// @note if the sectionName doesn't already exist, it's created
-    void SetKeyValue_Doubles(const std::string& key, std::vector<double> values, const std::string& sectionName);
+    void SetKeyValue_Doubles(const std::string& key, const std::vector<double>& values, const std::string& sectionName);
 
     /// @brief Sets a key value to the comma delimited string of a series of doubles
     /// @param key - the key to search for
@@ -203,7 +260,7 @@ struct IniFile {
     /// @return none
     /// @note if the key doesn't already exist, it's created
     /// @note if the sectionName doesn't already exist, it's created
-    void SetKeyValue_Doubles(const std::string& key, std::vector<double> values) { return SetKeyValue_Doubles(key, values, defaultSectionName); }
+    void SetKeyValue_Doubles(const std::string& key, const std::vector<double>& values) { return SetKeyValue_Doubles(key, values, defaultSectionName); }
 
     /// @brief Deletes a key value for a passed key and section name
     /// @param key - the key to delete
