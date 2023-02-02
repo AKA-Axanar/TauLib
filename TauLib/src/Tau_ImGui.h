@@ -41,7 +41,7 @@ void Tau_ImGui_NewFrame();
 /// @param flags - any combo flags
 /// @return the selected index
 /// 
-int Tau_ImGui_Combo(const std::string& label, int current_index, const std::vector<std::string>& items, ImGuiComboFlags flags = 0);
+std::pair<std::optional<int>, std::optional<int>> Tau_ImGui_Combo(const std::string& label, int current_index, const std::vector<std::string>& items, ImGuiComboFlags flags = 0);
 
 ///
 /// @brief Tau_ImGui_TreeNodeMulti_Select
@@ -75,7 +75,7 @@ void Tau_ImGui_TreeNodeCheckboxes(const std::string& label, const std::vector<st
 /// @param flags - any combo flags
 /// @return the selected index
 /// 
-int Tau_ImGui_Combo_Ints(const std::string& label, int current_index, const std::vector<int>& int_items, ImGuiComboFlags flags = 0);
+std::pair<std::optional<int>, std::optional<int>> Tau_ImGui_Combo_Ints(const std::string& label, int current_index, const std::vector<int>& int_items, ImGuiComboFlags flags = 0);
 
 ///
 /// @brief Tau_ImGui_Combo_IntRange
@@ -86,7 +86,7 @@ int Tau_ImGui_Combo_Ints(const std::string& label, int current_index, const std:
 /// @param flags - any combo flags
 /// @return the selected index
 /// 
-int Tau_ImGui_Combo_IntRange(const std::string& label, int current_index, int start, int count, ImGuiComboFlags flags = 0);
+std::pair<std::optional<int>, std::optional<int>> Tau_ImGui_Combo_IntRange(const std::string& label, int current_index, int start, int count, ImGuiComboFlags flags = 0);
 
 ///
 /// @brief Tau_ImGui_Confirm

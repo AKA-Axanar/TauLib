@@ -6,6 +6,7 @@
 #include <ranges>
 #include <algorithm>
 #include "Lang.h"
+#include <iostream>
 
 using namespace std;
 
@@ -106,21 +107,30 @@ namespace Tau { // to avoid conflict with other libraries
     //
     // Tau_ImGui_Combo strings
     // 
-    int Tau_ImGui_Combo(const string& label, int current_index, const vector<string>& items, ImGuiComboFlags flags) {
+    pair<optional<int>, optional<int>> Tau_ImGui_Combo(const string& label, int current_index, const vector<string>& items, ImGuiComboFlags flags) {
+        optional<int> new_index;
+        optional<int> hovering_over;
+
         if (ImGui::BeginCombo(label.c_str(), items[current_index].c_str(), flags)) {
             for (int n = 0; n < items.size(); n++)
             {
                 const bool is_selected = (current_index == n);
-                if (ImGui::Selectable(items[n].c_str(), is_selected))
+                if (ImGui::Selectable(items[n].c_str(), is_selected)) {
                     current_index = n;
-
+                    new_index = n;
+                }
+                else if (ImGui::IsItemHovered(0)) {
+                    hovering_over = n;
+                }
                 // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
                 if (is_selected)
                     ImGui::SetItemDefaultFocus();
             }
             ImGui::EndCombo();
+            return { new_index, hovering_over };
         }
-        return current_index;
+        else
+            return { new_index, hovering_over };
     }
 
     //
@@ -166,7 +176,7 @@ namespace Tau { // to avoid conflict with other libraries
     //
     // Tau_ImGui_Combo int's
     // 
-    int Tau_ImGui_Combo_Ints(const string& label, int current_index, const vector<int>& int_items, ImGuiComboFlags flags) {
+    std::pair<std::optional<int>, std::optional<int>> Tau_ImGui_Combo_Ints(const string& label, int current_index, const vector<int>& int_items, ImGuiComboFlags flags) {
         vector<string> items;
         ranges::for_each(int_items, [&] (int n) { items.push_back(to_string(n)); });
         return Tau_ImGui_Combo(label, current_index, items, flags);
@@ -175,7 +185,7 @@ namespace Tau { // to avoid conflict with other libraries
     //
     // Tau_ImGui_Combo int range
     // 
-    int Tau_ImGui_Combo_IntRange(const std::string& label, int current_index, int start, int count, ImGuiComboFlags flags) {
+    std::pair<std::optional<int>, std::optional<int>> Tau_ImGui_Combo_IntRange(const std::string& label, int current_index, int start, int count, ImGuiComboFlags flags) {
         vector<string> items;
         for (int n=start; n < start+count; ++n)
             items.push_back(to_string(n));
