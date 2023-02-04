@@ -192,10 +192,10 @@ bool sortStringCompareInsensitive(const std::string& string1, const std::string&
                 //*******************************
 
 //
-// ReplaceSubStrings - Replace all the matching substrings in a string.
+// ReplaceSubString - Replace all the matching substrings in a string.
 // return The resulting string.
 //
-string ReplaceSubStrings(const std::string& str, const std::string& fromSubStringOrLexicalExpression,
+string ReplaceSubString(const std::string& str, const std::string& fromSubStringOrLexicalExpression,
     const std::string& toSubString) {
     string result;
     regex from(fromSubStringOrLexicalExpression);
@@ -206,12 +206,12 @@ string ReplaceSubStrings(const std::string& str, const std::string& fromSubStrin
 }
 
 //
-// ReplaceSubStrings - Replace all the matching substrings in the passed string.
+// ReplaceSubString - Replace all the matching substrings in the passed string.
 // return none
 //
-void ReplaceSubStrings(std::string* str, const std::string& fromSubStringOrLexicalExpression,
+void ReplaceSubString(std::string* str, const std::string& fromSubStringOrLexicalExpression,
     const std::string& toSubString) {
-    *str = ReplaceSubStrings(*str, fromSubStringOrLexicalExpression, toSubString);
+    *str = ReplaceSubString(*str, fromSubStringOrLexicalExpression, toSubString);
 }
 
                 //*******************************

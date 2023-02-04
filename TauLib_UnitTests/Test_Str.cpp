@@ -67,9 +67,9 @@ TEST(TestStr, TestStr_compare) {
 // test regex string functions
 //
 TEST(TestStr, TestStr_regex) {
-    EXPECT_EQ(ReplaceSubStrings("abcdefabcdef", "abc", "XXX"), "XXXdefXXXdef");
+    EXPECT_EQ(ReplaceSubString("abcdefabcdef", "abc", "XXX"), "XXXdefXXXdef");
     string temp = "abcdefabcdef";
-    ReplaceSubStrings(&temp, "abc", "XXX");
+    ReplaceSubString(&temp, "abc", "XXX");
     EXPECT_EQ(temp, "XXXdefXXXdef");
 
     EXPECT_EQ(FoundLexExpr("[a-z]+", "abcdefabcdef"), true);
