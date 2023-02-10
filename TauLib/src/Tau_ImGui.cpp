@@ -260,6 +260,15 @@ namespace Tau { // to avoid conflict with other libraries
     }
 
     //
+    // @brief Tau_ImGui_Image
+    // 
+    void Tau_ImGui_Image(SDL_Shared<SDL_Texture> texture, Tau_Rect rect) {
+        ImGui::SetCursorPos(ImVec2((float)rect.x, (float)rect.y));
+        ImGui::Image((SDL_Texture*)texture, ImVec2((float)rect.w, (float)rect.h));
+    }
+
+
+    //
     // Tau_ImGui_AddFont
     // 
     ImFont* Tau_ImGui_AddFont(const string& TTF_fontfile, float size_pixels, const ImFontConfig* font_cfg, const ImWchar* glyph_ranges) {

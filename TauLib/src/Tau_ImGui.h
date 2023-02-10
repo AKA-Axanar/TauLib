@@ -5,6 +5,7 @@
 #include <vector>
 #include <string>
 #include <optional>
+#include "Tau_Rect.h"
 
 ///
 /// @brief namespace Tau - avoid conflict with other libraries
@@ -113,6 +114,11 @@ void Tau_SetPosition();
 /// 
 void Tau_ImGui_Render(SDL_Shared<SDL_Window> window, SDL_Shared<SDL_Renderer> renderer);
 void Tau_ImGui_Render_Clear(SDL_Shared<SDL_Window> window, SDL_Shared<SDL_Renderer> renderer, const ImVec4& clearColor);
+
+///
+/// @brief Tau_ImGui_Image
+/// 
+void Tau_ImGui_Image(SDL_Shared<SDL_Texture> texture, Tau_Rect rect);
 
 ///
 /// @brief Tau_ImGui_AddFont
