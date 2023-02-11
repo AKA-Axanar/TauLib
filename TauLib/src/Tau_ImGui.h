@@ -13,39 +13,39 @@
 namespace Tau { // to avoid conflict with other libraries
 
 ///
-/// @brief Tau_ImGui_Init
+/// @brief ImGui_Init
 /// @note call ImGui_Quit to clean up the init
 ///
-void Tau_ImGui_Init(SDL_Shared<SDL_Window> window, SDL_Shared<SDL_Renderer> renderer);
+void ImGui_Init(SDL_Shared<SDL_Window> window, SDL_Shared<SDL_Renderer> renderer);
 
 ///
-/// @brief Tau_ImGui_Quit
+/// @brief ImGui_Quit
 ///
-void Tau_ImGui_Quit();
+void ImGui_Quit();
 
 ///
-/// @brief Tau_DisableImGuiIniFile
+/// @brief ImGui_DisableIniFile
 ///
-void Tau_DisableImGuiIniFile();
+void ImGui_DisableIniFile();
 
 ///
-/// @brief Tau_ImGui_NewFrame - Start the Dear ImGui frame
+/// @brief ImGui_NewFrame - Start the Dear ImGui frame
 /// @note call ImGui::EndFrame at the end of the frame
 /// 
-void Tau_ImGui_NewFrame();
+void ImGui_NewFrame();
 
 ///
-/// @brief Tau_ImGui_Combo
+/// @brief ImGui_Combo
 /// @param label - the label string on the right of the combo
 /// @param current_int - the index of the item that is the current selection
 /// @param items - the item strings in the combo list
 /// @param flags - any combo flags
 /// @return the selected index
 /// 
-std::pair<std::optional<int>, std::optional<int>> Tau_ImGui_Combo(const std::string& label, int current_index, const std::vector<std::string>& items, ImGuiComboFlags flags = 0);
+std::pair<std::optional<int>, std::optional<int>> ImGui_Combo(const std::string& label, int current_index, const std::vector<std::string>& items, ImGuiComboFlags flags = 0);
 
 ///
-/// @brief Tau_ImGui_TreeNodeMulti_Select
+/// @brief ImGui_TreeNodeMulti_Select
 /// @param label - the label string on the right of the combo
 /// @param items - the item strings in the combo list
 /// @param selected - true for each item that is selected
@@ -54,10 +54,10 @@ std::pair<std::optional<int>, std::optional<int>> Tau_ImGui_Combo(const std::str
 /// selected must be the same length as items.
 /// selected int's will be true if that string is selected
 /// 
-void Tau_ImGui_TreeNodeMulti_Select(const std::string& label, const std::vector<std::string>& items, std::vector<int> *selected);
+void ImGui_TreeNodeMulti_Select(const std::string& label, const std::vector<std::string>& items, std::vector<int> *selected);
 
 ///
-/// @brief Tau_ImGui_TreeNodeCheckboxes
+/// @brief ImGui_TreeNodeCheckboxes
 /// @param label - the label string on the right of the combo
 /// @param items - the item strings in the combo list
 /// @param selected - true for each item that is selected
@@ -66,20 +66,20 @@ void Tau_ImGui_TreeNodeMulti_Select(const std::string& label, const std::vector<
 /// selected must be the same length as items.
 /// selected int's will be true if that string is selected
 /// 
-void Tau_ImGui_TreeNodeCheckboxes(const std::string& label, const std::vector<std::string>& items, std::vector<int> *selected);
+void ImGui_TreeNodeCheckboxes(const std::string& label, const std::vector<std::string>& items, std::vector<int> *selected);
 
 ///
-/// @brief Tau_ImGui_Combo_Ints
+/// @brief ImGui_Combo_Ints
 /// @param label - the label string on the right of the combo
 /// @param current_int - the index of the item that is the current selection
 /// @param items - the item integers in the combo list
 /// @param flags - any combo flags
 /// @return the selected index
 /// 
-std::pair<std::optional<int>, std::optional<int>> Tau_ImGui_Combo_Ints(const std::string& label, int current_index, const std::vector<int>& int_items, ImGuiComboFlags flags = 0);
+std::pair<std::optional<int>, std::optional<int>> ImGui_Combo_Ints(const std::string& label, int current_index, const std::vector<int>& int_items, ImGuiComboFlags flags = 0);
 
 ///
-/// @brief Tau_ImGui_Combo_IntRange
+/// @brief ImGui_Combo_IntRange
 /// @param label - the label string on the right of the combo
 /// @param current_int - the index of the item that is the current selection
 /// @param start - the first integer in the combo list
@@ -87,57 +87,57 @@ std::pair<std::optional<int>, std::optional<int>> Tau_ImGui_Combo_Ints(const std
 /// @param flags - any combo flags
 /// @return the selected index
 /// 
-std::pair<std::optional<int>, std::optional<int>> Tau_ImGui_Combo_IntRange(const std::string& label, int current_index, int start, int count, ImGuiComboFlags flags = 0);
+std::pair<std::optional<int>, std::optional<int>> ImGui_Combo_IntRange(const std::string& label, int current_index, int start, int count, ImGuiComboFlags flags = 0);
 
 ///
-/// @brief Tau_ImGui_Confirm
+/// @brief ImGui_Confirm
 /// display a confirmation message with multiple buttons.  the index of the button that was pressed is returned, if any.
 /// possible uses: OK/Cancel, Save/Discard,
 /// @param show - same as ImGui::Begin's bool* p_open
 /// @return the index of the button pressed, if any
 /// 
-std::optional<int> Tau_ImGui_Confirm(bool* show, const std::string& title, const std::string& message,
+std::optional<int> ImGui_Confirm(bool* show, const std::string& title, const std::string& message,
                   const std::vector<std::string>& buttons,
                   const std::vector<ImVec4>& buttonColors,
                   ImGuiWindowFlags windowFlags);
 
 ///
-/// @brief Tau_ImGui_Popup
+/// @brief ImGui_Popup
 /// popup a message with a single OK button
 /// 
-void Tau_ImGui_Popup(bool* show, const std::string& title, const std::string& message, ImGuiWindowFlags windowFlags);
+void ImGui_Popup(bool* show, const std::string& title, const std::string& message, ImGuiWindowFlags windowFlags);
 
 ///
-/// @brief Tau_ImGui_Render
+/// @brief ImGui_Render
 /// 
-void Tau_ImGui_Render(SDL_Shared<SDL_Window> window, SDL_Shared<SDL_Renderer> renderer);
-void Tau_ImGui_Render_Clear(SDL_Shared<SDL_Window> window, SDL_Shared<SDL_Renderer> renderer, const ImVec4& clearColor);
+void ImGui_Render(SDL_Shared<SDL_Window> window, SDL_Shared<SDL_Renderer> renderer);
+void ImGui_Render_Clear(SDL_Shared<SDL_Window> window, SDL_Shared<SDL_Renderer> renderer, const ImVec4& clearColor);
 
 ///
-/// @brief Tau_ImGui_Image
+/// @brief ImGui_Image
 /// 
-void Tau_ImGui_Image(SDL_Shared<SDL_Texture> texture, Tau_Rect rect);
+void ImGui_Image(SDL_Shared<SDL_Texture> texture, Tau_Rect rect);
 
 ///
-/// @brief Tau_ImGui_AddFont
+/// @brief ImGui_AddFont
 /// 
-ImFont*  Tau_ImGui_AddFont(const std::string& TTF_fontfile, float size_pixels, const ImFontConfig* font_cfg = NULL, const ImWchar* glyph_ranges = NULL);
+ImFont*  ImGui_AddFont(const std::string& TTF_fontfile, float size_pixels, const ImFontConfig* font_cfg = NULL, const ImWchar* glyph_ranges = NULL);
 
 ///
-/// @brief Tau_ImGui_TextCentered
+/// @brief ImGui_TextCentered
 /// 
-void Tau_ImGui_TextCentered(const std::string& str);
+void ImGui_TextCentered(const std::string& str);
 
 ///
-/// @brief Tau_ImGui_TextCenteredMultiline
+/// @brief ImGui_TextCenteredMultiline
 /// 
-void Tau_ImGui_TextCenteredMultiline(std::string str);
+void ImGui_TextCenteredMultiline(std::string str);
 
 ///
-/// @brief HelpMarker
+/// @brief ImGui_HelpMarker
 /// Helper to display a little (?) mark which shows a tooltip when hovered.
 /// 
-void HelpMarker(const char* desc);
+void ImGui_HelpMarker(const char* desc);
 
 //    // Update and Render additional Platform Windows
 //    void UpdateViewports();

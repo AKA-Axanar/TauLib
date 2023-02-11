@@ -13,9 +13,9 @@ using namespace std;
 namespace Tau { // to avoid conflict with other libraries
 
     //
-    // Tau_ImGui_Init
+    // ImGui_Init
     //
-    void Tau_ImGui_Init(SDL_Shared<SDL_Window> window, SDL_Shared<SDL_Renderer> renderer) {
+    void ImGui_Init(SDL_Shared<SDL_Window> window, SDL_Shared<SDL_Renderer> renderer) {
         // from the example code in imgui/examples/example_sdl_sdlrenderer/main.cpp
 
         assert(window);
@@ -78,36 +78,36 @@ namespace Tau { // to avoid conflict with other libraries
     }
 
     //
-    // Tau_ImGui_Quit
+    // ImGui_Quit
     //
-    void Tau_ImGui_Quit() {
+    void ImGui_Quit() {
         ImGui_ImplSDLRenderer_Shutdown();
         ImGui_ImplSDL2_Shutdown();
         ImGui::DestroyContext();
     }
 
     //
-    // Tau_DisableImGuiIniFile
+    // ImGui_DisableIniFile
     //
-    void Tau_DisableImGuiIniFile()
+    void ImGui_DisableIniFile()
     {
         ImGuiIO& io = ImGui::GetIO(); (void)io;
         io.IniFilename = nullptr;   // disable saving and restoring window sizes and positions in imgui.ini
     }
 
     //
-    // Tau_ImGui_NewFrame - Start the Dear ImGui frame
+    // ImGui_NewFrame - Start the Dear ImGui frame
     // 
-    void Tau_ImGui_NewFrame() {
+    void ImGui_NewFrame() {
         ImGui_ImplSDLRenderer_NewFrame();
         ImGui_ImplSDL2_NewFrame();
         ImGui::NewFrame();
     }
 
     //
-    // Tau_ImGui_Combo strings
+    // ImGui_Combo strings
     // 
-    pair<optional<int>, optional<int>> Tau_ImGui_Combo(const string& label, int current_index, const vector<string>& items, ImGuiComboFlags flags) {
+    pair<optional<int>, optional<int>> ImGui_Combo(const string& label, int current_index, const vector<string>& items, ImGuiComboFlags flags) {
         optional<int> new_index;
         optional<int> hovering_over;
 
@@ -136,9 +136,9 @@ namespace Tau { // to avoid conflict with other libraries
     //
     // Tau_ImGui_Multi_Select strings
     //
-    void Tau_ImGui_TreeNodeMulti_Select(const string& label, const vector<string>& items, vector<int> *selected) {
+    void ImGui_TreeNodeMulti_Select(const string& label, const vector<string>& items, vector<int> *selected) {
         if (ImGui::TreeNode(label.c_str())) {
-            HelpMarker(_("Hold CTRL and click to select multiple items.").c_str());
+            ImGui_HelpMarker(_("Hold CTRL and click to select multiple items.").c_str());
             for (int n = 0; n < items.size(); n++)
             {
                 bool is_selected = (*selected)[n];
@@ -159,9 +159,9 @@ namespace Tau { // to avoid conflict with other libraries
     }
 
     //
-    // Tau_ImGui_TreeNodeCheckboxes strings
+    // ImGui_TreeNodeCheckboxes strings
     //
-    void Tau_ImGui_TreeNodeCheckboxes(const string& label, const vector<string>& items, vector<int> *selected) {
+    void ImGui_TreeNodeCheckboxes(const string& label, const vector<string>& items, vector<int> *selected) {
         assert(items.size() == (*selected).size());
         if (ImGui::TreeNode(label.c_str())) {
             //HelpMarker(_("Hold CTRL and click to select multiple items.").c_str());
@@ -174,27 +174,27 @@ namespace Tau { // to avoid conflict with other libraries
     }
 
     //
-    // Tau_ImGui_Combo int's
+    // ImGui_Combo int's
     // 
-    std::pair<std::optional<int>, std::optional<int>> Tau_ImGui_Combo_Ints(const string& label, int current_index, const vector<int>& int_items, ImGuiComboFlags flags) {
+    std::pair<std::optional<int>, std::optional<int>> ImGui_Combo_Ints(const string& label, int current_index, const vector<int>& int_items, ImGuiComboFlags flags) {
         vector<string> items;
         ranges::for_each(int_items, [&] (int n) { items.push_back(to_string(n)); });
-        return Tau_ImGui_Combo(label, current_index, items, flags);
+        return ImGui_Combo(label, current_index, items, flags);
     }
 
     //
-    // Tau_ImGui_Combo int range
+    // ImGui_Combo int range
     // 
-    std::pair<std::optional<int>, std::optional<int>> Tau_ImGui_Combo_IntRange(const std::string& label, int current_index, int start, int count, ImGuiComboFlags flags) {
+    std::pair<std::optional<int>, std::optional<int>> ImGui_Combo_IntRange(const std::string& label, int current_index, int start, int count, ImGuiComboFlags flags) {
         vector<string> items;
         for (int n=start; n < start+count; ++n)
             items.push_back(to_string(n));
-        return Tau_ImGui_Combo(label, current_index, items, flags);
+        return ImGui_Combo(label, current_index, items, flags);
     }
 
     // display a confirmation message with multiple buttons.  the index of the button that was pressed is returned, if any.
     // possible uses: OK/Cancel, Save/Discard, 
-    optional<int> Tau_ImGui_Confirm(bool* show, const string& title, const string& message,
+    optional<int> ImGui_Confirm(bool* show, const string& title, const string& message,
                                     const vector<string>& buttons, const vector<ImVec4>& buttonColors,
                                     ImGuiWindowFlags windowFlags)
     {
@@ -219,7 +219,7 @@ namespace Tau { // to avoid conflict with other libraries
     }
 
     // popup a message with a single OK button
-    void Tau_ImGui_Popup(bool* show, const string& title, const string& message, ImGuiWindowFlags windowFlags) {
+    void ImGui_Popup(bool* show, const string& title, const string& message, ImGuiWindowFlags windowFlags) {
         ImGui::Begin(title.c_str(), show, windowFlags);
     ImGui::Text("");
     ImGui::Text(message.c_str());
@@ -230,18 +230,18 @@ namespace Tau { // to avoid conflict with other libraries
     }
 
     //
-    // Tau_ImGui_Render
+    // ImGui_Render
     // 
-    void Tau_ImGui_Render(SDL_Shared<SDL_Window> window, SDL_Shared<SDL_Renderer> renderer) {
+    void ImGui_Render(SDL_Shared<SDL_Window> window, SDL_Shared<SDL_Renderer> renderer) {
         ImGui::Render();
         ImGui_ImplSDLRenderer_RenderDrawData(ImGui::GetDrawData());
         SDL_RenderPresent(renderer);
     }
 
     //
-    // Tau_ImGui_Render_Clear
+    // ImGui_Render_Clear
     // 
-    void Tau_ImGui_Render_Clear(SDL_Shared<SDL_Window> window, SDL_Shared<SDL_Renderer> renderer, const ImVec4& clearColor) {
+    void ImGui_Render_Clear(SDL_Shared<SDL_Window> window, SDL_Shared<SDL_Renderer> renderer, const ImVec4& clearColor) {
         ImGui::Render();
         SDL_SetRenderDrawColor(renderer, (Uint8)(clearColor.x * 255), (Uint8)(clearColor.y * 255), (Uint8)(clearColor.z * 255), (Uint8)(clearColor.w * 255));
         SDL_RenderClear(renderer);
@@ -250,27 +250,27 @@ namespace Tau { // to avoid conflict with other libraries
     }
 
     //
-    // Tau_ImGui_Image
+    // ImGui_Image
     // 
-    void Tau_ImGui_Image(SDL_Shared<SDL_Texture> texture, Tau_Rect rect) {
+    void ImGui_Image(SDL_Shared<SDL_Texture> texture, Tau_Rect rect) {
         ImGui::SetCursorPos(ImVec2((float)rect.x, (float)rect.y));
         ImGui::Image((SDL_Texture*)texture, ImVec2((float)rect.w, (float)rect.h));
     }
 
     //
-    // Tau_ImGui_TextCentered
+    // ImGui_TextCentered
     // from: https://stackoverflow.com/questions/64653747/how-to-center-align-text-horizontally
     //
-    void Tau_ImGui_TextCentered(const string& str) {
+    void ImGui_TextCentered(const string& str) {
         ImGui::SetCursorPosX( (ImGui::GetWindowWidth() - ImGui::CalcTextSize(str.c_str()).x) / 2.f);
         ImGui::Text(str.c_str());
     }
 
     //
-    // Tau_ImGui_TextCenteredMultiline
+    // ImGui_TextCenteredMultiline
     // from: https://stackoverflow.com/questions/64653747/how-to-center-align-text-horizontally
     //
-    void Tau_ImGui_TextCenteredMultiline(std::string str) {
+    void ImGui_TextCenteredMultiline(std::string str) {
         float win_width = ImGui::GetWindowSize().x;
         float text_width = ImGui::CalcTextSize(str.c_str()).x;
 
@@ -292,9 +292,9 @@ namespace Tau { // to avoid conflict with other libraries
     }
 
     //
-    // Tau_ImGui_AddFont
+    // ImGui_AddFont
     // 
-    ImFont* Tau_ImGui_AddFont(const string& TTF_fontfile, float size_pixels, const ImFontConfig* font_cfg, const ImWchar* glyph_ranges) {
+    ImFont* ImGui_AddFont(const string& TTF_fontfile, float size_pixels, const ImFontConfig* font_cfg, const ImWchar* glyph_ranges) {
         ImGuiIO& io = ImGui::GetIO();
         ImFont* font = io.Fonts->AddFontFromFileTTF(TTF_fontfile.c_str(), size_pixels, font_cfg, glyph_ranges);
         assert(font);
@@ -303,7 +303,7 @@ namespace Tau { // to avoid conflict with other libraries
 
     // Helper to display a little (?) mark which shows a tooltip when hovered.
     // In your own code you may want to display an actual icon if you are using a merged icons font (see docs/FONTS.md)
-    void HelpMarker(const char* desc)
+    void ImGui_HelpMarker(const char* desc)
     {
         ImGui::TextDisabled("(?)");
         if (ImGui::IsItemHovered())
