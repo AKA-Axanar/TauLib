@@ -229,16 +229,6 @@ namespace Tau { // to avoid conflict with other libraries
     ImGui::End();
     }
 
-    /// 
-    /// @brief Tau_SetPosition - SetNextWindowPos
-    /// 
-    void Tau_SetPosition()
-    {
-        ImGuiIO& io = ImGui::GetIO(); (void)io;
-        ImVec2 newpos(io.DisplaySize.x * 0.5f, io.DisplaySize.y * 0.5f);
-        ImGui::SetNextWindowPos(newpos, ImGuiCond_Always, ImVec2(0.5f, 0.5f));
-    }
-
     //
     // Tau_ImGui_Render
     // 

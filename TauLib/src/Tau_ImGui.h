@@ -107,8 +107,6 @@ std::optional<int> Tau_ImGui_Confirm(bool* show, const std::string& title, const
 /// 
 void Tau_ImGui_Popup(bool* show, const std::string& title, const std::string& message, ImGuiWindowFlags windowFlags);
 
-void Tau_SetPosition();
-
 ///
 /// @brief Tau_ImGui_Render
 /// 
