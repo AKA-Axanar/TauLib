@@ -260,13 +260,46 @@ namespace Tau { // to avoid conflict with other libraries
     }
 
     //
-    // @brief Tau_ImGui_Image
+    // Tau_ImGui_Image
     // 
     void Tau_ImGui_Image(SDL_Shared<SDL_Texture> texture, Tau_Rect rect) {
         ImGui::SetCursorPos(ImVec2((float)rect.x, (float)rect.y));
         ImGui::Image((SDL_Texture*)texture, ImVec2((float)rect.w, (float)rect.h));
     }
 
+    //
+    // Tau_ImGui_TextCentered
+    // from: https://stackoverflow.com/questions/64653747/how-to-center-align-text-horizontally
+    //
+    void Tau_ImGui_TextCentered(const string& str) {
+        ImGui::SetCursorPosX( (ImGui::GetWindowWidth() - ImGui::CalcTextSize(str.c_str()).x) / 2.f);
+        ImGui::Text(str.c_str());
+    }
+
+    //
+    // Tau_ImGui_TextCenteredMultiline
+    // from: https://stackoverflow.com/questions/64653747/how-to-center-align-text-horizontally
+    //
+    void Tau_ImGui_TextCenteredMultiline(std::string str) {
+        float win_width = ImGui::GetWindowSize().x;
+        float text_width = ImGui::CalcTextSize(str.c_str()).x;
+
+        // calculate the indentation that centers the text on one line, relative
+        // to window left, regardless of the `ImGuiStyleVar_WindowPadding` value
+        float text_indentation = (win_width - text_width) * 0.5f;
+
+        // if text is too long to be drawn on one line, `text_indentation` can
+        // become too small or even negative, so we check a minimum indentation
+        float min_indentation = 20.0f;
+        if (text_indentation <= min_indentation) {
+            text_indentation = min_indentation;
+        }
+
+        ImGui::SameLine(text_indentation);
+        ImGui::PushTextWrapPos(win_width - text_indentation);
+        ImGui::TextWrapped(str.c_str());
+        ImGui::PopTextWrapPos();
+    }
 
     //
     // Tau_ImGui_AddFont

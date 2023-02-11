@@ -126,6 +126,16 @@ void Tau_ImGui_Image(SDL_Shared<SDL_Texture> texture, Tau_Rect rect);
 ImFont*  Tau_ImGui_AddFont(const std::string& TTF_fontfile, float size_pixels, const ImFontConfig* font_cfg = NULL, const ImWchar* glyph_ranges = NULL);
 
 ///
+/// @brief Tau_ImGui_TextCentered
+/// 
+void Tau_ImGui_TextCentered(const std::string& str);
+
+///
+/// @brief Tau_ImGui_TextCenteredMultiline
+/// 
+void Tau_ImGui_TextCenteredMultiline(std::string str);
+
+///
 /// @brief HelpMarker
 /// Helper to display a little (?) mark which shows a tooltip when hovered.
 /// 
