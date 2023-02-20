@@ -129,6 +129,16 @@ ImFont*  ImGui_AddFont(const std::string& TTF_fontfile, float size_pixels, const
 void ImGui_TextCentered(const std::string& str);
 
 ///
+/// @brief ImGui_ComputeButtonsCenteredPosX
+/// 
+float ImGui_ComputeButtonsCenteredPosX(const std::vector<std::string>& buttonStrings);
+
+///
+/// @brief ImGui_SetButtonsCenteredPosX
+/// 
+void ImGui_SetButtonsCenteredPosX(const std::vector<std::string>& buttonStrings);
+
+///
 /// @brief ImGui_TextCenteredMultiline
 /// 
 void ImGui_TextCenteredMultiline(std::string str);

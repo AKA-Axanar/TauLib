@@ -205,6 +205,7 @@ namespace Tau { // to avoid conflict with other libraries
 
         optional<int> buttonPressed;
         int i=0;
+        ImGui_SetButtonsCenteredPosX(buttons);
         for (const string& button : buttons) {
             ImGui::PushStyleColor(ImGuiCol_Button, buttonColors[i]);
             if (ImGui::Button(buttons[i].c_str()))
@@ -224,6 +225,7 @@ namespace Tau { // to avoid conflict with other libraries
     ImGui::Text("");
     ImGui::Text(message.c_str());
     ImGui::Text("");
+    ImGui_SetButtonsCenteredPosX({ _("Close") });
     if (ImGui::Button(_("Close").c_str()))
         *show = true;
     ImGui::End();
@@ -264,6 +266,25 @@ namespace Tau { // to avoid conflict with other libraries
     void ImGui_TextCentered(const string& str) {
         ImGui::SetCursorPosX( (ImGui::GetWindowWidth() - ImGui::CalcTextSize(str.c_str()).x) / 2.f);
         ImGui::Text(str.c_str());
+    }
+
+    //
+    // ImGui_ComputeButtonsCenteredPosX
+    // from: https://stackoverflow.com/questions/64653747/how-to-center-align-text-horizontally
+    //
+    float ImGui_ComputeButtonsCenteredPosX(const vector<string>& buttonStrings) {
+        string all;
+        ranges::for_each(buttonStrings, [&] (const string& str) { all += str; });
+        float textSize = ImGui::CalcTextSize(all.c_str()).x;
+        float buttonSidesSize = ((float) buttonStrings.size()) * 10;
+        return (ImGui::GetWindowWidth() - textSize - buttonSidesSize) / 2.f;
+    }
+
+    ///
+    /// @brief ImGui_SetButtonsCenteredPosX
+    /// 
+    void ImGui_SetButtonsCenteredPosX(const std::vector<std::string>& buttonStrings) {
+        ImGui::SetCursorPosX(ImGui_ComputeButtonsCenteredPosX(buttonStrings));
     }
 
     //
