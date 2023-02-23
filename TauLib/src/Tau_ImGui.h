@@ -139,9 +139,10 @@ float ImGui_ComputeButtonsCenteredPosX(const std::vector<std::string>& buttonStr
 void ImGui_SetButtonsCenteredPosX(const std::vector<std::string>& buttonStrings);
 
 ///
-/// @brief ImGui_TextCenteredMultiline
+/// @brief ImGui_TextIndentedMultiline
 /// 
-void ImGui_TextCenteredMultiline(std::string str);
+void ImGui_TextIndentedMultiline(std::string str, float leftIndent, float rightIndent);
+inline void ImGui_TextIndentedMultiline(std::string str, float indent) { ImGui_TextIndentedMultiline(str, indent, indent); }
 
 ///
 /// @brief ImGui_HelpMarker
