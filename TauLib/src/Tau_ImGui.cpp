@@ -222,13 +222,13 @@ namespace Tau { // to avoid conflict with other libraries
     // popup a message with a single OK button
     void ImGui_Popup(bool* show, const string& title, const string& message, ImGuiWindowFlags windowFlags) {
         ImGui::Begin(title.c_str(), show, windowFlags);
-    ImGui::Text("");
-    ImGui::Text(message.c_str());
-    ImGui::Text("");
-    ImGui_SetButtonsCenteredPosX({ _("Close") });
-    if (ImGui::Button(_("Close").c_str()))
-        *show = true;
-    ImGui::End();
+        ImGui::Text("");
+        ImGui::Text(message.c_str());
+        ImGui::Text("");
+        ImGui_SetButtonsCenteredPosX({ _("Close") });
+        if (ImGui::Button(_("Close").c_str()))
+            *show = true;
+        ImGui::End();
     }
 
     //
