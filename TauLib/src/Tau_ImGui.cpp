@@ -73,8 +73,6 @@ namespace Tau { // to avoid conflict with other libraries
         //io.Fonts->AddFontFromFileTTF("../../misc/fonts/ProggyTiny.ttf", 10.0f);
         //ImFont* font = io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\ArialUni.ttf", 18.0f, NULL, io.Fonts->GetGlyphRangesJapanese());
         //IM_ASSERT(font != NULL);
-
-        io.Fonts->AddFontDefault();
     }
 
     //
