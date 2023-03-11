@@ -7,6 +7,8 @@
 #include <optional>
 #include "Tau_Rect.h"
 
+extern ImGuiContext* TauImGuiContext;
+
 ///
 /// @brief namespace Tau - avoid conflict with other libraries
 ///
@@ -90,6 +92,20 @@ std::pair<std::optional<int>, std::optional<int>> ImGui_Combo_Ints(const std::st
 std::pair<std::optional<int>, std::optional<int>> ImGui_Combo_IntRange(const std::string& label, int current_index, int start, int count, ImGuiComboFlags flags = 0);
 
 ///
+/// @brief ListBox2Columns
+/// @param label - the label string on the right of the ListBox
+/// @param current_item - the index of the item that is the current selection
+/// @param leftData - array of char* strings for the left side column
+/// @param rightData - array of char* strings for the right side column
+/// @param data2xPosit - x position of right column
+/// @param items_count - the count of char* in both the left and right arrays
+/// @return the selected index if a line was clicked on.  and the index of a hovered over line.
+/// 
+std::pair<std::optional<int>, std::optional<int>>
+ImGui_ListBox2Columns(const char* label, int* current_item, const char* const leftData[], const char* const rightData[],
+                      float data2xPosit, float xWindowWidth, size_t items_count, int height_in_items);
+
+///
 /// @brief ImGui_Confirm
 /// display a confirmation message with multiple buttons.  the index of the button that was pressed is returned, if any.
 /// possible uses: OK/Cancel, Save/Discard,
@@ -121,7 +137,7 @@ void ImGui_Image(SDL_Shared<SDL_Texture> texture, Tau_Rect rect);
 ///
 /// @brief ImGui_AddFont
 /// 
-ImFont*  ImGui_AddFont(const std::string& TTF_fontfile, float size_pixels, const ImFontConfig* font_cfg = NULL, const ImWchar* glyph_ranges = NULL);
+ImFont* ImGui_AddFont(const std::string& TTF_fontfile, float size_pixels, const ImFontConfig* font_cfg = NULL, const ImWchar* glyph_ranges = NULL);
 
 ///
 /// @brief ImGui_TextCentered

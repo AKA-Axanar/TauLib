@@ -1,6 +1,7 @@
 #include "Tau_ImGui.h"
 #include "imgui.h"
 #include "imgui_impl_sdl.h"
+#include "imgui_internal.h"
 #include "imgui_impl_sdlrenderer.h"
 #include <SDL.h>
 #include <ranges>
@@ -9,6 +10,8 @@
 #include <iostream>
 
 using namespace std;
+
+ImGuiContext* TauImGuiContext {nullptr};
 
 namespace Tau { // to avoid conflict with other libraries
 
@@ -43,7 +46,7 @@ namespace Tau { // to avoid conflict with other libraries
 	
         // Setup Dear ImGui context
         IMGUI_CHECKVERSION();
-        ImGui::CreateContext();
+        TauImGuiContext = ImGui::CreateContext();
 
         // enable keyboard and controller control over menu
         ImGuiIO& io = ImGui::GetIO(); (void)io;
@@ -188,6 +191,88 @@ namespace Tau { // to avoid conflict with other libraries
         for (int n=start; n < start+count; ++n)
             items.push_back(to_string(n));
         return ImGui_Combo(label, current_index, items, flags);
+    }
+
+    //
+    // ListBox2Columns
+    // copied from ImGui::ListBox and modified to display in two columns
+    // 
+    pair<optional<int>, optional<int>>
+    ImGui_ListBox2Columns(const char* label, int* current_item, const char* const leftData[], const char* const rightData[],
+                          float data2xPosit, float xWindowWidth, size_t items_count, int height_in_items)
+    {
+        ImGuiContext& g = *TauImGuiContext;
+        optional<int> new_index;
+        optional<int> hovering_over;
+
+        // Calculate size from "height_in_items"
+        if (height_in_items < 0)
+            height_in_items = ImMin((int)items_count, 7);
+        float height_in_items_f = height_in_items + 0.25f;
+        ImVec2 size(xWindowWidth, ImFloor(ImGui::GetTextLineHeightWithSpacing() * height_in_items_f + g.Style.FramePadding.y * 2.0f));
+
+        if (!ImGui::BeginListBox(label, size))
+            return {new_index, hovering_over};
+
+        // Assume all items have even height (= 1 line of text). If you need items of different height,
+        // you can create a custom version of ListBox() in your code without using the clipper.
+        bool value_changed = false;
+        ImGuiListClipper clipper;
+        clipper.Begin((int)items_count, ImGui::GetTextLineHeightWithSpacing()); // We know exactly our line height here so we pass it as a minor optimization, but generally you don't need to.
+        while (clipper.Step())
+            for (int i = clipper.DisplayStart; i < clipper.DisplayEnd; i++)
+            {
+                const char* leftText = leftData[i];
+                const char* rightText = rightData[i];
+
+                ImGui::PushID(i);
+                bool selected {false};
+                bool hovered {false};
+                if (ImGui::Selectable(leftText, (i == *current_item)))
+                    selected = true;
+                if (ImGui::IsItemHovered())
+                    hovered = true;
+
+//                if (selected)
+//                    ImGui::SetItemDefaultFocus();
+
+                ImGui::SameLine(data2xPosit);
+                if (ImGui::Selectable(rightText, (i == *current_item)))
+                    selected = true;
+                if (ImGui::IsItemHovered())
+                    hovered = true;
+
+                if (selected)
+                {
+                    *current_item = i;
+                    new_index = i;
+                    //cout << "new index " << i << endl;
+                    value_changed = true;
+                }
+                if (hovered) {
+                    hovering_over = i;
+                }
+                if (ImGui::IsItemHovered()) {
+                    hovering_over = i;
+                    //cout << "hovering over " << i << endl;
+                }
+
+//                if (hovering_over && hovering_over.value() == i)
+//                    ImGui::SetItemDefaultFocus();
+
+//                if (selected)
+//                    ImGui::SetItemDefaultFocus();
+
+                ImGui::PopID();
+            }
+        ImGui::EndListBox();
+
+        if (value_changed) {
+            ImGui::MarkItemEdited(g.LastItemData.ID);
+            //cout << "MarkItemEdited " << new_index.value() << endl;
+        }
+
+        return {new_index, hovering_over};
     }
 
     // display a confirmation message with multiple buttons.  the index of the button that was pressed is returned, if any.
