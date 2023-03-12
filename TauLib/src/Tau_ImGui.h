@@ -6,6 +6,7 @@
 #include <string>
 #include <optional>
 #include "Tau_Rect.h"
+#include "Tau_Color.h"
 
 extern ImGuiContext* TauImGuiContext;
 
@@ -165,6 +166,27 @@ inline void ImGui_TextIndentedMultiline(std::string str, float indent) { ImGui_T
 /// Helper to display a little (?) mark which shows a tooltip when hovered.
 /// 
 void ImGui_HelpMarker(const char* desc);
+
+//
+// Conversion Helpers
+//
+inline Tau_Point to_Tau_Point(const ImVec2& vec2) { return { (int) round(vec2.x), (int) round(vec2.y) }; }
+inline Tau_Posit to_Tau_Posit(const ImVec2& vec2) { return { (int) round(vec2.x), (int) round(vec2.y) }; }
+inline Tau_Distance to_Tau_Distance(const ImVec2& vec2) { return { (int) round(vec2.x), (int) round(vec2.y) }; }
+inline Tau_Size to_Tau_Size(const ImVec2& vec2) { return { (int) round(vec2.x), (int) round(vec2.y) }; }
+inline Tau_Rect to_Tau_Rect(const ImVec4& vec4) { return { (int) round(vec4.x), (int) round(vec4.y), (int) round(vec4.z), (int) round(vec4.w) }; }
+
+inline ImVec2 to_ImVec2(const Tau_Point point) { return { (float)point.x, (float)point.y }; }
+//inline ImVec2 to_ImVec2(const Tau_Posit posit) { return { (float)posit.x, (float)posit.y }; }     // uncommenting causes an already has a body error
+//inline ImVec2 to_ImVec2(const Tau_Distance dist) { return { (float)dist.x, (float)dist.y }; }     // uncommenting causes an already has a body error
+inline ImVec2 to_ImVec2(const Tau_Size size) { return { (float)size.w, (float)size.h }; }
+inline ImVec4 to_ImVec4(const Tau_Rect rect) { return { (float)rect.x, (float)rect.y, (float)rect.w, (float)rect.h }; }
+
+inline Tau_Color to_Tau_Color(const ImVec4& vec4) { return { (Uint8) round(vec4.x * 255.f), (Uint8) round(vec4.y * 255.f), (Uint8) round(vec4.z * 255.f), (Uint8) round(vec4.w * 255.f) }; }
+inline Tau_RGB to_Tau_RGB(const ImVec4& vec4) { return { (Uint8) round(vec4.x * 255.f), (Uint8) round(vec4.y * 255.f), (Uint8) round(vec4.z * 255.f) }; }
+
+inline ImVec4 to_ImVec4(const Tau_Color color) { return { (float)color.r/255.f, (float)color.g/255.f, (float)color.b/255.f, (float)color.a/255.f }; }
+inline ImVec4 to_ImVec4(const Tau_RGB color) { return { (float)color.r/255.f, (float)color.g/255.f, (float)color.b/255.f, 1.0f }; }
 
 //    // Update and Render additional Platform Windows
 //    void UpdateViewports();
