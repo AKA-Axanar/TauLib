@@ -132,8 +132,18 @@ void ImGui_Render_Clear(SDL_Shared<SDL_Window> window, SDL_Shared<SDL_Renderer> 
 
 ///
 /// @brief ImGui_Image
-/// 
+/// Pass a size to display the image on the current ImGui line in progress.
+/// Pass a rect to display the image at the specified rect in the ImGui window.
+void ImGui_Image(SDL_Shared<SDL_Texture> texture, Tau_Size size);
 void ImGui_Image(SDL_Shared<SDL_Texture> texture, Tau_Rect rect);
+
+///
+// @brief ImGui_ImageButton
+/// Pass a size to display the image button on the current ImGui line in progress.
+/// Pass a rect to display the image button at the specified rect in the ImGui window.
+/// 
+void ImGui_ImageButton(SDL_Shared<SDL_Texture> texture, Tau_Size size);
+void ImGui_ImageButton(SDL_Shared<SDL_Texture> texture, Tau_Rect rect);
 
 ///
 /// @brief ImGui_AddFont

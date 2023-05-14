@@ -147,10 +147,10 @@ inline Tau_Rect CenterRectInRect(const Tau_Rect& centerThisRect, const Tau_Rect&
 }
 
 ///
-/// @brief ScaleSizeKeepingAspectRatio - scale the current size to fit in the destSize while keeping the aspect ration.
+/// @brief ScaleSizeToFitKeepingAspectRatio - scale the current size to fit in the destSize while keeping the aspect ration.
 ///
-inline void ScaleSizeKeepingAspectRatio(Tau_Size* currentSize, const Tau_Size& destSize) {
-    float ratio = std::min(float(destSize.w) / float(currentSize->w), float(destSize.h) / float(currentSize->h));
+inline void ScaleSizeToFitKeepingAspectRatio(Tau_Size* currentSize, const Tau_Size& toFitdestSize) {
+    float ratio = std::min(float(toFitdestSize.w) / float(currentSize->w), float(toFitdestSize.h) / float(currentSize->h));
     currentSize->w = (int) (float(currentSize->w) * ratio);
     currentSize->h = (int) (float(currentSize->h) * ratio);
 }
