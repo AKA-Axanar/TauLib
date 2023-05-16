@@ -107,6 +107,19 @@ ImGui_ListBox2Columns(const char* label, int* current_item, const char* const le
                       float data2xPosit, float xWindowWidth, size_t items_count, int height_in_items);
 
 ///
+/// @brief ListBoxImageAndText
+/// @param label - the label string on the right of the ListBox
+/// @param current_item - the index of the item that is the current selection
+/// @param imgData - array of SDL_Shared<SDL_Texture>
+/// @param textData - array of strings, if any, toe display after the image
+/// @param items_count - the count of char* in both the left and right arrays
+/// @return the selected index if a line was clicked on.  and the index of a hovered over line.
+/// 
+std::pair<std::optional<int>, std::optional<int>>
+ImGui_ListBoxImageAndText(const char* label, int* current_item, const std::vector<SDL_Shared<SDL_Texture>>& imgData, const std::vector<std::string>& textData,
+                    float xWindowWidth, size_t items_count, int height_in_items, Tau_Size imageDisplaySize, float heightPerItem = ImGui::GetTextLineHeightWithSpacing());
+
+///
 /// @brief ImGui_Confirm
 /// display a confirmation message with multiple buttons.  the index of the button that was pressed is returned, if any.
 /// possible uses: OK/Cancel, Save/Discard,

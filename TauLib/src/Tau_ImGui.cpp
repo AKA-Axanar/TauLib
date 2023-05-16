@@ -275,6 +275,80 @@ namespace Tau { // to avoid conflict with other libraries
         return {new_index, hovering_over};
     }
 
+    //
+    // ListBoxImageAndText
+    // copied from ImGui_ListBox2Columns and modified to display an image followed by text
+    //
+    pair<optional<int>, optional<int>>
+    ImGui_ListBoxImageAndText(const char* label, int* current_item, const std::vector<SDL_Shared<SDL_Texture>>& imgData, const std::vector<std::string>& textData,
+                        float xWindowWidth, size_t items_count, int height_in_items, Tau_Size imageDisplaySize, float heightPerItem)
+    {
+        ImGuiContext& g = *TauImGuiContext;
+        optional<int> new_index;
+        optional<int> hovering_over;
+
+        // Calculate size from "height_in_items"
+        if (height_in_items < 0)
+            height_in_items = ImMin((int)items_count, 7);
+        float height_in_items_f = height_in_items + 0.25f;
+        ImVec2 size(xWindowWidth, ImFloor(heightPerItem * height_in_items_f + g.Style.FramePadding.y * 2.0f));
+
+        if (!ImGui::BeginListBox(label, size))
+            return {new_index, hovering_over};
+
+        // Assume all items have even height (= 1 line of text). If you need items of different height,
+        // you can create a custom version of ListBox() in your code without using the clipper.
+        bool value_changed = false;
+        ImGuiListClipper clipper;
+        clipper.Begin((int)items_count, heightPerItem); // We know exactly our line height here so we pass it as a minor optimization, but generally you don't need to.
+        while (clipper.Step())
+            for (int i = clipper.DisplayStart; i < clipper.DisplayEnd; i++)
+            {
+                SDL_Shared<SDL_Texture> img = imgData[i];
+                const char* text = textData[i].c_str();
+
+                ImGui::PushID(i);
+                bool selected {false};
+                bool hovered {false};
+                if (ImGui::Selectable("", (i == *current_item), 0, ImVec2(0.0, float(imageDisplaySize.h))))
+                    selected = true;
+                if (ImGui::IsItemHovered())
+                    hovered = true;
+
+                ImGui::SameLine();
+                ImGui_Image(img, imageDisplaySize);
+                ImGui::SameLine();
+                ImGui::Text(text);
+                ImGui::SameLine();
+                ImGui::Dummy(ImVec2(0.0f, heightPerItem));
+
+                if (selected)
+                {
+                    *current_item = i;
+                    new_index = i;
+                    cout << "new index " << i << endl;
+                    value_changed = true;
+                }
+                if (hovered) {
+                    hovering_over = i;
+                }
+                if (ImGui::IsItemHovered()) {
+                    hovering_over = i;
+                    //cout << "hovering over " << i << endl;
+                }
+
+                ImGui::PopID();
+            }
+        ImGui::EndListBox();
+
+        if (value_changed) {
+            ImGui::MarkItemEdited(g.LastItemData.ID);
+            //cout << "MarkItemEdited " << new_index.value() << endl;
+        }
+
+        return {new_index, hovering_over};
+    }
+
     // display a confirmation message with multiple buttons.  the index of the button that was pressed is returned, if any.
     // possible uses: OK/Cancel, Save/Discard, 
     optional<int> ImGui_Confirm(bool* show, const string& title, const string& message,
