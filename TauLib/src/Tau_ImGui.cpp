@@ -134,6 +134,61 @@ namespace Tau { // to avoid conflict with other libraries
             return { new_index, hovering_over };
     }
 
+    ///
+    /// @brief ImGui_ComboImageAndText
+    /// @param label - the label string on the right of the combo
+    /// @param current_int - the index of the item that is the current selection
+    /// @param imgData - array of SDL_Shared<SDL_Texture>
+    /// @param textData - array of strings, if any, toe display after the image
+    /// @param flags - any combo flags
+    /// @return the selected index
+    ///
+    std::pair<std::optional<int>, std::optional<int>>
+    ImGui_ComboImageAndText(const std::string& label, int current_index,
+                            const std::vector<SDL_Shared<SDL_Texture>>& imgData, const std::vector<std::string>& textData,
+                            Tau_Size imageDisplaySize, float heightPerItem, ImGuiComboFlags flags) {
+
+        optional<int> new_index;
+        optional<int> hovering_over;
+
+        const char* combo_preview_value = textData[current_index].c_str();
+        if (ImGui::BeginCombo(label.c_str(), combo_preview_value, flags)) {
+            // display the list of items
+            for (int n = 0; n < imgData.size(); n++)
+            {
+                SDL_Shared<SDL_Texture> img = imgData[n];
+                const char* text = textData[n].c_str();
+
+                ImGui::PushID(n);
+                const bool is_selected = (current_index == n);
+                if (ImGui::Selectable("", is_selected, 0, ImVec2(0.0, float(imageDisplaySize.h)))) {
+                    current_index = n;
+                    new_index = n;
+                }
+                else if (ImGui::IsItemHovered(0)) {
+                    hovering_over = n;
+                }
+
+                ImGui::SameLine();
+                ImGui_Image(img, imageDisplaySize);
+                ImGui::SameLine();
+                ImGui::Text(text);
+                ImGui::SameLine();
+                ImGui::Dummy(ImVec2(0.0f, heightPerItem));
+
+                ImGui::PopID();
+
+                // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+                if (is_selected)
+                    ImGui::SetItemDefaultFocus();
+            }
+            ImGui::EndCombo();
+            return { new_index, hovering_over };
+        }
+        else
+            return { new_index, hovering_over };
+    }
+
     //
     // Tau_ImGui_Multi_Select strings
     //
@@ -198,7 +253,7 @@ namespace Tau { // to avoid conflict with other libraries
     // copied from ImGui::ListBox and modified to display in two columns
     // 
     pair<optional<int>, optional<int>>
-    ImGui_ListBox2Columns(const char* label, int* current_item, const char* const leftData[], const char* const rightData[],
+    ImGui_ListBox2Columns(const std::string& label, int* current_item, const char* const leftData[], const char* const rightData[],
                           float data2xPosit, float xWindowWidth, size_t items_count, int height_in_items)
     {
         ImGuiContext& g = *TauImGuiContext;
@@ -211,7 +266,7 @@ namespace Tau { // to avoid conflict with other libraries
         float height_in_items_f = height_in_items + 0.25f;
         ImVec2 size(xWindowWidth, ImFloor(ImGui::GetTextLineHeightWithSpacing() * height_in_items_f + g.Style.FramePadding.y * 2.0f));
 
-        if (!ImGui::BeginListBox(label, size))
+        if (!ImGui::BeginListBox(label.c_str(), size))
             return {new_index, hovering_over};
 
         // Assume all items have even height (= 1 line of text). If you need items of different height,
@@ -280,7 +335,7 @@ namespace Tau { // to avoid conflict with other libraries
     // copied from ImGui_ListBox2Columns and modified to display an image followed by text
     //
     pair<optional<int>, optional<int>>
-    ImGui_ListBoxImageAndText(const char* label, int* current_item, const std::vector<SDL_Shared<SDL_Texture>>& imgData, const std::vector<std::string>& textData,
+    ImGui_ListBoxImageAndText(const std::string& label, int* current_item, const std::vector<SDL_Shared<SDL_Texture>>& imgData, const std::vector<std::string>& textData,
                         float xWindowWidth, size_t items_count, int height_in_items, Tau_Size imageDisplaySize, float heightPerItem)
     {
         ImGuiContext& g = *TauImGuiContext;
@@ -293,7 +348,7 @@ namespace Tau { // to avoid conflict with other libraries
         float height_in_items_f = height_in_items + 0.25f;
         ImVec2 size(xWindowWidth, ImFloor(heightPerItem * height_in_items_f + g.Style.FramePadding.y * 2.0f));
 
-        if (!ImGui::BeginListBox(label, size))
+        if (!ImGui::BeginListBox(label.c_str(), size))
             return {new_index, hovering_over};
 
         // Assume all items have even height (= 1 line of text). If you need items of different height,

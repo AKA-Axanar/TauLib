@@ -45,7 +45,22 @@ void ImGui_NewFrame();
 /// @param flags - any combo flags
 /// @return the selected index
 /// 
-std::pair<std::optional<int>, std::optional<int>> ImGui_Combo(const std::string& label, int current_index, const std::vector<std::string>& items, ImGuiComboFlags flags = 0);
+std::pair<std::optional<int>, std::optional<int>>
+ImGui_Combo(const std::string& label, int current_index, const std::vector<std::string>& items, ImGuiComboFlags flags = 0);
+
+///
+/// @brief ImGui_ComboImageAndText
+/// @param label - the label string on the right of the combo
+/// @param current_int - the index of the item that is the current selection
+/// @param imgData - array of SDL_Shared<SDL_Texture>
+/// @param textData - array of strings, if any, toe display after the image
+/// @param flags - any combo flags
+/// @return the selected index
+/// 
+std::pair<std::optional<int>, std::optional<int>>
+ImGui_ComboImageAndText(const std::string& label, int current_index,
+                        const std::vector<SDL_Shared<SDL_Texture>>& imgData, const std::vector<std::string>& textData,
+                        Tau_Size imageDisplaySize, float heightPerItem, ImGuiComboFlags flags = 0);
 
 ///
 /// @brief ImGui_TreeNodeMulti_Select
@@ -79,7 +94,8 @@ void ImGui_TreeNodeCheckboxes(const std::string& label, const std::vector<std::s
 /// @param flags - any combo flags
 /// @return the selected index
 /// 
-std::pair<std::optional<int>, std::optional<int>> ImGui_Combo_Ints(const std::string& label, int current_index, const std::vector<int>& int_items, ImGuiComboFlags flags = 0);
+std::pair<std::optional<int>, std::optional<int>>
+ImGui_Combo_Ints(const std::string& label, int current_index, const std::vector<int>& int_items, ImGuiComboFlags flags = 0);
 
 ///
 /// @brief ImGui_Combo_IntRange
@@ -90,7 +106,8 @@ std::pair<std::optional<int>, std::optional<int>> ImGui_Combo_Ints(const std::st
 /// @param flags - any combo flags
 /// @return the selected index
 /// 
-std::pair<std::optional<int>, std::optional<int>> ImGui_Combo_IntRange(const std::string& label, int current_index, int start, int count, ImGuiComboFlags flags = 0);
+std::pair<std::optional<int>, std::optional<int>>
+ImGui_Combo_IntRange(const std::string& label, int current_index, int start, int count, ImGuiComboFlags flags = 0);
 
 ///
 /// @brief ListBox2Columns
@@ -103,7 +120,7 @@ std::pair<std::optional<int>, std::optional<int>> ImGui_Combo_IntRange(const std
 /// @return the selected index if a line was clicked on.  and the index of a hovered over line.
 /// 
 std::pair<std::optional<int>, std::optional<int>>
-ImGui_ListBox2Columns(const char* label, int* current_item, const char* const leftData[], const char* const rightData[],
+ImGui_ListBox2Columns(const std::string& label, int* current_item, const char* const leftData[], const char* const rightData[],
                       float data2xPosit, float xWindowWidth, size_t items_count, int height_in_items);
 
 ///
@@ -116,7 +133,7 @@ ImGui_ListBox2Columns(const char* label, int* current_item, const char* const le
 /// @return the selected index if a line was clicked on.  and the index of a hovered over line.
 /// 
 std::pair<std::optional<int>, std::optional<int>>
-ImGui_ListBoxImageAndText(const char* label, int* current_item, const std::vector<SDL_Shared<SDL_Texture>>& imgData, const std::vector<std::string>& textData,
+ImGui_ListBoxImageAndText(const std::string& label, int* current_item, const std::vector<SDL_Shared<SDL_Texture>>& imgData, const std::vector<std::string>& textData,
                     float xWindowWidth, size_t items_count, int height_in_items, Tau_Size imageDisplaySize, float heightPerItem = ImGui::GetTextLineHeightWithSpacing());
 
 ///
