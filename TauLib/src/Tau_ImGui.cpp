@@ -481,20 +481,20 @@ namespace Tau { // to avoid conflict with other libraries
     }
 
     //
-    // ImGui_ImageButton(texture, size)
+    // ImGui_ImageButton(str_id, texture, size)
     // display the image button on the current ImGui line in progress.
     // 
-    bool ImGui_ImageButton(SDL_Shared<SDL_Texture> texture, Tau_Size size) {
-        return ImGui::ImageButton((SDL_Texture*)texture, ImVec2((float)size.w, (float)size.h));
+    bool ImGui_ImageButton(const std::string& str_id, SDL_Shared<SDL_Texture> texture, Tau_Size size) {
+        return ImGui::ImageButton(str_id.c_str(), (SDL_Texture*)texture, ImVec2((float)size.w, (float)size.h));
     }
 
     //
-    // ImGui_ImageButton(texture, rect)
+    // ImGui_ImageButton(str_id, texture, rect)
     // display the image button at the specified rect in the ImGui window.
     // 
-    bool ImGui_ImageButton(SDL_Shared<SDL_Texture> texture, Tau_Rect rect) {
+    bool ImGui_ImageButton(const std::string& str_id, SDL_Shared<SDL_Texture> texture, Tau_Rect rect) {
         ImGui::SetCursorPos(ImVec2((float)rect.x, (float)rect.y));
-        return ImGui::ImageButton((SDL_Texture*)texture, ImVec2((float)rect.w, (float)rect.h));
+        return ImGui::ImageButton(str_id.c_str(), (SDL_Texture*)texture, ImVec2((float)rect.w, (float)rect.h));
     }
 
     //

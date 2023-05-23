@@ -172,8 +172,8 @@ void ImGui_Image(SDL_Shared<SDL_Texture> texture, Tau_Rect rect);
 /// Pass a size to display the image button on the current ImGui line in progress.
 /// Pass a rect to display the image button at the specified rect in the ImGui window.
 /// 
-bool ImGui_ImageButton(SDL_Shared<SDL_Texture> texture, Tau_Size size);
-bool ImGui_ImageButton(SDL_Shared<SDL_Texture> texture, Tau_Rect rect);
+bool ImGui_ImageButton(const std::string& str_id, SDL_Shared<SDL_Texture> texture, Tau_Size size);
+bool ImGui_ImageButton(const std::string& str_id, SDL_Shared<SDL_Texture> texture, Tau_Rect rect);
 
 ///
 /// @brief ImGui_AddFont
