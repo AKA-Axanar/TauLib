@@ -15,7 +15,8 @@
 ///
 struct Tau_Point : public SDL_Point {
     /// @brief Tau_Point ctor
-    Tau_Point(int _x=0, int _y=0) : SDL_Point(_x, _y) { }
+    Tau_Point() : SDL_Point{0, 0} { }
+    Tau_Point(int _x, int _y) : SDL_Point{_x, _y} { }
 
 //    /// @brief Tau_Point copy ctor
 //    Tau_Point(const Tau_Point& pnt) { x = pnt.x; y = pnt.y; }
@@ -47,7 +48,8 @@ struct Tau_Size {
     int w{0};
     int h{0};
 
-    Tau_Size(int _w=0, int _h=0) { w = _w; h = _h; }
+    Tau_Size() : w(0), h(0) { }
+    Tau_Size(int _w, int _h) : w(_w), h(_h) { }
     Tau_Size(const SDL_Rect& rect) : w(rect.w), h(rect.h) { }
  
     /// @brief these ctors are useful when getting the values from an IniFile
@@ -64,7 +66,8 @@ struct Tau_Size {
 ///
 struct Tau_Rect : public SDL_Rect {
     /// @brief Tau_Rect ctor
-    Tau_Rect(int _x=0, int _y=0, int _w=0, int _h=0) : SDL_Rect(_x, _y, _w, _h) { }
+    Tau_Rect() : SDL_Rect{0, 0, 0, 0} { }
+    Tau_Rect(int _x, int _y, int _w, int _h) : SDL_Rect{_x, _y, _w, _h} { }
     Tau_Rect(const SDL_Rect& rect) : SDL_Rect(rect) {}
 
     /// @brief Tau_Rect Construct from upper left corner point and the size
