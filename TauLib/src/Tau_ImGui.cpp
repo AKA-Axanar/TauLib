@@ -498,6 +498,13 @@ namespace Tau { // to avoid conflict with other libraries
     }
 
     //
+    // ImGui_Text
+    //
+    void ImGui_Text(const string& str) {
+        ImGui::Text(str.c_str());
+    }
+
+    //
     // ImGui_TextCentered
     // from: https://stackoverflow.com/questions/64653747/how-to-center-align-text-horizontally
     //

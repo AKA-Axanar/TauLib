@@ -181,6 +181,11 @@ bool ImGui_ImageButton(const std::string& str_id, SDL_Shared<SDL_Texture> textur
 ImFont* ImGui_AddFont(const std::string& TTF_fontfile, float size_pixels, const ImFontConfig* font_cfg = NULL, const ImWchar* glyph_ranges = NULL);
 
 ///
+/// @brief ImGui_Text
+/// 
+void ImGui_Text(const std::string& str);
+
+///
 /// @brief ImGui_TextCentered
 /// 
 void ImGui_TextCentered(const std::string& str);
