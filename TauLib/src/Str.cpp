@@ -39,7 +39,7 @@ void sortStringsInsensitive(Strings& strings) {
 //
 bool foundInStrings(const string& str, const Strings& strings)
 {
-    auto it = ranges::find_if(strings, [&] (const string& s) { return icompareBool(str, s); });
+    auto it = ranges::find_if(strings, [&] (const string& s) { return (str == s); });
         return (it != strings.end());
 }
 
@@ -48,7 +48,7 @@ bool foundInStrings(const string& str, const Strings& strings)
 //
 bool foundInStringsInsensitive(const string& str, const Strings& strings)
 {
-    auto it = ranges::find_if(strings, [&] (const string& s) { return (str == s); });
+    auto it = ranges::find_if(strings, [&] (const string& s) { return icompareBool(str, s); });
         return (it != strings.end());
 }
 
