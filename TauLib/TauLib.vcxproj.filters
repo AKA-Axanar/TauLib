@@ -147,6 +147,9 @@
     <ClInclude Include="src\Tau_ImGui_DemoTest.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Tau_Timer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -258,6 +261,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Tau_ImGui_DemoTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tau_Timer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -213,6 +213,7 @@
     <ClInclude Include="src\Tau_Exec.h" />
     <ClInclude Include="src\Tau_ImGui.h" />
     <ClInclude Include="src\Tau_ImGui_DemoTest.h" />
+    <ClInclude Include="src\Tau_Timer.h" />
     <ClInclude Include="src\Tau_Xml.h" />
     <ClInclude Include="src\ThirdParty\imgui\backends\imgui_impl_sdl.h" />
     <ClInclude Include="src\ThirdParty\imgui\backends\imgui_impl_sdlrenderer.h" />
@@ -263,6 +264,7 @@
     <ClCompile Include="src\Tau_Exec.cpp" />
     <ClCompile Include="src\Tau_ImGui.cpp" />
     <ClCompile Include="src\Tau_ImGui_DemoTest.cpp" />
+    <ClCompile Include="src\Tau_Timer.cpp" />
     <ClCompile Include="src\Tau_Xml.cpp" />
     <ClCompile Include="src\ThirdParty\imgui\backends\imgui_impl_sdl.cpp" />
     <ClCompile Include="src\ThirdParty\imgui\backends\imgui_impl_sdlrenderer.cpp" />
