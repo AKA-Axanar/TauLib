@@ -168,12 +168,24 @@ void ImGui_Image(SDL_Shared<SDL_Texture> texture, Tau_Size size);
 void ImGui_Image(SDL_Shared<SDL_Texture> texture, Tau_Rect rect);
 
 ///
-// @brief ImGui_ImageButton
+/// @brief ImGui_ImageButton
 /// Pass a size to display the image button on the current ImGui line in progress.
 /// Pass a rect to display the image button at the specified rect in the ImGui window.
 /// 
 bool ImGui_ImageButton(const std::string& str_id, SDL_Shared<SDL_Texture> texture, Tau_Size size);
 bool ImGui_ImageButton(const std::string& str_id, SDL_Shared<SDL_Texture> texture, Tau_Rect rect);
+
+///
+/// @brief ImGui_BeginDisableOpaque
+/// Disable buttons etc without changing the color of the disabled items.
+/// This is useful in Help menus where you want to display the button without it being clickable or look like it's clickable.
+/// 
+void ImGui_BeginDisableOpaque();
+
+///
+/// @brief ImGui_EndDisableOpaque
+///
+void ImGui_EndDisableOpaque();
 
 ///
 /// @brief ImGui_AddFont

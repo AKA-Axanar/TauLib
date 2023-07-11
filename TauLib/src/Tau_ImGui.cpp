@@ -498,6 +498,33 @@ namespace Tau { // to avoid conflict with other libraries
     }
 
     //
+    // ImGui_BeginDisableOpaque
+    // Disable buttons etc without changing the color of the disabled items.
+    // This is useful in Help menus where you want to display the button without it being clickable or look like it's clickable.
+    // 
+    void ImGui_BeginDisableOpaque()
+    {
+        ImGuiContext& g = *GImGui;
+        bool was_disabled = (g.CurrentItemFlags & ImGuiItemFlags_Disabled) != 0;
+        g.CurrentItemFlags |= ImGuiItemFlags_Disabled;
+        g.ItemFlagsStack.push_back(g.CurrentItemFlags);
+        g.DisabledStackSize++;
+    }
+
+    //
+    // ImGui_EndDisableOpaque
+    //
+    void ImGui_EndDisableOpaque()
+    {
+        ImGuiContext& g = *GImGui;
+        IM_ASSERT(g.DisabledStackSize > 0);
+        g.DisabledStackSize--;
+        bool was_disabled = (g.CurrentItemFlags & ImGuiItemFlags_Disabled) != 0;
+        g.ItemFlagsStack.pop_back();
+        g.CurrentItemFlags = g.ItemFlagsStack.back();
+    }
+
+    //
     // ImGui_Text
     //
     void ImGui_Text(const string& str) {
