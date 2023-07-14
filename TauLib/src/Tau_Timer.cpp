@@ -60,7 +60,7 @@ pair<float, float> Tau_Timer::GetDurationAndDelta() {
     float delta_ms = delta.count() / 1'000'000.0f;
     return {duration_ms, delta_ms};
 #else
-    return 0.0f;
+    return {0.0f,0.0f};
 #endif
 }
 
