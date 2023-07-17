@@ -222,8 +222,10 @@ void DrawArea::DrawImageFileToRect(const std::string& imgFilePath, const Tau_Rec
 // GetTextureOfImageFile
 // 
 SDL_Shared<SDL_Texture> DrawArea::GetTextureOfImageFile(const string& imgFilePath) {
-    if (!FileExists(imgFilePath))
+    if (!FileExists(imgFilePath)) {
         cerr << "image file does not exist: " << imgFilePath << endl;
+        return nullptr;
+    }
     SDL_Shared<SDL_Texture> texture = IMG_LoadTexture(renderer, imgFilePath.c_str());
     return texture;
 }
@@ -233,8 +235,10 @@ SDL_Shared<SDL_Texture> DrawArea::GetTextureOfImageFile(const string& imgFilePat
 // 
 tuple<SDL_Shared<SDL_Texture>, Tau_Size> DrawArea::GetTextureAndSizeOfImageFile(const string& imgFilePath) {
     SDL_Shared<SDL_Texture> texture = GetTextureOfImageFile(imgFilePath);
-    Tau_Size size = GetSizeOfTexture(texture);
+    if (!texture)
+        return {nullptr, {0,0}};
 
+    Tau_Size size = GetSizeOfTexture(texture);
     return make_tuple(texture, size);
 }
 
