@@ -30,16 +30,32 @@ using Strings = std::vector<std::string>;
 ///
 /// @brief sortStrings - Sorts the passed vector of strings.
 /// @param strings vector<string> to be sorted.
+/// @return vector<string> sorted.
+///
+Strings sortStrings(const Strings& strings);
+
+///
+/// @brief sortStrings - Sorts the passed vector of strings.
+/// @param strings vector<string> to be sorted.
+/// @note the passed vector is modified.
 /// @return none.
 ///
-void sortStrings(Strings& strings);
+void sortStrings(Strings* strings);
 
 ///
 /// @brief sortStringsInsensitive - Does a case insensitive sort of the passed vector of strings.
 /// @param strings vector<string> to be case insensitive sorted.
+/// @return vector<string> sorted.
+///
+Strings sortStringsInsensitive(const Strings& strings);
+
+///
+/// @brief sortStringsInsensitive - Does a case insensitive sort of the passed vector of strings.
+/// @param strings vector<string> to be case insensitive sorted.
+/// @return vector<string> sorted.
 /// @return none.
 ///
-void sortStringsInsensitive(Strings& strings);
+void sortStringsInsensitive(Strings* strings);
 
 ///
 /// @brief foundInStrings - looks for a string in a vector of strings
@@ -56,6 +72,36 @@ bool foundInStrings(const std::string& str, const Strings& strings);
 /// @return none.
 ///
 bool foundInStringsInsensitive(const std::string& str, const Strings& strings);
+
+///
+/// @brief removeDuplicateStrings - removes duplicate strings from a vector of strings
+/// @param strings vector<string> to be searched.
+/// @return vector<string> with duplicates removed.
+/// 
+Strings removeDuplicateStrings(const Strings& strings);
+
+///
+/// @brief removeDuplicateStrings - removes duplicate strings from a vector of strings
+/// @param strings vector<string> to be searched.
+/// @note the passed vector is modified.
+/// @return none
+/// 
+void removeDuplicateStrings(Strings* strings);
+
+///
+/// @brief removeDuplicateStringsInsensitive - removes duplicate strings from a vector of strings
+/// @param strings vector<string> to be searched.
+/// @return vector<string> with duplicates removed.
+/// 
+Strings removeDuplicateStringsInsensitive(const Strings& strings);
+
+///
+/// @brief removeDuplicateStringsInsensitive - removes duplicate strings from a vector of strings
+/// @param strings vector<string> to be searched.
+/// @note the passed vector is modified.
+/// @return none
+/// 
+void removeDuplicateStringsInsensitive(Strings* strings);
 
                 //*******************************
                 // string trim

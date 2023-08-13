@@ -23,15 +23,33 @@ namespace Tau { // to avoid conflict with other libraries
 //
 // sortStrings - Sorts the passed vector of strings.
 //
-void sortStrings(Strings& strings) {
-    ranges::sort(strings);
+Strings sortStrings(const Strings& strings) {
+    Strings temp = strings;
+    sortStrings(&temp);
+    return temp;
+}
+
+//
+// sortStrings - Sorts the passed vector of strings.
+//
+void sortStrings(Strings* strings) {
+   ranges::sort(*strings);
 }
 
 //
 // sortStringsInsensitive - Does a case insensitive sort of the passed vector of strings.
 //
-void sortStringsInsensitive(Strings& strings) {
-    ranges::sort(strings, [] (string& str1, string& str2) { return lowerCase(str1) < lowerCase(str2); });
+Strings sortStringsInsensitive(const Strings& strings) {
+    Strings temp = strings;
+    sortStringsInsensitive(&temp);
+    return temp;
+}
+
+//
+// sortStringsInsensitive - Does a case insensitive sort of the passed vector of strings.
+//
+void sortStringsInsensitive(Strings* strings) {
+    ranges::sort(*strings, [] (const string& str1, const string& str2) { return lowerCase(str1) < lowerCase(str2); });
 }
 
 //
@@ -50,6 +68,34 @@ bool foundInStringsInsensitive(const string& str, const Strings& strings)
 {
     auto it = ranges::find_if(strings, [&] (const string& s) { return icompareBool(str, s); });
         return (it != strings.end());
+}
+
+Strings removeDuplicateStrings(const Strings& strings)
+{
+    Strings temp = strings;
+    removeDuplicateStrings(&temp);
+    return temp;
+}
+
+void removeDuplicateStrings(Strings* strings)
+{
+    sortStrings(*strings);
+    auto it = unique(strings->begin(), strings->end());
+    strings->erase(it, strings->end());
+}
+
+Strings removeDuplicateStringsInsensitive(const Strings& strings)
+{
+    Strings temp = strings;
+    removeDuplicateStringsInsensitive(&temp);
+    return temp;
+}
+
+void removeDuplicateStringsInsensitive(Strings* strings)
+{
+    sortStringsInsensitive(*strings);
+    auto it = unique(strings->begin(), strings->end(), [] (const string& str1, const string& str2) { return icompareBool(str1, str2); });
+    strings->erase(it, strings->end());
 }
 
                 //*******************************
