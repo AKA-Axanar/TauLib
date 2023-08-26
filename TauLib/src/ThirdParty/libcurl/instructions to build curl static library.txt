@@ -1,0 +1,6 @@
+run "clone curl repo.bat" to clone the repo source and copy the include dir.
+for x64 builds open a Visual Studio x64 native tools command prompt and run build_x64.bat.
+for x86 builds open a Visual Studio x86 native tools command prompt and run build_x86.bat.
+Note: you may need to modify the vc17 setting in the build scripts if the version of Visual Studio you are running is not VS2022.
+
+optionally run "delete curl directory.bat" remove the repo and build output files.
