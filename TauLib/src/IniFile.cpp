@@ -19,6 +19,193 @@ using namespace Tau;
 ///
 
                 //*******************************
+                // IniLine
+                //*******************************
+
+//
+// IniLine::ParseLine
+//
+bool IniLine::ParseLine(const string& _line) {
+    string line = _line;    // line is modified as we find items and remove them
+
+    // quoted strings isn't supported yet.  but here is some info.
+    // to scan for a quoted string /"([^"\\]*(\\.[^"\\]*)*)"/
+    // to scan for either single or double quoted strings /"([^"\\]*(\\.[^"\\]*)*)"|\'([^\'\\]*(\\.[^\'\\]*)*)\'/
+    // https://stackoverflow.com/questions/249791/regex-for-quoted-string-with-escaping-quotes
+
+    // save leading whitespaceGetAndRemoveLeadingWhitespace(&line);
+    leadingWhiteSpace = GetAndRemoveLeadingWhitespace(&line);
+
+    // if it is a section name
+    bool hasSectionDefine = FoundLexExpr("^\\[[[:alnum:]]*\\]", line);     // [sectionName]
+    if (hasSectionDefine) {
+        lineContainsASectionDefine = true;
+        line.erase(0, 1);   // remove "["
+        section = FindLexExprMatch("^[[:alnum:]]*", line);    // sectionName
+        line.erase(0, section.size() + 1);  // remove "name]"
+
+        whiteSpaceAfterSection = GetAndRemoveLeadingWhitespace(&line);
+        bool hasComment = FoundLexExpr("^[;]", line);          // ";"
+        if (hasComment)
+            comment = FindLexExprMatch("^[;].*", line);
+        else if (line.size() > 0) {
+            cerr << "Extra text in ini file = " << line << endl;
+            return false;
+        }
+
+        return true;
+    }
+
+    // save the key.  save the value, if any.
+    bool hasKey = (line.find('=') != string::npos) && FoundLexExpr("^[\\s]*[^=;]+", line);  // "key ="
+    if (hasKey) {
+        key = rtrim(line.substr(0, line.find('=')));    // "key"
+        if (key.size() > 0) {
+            line.erase(0, key.size());  // erase key from line
+            whiteSpaceAfterKey = GetAndRemoveLeadingWhitespace(&line);  // get spaces before =
+            assert(line.size() > 0);
+            assert(line[0] == '=');
+            line.erase(0, 1);   // erase the '='
+            whiteSpaceBeforeValue = GetAndRemoveLeadingWhitespace(&line);   // get spaces before value if any
+            if (line.size() > 0 && line[0] != ';') {
+                value = FindLexExprMatch("^[^;]*[^\\s;]+", line);  // "value"
+                line.erase(0, value.size());   // erase the value
+                whiteSpaceAfterValue = GetAndRemoveLeadingWhitespace(&line);   // get spaces before value if any
+            }
+        }
+    }
+
+    bool hasComment = FoundLexExpr("^[;]", line);          // ";"
+    if (hasComment) {
+        comment = FindLexExprMatch("^[;].*", line);
+    }
+    else if (line.size() > 0) {
+        cerr << "Extra text in ini file = " << line << endl;
+        return false;
+    }
+
+    return true;
+}
+
+//
+// IniLine::RebuildLine
+//
+string IniLine::RebuildLine() const {
+    string line;
+
+    line += leadingWhiteSpace;
+
+    if (lineContainsASectionDefine) {
+        if (section != "") {
+            line += "[" + section + "]" + whiteSpaceAfterSection + comment;
+        }
+    } else {
+        line += key + whiteSpaceAfterKey;
+        if (key != "")
+            line += "=";
+        line += whiteSpaceBeforeValue + value + whiteSpaceAfterValue + comment;
+    }
+
+    return line;
+}
+
+//
+// IniLine::GetAndRemoveLeadingWhitespace
+//
+string IniLine::GetAndRemoveLeadingWhitespace(string* line) const {
+    string ws = FindLexExprMatch("^[[:space:]]+", *line);
+    if (ws.size() > 0)
+        line->erase(0, ws.size());
+
+    return ws;
+}
+
+                //*******************************
+                //ostream& operator << (ostream& os, const IniLine&);
+                //*******************************
+
+//
+// operator <<
+//
+std::ostream& operator<<(std::ostream& os, const IniLine& iniLine)
+{
+    os << iniLine.RebuildLine() << endl;;
+    return os;
+}
+
+                //*******************************
+                // IniSection
+                //*******************************
+
+//
+// IniSection::IniSection
+//
+IniSection::IniSection(IniFile* _iniFile, const std::string& line) : iniFile(_iniFile), sectionLine(line) { 
+    sectionName = sectionLine.section;
+    if (line == "" || line == "[]")
+        sectionLine.lineContainsASectionDefine = true;  // it's the dummy "" section
+}
+
+//
+// IniSection::KeyExists
+//
+bool IniSection::KeyExists(const std::string& key) const {
+    return values.count(key) > 0;
+}
+
+//
+// IniSection::GetKey
+//
+std::string IniSection::GetKeyValue(const std::string& key) const {
+    if (KeyExists(key))
+        return values.at(key);  // note: use at() instead of operator [] because of const
+    else
+        return "";  // key doesn't exist
+}
+
+//
+// IniSection::SetKeyValue
+//
+// if the key doesn't already exist, this will create it
+void IniSection::SetKeyValue(const std::string& key, const std::string& value) {
+    if (!KeyExists(key)) {
+        iniLines.emplace_back(key + " = " + value);
+        values[key] = value;
+    }
+    else {
+        auto it = FindKeyLine(key);
+        if (it != end(iniLines)) {
+            // try to adjust the whitespace before the comment if the size of the key value changes.
+            // the result may not be in the correct column if you are using tabs instead of spaces.
+            size_t oldSize = it->value.size();
+            size_t newSize = value.size();
+            if (oldSize > newSize) {
+                it->whiteSpaceAfterValue += Spaces(oldSize - newSize);
+            } else if (oldSize < newSize && ((newSize - oldSize) < it->whiteSpaceAfterValue.size())) {
+                it->whiteSpaceAfterValue.erase(0, newSize - oldSize);
+            }
+
+            it->value = value;  // change the value text in the iniLine
+        }
+        values[key] = value;    // change the key value in the map
+    }
+}
+
+                //*******************************
+                //ostream& operator << (ostream& os, const IniSection&);
+                //*******************************
+
+//
+// operator <<
+//
+std::ostream& operator<<(std::ostream& os, const IniSection& iniSection)
+{
+    os << iniSection.sectionLine;
+    ranges::for_each(iniSection.iniLines, [&] (const IniLine& iniLine) { os << iniLine; });
+    return os;
+}
+
+                //*******************************
                 // IniFile
                 //*******************************
 
@@ -77,7 +264,7 @@ bool IniFile::Load(const string& _iniFilePath, const std::string& _defaultSectio
 //
 // IniFile::Save
 //
-bool IniFile::Save() const {
+bool IniFile::Save() {
     if (iniFilePath == "")
         return false;
 
@@ -87,10 +274,12 @@ bool IniFile::Save() const {
 //
 // IniFile::SaveAs
 //
-bool IniFile::SaveAs(const string& filePath) const {
+bool IniFile::SaveAs(const string& filePath) {
     ofstream ofile(filePath.c_str(), ofstream::out | ofstream::trunc);
     if (!ofile.is_open())
         return false;
+
+    SortSectionKeys();  // sort the keys in each section
 
     // output any empty theme keys at the top
     auto it = FindSectionName("");  // find any "" theme
@@ -112,6 +301,16 @@ bool IniFile::SaveAs(const string& filePath) const {
     ofile.close();
 
     return true;
+}
+
+//
+// IniFile::SortSectionKeys
+//
+void IniFile::SortSectionKeys()
+{
+    for (auto& section : iniSections) {
+        section.SortIniLines();
+    }
 }
 
 //
@@ -554,77 +753,19 @@ bool IniFile::DeleteKey(const string& key, const string& sectionName) {
                 //*******************************
 
 //
-// IniFile::FindSectionName
+// FindSectionName
 //
 // returns an iterator to the section in the vector or end(iniSections) if the section was not found.
-std::vector<IniFile::IniSection>::iterator IniFile::FindSectionName(const std::string& sectionName) {
-    return ranges::find_if(iniSections, [&] (const IniSection& iniSection) { return CompareKeys(iniSection.sectionName, sectionName); } );
+std::vector<IniSection>::iterator IniFile::FindSectionName(const std::string& sectionName) {
+    return ranges::find_if(iniSections, [&] (const IniSection& iniSection) { return CompareKeysEqual(iniSection.sectionName, sectionName); } );
 }
 
 //
 // IniFile::FindSectionName const
 //
 // returns an iterator to the section in the vector or end(iniSections) if the section was not found.
-std::vector<IniFile::IniSection>::const_iterator IniFile::FindSectionName(const std::string& sectionName) const {
-    return ranges::find_if(iniSections, [&] (const IniSection& iniSection) { return CompareKeys(iniSection.sectionName, sectionName); } );
-}
-
-                //*******************************
-                // IniFile::IniSection
-                //*******************************
-
-//
-// IniFile::IniSection::IniSection
-//
-IniFile::IniSection::IniSection(IniFile* _iniFile, const std::string& line) : iniFile(_iniFile), sectionLine(line) { 
-    sectionName = sectionLine.section;
-    if (line == "" || line == "[]")
-        sectionLine.lineContainsASectionDefine = true;  // it's the dummy "" section
-}
-
-//
-// IniFile::IniSection::KeyExists
-//
-bool IniFile::IniSection::KeyExists(const std::string& key) const {
-    return values.count(key) > 0;
-}
-
-//
-// IniFile::IniSection::GetKey
-//
-std::string IniFile::IniSection::GetKeyValue(const std::string& key) const {
-    if (KeyExists(key))
-        return values.at(key);  // note: use at() instead of operator [] because of const
-    else
-        return "";  // key doesn't exist
-}
-
-//
-// IniFile::IniSection::SetKeyValue
-//
-// if the key doesn't already exist, this will create it
-void IniFile::IniSection::SetKeyValue(const std::string& key, const std::string& value) {
-    if (!KeyExists(key)) {
-        iniLines.emplace_back(key + " = " + value);
-        values[key] = value;
-    }
-    else {
-        auto it = FindKeyLine(key);
-        if (it != end(iniLines)) {
-            // try to adjust the whitespace before the comment if the size of the key value changes.
-            // the result may not be in the correct column if you are using tabs instead of spaces.
-            size_t oldSize = it->value.size();
-            size_t newSize = value.size();
-            if (oldSize > newSize) {
-                it->whiteSpaceAfterValue += Spaces(oldSize - newSize);
-            } else if (oldSize < newSize && ((newSize - oldSize) < it->whiteSpaceAfterValue.size())) {
-                it->whiteSpaceAfterValue.erase(0, newSize - oldSize);
-            }
-
-            it->value = value;  // change the value text in the iniLine
-        }
-        values[key] = value;    // change the key value in the map
-    }
+std::vector<IniSection>::const_iterator IniFile::FindSectionName(const std::string& sectionName) const {
+    return ranges::find_if(iniSections, [&] (const IniSection& iniSection) { return CompareKeysEqual(iniSection.sectionName, sectionName); } );
 }
 
 //
@@ -716,17 +857,25 @@ vector<tuple<string, string, string>> IniFile::GetAllKeyPairs() const {
 }
  
 //
-// IniFile::CompareKeys
+// IniFile::CompareKeysEqual
 //
-bool IniFile::CompareKeys(const string& key1, const string& key2) const
+bool IniFile::CompareKeysEqual(const string& key1, const string& key2) const
 {
     return key1 == key2;
 }
 
 //
-// IniFile::IniSection::DeleteKey
+// IniFile::CompareKeysSort
 //
-bool IniFile::IniSection::DeleteKey(const std::string& key) {
+bool IniFile::CompareKeysSort(const string& key1, const string& key2) const
+{
+    return key1 < key2;
+}
+
+//
+// IniSection::DeleteKey
+//
+bool IniSection::DeleteKey(const std::string& key) {
     if (KeyExists(key)) {
         values.erase(key);
         auto it = FindKeyLine(key);
@@ -738,121 +887,26 @@ bool IniFile::IniSection::DeleteKey(const std::string& key) {
 }
 
 //
-// IniFile::IniSection::FindKeyLine
+// IniSection::FindKeyLine
 //
 // returns end(iniLines) if not found
-vector<IniFile::IniLine>::iterator IniFile::IniSection::FindKeyLine(const std::string& key) {
-    return ranges::find_if(iniLines, [&] (const IniLine& iniLine) { return iniFile->CompareKeys(iniLine.key, key); } );
+vector<IniLine>::iterator IniSection::FindKeyLine(const std::string& key) {
+    return ranges::find_if(iniLines, [&] (const IniLine& iniLine) { return iniFile->CompareKeysEqual(iniLine.key, key); } );
 }
 
 //
-// IniFile::IniSection::FindKeyLine const
+// IniSection::FindKeyLine const
 //
 // returns end(iniLines) if not found
-vector<IniFile::IniLine>::const_iterator IniFile::IniSection::FindKeyLine(const std::string& key) const {
-    return ranges::find_if(iniLines, [&] (const IniLine& iniLine) { return iniFile->CompareKeys(iniLine.key, key); } );
+vector<IniLine>::const_iterator IniSection::FindKeyLine(const std::string& key) const {
+    return ranges::find_if(iniLines, [&] (const IniLine& iniLine) { return iniFile->CompareKeysEqual(iniLine.key, key); } );
 }
 
-                //*******************************
-                // IniFile::IniLine
-                //*******************************
-
-//
-// IniFile::IniLine::ParseLine
-//
-bool IniFile::IniLine::ParseLine(const string& _line) {
-    string line = _line;    // line is modified as we find items and remove them
-
-    // quoted strings isn't supported yet.  but here is some info.
-    // to scan for a quoted string /"([^"\\]*(\\.[^"\\]*)*)"/
-    // to scan for either single or double quoted strings /"([^"\\]*(\\.[^"\\]*)*)"|\'([^\'\\]*(\\.[^\'\\]*)*)\'/
-    // https://stackoverflow.com/questions/249791/regex-for-quoted-string-with-escaping-quotes
-
-    // save leading whitespaceGetAndRemoveLeadingWhitespace(&line);
-    leadingWhiteSpace = GetAndRemoveLeadingWhitespace(&line);
-
-    // if it is a section name
-    bool hasSectionDefine = FoundLexExpr("^\\[[[:alnum:]]*\\]", line);     // [sectionName]
-    if (hasSectionDefine) {
-        lineContainsASectionDefine = true;
-        line.erase(0, 1);   // remove "["
-        section = FindLexExprMatch("^[[:alnum:]]*", line);    // sectionName
-        line.erase(0, section.size() + 1);  // remove "name]"
-
-        whiteSpaceAfterSection = GetAndRemoveLeadingWhitespace(&line);
-        bool hasComment = FoundLexExpr("^[;]", line);          // ";"
-        if (hasComment)
-            comment = FindLexExprMatch("^[;].*", line);
-        else if (line.size() > 0) {
-            cerr << "Extra text in ini file = " << line << endl;
-            return false;
-        }
-
-        return true;
-    }
-
-    // save the key.  save the value, if any.
-    bool hasKey = (line.find('=') != string::npos) && FoundLexExpr("^[\\s]*[^=;]+", line);  // "key ="
-    if (hasKey) {
-        key = rtrim(line.substr(0, line.find('=')));    // "key"
-        if (key.size() > 0) {
-            line.erase(0, key.size());  // erase key from line
-            whiteSpaceAfterKey = GetAndRemoveLeadingWhitespace(&line);  // get spaces before =
-            assert(line.size() > 0);
-            assert(line[0] == '=');
-            line.erase(0, 1);   // erase the '='
-            whiteSpaceBeforeValue = GetAndRemoveLeadingWhitespace(&line);   // get spaces before value if any
-            if (line.size() > 0 && line[0] != ';') {
-                value = FindLexExprMatch("^[^;]*[^\\s;]+", line);  // "value"
-                line.erase(0, value.size());   // erase the value
-                whiteSpaceAfterValue = GetAndRemoveLeadingWhitespace(&line);   // get spaces before value if any
-            }
-        }
-    }
-
-    bool hasComment = FoundLexExpr("^[;]", line);          // ";"
-    if (hasComment) {
-        comment = FindLexExprMatch("^[;].*", line);
-    }
-    else if (line.size() > 0) {
-        cerr << "Extra text in ini file = " << line << endl;
-        return false;
-    }
-
-    return true;
-}
-
-//
-// IniFile::IniLine::RebuildLine
-//
-string IniFile::IniLine::RebuildLine() const {
-    string line;
-
-    line += leadingWhiteSpace;
-
-    if (lineContainsASectionDefine) {
-        if (section != "") {
-            line += "[" + section + "]" + whiteSpaceAfterSection + comment;
-        }
-    } else {
-        line += key + whiteSpaceAfterKey;
-        if (key != "")
-            line += "=";
-        line += whiteSpaceBeforeValue + value + whiteSpaceAfterValue + comment;
-    }
-
-    return line;
-}
-
-//
-// IniFile::IniLine::GetAndRemoveLeadingWhitespace
-//
-string IniFile::IniLine::GetAndRemoveLeadingWhitespace(string* line) const {
-    string ws = FindLexExprMatch("^[[:space:]]+", *line);
-    if (ws.size() > 0)
-        line->erase(0, ws.size());
-
-    return ws;
+void IniSection::SortIniLines()
+{
+    // sort the iniLines by key
+    ranges::sort(iniLines,
+                 [&] (const IniLine& iniLine1, const IniLine& iniLine2) { return iniFile->CompareKeysSort(iniLine1.key, iniLine2.key); } );
 }
 
                 //*******************************
@@ -862,11 +916,8 @@ string IniFile::IniLine::GetAndRemoveLeadingWhitespace(string* line) const {
 //
 // operator <<
 //
-ostream& operator << (ostream& os, const IniFile& iniFile) {
-    cout << "IniFile: " << iniFile.iniFilePath << endl;
-    auto keyInfo = iniFile.GetAllKeyPairs();
-    ranges::for_each(keyInfo, [&] (tuple<string, string, string> info) { const auto [section, key, value] = info; cout << "section: '" << section << "', " << key << ", " << value << endl; });
-    cout << endl;
-
+std::ostream& operator<<(std::ostream& os, const IniFile& iniFile)
+{
+    ranges::for_each(iniFile.iniSections, [&] (const IniSection& iniSection) { os << iniSection; });
     return os;
 }

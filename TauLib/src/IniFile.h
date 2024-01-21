@@ -13,6 +13,106 @@
 ///
 
                 //*******************************
+                // IniLine
+                //*******************************
+
+/// @brief IniLine The parsed info from an ini file line.
+struct IniLine {
+
+    /// @brief creates an empty IniLine with all default values
+    IniLine() { }
+
+    /// @brief IniLine Ctor that parses the passed ini file string into its components
+    /// @param line the string (from an ini file) to parse
+    IniLine(const std::string& line)
+        { ParseLine(line); }
+
+    /// @brief Parses the passed ini file string into its components
+    /// @param line the string (from an ini file) to parse
+    /// @return true if successfully parsed
+    bool ParseLine(const std::string& line);
+    std::string RebuildLine() const;
+
+    /// @brief Removes any leading whitespace from the passed string
+    /// @param line the string to modify
+    /// @return the whitespace that was removed fromt he string
+    std::string GetAndRemoveLeadingWhitespace(std::string* line) const;
+
+    //
+    // Parsed pieces and info.
+    //
+
+    std::string leadingWhiteSpace;  ///< whitespace before the key or section or comment (if the line contains only a comment)
+
+    // section name
+    bool lineContainsASectionDefine = false;    ///< this bool exists because there is a dummy define of "" at the top
+    std::string section;                        ///< section name if the line declares a section (example: "[config]")
+    std::string whiteSpaceAfterSection;         ///< whitespace after a section declaration
+
+    // key = value
+    std::string key;                            ///< the key
+    std::string whiteSpaceAfterKey;             ///< the whitespace between a key and the =
+    std::string whiteSpaceBeforeValue;          ///< the whitespace between the = and the value
+    std::string value;                          ///< the key value
+    std::string whiteSpaceAfterValue;           ///< the whitespace between the value and any comment
+
+    std::string comment;                        ///< the comment, if any
+};
+
+std::ostream& operator << (std::ostream& os, const IniLine& iniLine);
+
+                //*******************************
+                // IniSection
+                //*******************************
+struct IniFile;
+
+/// @brief IniSection An ini file section
+struct IniSection {
+    IniSection(IniFile* _iniFile, const std::string& line);
+
+    IniFile* iniFile;
+    std::string sectionName;    ///< section name. example: for "[config]" the sectionName == "config"
+    IniLine sectionLine;        ///< The parsed info from the line containing the section name declaration.
+                                ///< if section name is "" this line does not get written to the ini file.
+
+    std::vector<IniLine> iniLines;  ///< The parsed ini file lines for key/value pairs and comment lines.
+                                    ///< Section declarations are not in this vector.  A section name would create a new IniSection.
+
+    std::map<std::string, std::string> values;  ///< The map of key/value pairs
+
+    /// @brief Test if a key exists
+    /// @param key The key to test for existence.
+    /// @return true if the key exists.
+    bool KeyExists(const std::string& key) const;
+        
+    /// @brief Get the value of a key.
+    /// @param key The key to get the value of.
+    /// @return the key's value string.  Returns "" if the key does not exist.
+    std::string GetKeyValue(const std::string& key) const;
+
+    /// @brief Set a key's value string.
+    /// @param key The key to set.
+    /// @param value The value for the key.
+    /// @return none
+    void SetKeyValue(const std::string& key, const std::string& value);
+
+    /// @brief Detelte a key.
+    /// @param key The key to delete.
+    /// @return true if successful
+    bool DeleteKey(const std::string& key);
+
+    /// @brief Find the IniLine for a key.
+    /// @param key The key to find.
+    /// @return An iterator to the IniLine for the key.  Returns end(iniLines) if the key isn't found.
+    std::vector<IniLine>::iterator FindKeyLine(const std::string& key);
+    std::vector<IniLine>::const_iterator FindKeyLine(const std::string& key) const;
+
+    void SortIniLines();
+};
+
+std::ostream& operator << (std::ostream& os, const IniSection& iniSection);
+
+                //*******************************
                 // IniFile
                 //*******************************
 
@@ -49,12 +149,16 @@ struct IniFile {
 
     /// @brief Save the ini key/value pairs, section names, and comments back to original opened ini file.
     /// @return true if data successfully save back to the file.
-    bool Save() const;
+    bool Save();
 
     /// @brief Save the ini key/value pairs, section names, and comments to passed filename.
     /// @param filePath - The path of the file to save the save.
     /// @return true if data successfully save back to the file.
-    bool SaveAs(const std::string& filePath) const;
+    bool SaveAs(const std::string& filePath);
+
+    /// @brief Sorts the sections and keys in the ini file.
+    /// @return none
+    void SortSectionKeys();
 
     /// @brief Clears the data.  Keeps the filename if any.
     /// @return none
@@ -313,13 +417,13 @@ struct IniFile {
     /// @return A vector of tuples of <string, string, string> = <section, key, value>
     std::vector<std::tuple<std::string, std::string, std::string>> GetAllKeyPairs() const;
  
-private:
-    /// @brief Compares two key strings depending on the caseInsensitiveKeys flag.
-    /// @return true if the two key strings are "equal" depending on the caseInsensitiveKeys flag.<returns></returns>
-    bool CompareKeys(const std::string& key1, const std::string& key2) const;
+    /// @brief Compares if two key strings are equal.  Might add a case insensitive flag in the future.
+    /// @return true if the two key strings are "equal".
+    bool CompareKeysEqual(const std::string& key1, const std::string& key2) const;
 
-    struct IniSection;
-    std::vector<IniSection> iniSections;    ///< vector of IniSection's.  Each section conatins the map of key/value's and the parsed line info from the file
+    /// @brief Compares if key1 < key2 for sort routines.  Might add a case insensitive flag in the future.
+    /// @return true if the key1 < key2.
+    bool CompareKeysSort(const std::string& key1, const std::string& key2) const;
 
     /// @brief Finds a section for a section name in iniSections.
     /// @param sectionName The secontion to search for.
@@ -327,98 +431,10 @@ private:
     std::vector<IniSection>::iterator FindSectionName(const std::string& sectionName);
     std::vector<IniSection>::const_iterator FindSectionName(const std::string& sectionName) const;
 
-                //*******************************
-                // IniFile::IniLine
-                //*******************************
-
-    /// @brief IniLine The parsed info from an ini file line.
-    struct IniLine {
-
-        /// @brief creates an empty IniLine with all default values
-        IniLine() { }
-
-        /// @brief IniLine Ctor that parses the passed ini file string into its components
-        /// @param line the string (from an ini file) to parse
-        IniLine(const std::string& line)
-            { ParseLine(line); }
-
-        /// @brief Parses the passed ini file string into its components
-        /// @param line the string (from an ini file) to parse
-        /// @return true if successfully parsed
-        bool ParseLine(const std::string& line);
-        std::string RebuildLine() const;
-
-        /// @brief Removes any leading whitespace from the passed string
-        /// @param line the string to modify
-        /// @return the whitespace that was removed fromt he string
-        std::string GetAndRemoveLeadingWhitespace(std::string* line) const;
-
-        //
-        // Parsed pieces and info.
-        //
-
-        std::string leadingWhiteSpace;  ///< whitespace before the key or section or comment (if the line contains only a comment)
-
-        // section name
-        bool lineContainsASectionDefine = false;    ///< this bool exists because there is a dummy define of "" at the top
-        std::string section;                        ///< section name if the line declares a section (example: "[config]")
-        std::string whiteSpaceAfterSection;         ///< whitespace after a section declaration
-
-        // key = value
-        std::string key;                            ///< the key
-        std::string whiteSpaceAfterKey;             ///< the whitespace between a key and the =
-        std::string whiteSpaceBeforeValue;          ///< the whitespace between the = and the value
-        std::string value;                          ///< the key value
-        std::string whiteSpaceAfterValue;           ///< the whitespace between the value and any comment
-
-        std::string comment;                        ///< the comment, if any
-    };
-
-                //*******************************
-                // IniFile::IniSection
-                //*******************************
-
-    /// @brief IniSection An ini file section
-    struct IniSection {
-        IniSection(IniFile* _iniFile, const std::string& line);
-
-        IniFile* iniFile;
-        std::string sectionName;    ///< section name. example: for "[config]" the sectionName == "config"
-        IniLine sectionLine;        ///< The parsed info from the line containing the section name declaration.
-                                    ///< if section name is "" this line does not get written to the ini file.
-
-        std::vector<IniLine> iniLines;  ///< The parsed ini file lines for key/value pairs and comment lines.
-                                        ///< Section declarations are not in this vector.  A section name would create a new IniSection.
-
-        std::map<std::string, std::string> values;  ///< The map of key/value pairs
-
-        /// @brief Test if a key exists
-        /// @param key The key to test for existence.
-        /// @return true if the key exists.
-        bool KeyExists(const std::string& key) const;
-        
-        /// @brief Get the value of a key.
-        /// @param key The key to get the value of.
-        /// @return the key's value string.  Returns "" if the key does not exist.
-        std::string GetKeyValue(const std::string& key) const;
-
-        /// @brief Set a key's value string.
-        /// @param key The key to set.
-        /// @param value The value for the key.
-        /// @return none
-        void SetKeyValue(const std::string& key, const std::string& value);
-
-        /// @brief Detelte a key.
-        /// @param key The key to delete.
-        /// @return true if successful
-        bool DeleteKey(const std::string& key);
-
-        /// @brief Find the IniLine for a key.
-        /// @param key The key to find.
-        /// @return An iterator to the IniLine for the key.  Returns end(iniLines) if the key isn't found.
-        std::vector<IniLine>::iterator FindKeyLine(const std::string& key);
-        std::vector<IniLine>::const_iterator FindKeyLine(const std::string& key) const;
-    };
+private:
+    std::vector<IniSection> iniSections;    ///< vector of IniSection's.  Each section conatins the map of key/value's and the parsed line info from the file
 };
+
+std::ostream& operator << (std::ostream& os, const IniFile& iniFile);
 
 using CfgFile = IniFile;
