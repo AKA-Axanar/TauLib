@@ -100,7 +100,7 @@ std::string RemoveFilenameFromPath(const std::string& filePath);
 
 ///
 /// @brief RemoveFilenameFromPath
-/// @remark Remove the Filename pportion from the path.  the "/" or "\" is at the end of the path.
+/// @remark Remove the Filename portion from the path.  the "/" or "\" is at the end of the path.
 /// @remark GetParentPath() is similar but does not have a "/" or "\" at the end.
 /// @param filePath the path string that includes a filename
 /// @return none. The filename postion of the filePath is removed from the passed string

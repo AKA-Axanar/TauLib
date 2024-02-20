@@ -226,6 +226,8 @@ SDL_Shared<SDL_Texture> DrawArea::GetTextureOfImageFile(const string& imgFilePat
         cerr << "image file does not exist: " << imgFilePath << endl;
         return nullptr;
     }
+    // IMG_LoadTexture supports ICO, CUR, BMP, PNM (PPM/PGM/PBM), XPM,
+    //                          LBM(IFF ILBM), PCX, GIF, JPEG, PNG, TGA, TIFF, and XV thumbnail formats
     SDL_Shared<SDL_Texture> texture = IMG_LoadTexture(renderer, imgFilePath.c_str());
     return texture;
 }
