@@ -42,4 +42,9 @@ int ExecuteInPassedDir(std::string workingDir, std::string command, bool waitToF
 // do not enclose the command or arguments in double quotes.  the routine will take care of that if needed.
 int ExecuteInCurrentDir(std::string command, bool waitToFinish = true, std::vector<std::string> arguments = {});
 
+///
+/// @brief DisplayURLInDefaultBrowser
+/// Opens the provided URL in the default web browser.
+///
+bool DisplayURLInDefaultBrowser(const std::string& url);
 }

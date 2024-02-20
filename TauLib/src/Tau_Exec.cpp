@@ -171,3 +171,20 @@ int ExecuteInCurrentDir(string command, bool waitToFinish, vector<string> argume
 #endif
 
 }
+
+//*******************************
+// DisplayURLInDefaultBrowser
+// Opens the provided URL in the default web browser.
+//*******************************
+bool DisplayURLInDefaultBrowser(const std::string& url)
+{
+#if defined(_WIN32)
+    auto hinstance = ShellExecute(NULL, "open", url.c_str(), NULL, NULL, SW_SHOWNORMAL);
+    return (hinstance != nullptr);
+#else
+    string cmd = "xdg-open " + url;
+    int ret = system(cmd.c_str());
+    return (ret == 0);
+#endif
+}
+
