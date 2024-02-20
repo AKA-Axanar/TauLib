@@ -332,6 +332,15 @@ std::vector<float> CommaSepStringToFloats(const std::string& str);
 ///
 std::vector<double> CommaSepStringToDoubles(const std::string& str);
 
+///
+/// @brief SplitConcatenatedStringsIntoVectorOfStrings
+/// For example, "Line 1\r\nLine 2\nLine 3" would return {"Line 1", "Line 2", "Line 3"}
+/// @param str The string to search.
+/// @return vector<string> of results
+///
+Strings SplitConcatenatedStringsIntoVectorOfStrings(const std::string& str);
+
+
                 //*******************************
                 // string remove
                 //*******************************

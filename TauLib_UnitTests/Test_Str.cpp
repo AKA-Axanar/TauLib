@@ -100,6 +100,12 @@ TEST(TestStr, TestStr_split) {
     EXPECT_EQ(temp[0], "This is");
     EXPECT_EQ(temp[1], "not");
     EXPECT_EQ(temp[2], "a drill.");
+
+    temp = SplitConcatenatedStringsIntoVectorOfStrings("Line 1\r\nLine 2\nLine 3");
+    EXPECT_EQ(temp.size(), 3);
+    EXPECT_EQ(temp[0], "Line 1");
+    EXPECT_EQ(temp[1], "Line 2");
+    EXPECT_EQ(temp[2], "Line 3");
 }
 
 //

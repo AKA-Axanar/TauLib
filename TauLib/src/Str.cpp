@@ -432,6 +432,15 @@ vector<double> CommaSepStringToDoubles(const string& str) {
     return ret;
 }
 
+//
+// SplitConcatenatedStringsIntoVectorOfStrings
+// For example, "Line 1\r\nLine 2\nLine 3" would return {"Line 1", "Line 2", "Line 3"}
+//
+Strings SplitConcatenatedStringsIntoVectorOfStrings(const std::string& str)
+{
+    return FindLexExprMatches("[^\r?\n]+", str);
+}
+
                 //*******************************
                 // string remove
                 //*******************************
