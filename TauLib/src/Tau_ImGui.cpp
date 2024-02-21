@@ -8,6 +8,7 @@
 #include <algorithm>
 #include "Lang.h"
 #include <iostream>
+#include "DirFile.h"
 
 using namespace std;
 
@@ -431,16 +432,39 @@ namespace Tau { // to avoid conflict with other libraries
         return buttonPressed;
     }
 
-    // popup a message with a single OK button
-    void ImGui_Popup(bool* show, const string& title, const string& message, ImGuiWindowFlags windowFlags) {
-        ImGui::Begin(title.c_str(), show, windowFlags);
+    // popup a single string message with a single OK button
+    void ImGui_Popup(bool* done, const string& title, const string& message, ImGuiWindowFlags windowFlags) {
+        ImGui::Begin(title.c_str(), nullptr, windowFlags);
         ImGui::Text("");
         ImGui::Text(message.c_str());
         ImGui::Text("");
         ImGui_SetButtonsCenteredPosX({ _("Close") });
         if (ImGui::Button(_("Close").c_str()))
-            *show = true;
+            *done = true;
         ImGui::End();
+    }
+
+    // popup a vector of strings message with a single OK button
+    void ImGui_Popup(bool* done, const std::string& title, const std::vector<std::string>& message, ImGuiWindowFlags windowFlags)
+    {
+        ImGui::Begin(title.c_str(), nullptr, windowFlags);
+        ImGui::Text("");
+        ImGui::BeginChild("child", ImVec2(1200, 500), false, windowFlags);
+        for (const string& str : message)
+            ImGui::Text(str.c_str());
+        ImGui::EndChild();
+        ImGui::Text("");
+        ImGui_SetButtonsCenteredPosX({ _("Close") });
+        if (ImGui::Button(_("Close").c_str()))
+            *done = true;
+        ImGui::End();
+    }
+
+    // popup the contents of a text file with a single OK button
+    void ImGui_PopupFile(bool* done, const std::string& title, const std::string& filePath, ImGuiWindowFlags windowFlags)
+    {
+        Strings contents = ReadTextFileAsAStringArray(filePath, true);
+        ImGui_Popup(done, title, contents, windowFlags);    
     }
 
     //

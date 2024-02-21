@@ -150,9 +150,13 @@ std::optional<int> ImGui_Confirm(bool* show, const std::string& title, const std
 
 ///
 /// @brief ImGui_Popup
-/// popup a message with a single OK button
+/// popup a single string message with a single OK button
+/// popup a vector of strings message with a single OK button
+/// popup the contents of a text file with a single OK button
 /// 
-void ImGui_Popup(bool* show, const std::string& title, const std::string& message, ImGuiWindowFlags windowFlags);
+void ImGui_Popup(bool* done, const std::string& title, const std::string& message, ImGuiWindowFlags windowFlags);
+void ImGui_Popup(bool* done, const std::string& title, const std::vector<std::string>& message, ImGuiWindowFlags windowFlags);
+void ImGui_PopupFile(bool* done, const std::string& title, const std::string& filePath, ImGuiWindowFlags windowFlags);
 
 ///
 /// @brief ImGui_Render
