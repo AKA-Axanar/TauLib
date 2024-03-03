@@ -46,7 +46,7 @@ void ImGui_NewFrame();
 /// @return the selected index
 /// 
 std::pair<std::optional<int>, std::optional<int>>
-ImGui_Combo(const std::string& label, int current_index, const std::vector<std::string>& items, ImGuiComboFlags flags = 0);
+ImGui_Combo(const std::string& label, int current_index, const Strings& items, ImGuiComboFlags flags = 0);
 
 ///
 /// @brief ImGui_ComboImageAndText
@@ -59,7 +59,7 @@ ImGui_Combo(const std::string& label, int current_index, const std::vector<std::
 /// 
 std::pair<std::optional<int>, std::optional<int>>
 ImGui_ComboImageAndText(const std::string& label, int current_index,
-                        const std::vector<SDL_Shared<SDL_Texture>>& imgData, const std::vector<std::string>& textData,
+                        const std::vector<SDL_Shared<SDL_Texture>>& imgData, const Tau::Strings& textData,
                         Tau_Size imageDisplaySize, float heightPerItem, ImGuiComboFlags flags = 0);
 
 ///
@@ -72,7 +72,7 @@ ImGui_ComboImageAndText(const std::string& label, int current_index,
 /// selected must be the same length as items.
 /// selected int's will be true if that string is selected
 /// 
-void ImGui_TreeNodeMulti_Select(const std::string& label, const std::vector<std::string>& items, std::vector<int> *selected);
+void ImGui_TreeNodeMulti_Select(const std::string& label, const Tau::Strings& items, std::vector<int> *selected);
 
 ///
 /// @brief ImGui_TreeNodeCheckboxes
@@ -84,7 +84,7 @@ void ImGui_TreeNodeMulti_Select(const std::string& label, const std::vector<std:
 /// selected must be the same length as items.
 /// selected int's will be true if that string is selected
 /// 
-void ImGui_TreeNodeCheckboxes(const std::string& label, const std::vector<std::string>& items, std::vector<int> *selected);
+void ImGui_TreeNodeCheckboxes(const std::string& label, const Tau::Strings& items, std::vector<int> *selected);
 
 ///
 /// @brief ImGui_Combo_Ints
@@ -133,7 +133,7 @@ ImGui_ListBox2Columns(const std::string& label, int* current_item, const char* c
 /// @return the selected index if a line was clicked on.  and the index of a hovered over line.
 /// 
 std::pair<std::optional<int>, std::optional<int>>
-ImGui_ListBoxImageAndText(const std::string& label, int* current_item, const std::vector<SDL_Shared<SDL_Texture>>& imgData, const std::vector<std::string>& textData,
+ImGui_ListBoxImageAndText(const std::string& label, int* current_item, const std::vector<SDL_Shared<SDL_Texture>>& imgData, const Tau::Strings& textData,
                     float xWindowWidth, size_t items_count, int height_in_items, Tau_Size imageDisplaySize, float heightPerItem = ImGui::GetTextLineHeightWithSpacing());
 
 ///
@@ -144,7 +144,12 @@ ImGui_ListBoxImageAndText(const std::string& label, int* current_item, const std
 /// @return the index of the button pressed, if any
 /// 
 std::optional<int> ImGui_Confirm(bool* show, const std::string& title, const std::string& message,
-                  const std::vector<std::string>& buttons,
+                  const Tau::Strings& buttons,
+                  const std::vector<ImVec4>& buttonColors,
+                  ImGuiWindowFlags windowFlags);
+
+std::optional<int> ImGui_Confirm(bool* show, const std::string& title, const Strings& message,
+                  const Tau::Strings& buttons,
                   const std::vector<ImVec4>& buttonColors,
                   ImGuiWindowFlags windowFlags);
 
@@ -155,7 +160,7 @@ std::optional<int> ImGui_Confirm(bool* show, const std::string& title, const std
 /// popup the contents of a text file with a single OK button
 /// 
 void ImGui_Popup(bool* done, const std::string& title, const std::string& message, ImGuiWindowFlags windowFlags);
-void ImGui_Popup(bool* done, const std::string& title, const std::vector<std::string>& message, ImGuiWindowFlags windowFlags);
+void ImGui_Popup(bool* done, const std::string& title, const Tau::Strings& message, ImGuiWindowFlags windowFlags);
 void ImGui_PopupFile(bool* done, const std::string& title, const std::string& filePath, ImGuiWindowFlags windowFlags);
 
 ///
@@ -209,12 +214,12 @@ void ImGui_TextCentered(const std::string& str);
 ///
 /// @brief ImGui_ComputeButtonsCenteredPosX
 /// 
-float ImGui_ComputeButtonsCenteredPosX(const std::vector<std::string>& buttonStrings);
+float ImGui_ComputeButtonsCenteredPosX(const Tau::Strings& buttonStrings);
 
 ///
 /// @brief ImGui_SetButtonsCenteredPosX
 /// 
-void ImGui_SetButtonsCenteredPosX(const std::vector<std::string>& buttonStrings);
+void ImGui_SetButtonsCenteredPosX(const Tau::Strings& buttonStrings);
 
 ///
 /// @brief ImGui_TextIndentedMultiline

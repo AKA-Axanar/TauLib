@@ -109,7 +109,7 @@ namespace Tau { // to avoid conflict with other libraries
     //
     // ImGui_Combo strings
     // 
-    pair<optional<int>, optional<int>> ImGui_Combo(const string& label, int current_index, const vector<string>& items, ImGuiComboFlags flags) {
+    pair<optional<int>, optional<int>> ImGui_Combo(const string& label, int current_index, const Strings& items, ImGuiComboFlags flags) {
         optional<int> new_index;
         optional<int> hovering_over;
 
@@ -146,7 +146,7 @@ namespace Tau { // to avoid conflict with other libraries
     ///
     std::pair<std::optional<int>, std::optional<int>>
     ImGui_ComboImageAndText(const std::string& label, int current_index,
-                            const std::vector<SDL_Shared<SDL_Texture>>& imgData, const std::vector<std::string>& textData,
+                            const std::vector<SDL_Shared<SDL_Texture>>& imgData, const Tau::Strings& textData,
                             Tau_Size imageDisplaySize, float heightPerItem, ImGuiComboFlags flags) {
 
         optional<int> new_index;
@@ -336,7 +336,7 @@ namespace Tau { // to avoid conflict with other libraries
     // copied from ImGui_ListBox2Columns and modified to display an image followed by text
     //
     pair<optional<int>, optional<int>>
-    ImGui_ListBoxImageAndText(const std::string& label, int* current_item, const std::vector<SDL_Shared<SDL_Texture>>& imgData, const std::vector<std::string>& textData,
+    ImGui_ListBoxImageAndText(const std::string& label, int* current_item, const std::vector<SDL_Shared<SDL_Texture>>& imgData, const Tau::Strings& textData,
                         float xWindowWidth, size_t items_count, int height_in_items, Tau_Size imageDisplaySize, float heightPerItem)
     {
         ImGuiContext& g = *TauImGuiContext;
@@ -411,10 +411,23 @@ namespace Tau { // to avoid conflict with other libraries
                                     const vector<string>& buttons, const vector<ImVec4>& buttonColors,
                                     ImGuiWindowFlags windowFlags)
     {
+        Strings messageLines;
+        messageLines.push_back(message);
+        return ImGui_Confirm(show, title, messageLines, buttons, buttonColors, windowFlags);
+    }
+
+    // display a confirmation message with multiple buttons.  the index of the button that was pressed is returned, if any.
+    // possible uses: OK/Cancel, Save/Discard, 
+    std::optional<int> ImGui_Confirm(bool* show, const std::string& title, const Strings& message,
+                  const Tau::Strings& buttons,
+                  const std::vector<ImVec4>& buttonColors,
+                  ImGuiWindowFlags windowFlags)
+    {
         ImGui::Begin(title.c_str(), show, windowFlags);
-        ImGui::Text("");
-        ImGui::Text(message.c_str());
-        ImGui::Text("");
+        ImGui::Text("");    // blank line
+        ranges::for_each(message, [] (const string& str) { ImGui::Text(str.c_str()); ImGui::SameLine(); });
+        ImGui::Text("");    // to get rid of the last SameLine() in the for loop
+        ImGui::Text("");    // blank line
 
         optional<int> buttonPressed;
         int i=0;
@@ -432,7 +445,7 @@ namespace Tau { // to avoid conflict with other libraries
         return buttonPressed;
     }
 
-    // popup a single string message with a single OK button
+// popup a single string message with a single OK button
     void ImGui_Popup(bool* done, const string& title, const string& message, ImGuiWindowFlags windowFlags) {
         ImGui::Begin(title.c_str(), nullptr, windowFlags);
         ImGui::Text("");
@@ -445,7 +458,7 @@ namespace Tau { // to avoid conflict with other libraries
     }
 
     // popup a vector of strings message with a single OK button
-    void ImGui_Popup(bool* done, const std::string& title, const std::vector<std::string>& message, ImGuiWindowFlags windowFlags)
+    void ImGui_Popup(bool* done, const std::string& title, const Tau::Strings& message, ImGuiWindowFlags windowFlags)
     {
         ImGui::Begin(title.c_str(), nullptr, windowFlags);
         ImGui::Text("");
@@ -579,7 +592,7 @@ namespace Tau { // to avoid conflict with other libraries
     ///
     /// @brief ImGui_SetButtonsCenteredPosX
     /// 
-    void ImGui_SetButtonsCenteredPosX(const std::vector<std::string>& buttonStrings) {
+    void ImGui_SetButtonsCenteredPosX(const Tau::Strings& buttonStrings) {
         ImGui::SetCursorPosX(ImGui_ComputeButtonsCenteredPosX(buttonStrings));
     }
 
