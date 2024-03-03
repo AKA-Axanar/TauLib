@@ -39,7 +39,7 @@ void Lang::LoadLanguage(string languageName) {
 
     ifstream is(path);
     string line;
-    std::vector<std::string> lines;
+    Tau::Strings lines;
     int lineNum = 0;
     while (std::getline(is, line)) {
         // if this is the first line of the file and the beginning of the string contains the UTF-8 header

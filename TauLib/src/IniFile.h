@@ -405,10 +405,10 @@ struct IniFile {
     //
 
     /// @brief Return the list of section names.
-    std::vector<std::string> GetSectionNames() const;
+    Tau::Strings GetSectionNames() const;
  
     /// @brief Return the list of keys in a section.
-    std::vector<std::string> GetKeyNamesInSection(const std::string& sectionName) const;
+    Tau::Strings GetKeyNamesInSection(const std::string& sectionName) const;
  
     /// @brief Return the list of keys in a section.
     std::map<std::string, std::string> GetKeyPairsInSection(const std::string& sectionName) const;

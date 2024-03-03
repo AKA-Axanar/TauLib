@@ -22,11 +22,11 @@ namespace Tau {
                 //*******************************
 
 // default Execute - execute the command in the command's directory
-int ExecuteCmd(std::string command, bool waitToFinish, std::vector<std::string> arguments)
+int ExecuteCmd(std::string command, bool waitToFinish, Tau::Strings arguments)
     { return ExecuteInCmdDir(command, waitToFinish, arguments); }
 
 // this will save the current dir, change to the command's path, execute the command and restore the working dir.
-int ExecuteInCmdDir(std::string command, bool waitToFinish, std::vector<std::string> arguments) {
+int ExecuteInCmdDir(std::string command, bool waitToFinish, Tau::Strings arguments) {
     return ExecuteInPassedDir(GetParentPath(command), command, waitToFinish, arguments);
 }
 
@@ -170,21 +170,21 @@ int ExecuteInCurrentDir(string command, bool waitToFinish, vector<string> argume
     Sleep_MilliSeconds(300);
 #endif
 
-}
+    //*******************************
+    // DisplayURLInDefaultBrowser
+    // Opens the provided URL in the default web browser.
+    //*******************************
+    bool DisplayURLInDefaultBrowser(const std::string& url)
+    {
+    #if defined(_WIN32)
+        auto hinstance = ShellExecute(NULL, "open", url.c_str(), NULL, NULL, SW_SHOWNORMAL);
+        return (hinstance != nullptr);
+    #else
+        string cmd = "xdg-open " + url;
+        int ret = system(cmd.c_str());
+        return (ret == 0);
+    #endif
+    }
 
-//*******************************
-// DisplayURLInDefaultBrowser
-// Opens the provided URL in the default web browser.
-//*******************************
-bool DisplayURLInDefaultBrowser(const std::string& url)
-{
-#if defined(_WIN32)
-    auto hinstance = ShellExecute(NULL, "open", url.c_str(), NULL, NULL, SW_SHOWNORMAL);
-    return (hinstance != nullptr);
-#else
-    string cmd = "xdg-open " + url;
-    int ret = system(cmd.c_str());
-    return (ret == 0);
-#endif
 }
 

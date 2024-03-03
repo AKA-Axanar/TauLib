@@ -10,6 +10,7 @@
 #include <string>
 #include <memory>
 #include <vector>
+#include "Str.h"
 
 /// @brief The key routine for doing language translations.  An outside program scans the .h and .cpp files for _("xxxxx") strings
 /// and write them double spaced to the file English.txt.  English text is on the odd numbered lines.  The even numbered lines are blank in file English.txt.
@@ -36,7 +37,7 @@ public:
 
     /// @brief Returns a list of the languages found in the translations directory.
     /// @return The returned strings are the language names only.  The ".txt" is stripped from the file name.
-    std::vector<std::string> GetListOfLanguages();
+    Tau::Strings GetListOfLanguages();
 
     // Lang is a singleton class object so public constructors do not exist.
     Lang(const Lang&) = delete;
@@ -56,5 +57,5 @@ private:
     /// @brief A private constructor for GetInstance
     Lang() {};
     std::map<std::string,std::string> langData;     ///< A map of English to current language
-    std::vector<std::string> newData;               ///< Strings that are missing from the translation file
+    Tau::Strings newData;               ///< Strings that are missing from the translation file
 };

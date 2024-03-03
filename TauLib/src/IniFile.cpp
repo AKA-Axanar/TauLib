@@ -812,7 +812,7 @@ vector<string> IniFile::GetSectionNames() const {
 //
 // GetKeyNames Return the list of keys in a section.
 //
-std::vector<std::string> IniFile::GetKeyNamesInSection(const std::string& sectionName) const {
+Tau::Strings IniFile::GetKeyNamesInSection(const std::string& sectionName) const {
     Strings ret;
     const auto it = FindSectionName(sectionName);
     if (it != iniSections.end()) {

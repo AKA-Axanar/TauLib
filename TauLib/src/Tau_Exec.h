@@ -10,6 +10,7 @@
 #include <chrono>
 #include <vector>
 #include <string>
+#include "Str.h"
 
 namespace Tau {
 
@@ -21,17 +22,17 @@ namespace Tau {
 ///
 /// @brief ExecuteCmd - default version of Execute.  Executes the command in the command's directory.
 /// 
-int ExecuteCmd(std::string command, bool waitToFinish = true, std::vector<std::string> arguments = {});
+int ExecuteCmd(std::string command, bool waitToFinish = true, Tau::Strings arguments = {});
 
 ///
 /// @brief ExecuteInCmdDir - this will save the current dir, change to the command's path, execute the command and restore the working dir.
 /// 
-int ExecuteInCmdDir(std::string command, bool waitToFinish = true, std::vector<std::string> arguments = {});
+int ExecuteInCmdDir(std::string command, bool waitToFinish = true, Tau::Strings arguments = {});
 
 ///
 /// @brief ExecuteInPassedDir - this will save the current dir, change to the passed workingdir, execute the command and restore the working dir.
 /// 
-int ExecuteInPassedDir(std::string workingDir, std::string command, bool waitToFinish = true, std::vector<std::string> arguments = {});
+int ExecuteInPassedDir(std::string workingDir, std::string command, bool waitToFinish = true, Tau::Strings arguments = {});
 
 ///
 /// @brief ExecuteInCurrentDir - Execute a program in another process.  
@@ -40,7 +41,7 @@ int ExecuteInPassedDir(std::string workingDir, std::string command, bool waitToF
 // Returns the exit code of the process, or -1 if the process could not be started.
 // note: we purposely pass by value so the routine can modify the args if needed
 // do not enclose the command or arguments in double quotes.  the routine will take care of that if needed.
-int ExecuteInCurrentDir(std::string command, bool waitToFinish = true, std::vector<std::string> arguments = {});
+int ExecuteInCurrentDir(std::string command, bool waitToFinish = true, Tau::Strings arguments = {});
 
 ///
 /// @brief DisplayURLInDefaultBrowser
