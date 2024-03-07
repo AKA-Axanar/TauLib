@@ -322,6 +322,43 @@ Strings GetDirNamesInDir(const std::string& dirPath)
     { return GetDirectoryContents(dirPath, is_directory, get_name); }
 
 //
+// recurseDirs  used by GetSubDirPathsInDir_Recursive to get all the subdirectories in a directory
+//
+static void recurseDirs(Strings* allDirs, const string& pathToSearch) {
+    Strings dirs = GetDirNamesInDir(pathToSearch);
+    for (auto& dir : dirs) {
+        allDirs->push_back(pathToSearch + sep + dir);
+        string fullPath = pathToSearch + sep + dir;
+        recurseDirs(allDirs, fullPath);
+    }
+};
+
+//
+// GetDirFullPathsInDir_Recursive
+//
+Strings GetSubDirFullPathsInDir_Recursive(const std::string& parentPath) {
+    Strings allDirs;
+    recurseDirs(&allDirs, parentPath);
+
+    return allDirs;
+}
+
+//
+// GetSubDirPathsInDir_Recursive
+//
+Strings GetSubDirPathsInDir_Recursive(const std::string& parentPath) {
+    Strings allDirs = GetSubDirFullPathsInDir_Recursive(parentPath);
+
+    // strip out the parent parentPath leaving just the relative subdir paths
+    for (auto& dir : allDirs) {
+        filesystem::path fullPath = dir;
+        filesystem::path basePath = parentPath + sep;
+        dir = filesystem::relative(fullPath, basePath).string();
+    }
+    return allDirs;
+}
+
+//
 // GetDirFullPathsInDir
 //
 Strings GetDirFullPathsInDir(const std::string& dirPath)
@@ -332,12 +369,6 @@ Strings GetDirFullPathsInDir(const std::string& dirPath)
 //
 Strings GetFileFullPathsInDir_Recursive(const std::string& dirPath)
     { return GetDirectoryContents(dirPath, is_file, get_fullpath, true); }
-
-//
-// GetDirFullPathsInDir_Recursive
-//
-Strings GetDirFullPathsInDir_Recursive(const std::string& dirPath)
-    { return GetDirectoryContents(dirPath, is_directory, get_fullpath, true); }
 
 //
 // GetFileNamesWithExtInDir

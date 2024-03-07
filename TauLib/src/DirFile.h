@@ -296,6 +296,21 @@ Strings GetFileFullPathsInDir(const std::string& dirPath);
 /// 
 Strings GetDirNamesInDir(const std::string& dirPath);
 
+
+/// @brief GetSubDirFullPathsInDir_Recursive Return a full path list of sub directies in a directory.
+/// @param dirPath The directory path to open.
+/// Ex: if passed "aaa/bbb", both "aaa/bbb/ccc" and "aaa/bbb/ccc/ddd" would be some of the directory names returned.
+/// @return A vector of strings containing directory names.
+/// 
+Strings GetSubDirFullPathsInDir_Recursive(const std::string& parentPath);
+
+/// @brief GetSubDirPathsInDir_Recursive Return the list of sub directories names in a directory.
+/// @param dirPath The directory path to open.
+/// Ex: "aaa/bbb/ccc/ddd/foo.dat". if passed "aaa/bbb", ""aaa/bbb/ccc" and ""aaa/bbb/ccc/ddd" would be directory names returned.
+/// @return A vector of strings containing directory names.
+/// 
+Strings GetSubDirPathsInDir_Recursive(const std::string& dirPath);
+
 /// @brief GetDirFullPathsInDir Return the list of directory names in a directory.
 /// @param dirPath The directory path to open.
 /// Ex: "aaa/bbb/ccc/foo.dat". if passed "aaa/bbb", "aaa/bbb/ccc" would be one of the directory paths returned.
@@ -309,14 +324,6 @@ Strings GetDirFullPathsInDir(const std::string& dirPath);
 /// @return A vector of strings containing file name full paths.
 /// 
 Strings GetFileFullPathsInDir_Recursive(const std::string& dirPath);
-
-/// @brief GetDirFullPathsInDir_Recursive Return the list of directory names in a dir.
-/// Same as GetDirFullPathsInDir but it continues through the entire sub-directory hierarchy.
-/// @param dirPath The directory path to open.
-/// Ex: "aaa/bbb/ccc/foo.dat". if passed "aaa/bbb", "aaa/bbb/ccc" would be one of the directory paths returned.
-/// @return A vector of strings containing directory paths.
-/// 
-Strings GetDirFullPathsInDir_Recursive(const std::string& dirPath);
 
 /// @brief GetFileNamesWithExtInDir Return the list of file names in a directory that have a particular extension.
 /// @param dirPath The directory path to open.
