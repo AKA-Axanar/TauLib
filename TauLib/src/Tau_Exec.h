@@ -44,8 +44,9 @@ int ExecuteInPassedDir(std::string workingDir, std::string command, bool waitToF
 int ExecuteInCurrentDir(std::string command, bool waitToFinish = true, Tau::Strings arguments = {});
 
 ///
-/// @brief DisplayURLInDefaultBrowser
-/// Opens the provided URL in the default web browser.
+/// @brief ExecuteFile
+/// Opens the passed URL in the default web browser.
+/// Displays a pdf in your default pdf viewer.  txt file, etc.
 ///
-bool DisplayURLInDefaultBrowser(const std::string& url);
+bool ExecuteFile(const std::string& urlOrFilePath);
 }

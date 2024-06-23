@@ -171,13 +171,14 @@ int ExecuteInCurrentDir(string command, bool waitToFinish, vector<string> argume
 #endif
 
     //*******************************
-    // DisplayURLInDefaultBrowser
+    // ExecuteFile
     // Opens the provided URL in the default web browser.
+    // Displays the pdf in your default pdf viewer.  txt file, etc.
     //*******************************
-    bool DisplayURLInDefaultBrowser(const std::string& url)
+    bool ExecuteFile(const std::string& urlOrFilePath)
     {
     #if defined(_WIN32)
-        auto hinstance = ShellExecute(NULL, "open", url.c_str(), NULL, NULL, SW_SHOWNORMAL);
+        auto hinstance = ShellExecute(NULL, "open", urlOrFilePath.c_str(), NULL, NULL, SW_SHOWNORMAL);
         return (hinstance != nullptr);
     #else
         string cmd = "xdg-open " + url;
