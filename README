@@ -1,0 +1,6 @@
+TauLib : by Steve Simpson (A.K.A. Axanar)
+Copyright 2024 by Stephen Simpson, (Steve Simpson, A.K.A. Axanar)
+under the MIT Open Source license.  See License.txt.
+
+C++ Cross platform library used by the TauBleem retrogame UI.
+There are a lot of useful routines in there you might find useful.
