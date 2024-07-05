@@ -405,6 +405,49 @@ namespace Tau { // to avoid conflict with other libraries
         return {new_index, hovering_over};
     }
 
+    //
+    // display a horizontallist of items to choose from.  you can pick only one name
+    // which is displayed in the center between the left and right arrows.
+    // On return the passed current_item is modified to the selected item.
+    // 
+    void ImGui_Horiz_List(const std::string& label, int* current_item, const std::vector<std::string>& items)
+    {
+        float spacing = ImGui::GetStyle().ItemInnerSpacing.x;
+        float maxItemTextWidth = 0.0;
+        ranges::for_each(items, [&] (const string& str) {
+            float itemWidth = ImGui::CalcTextSize(str.c_str()).x;
+            if (itemWidth > maxItemTextWidth)
+                maxItemTextWidth = itemWidth;
+        });
+        ImGui::Text(label.c_str());
+        ImGui::SameLine(0.0f, spacing);
+
+        ImGui::PushButtonRepeat(true);
+        if (ImGui::ArrowButton("##left", ImGuiDir_Left))
+        {
+            if (*current_item > 0)
+                --*current_item;
+        }
+        ImGui::SameLine(0.0f, spacing);
+        float rightArrowXPosit = ImGui::GetCursorPosX() + maxItemTextWidth;
+
+        // center the text inside the max text width area
+        ImGui::SameLine(0.0f, (maxItemTextWidth - ImGui::CalcTextSize(items[*current_item].c_str()).x) / 2.0);
+        if ((items.size() > 0) && (*current_item >= 0) && (*current_item < items.size())) {
+            ImGui::Text(items[*current_item].c_str());
+            ImGui::SameLine();
+        }
+
+        ImGui::SetCursorPosX(rightArrowXPosit);
+        if (ImGui::ArrowButton("##right", ImGuiDir_Right))
+        {
+            if (*current_item < (items.size() - 1))
+                ++*current_item;
+        }
+        ImGui::PopButtonRepeat();
+        ImGui::SameLine();
+    }
+
     // display a confirmation message with multiple buttons.  the index of the button that was pressed is returned, if any.
     // possible uses: OK/Cancel, Save/Discard, 
     optional<int> ImGui_Confirm(bool* show, const string& title, const string& message,

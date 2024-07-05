@@ -128,13 +128,22 @@ ImGui_ListBox2Columns(const std::string& label, int* current_item, const char* c
 /// @param label - the label string on the right of the ListBox
 /// @param current_item - the index of the item that is the current selection
 /// @param imgData - array of SDL_Shared<SDL_Texture>
-/// @param textData - array of strings, if any, toe display after the image
+/// @param textData - array of strings, if any, to display after the image
 /// @param items_count - the count of char* in both the left and right arrays
 /// @return the selected index if a line was clicked on.  and the index of a hovered over line.
 /// 
 std::pair<std::optional<int>, std::optional<int>>
 ImGui_ListBoxImageAndText(const std::string& label, int* current_item, const std::vector<SDL_Shared<SDL_Texture>>& imgData, const Tau::Strings& textData,
                     float xWindowWidth, size_t items_count, int height_in_items, Tau_Size imageDisplaySize, float heightPerItem = ImGui::GetTextLineHeightWithSpacing());
+
+///
+/// @brief ImGui_Horiz_List
+/// @param label - the label string on the left of the List
+/// @param current_item - the index of the item that is the current selection
+/// @param textData - array of strings, if any, to display and choose from
+/// On return the passed current_item is modified to the selected item.
+/// 
+void ImGui_Horiz_List(const std::string& label, int* current_item, const std::vector<std::string>& items);
 
 ///
 /// @brief ImGui_Confirm
